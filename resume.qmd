@@ -15,18 +15,16 @@ title: Spencer Payne's CV
 
 Studying Data Science at BYU-Idaho
 
-### Specialized in
+### Specializing in
 
 Business Analytics
-
-### Research interests
-
 
 
 ## Education
 
 `2016-2020`
-__Royal High Schhol.__
+
+__Royal High School.__
 
 
 
@@ -35,44 +33,52 @@ __Royal High Schhol.__
 ## Awards
 
 
-Eagle Scout Individual Project Lead, Boy Scouts of America
+-Eagle Scout Individual Project Lead, Boy Scouts of America
 
-Water Polo Team Captain, Royal High School
-
-
-## Publications
+-Water Polo Team Captain, Royal High School
 
 
-### Journals
-
-
-
-### Patents
 
 
 
 
 ## Occupation
 
-_Testing Center Supervisor_     'Mar. 2023 – Present'
-Family Psychological Services 	Agoura Hills, California
+Family Psychological Services @ Agoura Hills, California
+__Testing Cernter Supervisor__    
+'Mar. 2023 – Present' 
+
 •	Provided patients with psychological testing from initial intake appointment until results interview with a licensed clinician.
+
 •	Increase the ease that patients finished with psychological testing by creating excel sheets that mimicked several tests given to patients which could be filled out virtually.
+
 •	Created analytics documents to help clinicians know their patient counts within a day/month/year which helped clinicians make informed decisions.
 
-_Missionary/IT Lead_            'May. 2021 – Mar. 2023'
-The Church of Jesus Christ of Latter-day Saints	Mexico City, Mexico
+
+The Church of Jesus Christ of Latter-day Saints	@ Mexico City, Mexico
+__Missionary/IT Lead__
+'May. 2021 – Mar. 2023'
+
 •	Talked to people every day for two years about the message of The Church of Jesus Christ of Latter-Day Saints, meeting with people in public and in their homes.
+
 •	Collected data from missionaries about phone usages and digital success with Facebook to allow leadership to make changes on how efficiently missionaries used time, resources and how to communicate our message more clearly.
+
 •	Led a team of 4 missionaries that oversaw digital content production on a Facebook page that geographically covered the southern half of Mexico City.
 
-_Store Associate_               'June. 2021 – Sept. 2021'
-Sub Zero Ice Cream		Simi Valley, CA
+Sub Zero Ice Cream @ Simi Valley, CA
+__Store Associate__
+'June. 2021 – Sept. 2021'
+
 •	Served customers custom ice cream frozen with liquid nitrogen, using nitrogen as entertainment for store goers entering the establishment.
 
-_Swim Instructor/Lifeguard_     'May. 2019 – Sept. 2021'
-Rancho Simi Community Pool	Simi Valley, CA
+
+Rancho Simi Community Pool @ Simi Valley, CA
+__Swim Instructor/Lifeguard__    
+'May. 2019 – Sept. 2021'
+
+
 •	Taught swimming classes alone and with a co-teacher for children who’s ages ranged from 3 – 12-years-old.
+
 •	Monitored patrons within the facility to insure safety and responded to emergencies quickly to keep issues at a minimum.
 
 
