@@ -1,57 +1,22 @@
 [
   {
-    "objectID": "Story_Telling/project1.html",
-    "href": "Story_Telling/project1.html",
-    "title": "Client Report - [Insert Project Title]",
+    "objectID": "competition.html",
+    "href": "competition.html",
+    "title": "about me",
     "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "text": "MarkDown Basics",
     "crumbs": [
-      "Story Telling",
-      "Project 1"
+      "Competition"
     ]
   },
   {
-    "objectID": "Story_Telling/project2.html",
-    "href": "Story_Telling/project2.html",
-    "title": "Client Report - [Insert Project Title]",
+    "objectID": "competition.html#title-2-header",
+    "href": "competition.html#title-2-header",
+    "title": "about me",
     "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "text": "MarkDown Basics",
     "crumbs": [
-      "Story Telling",
-      "Project 2"
-    ]
-  },
-  {
-    "objectID": "Story_Telling/project4.html",
-    "href": "Story_Telling/project4.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Story Telling",
-      "Project 4"
-    ]
-  },
-  {
-    "objectID": "Machine_Learning/project3.html",
-    "href": "Machine_Learning/project3.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Machine Learning",
-      "Project 3"
-    ]
-  },
-  {
-    "objectID": "Machine_Learning/project5.html",
-    "href": "Machine_Learning/project5.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Machine Learning",
-      "Project 5"
+      "Competition"
     ]
   },
   {
@@ -75,56 +40,56 @@
     ]
   },
   {
-    "objectID": "Full_Stack/project3.html",
-    "href": "Full_Stack/project3.html",
+    "objectID": "cleansing.html",
+    "href": "cleansing.html",
+    "title": "about me",
+    "section": "",
+    "text": "MarkDown Basics",
+    "crumbs": [
+      "Data Cleansing"
+    ]
+  },
+  {
+    "objectID": "cleansing.html#title-2-header",
+    "href": "cleansing.html#title-2-header",
+    "title": "about me",
+    "section": "",
+    "text": "MarkDown Basics",
+    "crumbs": [
+      "Data Cleansing"
+    ]
+  },
+  {
+    "objectID": "Machine_Learning/project1.html",
+    "href": "Machine_Learning/project1.html",
     "title": "Client Report - [Insert Project Title]",
     "section": "",
     "text": "Paste in a template\n\n\n\n\n Back to top",
     "crumbs": [
-      "Full Stack",
+      "Machine Learning",
+      "Project 1"
+    ]
+  },
+  {
+    "objectID": "Machine_Learning/project3.html",
+    "href": "Machine_Learning/project3.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Machine Learning",
       "Project 3"
     ]
   },
   {
-    "objectID": "Full_Stack/project5.html",
-    "href": "Full_Stack/project5.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Full Stack",
-      "Project 5"
-    ]
-  },
-  {
-    "objectID": "competition.html",
-    "href": "competition.html",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Competition"
-    ]
-  },
-  {
-    "objectID": "competition.html#title-2-header",
-    "href": "competition.html#title-2-header",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Competition"
-    ]
-  },
-  {
-    "objectID": "Cleansing_Projects/project3.html",
-    "href": "Cleansing_Projects/project3.html",
+    "objectID": "Cleansing_Projects/project2.html",
+    "href": "Cleansing_Projects/project2.html",
     "title": "Client Report - [Insert Project Title]",
     "section": "",
     "text": "Paste in a template\n\n\n\n\n Back to top",
     "crumbs": [
       "Data Cleansing",
-      "Project 3"
+      "Project 2"
     ]
   },
   {
@@ -139,78 +104,15 @@
     ]
   },
   {
-    "objectID": "Competition/project1.html",
-    "href": "Competition/project1.html",
+    "objectID": "Cleansing_Projects/project4.html",
+    "href": "Cleansing_Projects/project4.html",
     "title": "Client Report - [Insert Project Title]",
     "section": "",
     "text": "Paste in a template\n\n\n\n\n Back to top",
     "crumbs": [
-      "Competition",
-      "Project 1"
-    ]
-  },
-  {
-    "objectID": "Competition/project2.html",
-    "href": "Competition/project2.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Competition",
-      "Project 2"
-    ]
-  },
-  {
-    "objectID": "Competition/project4.html",
-    "href": "Competition/project4.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Competition",
+      "Data Cleansing",
       "Project 4"
     ]
-  },
-  {
-    "objectID": "exploration.html",
-    "href": "exploration.html",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Data Exploration"
-    ]
-  },
-  {
-    "objectID": "exploration.html#title-2-header",
-    "href": "exploration.html#title-2-header",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Data Exploration"
-    ]
-  },
-  {
-    "objectID": "Cleansing_Exploration/project1.html",
-    "href": "Cleansing_Exploration/project1.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "Cleansing_Exploration/project2.html",
-    "href": "Cleansing_Exploration/project2.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "Cleansing_Exploration/project4.html",
-    "href": "Cleansing_Exploration/project4.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top"
   },
   {
     "objectID": "story_telling.html",
@@ -233,44 +135,222 @@
     ]
   },
   {
-    "objectID": "cleansing.html",
-    "href": "cleansing.html",
-    "title": "about me",
+    "objectID": "Story_Telling/project1.html",
+    "href": "Story_Telling/project1.html",
+    "title": "Client Report - [Insert Project Title]",
     "section": "",
-    "text": "MarkDown Basics",
+    "text": "What types and formats of drug products are being newly reported to CMS for the Medicaid Drug Rebate Program?\n\n\n\nAre newly reported drugs mostly prescription drugs or over-the-counter drugs?\n\n\n\nWhat unit types are most common among newly reported drugs?\n\n\n\nDo prescription and over-the-counter drugs differ in the formats they come in?\n\n\nShow the code\nlibrary(tidyverse)\nlibrary(httr2)\nlibrary(scales)\n\n\n\n\nShow the code\n#Product Data for Newly Reported Drugs in the Medicaid Drug Rebate Program 10-20-2025-to-10-26-2025\n\nurl &lt;- \"https://download.medicaid.gov/data/mdrp-newly-rprt-drug-10-20-2025-to-10-26-2025.csv\"\n\nresponse &lt;- request(url) %&gt;%\n  req_user_agent(\"Mozilla/5.0\") %&gt;%\n  req_perform()\n\nmedicaid_drugs &lt;- response %&gt;%\n  resp_body_string() %&gt;%\n  read_csv(show_col_types = FALSE)\n\n\nThis dataset comes from CMS and includes drug products that were newly reported during the week of October 20 through October 26, 2025. I downloaded the file straight from the Medicaid website so the report can be run again without having to manually download the data.\n\n\nShow the code\nmedicaid_clean &lt;- medicaid_drugs %&gt;%\n  select(`Labeler Name`,\n    `FDA Name`,\n    `Drug Type`,\n    `Unit Type`,\n    `Drug Category`,\n    `Labeler Status`,\n    `COD Status`) %&gt;%\n  mutate(drug_type_label = case_when(\n      as.character(`Drug Type`) == \"1\" ~ \"Prescription\",\n      as.character(`Drug Type`) == \"2\" ~ \"Over-the-Counter\",\n      TRUE ~ \"Unknown\"),\n    unit_type_label = case_when(`Unit Type` == \"AHF\" ~ \"Anti-Hemophilic Factor\",\n      `Unit Type` == \"CAP\" ~ \"Capsule\",\n      `Unit Type` == \"EA\" ~ \"Each\",\n      `Unit Type` == \"GM\" ~ \"Gram\",\n      `Unit Type` == \"MCI\" ~ \"Millicurie\",\n      `Unit Type` == \"ML\" ~ \"Milliliter\",\n      `Unit Type` == \"UCI\" ~ \"Microcurie\",\n      `Unit Type` == \"SUP\" ~ \"Suppository\",\n      `Unit Type` == \"TAB\" ~ \"Tablet\",\n      `Unit Type` == \"TDP\" ~ \"Transdermal Patch\",\n      TRUE ~ \"Unknown\"),\n    `Drug Category` = as.factor(`Drug Category`),\n    `Labeler Status` = as.factor(`Labeler Status`),\n    `COD Status` = as.factor(`COD Status`)) %&gt;%\n  filter(drug_type_label != \"Unknown\",\n    unit_type_label != \"Unknown\") %&gt;%\n  arrange(drug_type_label, unit_type_label)\n\n\nI kept the columns that were useful for my questions and changed some of the short codes into full names. For example, drug type 1 became prescription, drug type 2 became over-the-counter, and ML became milliliter. I removed rows with drug or unit codes that were not included in my labels.\n\n\nShow the code\ndrug_type_summary &lt;- medicaid_clean %&gt;%\n  count(drug_type_label, sort = TRUE) %&gt;%\n  mutate(percent = n / sum(n)) %&gt;%\n  mutate(percent = paste0(round(percent * 100, 1), \"%\"))\n\ndrug_type_summary\n\n\n# A tibble: 2 × 3\n  drug_type_label      n percent\n  &lt;chr&gt;            &lt;int&gt; &lt;chr&gt;  \n1 Prescription       107 95.5%  \n2 Over-the-Counter     5 4.5%   \n\n\nThe first summary table shows how many newly reported drugs were prescription drugs and how many were over-the-counter drugs. It also shows the percent for each group. This helps answer my first question because it shows which drug type appears more often in this dataset.\n\n\nShow the code\nunit_type_summary &lt;- medicaid_clean %&gt;%\n  count(unit_type_label, sort = TRUE) %&gt;%\n  mutate(percent = n / sum(n)) %&gt;%\n  mutate(percent = paste0(round(percent * 100, 1), \"%\"))\n\nunit_type_summary\n\n\n# A tibble: 6 × 3\n  unit_type_label     n percent\n  &lt;chr&gt;           &lt;int&gt; &lt;chr&gt;  \n1 Milliliter         43 38.4%  \n2 Tablet             40 35.7%  \n3 Each               20 17.9%  \n4 Capsule             6 5.4%   \n5 Gram                2 1.8%   \n6 Suppository         1 0.9%   \n\n\nThe second summary table shows the most common unit types. Unit type means the format or measurement the drug comes in, such as tablets, capsules, milliliters, grams, or patches. This helps answer my second question because it shows what forms the newly reported drugs most often come in.\n\n\nShow the code\ndrug_type_unit_summary &lt;- medicaid_clean %&gt;%\n  group_by(drug_type_label, unit_type_label) %&gt;%\n  summarize(number_of_drugs = n(), .groups = \"drop\") %&gt;%\n  group_by(drug_type_label) %&gt;%\n  mutate(percent_within_type = number_of_drugs / sum(number_of_drugs)) %&gt;%\n  mutate(percent_within_type_label = paste0(round(percent_within_type * 100, 1), \"%\")) %&gt;%\n  ungroup()\n\ndrug_type_unit_summary\n\n\n# A tibble: 8 × 5\n  drug_type_label  unit_type_label number_of_drugs percent_within_type\n  &lt;chr&gt;            &lt;chr&gt;                     &lt;int&gt;               &lt;dbl&gt;\n1 Over-the-Counter Gram                          1             0.2    \n2 Over-the-Counter Milliliter                    3             0.6    \n3 Over-the-Counter Suppository                   1             0.2    \n4 Prescription     Capsule                       6             0.0561 \n5 Prescription     Each                         20             0.187  \n6 Prescription     Gram                          1             0.00935\n7 Prescription     Milliliter                   40             0.374  \n8 Prescription     Tablet                       40             0.374  \n# ℹ 1 more variable: percent_within_type_label &lt;chr&gt;\n\n\nThe third summary table compares drug type and unit type together. It shows how many prescription and over-the-counter drugs fall into each unit type. It also shows the percent within each drug type, which makes the comparison more fair. This matters because one drug type may have more total records than the other.\n\n\nShow the code\ndrug_type_unit_wide &lt;- drug_type_unit_summary %&gt;%\n  select(unit_type_label, drug_type_label, number_of_drugs) %&gt;%\n  pivot_wider(names_from = drug_type_label,\n    values_from = number_of_drugs,\n    values_fill = 0) %&gt;%\n  mutate(total = Prescription + `Over-the-Counter`) %&gt;%\n  arrange(desc(total))\n\ndrug_type_unit_wide\n\n\n# A tibble: 6 × 4\n  unit_type_label `Over-the-Counter` Prescription total\n  &lt;chr&gt;                        &lt;int&gt;        &lt;int&gt; &lt;int&gt;\n1 Milliliter                       3           40    43\n2 Tablet                           0           40    40\n3 Each                             0           20    20\n4 Capsule                          0            6     6\n5 Gram                             1            1     2\n6 Suppository                      1            0     1\n\n\nI used pivot_wider() to change the summary table so prescription and over-the-counter counts appear next to each other. This made it easier to compare the two drug types by unit type. Since this project only uses one main dataset, pivoting made more sense than joining or binding another dataset.\n\n\nShow the code\ndrug_type_summary %&gt;%\n  ggplot(aes(x = drug_type_label, y = n)) +\n  geom_col() +\n  geom_text(aes(label = n), vjust = -0.3) +\n  labs(title = \"Newly Reported Medicaid Drugs by Drug Type\",\n    subtitle = \"Comparison of prescription and over-the-counter drug products\",\n    x = \"Drug Type\",\n    y = \"Number of Drug Products\") +\n  theme_bw()\n\n\n\n\n\n\n\n\n\nThe first graph compares prescription drugs and over-the-counter drugs. This graph is a simple bar chart, so the taller bar shows which drug type had more newly reported products. This helps answer whether the drugs in this reporting period were mostly prescription or mostly over-the-counter.\nBased on this graph, newly reported drugs were mostly prescription. They made up about 95%% of the data, while over-the-counter drugs made up about 5%. This shows that the drugs newly reported to CMS during this week were more commonly prescription products.\n\n\nShow the code\nunit_type_summary %&gt;%\n  ggplot(aes(x = reorder(unit_type_label, n), y = n)) +\n  geom_col() +\n  coord_flip() +\n  labs(title = \"Most Common Unit Types Among Newly Reported Medicaid Drugs\",\n    subtitle = \"Unit type shows the form or measurement used for the drug product\",\n    x = \"Unit Type\",\n    y = \"Number of Drug Products\") +\n  theme_bw()\n\n\n\n\n\n\n\n\n\nThe second graph shows the most common unit types in the dataset. This helps show what formats the drugs came in. For example, some drugs may be listed as tablets, capsules, milliliters, grams, or other units. The longer bars show the unit types that appeared most often.\nThe most common unit types were millimeter, tablet, and patches. This means that many of the newly reported drugs came in these formats. Less common unit types, such as capsules, appeared less often in this reporting period.\n\n\nShow the code\ndrug_type_unit_summary %&gt;%\n  ggplot(aes(x = reorder(unit_type_label, percent_within_type),\n    y = percent_within_type,\n    fill = drug_type_label)) +\n  geom_col(position = \"dodge\") +\n  coord_flip() +\n  scale_y_continuous(labels = percent) +\n  labs(title = \"Unit Type Distribution Within Each Drug Type\",\n    subtitle = \"Percent of prescription and over-the-counter products by unit type\",\n    x = \"Unit Type\",\n    y = \"Percent Within Drug Type\",\n    fill = \"Drug Type\") +\n  theme_bw()\n\n\n\n\n\n\n\n\n\nThe third graph compares unit type within prescription and over-the-counter drugs. Instead of only using raw counts, this graph uses percentages within each drug type. This makes it easier to compare the formats because prescription and over-the-counter drugs may not have the same total number of records.\nThis graph shows that prescription and over-the-counter drugs had very different format patterns. For prescription drugs, the most common unit type was tied with tablets and millimeters. For over-the-counter drugs, the most common unit type was also millimeter. This suggests that the format of a drug may depend on whether it is prescription or over-the-counter.\nOverall, this project shows that the newly reported Medicaid drugs in this dataset were mostly prescription. The most common drug formats were millimeter, tablets, and patches. When comparing prescription and over-the-counter drugs, the formats were dissimilar. These results help describe what kinds of drug products were newly reported to CMS during this specific reporting period.\nThese results could be useful because they show what kinds of drug products are entering the Medicaid reporting system. If most newly reported drugs are prescription drugs, then CMS or Medicaid analysts may need to pay close attention to prescription drug reporting. If certain unit types are much more common, then those formats may be important to check carefully for accurate reporting. However, this dataset only covers one reporting period, so the results should not be used to describe the entire Medicaid drug market.",
     "crumbs": [
-      "Data Cleansing"
+      "Story Telling",
+      "Project 1"
     ]
   },
   {
-    "objectID": "cleansing.html#title-2-header",
-    "href": "cleansing.html#title-2-header",
-    "title": "about me",
+    "objectID": "Story_Telling/project1.html#research-question",
+    "href": "Story_Telling/project1.html#research-question",
+    "title": "Client Report - [Insert Project Title]",
     "section": "",
-    "text": "MarkDown Basics",
+    "text": "What types and formats of drug products are being newly reported to CMS for the Medicaid Drug Rebate Program?",
     "crumbs": [
-      "Data Cleansing"
+      "Story Telling",
+      "Project 1"
     ]
   },
   {
-    "objectID": "ml.html",
-    "href": "ml.html",
-    "title": "about me",
+    "objectID": "Story_Telling/project1.html#sub-question-1",
+    "href": "Story_Telling/project1.html#sub-question-1",
+    "title": "Client Report - [Insert Project Title]",
     "section": "",
-    "text": "MarkDown Basics",
+    "text": "Are newly reported drugs mostly prescription drugs or over-the-counter drugs?",
     "crumbs": [
-      "Machine Learning"
+      "Story Telling",
+      "Project 1"
     ]
   },
   {
-    "objectID": "ml.html#title-2-header",
-    "href": "ml.html#title-2-header",
-    "title": "about me",
+    "objectID": "Story_Telling/project1.html#sub-question-2",
+    "href": "Story_Telling/project1.html#sub-question-2",
+    "title": "Client Report - [Insert Project Title]",
     "section": "",
-    "text": "MarkDown Basics",
+    "text": "What unit types are most common among newly reported drugs?",
     "crumbs": [
-      "Machine Learning"
+      "Story Telling",
+      "Project 1"
     ]
+  },
+  {
+    "objectID": "Story_Telling/project1.html#sub-question-3",
+    "href": "Story_Telling/project1.html#sub-question-3",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Do prescription and over-the-counter drugs differ in the formats they come in?\n\n\nShow the code\nlibrary(tidyverse)\nlibrary(httr2)\nlibrary(scales)\n\n\n\n\nShow the code\n#Product Data for Newly Reported Drugs in the Medicaid Drug Rebate Program 10-20-2025-to-10-26-2025\n\nurl &lt;- \"https://download.medicaid.gov/data/mdrp-newly-rprt-drug-10-20-2025-to-10-26-2025.csv\"\n\nresponse &lt;- request(url) %&gt;%\n  req_user_agent(\"Mozilla/5.0\") %&gt;%\n  req_perform()\n\nmedicaid_drugs &lt;- response %&gt;%\n  resp_body_string() %&gt;%\n  read_csv(show_col_types = FALSE)\n\n\nThis dataset comes from CMS and includes drug products that were newly reported during the week of October 20 through October 26, 2025. I downloaded the file straight from the Medicaid website so the report can be run again without having to manually download the data.\n\n\nShow the code\nmedicaid_clean &lt;- medicaid_drugs %&gt;%\n  select(`Labeler Name`,\n    `FDA Name`,\n    `Drug Type`,\n    `Unit Type`,\n    `Drug Category`,\n    `Labeler Status`,\n    `COD Status`) %&gt;%\n  mutate(drug_type_label = case_when(\n      as.character(`Drug Type`) == \"1\" ~ \"Prescription\",\n      as.character(`Drug Type`) == \"2\" ~ \"Over-the-Counter\",\n      TRUE ~ \"Unknown\"),\n    unit_type_label = case_when(`Unit Type` == \"AHF\" ~ \"Anti-Hemophilic Factor\",\n      `Unit Type` == \"CAP\" ~ \"Capsule\",\n      `Unit Type` == \"EA\" ~ \"Each\",\n      `Unit Type` == \"GM\" ~ \"Gram\",\n      `Unit Type` == \"MCI\" ~ \"Millicurie\",\n      `Unit Type` == \"ML\" ~ \"Milliliter\",\n      `Unit Type` == \"UCI\" ~ \"Microcurie\",\n      `Unit Type` == \"SUP\" ~ \"Suppository\",\n      `Unit Type` == \"TAB\" ~ \"Tablet\",\n      `Unit Type` == \"TDP\" ~ \"Transdermal Patch\",\n      TRUE ~ \"Unknown\"),\n    `Drug Category` = as.factor(`Drug Category`),\n    `Labeler Status` = as.factor(`Labeler Status`),\n    `COD Status` = as.factor(`COD Status`)) %&gt;%\n  filter(drug_type_label != \"Unknown\",\n    unit_type_label != \"Unknown\") %&gt;%\n  arrange(drug_type_label, unit_type_label)\n\n\nI kept the columns that were useful for my questions and changed some of the short codes into full names. For example, drug type 1 became prescription, drug type 2 became over-the-counter, and ML became milliliter. I removed rows with drug or unit codes that were not included in my labels.\n\n\nShow the code\ndrug_type_summary &lt;- medicaid_clean %&gt;%\n  count(drug_type_label, sort = TRUE) %&gt;%\n  mutate(percent = n / sum(n)) %&gt;%\n  mutate(percent = paste0(round(percent * 100, 1), \"%\"))\n\ndrug_type_summary\n\n\n# A tibble: 2 × 3\n  drug_type_label      n percent\n  &lt;chr&gt;            &lt;int&gt; &lt;chr&gt;  \n1 Prescription       107 95.5%  \n2 Over-the-Counter     5 4.5%   \n\n\nThe first summary table shows how many newly reported drugs were prescription drugs and how many were over-the-counter drugs. It also shows the percent for each group. This helps answer my first question because it shows which drug type appears more often in this dataset.\n\n\nShow the code\nunit_type_summary &lt;- medicaid_clean %&gt;%\n  count(unit_type_label, sort = TRUE) %&gt;%\n  mutate(percent = n / sum(n)) %&gt;%\n  mutate(percent = paste0(round(percent * 100, 1), \"%\"))\n\nunit_type_summary\n\n\n# A tibble: 6 × 3\n  unit_type_label     n percent\n  &lt;chr&gt;           &lt;int&gt; &lt;chr&gt;  \n1 Milliliter         43 38.4%  \n2 Tablet             40 35.7%  \n3 Each               20 17.9%  \n4 Capsule             6 5.4%   \n5 Gram                2 1.8%   \n6 Suppository         1 0.9%   \n\n\nThe second summary table shows the most common unit types. Unit type means the format or measurement the drug comes in, such as tablets, capsules, milliliters, grams, or patches. This helps answer my second question because it shows what forms the newly reported drugs most often come in.\n\n\nShow the code\ndrug_type_unit_summary &lt;- medicaid_clean %&gt;%\n  group_by(drug_type_label, unit_type_label) %&gt;%\n  summarize(number_of_drugs = n(), .groups = \"drop\") %&gt;%\n  group_by(drug_type_label) %&gt;%\n  mutate(percent_within_type = number_of_drugs / sum(number_of_drugs)) %&gt;%\n  mutate(percent_within_type_label = paste0(round(percent_within_type * 100, 1), \"%\")) %&gt;%\n  ungroup()\n\ndrug_type_unit_summary\n\n\n# A tibble: 8 × 5\n  drug_type_label  unit_type_label number_of_drugs percent_within_type\n  &lt;chr&gt;            &lt;chr&gt;                     &lt;int&gt;               &lt;dbl&gt;\n1 Over-the-Counter Gram                          1             0.2    \n2 Over-the-Counter Milliliter                    3             0.6    \n3 Over-the-Counter Suppository                   1             0.2    \n4 Prescription     Capsule                       6             0.0561 \n5 Prescription     Each                         20             0.187  \n6 Prescription     Gram                          1             0.00935\n7 Prescription     Milliliter                   40             0.374  \n8 Prescription     Tablet                       40             0.374  \n# ℹ 1 more variable: percent_within_type_label &lt;chr&gt;\n\n\nThe third summary table compares drug type and unit type together. It shows how many prescription and over-the-counter drugs fall into each unit type. It also shows the percent within each drug type, which makes the comparison more fair. This matters because one drug type may have more total records than the other.\n\n\nShow the code\ndrug_type_unit_wide &lt;- drug_type_unit_summary %&gt;%\n  select(unit_type_label, drug_type_label, number_of_drugs) %&gt;%\n  pivot_wider(names_from = drug_type_label,\n    values_from = number_of_drugs,\n    values_fill = 0) %&gt;%\n  mutate(total = Prescription + `Over-the-Counter`) %&gt;%\n  arrange(desc(total))\n\ndrug_type_unit_wide\n\n\n# A tibble: 6 × 4\n  unit_type_label `Over-the-Counter` Prescription total\n  &lt;chr&gt;                        &lt;int&gt;        &lt;int&gt; &lt;int&gt;\n1 Milliliter                       3           40    43\n2 Tablet                           0           40    40\n3 Each                             0           20    20\n4 Capsule                          0            6     6\n5 Gram                             1            1     2\n6 Suppository                      1            0     1\n\n\nI used pivot_wider() to change the summary table so prescription and over-the-counter counts appear next to each other. This made it easier to compare the two drug types by unit type. Since this project only uses one main dataset, pivoting made more sense than joining or binding another dataset.\n\n\nShow the code\ndrug_type_summary %&gt;%\n  ggplot(aes(x = drug_type_label, y = n)) +\n  geom_col() +\n  geom_text(aes(label = n), vjust = -0.3) +\n  labs(title = \"Newly Reported Medicaid Drugs by Drug Type\",\n    subtitle = \"Comparison of prescription and over-the-counter drug products\",\n    x = \"Drug Type\",\n    y = \"Number of Drug Products\") +\n  theme_bw()\n\n\n\n\n\n\n\n\n\nThe first graph compares prescription drugs and over-the-counter drugs. This graph is a simple bar chart, so the taller bar shows which drug type had more newly reported products. This helps answer whether the drugs in this reporting period were mostly prescription or mostly over-the-counter.\nBased on this graph, newly reported drugs were mostly prescription. They made up about 95%% of the data, while over-the-counter drugs made up about 5%. This shows that the drugs newly reported to CMS during this week were more commonly prescription products.\n\n\nShow the code\nunit_type_summary %&gt;%\n  ggplot(aes(x = reorder(unit_type_label, n), y = n)) +\n  geom_col() +\n  coord_flip() +\n  labs(title = \"Most Common Unit Types Among Newly Reported Medicaid Drugs\",\n    subtitle = \"Unit type shows the form or measurement used for the drug product\",\n    x = \"Unit Type\",\n    y = \"Number of Drug Products\") +\n  theme_bw()\n\n\n\n\n\n\n\n\n\nThe second graph shows the most common unit types in the dataset. This helps show what formats the drugs came in. For example, some drugs may be listed as tablets, capsules, milliliters, grams, or other units. The longer bars show the unit types that appeared most often.\nThe most common unit types were millimeter, tablet, and patches. This means that many of the newly reported drugs came in these formats. Less common unit types, such as capsules, appeared less often in this reporting period.\n\n\nShow the code\ndrug_type_unit_summary %&gt;%\n  ggplot(aes(x = reorder(unit_type_label, percent_within_type),\n    y = percent_within_type,\n    fill = drug_type_label)) +\n  geom_col(position = \"dodge\") +\n  coord_flip() +\n  scale_y_continuous(labels = percent) +\n  labs(title = \"Unit Type Distribution Within Each Drug Type\",\n    subtitle = \"Percent of prescription and over-the-counter products by unit type\",\n    x = \"Unit Type\",\n    y = \"Percent Within Drug Type\",\n    fill = \"Drug Type\") +\n  theme_bw()\n\n\n\n\n\n\n\n\n\nThe third graph compares unit type within prescription and over-the-counter drugs. Instead of only using raw counts, this graph uses percentages within each drug type. This makes it easier to compare the formats because prescription and over-the-counter drugs may not have the same total number of records.\nThis graph shows that prescription and over-the-counter drugs had very different format patterns. For prescription drugs, the most common unit type was tied with tablets and millimeters. For over-the-counter drugs, the most common unit type was also millimeter. This suggests that the format of a drug may depend on whether it is prescription or over-the-counter.\nOverall, this project shows that the newly reported Medicaid drugs in this dataset were mostly prescription. The most common drug formats were millimeter, tablets, and patches. When comparing prescription and over-the-counter drugs, the formats were dissimilar. These results help describe what kinds of drug products were newly reported to CMS during this specific reporting period.\nThese results could be useful because they show what kinds of drug products are entering the Medicaid reporting system. If most newly reported drugs are prescription drugs, then CMS or Medicaid analysts may need to pay close attention to prescription drug reporting. If certain unit types are much more common, then those formats may be important to check carefully for accurate reporting. However, this dataset only covers one reporting period, so the results should not be used to describe the entire Medicaid drug market.",
+    "crumbs": [
+      "Story Telling",
+      "Project 1"
+    ]
+  },
+  {
+    "objectID": "Story_Telling/project3.html",
+    "href": "Story_Telling/project3.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Story Telling",
+      "Project 3"
+    ]
+  },
+  {
+    "objectID": "notebooks/starter_bank.html",
+    "href": "notebooks/starter_bank.html",
+    "title": "Spencer - Data Science Portfolio",
+    "section": "",
+    "text": "import pandas as pd\nfrom sklearn.preprocessing import OneHotEncoder\nfrom sklearn import tree\nfrom sklearn.tree import DecisionTreeClassifier\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay\nimport matplotlib.pyplot as plt\n\ncampaign = pd.read_csv('https://raw.githubusercontent.com/byui-cse/cse450-course/master/data/bank.csv')\ncampaign\n\n\n    \n\n\n\n\n\n\nage\njob\nmarital\neducation\ndefault\nhousing\nloan\ncontact\nmonth\nday_of_week\ncampaign\npdays\nprevious\npoutcome\nemp.var.rate\ncons.price.idx\ncons.conf.idx\neuribor3m\nnr.employed\ny\n\n\n\n\n0\n56\nhousemaid\nmarried\nbasic.4y\nno\nno\nno\ntelephone\nmay\nmon\n1\n999\n0\nnonexistent\n1.1\n93.994\n-36.4\n4.857\n5191.0\nno\n\n\n1\n57\nservices\nmarried\nhigh.school\nunknown\nno\nno\ntelephone\nmay\nmon\n1\n999\n0\nnonexistent\n1.1\n93.994\n-36.4\n4.857\n5191.0\nno\n\n\n2\n37\nservices\nmarried\nhigh.school\nno\nyes\nno\ntelephone\nmay\nmon\n1\n999\n0\nnonexistent\n1.1\n93.994\n-36.4\n4.857\n5191.0\nno\n\n\n3\n40\nadmin.\nmarried\nbasic.6y\nno\nno\nno\ntelephone\nmay\nmon\n1\n999\n0\nnonexistent\n1.1\n93.994\n-36.4\n4.857\n5191.0\nno\n\n\n4\n56\nservices\nmarried\nhigh.school\nno\nno\nyes\ntelephone\nmay\nmon\n1\n999\n0\nnonexistent\n1.1\n93.994\n-36.4\n4.857\n5191.0\nno\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n37064\n73\nretired\nmarried\nprofessional.course\nno\nyes\nno\ncellular\nnov\nfri\n1\n999\n0\nnonexistent\n-1.1\n94.767\n-50.8\n1.028\n4963.6\nyes\n\n\n37065\n46\nblue-collar\nmarried\nprofessional.course\nno\nno\nno\ncellular\nnov\nfri\n1\n999\n0\nnonexistent\n-1.1\n94.767\n-50.8\n1.028\n4963.6\nno\n\n\n37066\n56\nretired\nmarried\nuniversity.degree\nno\nyes\nno\ncellular\nnov\nfri\n2\n999\n0\nnonexistent\n-1.1\n94.767\n-50.8\n1.028\n4963.6\nno\n\n\n37067\n44\ntechnician\nmarried\nprofessional.course\nno\nno\nno\ncellular\nnov\nfri\n1\n999\n0\nnonexistent\n-1.1\n94.767\n-50.8\n1.028\n4963.6\nyes\n\n\n37068\n74\nretired\nmarried\nprofessional.course\nno\nyes\nno\ncellular\nnov\nfri\n3\n999\n1\nfailure\n-1.1\n94.767\n-50.8\n1.028\n4963.6\nno\n\n\n\n\n37069 rows × 20 columns\n\n    \n\n  \n    \n\n  \n    \n  \n    \n\n  \n\n    \n  \n\n\n    \n      \n\n\n    \n        \n    \n\n      \n\n\n\n      \n    \n\n  \n    \n    \n\n  \n    \n  \n    \n    \n  \n\n    \n  \n\n\n\nfiltered_df = campaign[~campaign.apply(lambda row: row.astype(str).str.contains('unknown|999').any(), axis=1)]\nfiltered_df = filtered_df.dropna()\nfiltered_df\n\n\n    \n\n\n\n\n\n\nage\njob\nmarital\neducation\ndefault\nhousing\nloan\ncontact\nmonth\nday_of_week\ncampaign\npdays\nprevious\npoutcome\nemp.var.rate\ncons.price.idx\ncons.conf.idx\neuribor3m\nnr.employed\ny\n\n\n\n\n21712\n37\nadmin.\nmarried\nuniversity.degree\nno\nyes\nno\ntelephone\nnov\nwed\n1\n6\n1\nsuccess\n-0.1\n93.200\n-42.0\n4.286\n5195.8\nno\n\n\n21851\n48\nmanagement\nmarried\nuniversity.degree\nno\nyes\nno\ncellular\nnov\nmon\n1\n4\n1\nsuccess\n-0.1\n93.200\n-42.0\n4.191\n5195.8\nno\n\n\n22047\n36\nself-employed\nsingle\nuniversity.degree\nno\nyes\nno\ncellular\nnov\nmon\n2\n4\n1\nsuccess\n-0.1\n93.200\n-42.0\n4.191\n5195.8\nno\n\n\n22163\n32\nblue-collar\nmarried\nbasic.9y\nno\nno\nno\ncellular\nnov\nmon\n2\n5\n1\nsuccess\n-0.1\n93.200\n-42.0\n4.191\n5195.8\nyes\n\n\n22328\n31\nentrepreneur\ndivorced\nbasic.4y\nno\nno\nno\ncellular\nnov\ntue\n1\n5\n1\nsuccess\n-0.1\n93.200\n-42.0\n4.153\n5195.8\nno\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n37045\n60\nblue-collar\nmarried\nbasic.4y\nno\nyes\nno\ncellular\nnov\ntue\n2\n4\n1\nsuccess\n-1.1\n94.767\n-50.8\n1.035\n4963.6\nno\n\n\n37046\n35\ntechnician\ndivorced\nbasic.4y\nno\nyes\nno\ncellular\nnov\ntue\n3\n4\n2\nsuccess\n-1.1\n94.767\n-50.8\n1.035\n4963.6\nyes\n\n\n37047\n54\nadmin.\nmarried\nprofessional.course\nno\nno\nno\ncellular\nnov\ntue\n2\n10\n1\nsuccess\n-1.1\n94.767\n-50.8\n1.035\n4963.6\nyes\n\n\n37057\n62\nretired\nmarried\nuniversity.degree\nno\nyes\nno\ncellular\nnov\nthu\n1\n1\n6\nsuccess\n-1.1\n94.767\n-50.8\n1.031\n4963.6\nyes\n\n\n37060\n62\nretired\nmarried\nuniversity.degree\nno\nno\nno\ncellular\nnov\nthu\n2\n6\n3\nsuccess\n-1.1\n94.767\n-50.8\n1.031\n4963.6\nyes\n\n\n\n\n1193 rows × 20 columns\n\n    \n\n  \n    \n\n  \n    \n  \n    \n\n  \n\n    \n  \n\n\n    \n      \n\n\n    \n        \n    \n\n      \n\n\n\n      \n    \n\n  \n    \n    \n\n  \n    \n  \n    \n    \n  \n\n    \n  \n\n\n\nfiltered_df.columns\n\nIndex(['age', 'job', 'marital', 'education', 'default', 'housing', 'loan',\n       'contact', 'month', 'day_of_week', 'campaign', 'pdays', 'previous',\n       'poutcome', 'emp.var.rate', 'cons.price.idx', 'cons.conf.idx',\n       'euribor3m', 'nr.employed', 'y'],\n      dtype='object')\n\n\n\nX = pd.get_dummies(filtered_df[['job', 'marital', 'education', 'default', 'housing', 'loan', 'age', 'emp.var.rate', 'cons.price.idx', 'cons.conf.idx',\n       'euribor3m', 'nr.employed']], drop_first=True)\ny = pd.get_dummies(filtered_df['y'], drop_first=True)\n\n\n# Split our data into training and test data, with 30% reserved for testing\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30)\n\n# Build the decision tree\nclf = DecisionTreeClassifier()\n\n# Train it\nclf.fit(X_train, y_train)\n\n# Test it\nclf.score(X_test, y_test)\n\n0.6033519553072626\n\n\n\n# Generate the confusion matrix\ncm = confusion_matrix(y_test, clf.predict(X_test))\n\n# Display the confusion matrix\ndisp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=clf.classes_)\ndisp.plot()\nplt.show()\n\n\n\n\n\n\n\n\n\nfig, ax = plt.subplots(figsize=(20, 20))\ntree.plot_tree(clf, fontsize=10, feature_names=X.columns)\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "Cleansing_Exploration/project2.html",
+    "href": "Cleansing_Exploration/project2.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "Cleansing_Exploration/project5.html",
+    "href": "Cleansing_Exploration/project5.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "Cleansing_Exploration/project4.html",
+    "href": "Cleansing_Exploration/project4.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "Competition/project1.html",
+    "href": "Competition/project1.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Competition",
+      "Project 1"
+    ]
+  },
+  {
+    "objectID": "Competition/project3.html",
+    "href": "Competition/project3.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Competition",
+      "Project 3"
+    ]
+  },
+  {
+    "objectID": "Full_Stack/project2.html",
+    "href": "Full_Stack/project2.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Full Stack",
+      "Project 2"
+    ]
+  },
+  {
+    "objectID": "Full_Stack/project5.html",
+    "href": "Full_Stack/project5.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Full Stack",
+      "Project 5"
+    ]
+  },
+  {
+    "objectID": "Full_Stack/project4.html",
+    "href": "Full_Stack/project4.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Full Stack",
+      "Project 4"
+    ]
+  },
+  {
+    "objectID": "Full_Stack/project3.html",
+    "href": "Full_Stack/project3.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Full Stack",
+      "Project 3"
+    ]
+  },
+  {
+    "objectID": "Full_Stack/project1.html",
+    "href": "Full_Stack/project1.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Full Stack",
+      "Project 1"
+    ]
+  },
+  {
+    "objectID": "Competition/project4.html",
+    "href": "Competition/project4.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Competition",
+      "Project 4"
+    ]
+  },
+  {
+    "objectID": "Competition/project5.html",
+    "href": "Competition/project5.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Competition",
+      "Project 5"
+    ]
+  },
+  {
+    "objectID": "Competition/project2.html",
+    "href": "Competition/project2.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Competition",
+      "Project 2"
+    ]
+  },
+  {
+    "objectID": "Cleansing_Exploration/project3.html",
+    "href": "Cleansing_Exploration/project3.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "Cleansing_Exploration/project1.html",
+    "href": "Cleansing_Exploration/project1.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top"
   },
   {
     "objectID": "resume.html",
@@ -308,82 +388,67 @@
     "text": "Family Psychological Services @ Agoura Hills, California  Testing Center Supervisor  ‘Mar. 2023 – Present’ \n• Provided patients with psychological testing from initial intake appointment until results interview with a licensed clinician.\n• Increase the ease that patients finished with psychological testing by creating excel sheets that mimicked several tests given to patients which could be filled out virtually.\n• Created analytics documents to help clinicians know their patient counts within a day/month/year which helped clinicians make informed decisions.\nThe Church of Jesus Christ of Latter-day Saints @ Mexico City, Mexico  Missionary/IT Lead  ‘May. 2021 – Mar. 2023’ \n• Talked to people every day for two years about the message of The Church of Jesus Christ of Latter-Day Saints, meeting with people in public and in their homes.\n• Collected data from missionaries about phone usages and digital success with Facebook to allow leadership to make changes on how efficiently missionaries used time, resources and how to communicate our message more clearly.\n• Led a team of 4 missionaries that oversaw digital content production on a Facebook page that geographically covered the southern half of Mexico City.\nSub Zero Ice Cream @ Simi Valley, CA  Store Associate  ‘June. 2021 – Sept. 2021’ \n• Served customers custom ice cream frozen with liquid nitrogen, using nitrogen as entertainment for store goers entering the establishment.\nRancho Simi Community Pool @ Simi Valley, CA  Swim Instructor/Lifeguard  ‘May. 2019 – Sept. 2021’ \n• Taught swimming classes alone and with a co-teacher for children who’s ages ranged from 3 – 12-years-old.\n• Monitored patrons within the facility to insure safety and responded to emergencies quickly to keep issues at a minimum."
   },
   {
-    "objectID": "Cleansing_Exploration/project5.html",
-    "href": "Cleansing_Exploration/project5.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "Cleansing_Exploration/project3.html",
-    "href": "Cleansing_Exploration/project3.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics"
-  },
-  {
-    "objectID": "index.html#title-2-header",
-    "href": "index.html#title-2-header",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics"
-  },
-  {
-    "objectID": "notebooks/starter_bank.html",
-    "href": "notebooks/starter_bank.html",
-    "title": "Spencer - Data Science Portfolio",
-    "section": "",
-    "text": "import pandas as pd\nfrom sklearn.preprocessing import OneHotEncoder\nfrom sklearn import tree\nfrom sklearn.tree import DecisionTreeClassifier\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay\nimport matplotlib.pyplot as plt\n\ncampaign = pd.read_csv('https://raw.githubusercontent.com/byui-cse/cse450-course/master/data/bank.csv')\ncampaign\n\n\n    \n\n\n\n\n\n\nage\njob\nmarital\neducation\ndefault\nhousing\nloan\ncontact\nmonth\nday_of_week\ncampaign\npdays\nprevious\npoutcome\nemp.var.rate\ncons.price.idx\ncons.conf.idx\neuribor3m\nnr.employed\ny\n\n\n\n\n0\n56\nhousemaid\nmarried\nbasic.4y\nno\nno\nno\ntelephone\nmay\nmon\n1\n999\n0\nnonexistent\n1.1\n93.994\n-36.4\n4.857\n5191.0\nno\n\n\n1\n57\nservices\nmarried\nhigh.school\nunknown\nno\nno\ntelephone\nmay\nmon\n1\n999\n0\nnonexistent\n1.1\n93.994\n-36.4\n4.857\n5191.0\nno\n\n\n2\n37\nservices\nmarried\nhigh.school\nno\nyes\nno\ntelephone\nmay\nmon\n1\n999\n0\nnonexistent\n1.1\n93.994\n-36.4\n4.857\n5191.0\nno\n\n\n3\n40\nadmin.\nmarried\nbasic.6y\nno\nno\nno\ntelephone\nmay\nmon\n1\n999\n0\nnonexistent\n1.1\n93.994\n-36.4\n4.857\n5191.0\nno\n\n\n4\n56\nservices\nmarried\nhigh.school\nno\nno\nyes\ntelephone\nmay\nmon\n1\n999\n0\nnonexistent\n1.1\n93.994\n-36.4\n4.857\n5191.0\nno\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n37064\n73\nretired\nmarried\nprofessional.course\nno\nyes\nno\ncellular\nnov\nfri\n1\n999\n0\nnonexistent\n-1.1\n94.767\n-50.8\n1.028\n4963.6\nyes\n\n\n37065\n46\nblue-collar\nmarried\nprofessional.course\nno\nno\nno\ncellular\nnov\nfri\n1\n999\n0\nnonexistent\n-1.1\n94.767\n-50.8\n1.028\n4963.6\nno\n\n\n37066\n56\nretired\nmarried\nuniversity.degree\nno\nyes\nno\ncellular\nnov\nfri\n2\n999\n0\nnonexistent\n-1.1\n94.767\n-50.8\n1.028\n4963.6\nno\n\n\n37067\n44\ntechnician\nmarried\nprofessional.course\nno\nno\nno\ncellular\nnov\nfri\n1\n999\n0\nnonexistent\n-1.1\n94.767\n-50.8\n1.028\n4963.6\nyes\n\n\n37068\n74\nretired\nmarried\nprofessional.course\nno\nyes\nno\ncellular\nnov\nfri\n3\n999\n1\nfailure\n-1.1\n94.767\n-50.8\n1.028\n4963.6\nno\n\n\n\n\n37069 rows × 20 columns\n\n    \n\n  \n    \n\n  \n    \n  \n    \n\n  \n\n    \n  \n\n\n    \n      \n\n\n    \n        \n    \n\n      \n\n\n\n      \n    \n\n  \n    \n    \n\n  \n    \n  \n    \n    \n  \n\n    \n  \n\n\n\nfiltered_df = campaign[~campaign.apply(lambda row: row.astype(str).str.contains('unknown|999').any(), axis=1)]\nfiltered_df = filtered_df.dropna()\nfiltered_df\n\n\n    \n\n\n\n\n\n\nage\njob\nmarital\neducation\ndefault\nhousing\nloan\ncontact\nmonth\nday_of_week\ncampaign\npdays\nprevious\npoutcome\nemp.var.rate\ncons.price.idx\ncons.conf.idx\neuribor3m\nnr.employed\ny\n\n\n\n\n21712\n37\nadmin.\nmarried\nuniversity.degree\nno\nyes\nno\ntelephone\nnov\nwed\n1\n6\n1\nsuccess\n-0.1\n93.200\n-42.0\n4.286\n5195.8\nno\n\n\n21851\n48\nmanagement\nmarried\nuniversity.degree\nno\nyes\nno\ncellular\nnov\nmon\n1\n4\n1\nsuccess\n-0.1\n93.200\n-42.0\n4.191\n5195.8\nno\n\n\n22047\n36\nself-employed\nsingle\nuniversity.degree\nno\nyes\nno\ncellular\nnov\nmon\n2\n4\n1\nsuccess\n-0.1\n93.200\n-42.0\n4.191\n5195.8\nno\n\n\n22163\n32\nblue-collar\nmarried\nbasic.9y\nno\nno\nno\ncellular\nnov\nmon\n2\n5\n1\nsuccess\n-0.1\n93.200\n-42.0\n4.191\n5195.8\nyes\n\n\n22328\n31\nentrepreneur\ndivorced\nbasic.4y\nno\nno\nno\ncellular\nnov\ntue\n1\n5\n1\nsuccess\n-0.1\n93.200\n-42.0\n4.153\n5195.8\nno\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n37045\n60\nblue-collar\nmarried\nbasic.4y\nno\nyes\nno\ncellular\nnov\ntue\n2\n4\n1\nsuccess\n-1.1\n94.767\n-50.8\n1.035\n4963.6\nno\n\n\n37046\n35\ntechnician\ndivorced\nbasic.4y\nno\nyes\nno\ncellular\nnov\ntue\n3\n4\n2\nsuccess\n-1.1\n94.767\n-50.8\n1.035\n4963.6\nyes\n\n\n37047\n54\nadmin.\nmarried\nprofessional.course\nno\nno\nno\ncellular\nnov\ntue\n2\n10\n1\nsuccess\n-1.1\n94.767\n-50.8\n1.035\n4963.6\nyes\n\n\n37057\n62\nretired\nmarried\nuniversity.degree\nno\nyes\nno\ncellular\nnov\nthu\n1\n1\n6\nsuccess\n-1.1\n94.767\n-50.8\n1.031\n4963.6\nyes\n\n\n37060\n62\nretired\nmarried\nuniversity.degree\nno\nno\nno\ncellular\nnov\nthu\n2\n6\n3\nsuccess\n-1.1\n94.767\n-50.8\n1.031\n4963.6\nyes\n\n\n\n\n1193 rows × 20 columns\n\n    \n\n  \n    \n\n  \n    \n  \n    \n\n  \n\n    \n  \n\n\n    \n      \n\n\n    \n        \n    \n\n      \n\n\n\n      \n    \n\n  \n    \n    \n\n  \n    \n  \n    \n    \n  \n\n    \n  \n\n\n\nfiltered_df.columns\n\nIndex(['age', 'job', 'marital', 'education', 'default', 'housing', 'loan',\n       'contact', 'month', 'day_of_week', 'campaign', 'pdays', 'previous',\n       'poutcome', 'emp.var.rate', 'cons.price.idx', 'cons.conf.idx',\n       'euribor3m', 'nr.employed', 'y'],\n      dtype='object')\n\n\n\nX = pd.get_dummies(filtered_df[['job', 'marital', 'education', 'default', 'housing', 'loan', 'age', 'emp.var.rate', 'cons.price.idx', 'cons.conf.idx',\n       'euribor3m', 'nr.employed']], drop_first=True)\ny = pd.get_dummies(filtered_df['y'], drop_first=True)\n\n\n# Split our data into training and test data, with 30% reserved for testing\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30)\n\n# Build the decision tree\nclf = DecisionTreeClassifier()\n\n# Train it\nclf.fit(X_train, y_train)\n\n# Test it\nclf.score(X_test, y_test)\n\n0.6033519553072626\n\n\n\n# Generate the confusion matrix\ncm = confusion_matrix(y_test, clf.predict(X_test))\n\n# Display the confusion matrix\ndisp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=clf.classes_)\ndisp.plot()\nplt.show()\n\n\n\n\n\n\n\n\n\nfig, ax = plt.subplots(figsize=(20, 20))\ntree.plot_tree(clf, fontsize=10, feature_names=X.columns)\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "Competition/project5.html",
-    "href": "Competition/project5.html",
+    "objectID": "Story_Telling/project4.html",
+    "href": "Story_Telling/project4.html",
     "title": "Client Report - [Insert Project Title]",
     "section": "",
     "text": "Paste in a template\n\n\n\n\n Back to top",
     "crumbs": [
-      "Competition",
-      "Project 5"
-    ]
-  },
-  {
-    "objectID": "Competition/project3.html",
-    "href": "Competition/project3.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Competition",
-      "Project 3"
-    ]
-  },
-  {
-    "objectID": "Cleansing_Projects/project4.html",
-    "href": "Cleansing_Projects/project4.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Data Cleansing",
+      "Story Telling",
       "Project 4"
     ]
   },
   {
-    "objectID": "Cleansing_Projects/project2.html",
-    "href": "Cleansing_Projects/project2.html",
+    "objectID": "Story_Telling/project5.html",
+    "href": "Story_Telling/project5.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Story Telling",
+      "Project 5"
+    ]
+  },
+  {
+    "objectID": "Story_Telling/project2.html",
+    "href": "Story_Telling/project2.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Story Telling",
+      "Project 2"
+    ]
+  },
+  {
+    "objectID": "exploration.html",
+    "href": "exploration.html",
+    "title": "about me",
+    "section": "",
+    "text": "MarkDown Basics",
+    "crumbs": [
+      "Data Exploration"
+    ]
+  },
+  {
+    "objectID": "exploration.html#title-2-header",
+    "href": "exploration.html#title-2-header",
+    "title": "about me",
+    "section": "",
+    "text": "MarkDown Basics",
+    "crumbs": [
+      "Data Exploration"
+    ]
+  },
+  {
+    "objectID": "Cleansing_Projects/project3.html",
+    "href": "Cleansing_Projects/project3.html",
     "title": "Client Report - [Insert Project Title]",
     "section": "",
     "text": "Paste in a template\n\n\n\n\n Back to top",
     "crumbs": [
       "Data Cleansing",
-      "Project 2"
+      "Project 3"
     ]
   },
   {
@@ -394,39 +459,6 @@
     "text": "Paste in a template\n\n\n\n\n Back to top",
     "crumbs": [
       "Data Cleansing",
-      "Project 1"
-    ]
-  },
-  {
-    "objectID": "Full_Stack/project4.html",
-    "href": "Full_Stack/project4.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Full Stack",
-      "Project 4"
-    ]
-  },
-  {
-    "objectID": "Full_Stack/project2.html",
-    "href": "Full_Stack/project2.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Full Stack",
-      "Project 2"
-    ]
-  },
-  {
-    "objectID": "Full_Stack/project1.html",
-    "href": "Full_Stack/project1.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Full Stack",
       "Project 1"
     ]
   },
@@ -442,6 +474,17 @@
     ]
   },
   {
+    "objectID": "Machine_Learning/project5.html",
+    "href": "Machine_Learning/project5.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Machine Learning",
+      "Project 5"
+    ]
+  },
+  {
     "objectID": "Machine_Learning/project2.html",
     "href": "Machine_Learning/project2.html",
     "title": "Client Report - [Insert Project Title]",
@@ -453,36 +496,37 @@
     ]
   },
   {
-    "objectID": "Machine_Learning/project1.html",
-    "href": "Machine_Learning/project1.html",
-    "title": "Client Report - [Insert Project Title]",
+    "objectID": "ml.html",
+    "href": "ml.html",
+    "title": "about me",
     "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "text": "MarkDown Basics",
     "crumbs": [
-      "Machine Learning",
-      "Project 1"
+      "Machine Learning"
     ]
   },
   {
-    "objectID": "Story_Telling/project5.html",
-    "href": "Story_Telling/project5.html",
-    "title": "Client Report - [Insert Project Title]",
+    "objectID": "ml.html#title-2-header",
+    "href": "ml.html#title-2-header",
+    "title": "about me",
     "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "text": "MarkDown Basics",
     "crumbs": [
-      "Story Telling",
-      "Project 5"
+      "Machine Learning"
     ]
   },
   {
-    "objectID": "Story_Telling/project3.html",
-    "href": "Story_Telling/project3.html",
-    "title": "Client Report - [Insert Project Title]",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "about me",
     "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Story Telling",
-      "Project 3"
-    ]
+    "text": "MarkDown Basics"
+  },
+  {
+    "objectID": "index.html#title-2-header",
+    "href": "index.html#title-2-header",
+    "title": "about me",
+    "section": "",
+    "text": "MarkDown Basics"
   }
 ]
