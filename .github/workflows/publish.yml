@@ -8,8 +8,10 @@ name: Quarto Publish
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+
     permissions:
       contents: write
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -17,32 +19,34 @@ jobs:
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
-          # To install LaTeX to build PDF book 
-          tinytex: true 
-      
-      # Comment out the below section if you are not using python
-      - name: Install Python and Dependencies
-        uses: actions/setup-python@v5.3.0
+          tinytex: true
+
+      # Keep this section because other pages on your site may use Python
+      - name: Install Python
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-          #cache: 'pip'
-      - run: pip install jupyter numpy pandas scikit-learn lets-plot palmerpenguins seaborn matplotlib plotly.express #altair altair_viewer # nbformat nbclient pyyaml
-      #- run: pip install -r requirements.txt
+          python-version: "3.12"
 
-      # # Comment out the 2 below section if you are not using R
-      # - name: Install R
-      #   uses: r-lib/actions/setup-r@v2
-      #   with:
-      #     #r-version: '4.3.2'
-      #     use-public-rspm: true
+      - name: Install Python dependencies
+        run: |
+          pip install jupyter numpy pandas scikit-learn lets-plot palmerpenguins seaborn matplotlib plotly
 
-      # - name: Install R Dependencies
-      #   uses: r-lib/actions/setup-r-dependencies@v2
-      #   with:
-      #     packages: 
-      #       any::tidyverse
-      #       any::knitr
-      #       any::DT
+      # Install R because project1.qmd contains R code
+      - name: Install R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      # Install the R packages used by project1.qmd
+      - name: Install R dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::tidyverse
+            any::httr2
+            any::scales
+            any::knitr
+            any::DT
 
       - name: Render resume.qmd to PDF
         run: quarto render resume.qmd --to pdf
@@ -51,5 +55,7 @@ jobs:
         uses: quarto-dev/quarto-actions/publish@v2
         with:
           target: gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
