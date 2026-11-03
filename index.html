@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>about me – Spencer - Data Science Portfolio</title>
+<title>Spencer Payne</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -37,6 +37,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./Images/favicon.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
@@ -49,9 +51,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-2ed8696fbf8c5f070ad30ef0e4e5bac1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-a59d64dbb2455d0bc112dfb26ecb206f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-2ed8696fbf8c5f070ad30ef0e4e5bac1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-15b0fb68fad6cf7de025026ec59ec957.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-f65e14f5cc79b695d46db957e33c4fd0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-15b0fb68fad6cf7de025026ec59ec957.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -79,9 +81,85 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-featured .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-image','listing-title','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-featured'] = new List('listing-featured', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+  </script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="Spencer Payne">
+<meta property="og:description" content="Data Science · Statistics · Data Engineering">
+<meta property="og:image" content="https://crampsp.github.io/Images/social-card.png">
+<meta property="og:site_name" content="Spencer Payne">
+<meta property="og:image:height" content="630">
+<meta property="og:image:width" content="1200">
+<meta name="twitter:title" content="Spencer Payne">
+<meta name="twitter:description" content="Data Science · Statistics · Data Engineering">
+<meta name="twitter:image" content="https://crampsp.github.io/Images/social-card.png">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-fixed quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a><script id="quarto-html-before-body" type="application/javascript">
@@ -257,26 +335,22 @@ ul.task-list li input[type="checkbox"] {
   </script>
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark" aria-label="Site">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Spencer - Data Science Portfolio</span>
+    <span class="navbar-title">Spencer Payne</span>
     </a>
   </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./resume.html"> 
-<span class="menu-text">My Resume</span></a>
+    <a class="nav-link" href="./statistics.html"> 
+<span class="menu-text">Statistical Analysis</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./cleansing.html"> 
@@ -303,6 +377,22 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Competition</span></a>
   </li>  
 </ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./resume.html"> 
+<span class="menu-text">Resume</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/CrampsP"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/spencer-payne-95090428b"> <i class="bi bi-linkedin" role="img" aria-label="LinkedIn">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
   <button type="button" role="switch" aria-checked="false" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode" aria-label="Toggle dark mode"><i class="bi"></i></button>
@@ -312,53 +402,283 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page">
+      <h1 class="title">Spencer Payne</h1>
+            <p class="subtitle lead">Data Science · Statistics · Data Engineering</p>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-page">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#title-1-header" id="toc-title-1-header" class="nav-link active" data-scroll-target="#title-1-header">Title 1 Header</a>
-  <ul class="collapse">
-  <li><a href="#title-2-header" id="toc-title-2-header" class="nav-link" data-scroll-target="#title-2-header">Title 2 Header</a></li>
-  </ul></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
-<main class="content" id="quarto-document-content" tabindex="-1">
+<main class="content quarto-banner-title-block column-page" id="quarto-document-content" tabindex="-1">
 
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">about me</h1>
-<p class="subtitle lead">my data science portfolio</p>
+
+
+
+
+<div class="hero">
+<p>I’m a <strong>Data Science student at BYU–Idaho</strong> (B.S. expected July 2027, minor in Business Analytics). I’m also the <strong>Special Projects Manager at Family Psychological Services</strong>, where I built the monthly ETL and reporting workflow that cleans about 480,000 CRM records and cut report preparation time by 78%.</p>
+<p>I like taking messy, real-world data and turning it into clear answers: cleaning it, testing it statistically, modeling it, and building the pipelines that keep it flowing.</p>
+<p><a href="./resume.html" class="btn btn-primary">View my resume</a> <a href="https://github.com/CrampsP" class="btn btn-outline-primary">GitHub</a> <a href="https://www.linkedin.com/in/spencer-payne-95090428b" class="btn btn-outline-primary">LinkedIn</a> <a href="mailto:spayne22802@gmail.com" class="btn btn-outline-primary">Email me</a></p>
+<p><small>Rexburg, ID · Authorized to work in the U.S. without sponsorship · spayne22802@gmail.com</small></p>
+</div>
+<section id="at-a-glance" class="level2">
+<h2 class="anchored" data-anchor-id="at-a-glance">At a glance</h2>
+<div class="glance">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Education</strong></td>
+<td>B.S. Data Science, BYU–Idaho (GPA 3.4) · A.S. 2026 · Certificate in Data Science 2026</td>
+</tr>
+<tr class="even">
+<td><strong>Experience</strong></td>
+<td>Special Projects Manager, Family Psychological Services (2023–present) · IT Lead, Mexico City (2021–2023)</td>
+</tr>
+<tr class="odd">
+<td><strong>Recent focus</strong></td>
+<td>ETL pipelines (Airflow, Snowflake, MongoDB), database design, statistics, machine learning</td>
+</tr>
+<tr class="even">
+<td><strong>Spoken languages</strong></td>
+<td>English, conversational Spanish</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="skills" class="level2">
+<h2 class="anchored" data-anchor-id="skills">Skills</h2>
+<div class="skills">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Area</th>
+<th>Tools</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Languages</strong></td>
+<td>Python, R, SQL, Excel/VBA, PowerShell, JavaScript</td>
+</tr>
+<tr class="even">
+<td><strong>Data analysis</strong></td>
+<td>pandas, Polars, tidyverse (dplyr, tidyr, ggplot2), Lets-Plot</td>
+</tr>
+<tr class="odd">
+<td><strong>Statistics</strong></td>
+<td>t-tests, ANOVA, nonparametric tests, linear and logistic regression, design of experiments</td>
+</tr>
+<tr class="even">
+<td><strong>Machine learning</strong></td>
+<td>scikit-learn, XGBoost, TensorFlow/Keras, PyTorch</td>
+</tr>
+<tr class="odd">
+<td><strong>Data engineering</strong></td>
+<td>ETL/ELT, Apache Airflow, Snowflake, MongoDB, Docker, APIs, schema design and normalization</td>
+</tr>
+<tr class="even">
+<td><strong>BI and reporting</strong></td>
+<td>Tableau, Power BI (DAX), Excel, Quarto, R Markdown</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="featured-projects" class="level2">
+<h2 class="anchored" data-anchor-id="featured-projects">Featured projects</h2>
+<div id="listing-featured" class="quarto-listing quarto-listing-container-grid">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-categories="UHl0aG9uJTJDQXBhY2hlJTIwQWlyZmxvdyUyQ1Nub3dmbGFrZSUyQ0RvY2tlciUyQ0VUTA==" data-listing-file-modified-sort="1793733610223" data-listing-reading-time-sort="3" data-listing-word-count-sort="576">
+<a href="./Full_Stack/airflow-etl-pipelines.html" class="quarto-grid-link no-external-icon">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./Images/placeholder-fullstack.svg" class="thumbnail-image card-img" style="height: 180px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Automated ETL Pipelines with Apache Airflow
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('QXBhY2hlJTIwQWlyZmxvdw=='); return false;">Apache Airflow</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U25vd2ZsYWtl'); return false;">Snowflake</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('RG9ja2Vy'); return false;">Docker</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('RVRM'); return false;">ETL</div>
+
+</div>
+<div class="card-text listing-description">
+<p>Scheduled Airflow pipelines that pull weather, stock, and SFTP data, clean it with pandas, and upsert it into Snowflake, with automatic backfill.</p>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="1" data-categories="UHl0aG9uJTJDWEdCb29zdCUyQ0ZlYXR1cmUlMjBFbmdpbmVlcmluZyUyQ1JlZ3Jlc3Npb24=" data-listing-file-modified-sort="1793733610228" data-listing-reading-time-sort="2" data-listing-word-count-sort="300">
+<a href="./Machine_Learning/housing-price-prediction.html" class="quarto-grid-link no-external-icon">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./Images/placeholder-ml.svg" class="thumbnail-image card-img" style="height: 180px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Predicting King County Home Prices
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('WEdCb29zdA=='); return false;">XGBoost</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('RmVhdHVyZSUyMEVuZ2luZWVyaW5n'); return false;">Feature Engineering</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UmVncmVzc2lvbg=='); return false;">Regression</div>
+
+</div>
+<div class="card-text listing-description">
+<p>Feature engineering and an XGBoost regressor that explains about 90% of the variance in home sale prices on held-out data.</p>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="2" data-categories="UiUyQ1B1YmxpYyUyMERhdGElMkNEYXRhJTIwU3Rvcnl0ZWxsaW5n" data-listing-file-modified-sort="1793733610260" data-listing-reading-time-sort="7" data-listing-word-count-sort="1334">
+<a href="./Story_Telling/medicaid-drug-reporting.html" class="quarto-grid-link no-external-icon">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top"><img loading='lazy' src="Story_Telling/medicaid-drug-reporting_files/figure-html/unnamed-chunk-8-1.png" style="height: 180px;"  class="thumbnail-image card-img"/></p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Newly Reported Medicaid Drugs
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UHVibGljJTIwRGF0YQ=='); return false;">Public Data</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFN0b3J5dGVsbGluZw=='); return false;">Data Storytelling</div>
+
+</div>
+<div class="card-text listing-description">
+<p>Pulls weekly CMS Medicaid Drug Rebate Program data straight from the web to show what kinds of drug products are being newly reported.</p>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="3" data-categories="UiUyQ0FOT1ZBJTJDRXhwZXJpbWVudGFsJTIwRGVzaWdu" data-listing-file-modified-sort="1793733610243" data-listing-reading-time-sort="3" data-listing-word-count-sort="577">
+<a href="./Statistical_Analysis/two-way-anova-analysis.html" class="quarto-grid-link no-external-icon">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top"><img loading='lazy' src="Statistical_Analysis/two-way-anova-analysis_files/figure-html/unnamed-chunk-4-1.png" style="height: 180px;"  class="thumbnail-image card-img"/></p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Caffeine, Distractions, and Reaction Time
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('QU5PVkE='); return false;">ANOVA</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('RXhwZXJpbWVudGFsJTIwRGVzaWdu'); return false;">Experimental Design</div>
+
+</div>
+<div class="card-text listing-description">
+<p>Two-way ANOVA on a self-run experiment testing how caffeine dose and audio/visual distractions affect reaction time.</p>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="4" data-categories="UHl0aG9uJTJDRG9ja2VyJTJDUG93ZXJTaGVsbCUyQ0phdmFTY3JpcHQlMkNTZWN1cml0eQ==" data-listing-file-modified-sort="1793733610226" data-listing-reading-time-sort="2" data-listing-word-count-sort="317">
+<a href="./Full_Stack/portlight-system-monitor.html" class="quarto-grid-link no-external-icon">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./Full_Stack/images/portlight-dashboard.jpg" class="thumbnail-image card-img" style="height: 180px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Portlight: Local Network Security Dashboard
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('RG9ja2Vy'); return false;">Docker</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UG93ZXJTaGVsbA=='); return false;">PowerShell</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('SmF2YVNjcmlwdA=='); return false;">JavaScript</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U2VjdXJpdHk='); return false;">Security</div>
+
+</div>
+<div class="card-text listing-description">
+<p>A read-only Windows network and security dashboard: a PowerShell collector feeds a hardened Docker container that serves an explainable review queue in the browser.</p>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="5" data-categories="UHl0aG9uJTJDU1FMJTJDU1FMaXRl" data-listing-file-modified-sort="1793733610222" data-listing-reading-time-sort="9" data-listing-word-count-sort="1784">
+<a href="./Data_Exploration/baseball-sql-relationships.html" class="quarto-grid-link no-external-icon">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top"><img loading='lazy' src="Images/placeholder-ml.svg" style="height: 180px;"  class="thumbnail-image card-img"/></p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Finding Relationships in Baseball with SQL
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U1FM'); return false;">SQL</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U1FMaXRl'); return false;">SQLite</div>
+
+</div>
+<div class="card-text listing-description">
+<p>SQL queries against the Lahman baseball database exploring salaries, batting averages, and team comparisons.</p>
+</div>
+</div>
+</div></a>
+</div>
+</div>
+<div class="listing-no-matching d-none">No matching items</div>
+</div>
+</section>
+<section id="browse-by-skill" class="level2">
+<h2 class="anchored" data-anchor-id="browse-by-skill">Browse by skill</h2>
+<div class="section-grid">
+<p><a href="./statistics.html"><strong>Statistical Analysis</strong><br><span>Hypothesis tests, regression, designed experiments</span></a> <a href="./cleansing.html"><strong>Data Cleansing</strong><br><span>Multi-format import, reshaping, missing data</span></a> <a href="./exploration.html"><strong>Data Exploration</strong><br><span>SQL, joins, and business questions</span></a> <a href="./story_telling.html"><strong>Story Telling</strong><br><span>Visualization for a specific audience</span></a> <a href="./ml.html"><strong>Machine Learning</strong><br><span>Regression, classification, CNNs</span></a> <a href="./full_stack.html"><strong>Full Stack</strong><br><span>ETL pipelines and applications</span></a> <a href="./competition.html"><strong>Competition</strong><br><span>Timed challenges and contests</span></a></p>
 </div>
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<section id="title-1-header" class="level1">
-<h1>Title 1 Header</h1>
-<section id="title-2-header" class="level2">
-<h2 class="anchored" data-anchor-id="title-2-header">Title 2 Header</h2>
-<p><a href="https://quarto.org/docs/authoring/markdown-basics.html#links-images">MarkDown Basics</a></p>
-
-
-</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
@@ -483,7 +803,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/CrampsP\.github\.io\/");
+        var filterRegex = new RegExp("https:\/\/crampsp\.github\.io");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -890,7 +1210,7 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Spencer 2025©</p>
+<p>© 2026 Spencer Payne</p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
@@ -898,8 +1218,20 @@ ul.task-list li input[type="checkbox"] {
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item compact">
-    <a class="nav-link" href="./Spencer's_LinkedIn_URL">
+    <a class="nav-link" href="https://github.com/CrampsP">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/spencer-payne-95090428b">
       <i class="bi bi-linkedin" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="mailto:spayne22802@gmail.com">
+      <i class="bi bi-envelope" role="img">
 </i> 
     </a>
   </li>  

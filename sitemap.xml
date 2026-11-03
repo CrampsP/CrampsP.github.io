@@ -1,163 +1,147 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://CrampsP.github.io/notebooks/starter_bank.html</loc>
-    <lastmod>2026-11-03T17:35:41.952Z</lastmod>
+    <loc>https://crampsp.github.io/Statistical_Analysis/weather-prediction-linear-regression.html</loc>
+    <lastmod>2026-11-03T19:20:10.243Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/story_telling.html</loc>
-    <lastmod>2026-11-03T17:35:41.956Z</lastmod>
+    <loc>https://crampsp.github.io/Statistical_Analysis/paper-airplane-one-factor-experiment.html</loc>
+    <lastmod>2026-11-03T19:20:10.243Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/ml.html</loc>
-    <lastmod>2026-11-03T17:35:41.951Z</lastmod>
+    <loc>https://crampsp.github.io/Statistical_Analysis/logistic-regression-analysis.html</loc>
+    <lastmod>2026-11-03T19:20:10.243Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/full_stack.html</loc>
-    <lastmod>2026-11-03T17:35:41.951Z</lastmod>
+    <loc>https://crampsp.github.io/story_telling.html</loc>
+    <lastmod>2026-11-03T19:20:10.268Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/competition.html</loc>
-    <lastmod>2026-11-03T17:35:41.922Z</lastmod>
+    <loc>https://crampsp.github.io/resume.html</loc>
+    <lastmod>2026-11-03T19:20:10.268Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Story_Telling/project5.html</loc>
-    <lastmod>2026-11-03T17:35:41.918Z</lastmod>
+    <loc>https://crampsp.github.io/index.html</loc>
+    <lastmod>2026-11-03T19:20:10.268Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Story_Telling/project3.html</loc>
-    <lastmod>2026-11-03T17:35:41.918Z</lastmod>
+    <loc>https://crampsp.github.io/exploration.html</loc>
+    <lastmod>2026-11-03T19:20:10.268Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Story_Telling/project1.html</loc>
-    <lastmod>2026-11-03T17:35:41.918Z</lastmod>
+    <loc>https://crampsp.github.io/cleansing.html</loc>
+    <lastmod>2026-11-03T19:20:10.268Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Machine_Learning/project4.html</loc>
-    <lastmod>2026-11-03T17:35:41.918Z</lastmod>
+    <loc>https://crampsp.github.io/Story_Telling/us-gun-deaths.html</loc>
+    <lastmod>2026-11-03T19:20:10.260Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Machine_Learning/project2.html</loc>
-    <lastmod>2026-11-03T17:35:41.918Z</lastmod>
+    <loc>https://crampsp.github.io/Story_Telling/housing-crisis-building-permits.html</loc>
+    <lastmod>2026-11-03T19:20:10.260Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Full_Stack/project5.html</loc>
-    <lastmod>2026-11-03T17:35:41.918Z</lastmod>
+    <loc>https://crampsp.github.io/Machine_Learning/traffic-sign-image-classifier.html</loc>
+    <lastmod>2026-11-03T19:20:10.236Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Full_Stack/project3.html</loc>
-    <lastmod>2026-11-03T17:35:41.918Z</lastmod>
+    <loc>https://crampsp.github.io/Machine_Learning/bike-rental-demand-neural-network.html</loc>
+    <lastmod>2026-11-03T19:20:10.228Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Full_Stack/project1.html</loc>
-    <lastmod>2026-11-03T17:35:41.918Z</lastmod>
+    <loc>https://crampsp.github.io/Full_Stack/python-programs-with-tests.html</loc>
+    <lastmod>2026-11-03T19:20:10.228Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Competition/project4.html</loc>
-    <lastmod>2026-11-03T17:35:41.918Z</lastmod>
+    <loc>https://crampsp.github.io/Full_Stack/airflow-etl-pipelines.html</loc>
+    <lastmod>2026-11-03T19:20:10.223Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Competition/project2.html</loc>
-    <lastmod>2026-11-03T17:35:41.918Z</lastmod>
+    <loc>https://crampsp.github.io/Data_Exploration/delta-airlines-late-arrivals.html</loc>
+    <lastmod>2026-11-03T19:20:10.223Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Cleansing_Projects/project5.html</loc>
-    <lastmod>2026-11-03T17:35:41.917Z</lastmod>
+    <loc>https://crampsp.github.io/Data_Exploration/baseball-sql-relationships.html</loc>
+    <lastmod>2026-11-03T19:20:10.222Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Cleansing_Projects/project3.html</loc>
-    <lastmod>2026-11-03T17:35:41.917Z</lastmod>
+    <loc>https://crampsp.github.io/Data_Cleansing/male-height-from-five-data-sources.html</loc>
+    <lastmod>2026-11-03T19:20:10.222Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Cleansing_Projects/project1.html</loc>
-    <lastmod>2026-11-03T17:35:41.917Z</lastmod>
+    <loc>https://crampsp.github.io/Competition/stock-picking-competition.html</loc>
+    <lastmod>2026-11-03T19:20:10.220Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Cleansing_Exploration/project4.html</loc>
-    <lastmod>2026-11-03T17:35:41.917Z</lastmod>
+    <loc>https://crampsp.github.io/Competition/star-wars-survey-coding-challenge.html</loc>
+    <lastmod>2026-11-03T19:20:10.220Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Cleansing_Exploration/project2.html</loc>
-    <lastmod>2026-11-03T17:35:41.917Z</lastmod>
+    <loc>https://crampsp.github.io/Data_Cleansing/chipotle-visits-by-weekday.html</loc>
+    <lastmod>2026-11-03T19:20:10.220Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Cleansing_Exploration/project1.html</loc>
-    <lastmod>2026-11-03T17:35:41.917Z</lastmod>
+    <loc>https://crampsp.github.io/Data_Cleansing/tidying-height-data.html</loc>
+    <lastmod>2026-11-03T19:20:10.222Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Cleansing_Exploration/project3.html</loc>
-    <lastmod>2026-11-03T17:35:41.917Z</lastmod>
+    <loc>https://crampsp.github.io/Data_Exploration/car-wash-sales-and-weather.html</loc>
+    <lastmod>2026-11-03T19:20:10.223Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Cleansing_Exploration/project5.html</loc>
-    <lastmod>2026-11-03T17:35:41.917Z</lastmod>
+    <loc>https://crampsp.github.io/Data_Exploration/flight-delays-by-plane-age.html</loc>
+    <lastmod>2026-11-03T19:20:10.223Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Cleansing_Projects/project2.html</loc>
-    <lastmod>2026-11-03T17:35:41.917Z</lastmod>
+    <loc>https://crampsp.github.io/Full_Stack/portlight-system-monitor.html</loc>
+    <lastmod>2026-11-03T19:20:10.226Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Cleansing_Projects/project4.html</loc>
-    <lastmod>2026-11-03T17:35:41.917Z</lastmod>
+    <loc>https://crampsp.github.io/Machine_Learning/bank-marketing-decision-tree.html</loc>
+    <lastmod>2026-11-03T19:20:10.228Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Competition/project1.html</loc>
-    <lastmod>2026-11-03T17:35:41.917Z</lastmod>
+    <loc>https://crampsp.github.io/Machine_Learning/housing-price-prediction.html</loc>
+    <lastmod>2026-11-03T19:20:10.228Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Competition/project3.html</loc>
-    <lastmod>2026-11-03T17:35:41.918Z</lastmod>
+    <loc>https://crampsp.github.io/Story_Telling/fruit-supply-vs-gdp.html</loc>
+    <lastmod>2026-11-03T19:20:10.260Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Competition/project5.html</loc>
-    <lastmod>2026-11-03T17:35:41.918Z</lastmod>
+    <loc>https://crampsp.github.io/Story_Telling/medicaid-drug-reporting.html</loc>
+    <lastmod>2026-11-03T19:20:10.260Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Full_Stack/project2.html</loc>
-    <lastmod>2026-11-03T17:35:41.918Z</lastmod>
+    <loc>https://crampsp.github.io/Story_Telling/utah-baseball-alumni-salaries.html</loc>
+    <lastmod>2026-11-03T19:20:10.260Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Full_Stack/project4.html</loc>
-    <lastmod>2026-11-03T17:35:41.918Z</lastmod>
+    <loc>https://crampsp.github.io/competition.html</loc>
+    <lastmod>2026-11-03T19:20:10.268Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Machine_Learning/project1.html</loc>
-    <lastmod>2026-11-03T17:35:41.918Z</lastmod>
+    <loc>https://crampsp.github.io/full_stack.html</loc>
+    <lastmod>2026-11-03T19:20:10.268Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Machine_Learning/project3.html</loc>
-    <lastmod>2026-11-03T17:35:41.918Z</lastmod>
+    <loc>https://crampsp.github.io/ml.html</loc>
+    <lastmod>2026-11-03T19:20:10.268Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Machine_Learning/project5.html</loc>
-    <lastmod>2026-11-03T17:35:41.918Z</lastmod>
+    <loc>https://crampsp.github.io/statistics.html</loc>
+    <lastmod>2026-11-03T19:20:10.268Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Story_Telling/project2.html</loc>
-    <lastmod>2026-11-03T17:35:41.918Z</lastmod>
+    <loc>https://crampsp.github.io/Statistical_Analysis/high-school-seniors-t-test.html</loc>
+    <lastmod>2026-11-03T19:20:10.242Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/Story_Telling/project4.html</loc>
-    <lastmod>2026-11-03T17:35:41.918Z</lastmod>
+    <loc>https://crampsp.github.io/Statistical_Analysis/oreo-dissolving-two-factor-experiment.html</loc>
+    <lastmod>2026-11-03T19:20:10.243Z</lastmod>
   </url>
   <url>
-    <loc>https://CrampsP.github.io/cleansing.html</loc>
-    <lastmod>2026-11-03T17:35:41.922Z</lastmod>
-  </url>
-  <url>
-    <loc>https://CrampsP.github.io/exploration.html</loc>
-    <lastmod>2026-11-03T17:35:41.951Z</lastmod>
-  </url>
-  <url>
-    <loc>https://CrampsP.github.io/index.html</loc>
-    <lastmod>2026-11-03T17:35:41.951Z</lastmod>
-  </url>
-  <url>
-    <loc>https://CrampsP.github.io/resume.html</loc>
-    <lastmod>2026-11-03T17:35:41.956Z</lastmod>
-  </url>
-  <url>
-    <loc>https://CrampsP.github.io/Another_copy_of_True_starter_housing.html</loc>
-    <lastmod>2026-11-03T17:35:41.917Z</lastmod>
+    <loc>https://crampsp.github.io/Statistical_Analysis/two-way-anova-analysis.html</loc>
+    <lastmod>2026-11-03T19:20:10.243Z</lastmod>
   </url>
 </urlset>

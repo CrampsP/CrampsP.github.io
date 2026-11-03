@@ -1,1 +1,79 @@
-/* css styles */
+/* Home page */
+.hero {
+  font-size: 1.15rem;
+  max-width: 820px;
+  margin: 0.5rem 0 2rem;
+}
+.hero .btn {
+  margin: 0.25rem 0.35rem 0.25rem 0;
+}
+
+.skills table {
+  width: 100%;
+}
+
+.section-grid p {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1rem;
+}
+.section-grid a {
+  display: block;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(127, 127, 127, 0.25);
+  border-radius: 0.6rem;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.section-grid a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+.section-grid a span {
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
+.section-grid br {
+  display: block;
+}
+
+/* Project cards */
+.quarto-grid-item {
+  border-radius: 0.6rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.quarto-grid-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+}
+.quarto-grid-item .card-img-top img,
+.quarto-grid-item img.thumbnail-image {
+  object-fit: cover;
+}
+
+/* Images inside reports */
+main img {
+  border-radius: 0.4rem;
+}
+
+/* Keep the seven section links on one line on desktop */
+@media (min-width: 992px) {
+  .navbar .navbar-nav .nav-link {
+    font-size: 0.88rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    white-space: nowrap;
+  }
+  .navbar-brand .navbar-title {
+    white-space: nowrap;
+  }
+}
+
+.glance table td:first-child {
+  white-space: nowrap;
+  width: 1%;
+  padding-right: 1.5rem;
+}
+.glance thead {
+  display: none;
+}

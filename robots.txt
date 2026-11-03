@@ -1,1 +1,1 @@
-Sitemap: https://CrampsP.github.io/sitemap.xml
+Sitemap: https://crampsp.github.io/sitemap.xml

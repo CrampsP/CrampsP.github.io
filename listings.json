@@ -1,0 +1,77 @@
+[
+  {
+    "listing": "/story_telling.html",
+    "items": [
+      "/Story_Telling/fruit-supply-vs-gdp.html",
+      "/Story_Telling/housing-crisis-building-permits.html",
+      "/Story_Telling/medicaid-drug-reporting.html",
+      "/Story_Telling/us-gun-deaths.html",
+      "/Story_Telling/utah-baseball-alumni-salaries.html"
+    ]
+  },
+  {
+    "listing": "/index.html",
+    "items": [
+      "/Full_Stack/airflow-etl-pipelines.html",
+      "/Machine_Learning/housing-price-prediction.html",
+      "/Story_Telling/medicaid-drug-reporting.html",
+      "/Statistical_Analysis/two-way-anova-analysis.html",
+      "/Full_Stack/portlight-system-monitor.html",
+      "/Data_Exploration/baseball-sql-relationships.html"
+    ]
+  },
+  {
+    "listing": "/exploration.html",
+    "items": [
+      "/Data_Exploration/baseball-sql-relationships.html",
+      "/Data_Exploration/car-wash-sales-and-weather.html",
+      "/Data_Exploration/delta-airlines-late-arrivals.html",
+      "/Data_Exploration/flight-delays-by-plane-age.html"
+    ]
+  },
+  {
+    "listing": "/cleansing.html",
+    "items": [
+      "/Data_Cleansing/chipotle-visits-by-weekday.html",
+      "/Data_Cleansing/male-height-from-five-data-sources.html",
+      "/Data_Cleansing/tidying-height-data.html"
+    ]
+  },
+  {
+    "listing": "/competition.html",
+    "items": [
+      "/Competition/star-wars-survey-coding-challenge.html",
+      "/Competition/stock-picking-competition.html",
+      "/Machine_Learning/housing-price-prediction.html",
+      "/Machine_Learning/traffic-sign-image-classifier.html"
+    ]
+  },
+  {
+    "listing": "/full_stack.html",
+    "items": [
+      "/Full_Stack/airflow-etl-pipelines.html",
+      "/Full_Stack/portlight-system-monitor.html",
+      "/Full_Stack/python-programs-with-tests.html"
+    ]
+  },
+  {
+    "listing": "/ml.html",
+    "items": [
+      "/Machine_Learning/bank-marketing-decision-tree.html",
+      "/Machine_Learning/bike-rental-demand-neural-network.html",
+      "/Machine_Learning/housing-price-prediction.html",
+      "/Machine_Learning/traffic-sign-image-classifier.html"
+    ]
+  },
+  {
+    "listing": "/statistics.html",
+    "items": [
+      "/Statistical_Analysis/high-school-seniors-t-test.html",
+      "/Statistical_Analysis/logistic-regression-analysis.html",
+      "/Statistical_Analysis/oreo-dissolving-two-factor-experiment.html",
+      "/Statistical_Analysis/paper-airplane-one-factor-experiment.html",
+      "/Statistical_Analysis/two-way-anova-analysis.html",
+      "/Statistical_Analysis/weather-prediction-linear-regression.html"
+    ]
+  }
+]
