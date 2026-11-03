@@ -1,0 +1,93 @@
+---
+title: "BYU Baseball Alumni Earnings Compared to Other Utah Schools"
+author: "Your Name"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+library(Lahman)
+library(priceR)
+library(scales)
+```
+
+```{r}
+data(package = "Lahman")
+```
+
+```{r}
+View(CollegePlaying)
+View(Schools)
+View(People)
+View(Salaries)
+```
+
+```{r}
+utah_schools <- Schools %>%
+  filter(state == "UT")
+
+View(utah_schools)
+```
+
+```{r}
+utah_college_players <- CollegePlaying %>%
+  left_join(utah_schools, by = "schoolID") %>% 
+  filter(!is.na(state))
+
+View(utah_college_players)
+```
+
+```{r}
+utah_players_named <- utah_college_players %>%
+  left_join(People, by = "playerID") %>%
+  mutate(player_name = paste(nameFirst, nameLast))
+
+View(utah_players_named)
+```
+
+```{r}
+utah_player_salaries <- Salaries %>%
+  left_join(utah_players_named, by = "playerID")%>% 
+  filter(!is.na(state))
+
+View(utah_player_salaries)
+```
+
+```{r}
+utah_player_salaries <- utah_player_salaries %>%
+  mutate(salary_2021 = adjust_for_inflation(price = salary, from_date = yearID.x, country = "US", to_date = 2021))
+
+View(utah_player_salaries)
+```
+
+```{r}
+ggplot(utah_player_salaries, aes(x = schoolID, y = salary_2021)) +
+  geom_jitter(width = 0.2, alpha = 0.5, size = 2) +
+  scale_y_log10(labels = dollar_format()) +
+  labs(title = "Professional Baseball Earnings of Different Alumni") +
+  theme_minimal()
+```
+
+```{r}
+ggplot(utah_player_salaries, aes(x = yearID.x, y = salary_2021, color = schoolID)) +
+  geom_point(alpha = 0.5, size = 2) +
+  scale_y_log10(labels = dollar_format()) +
+  labs(
+    title = "Inflation-Adjusted MLB Salaries Over Time",
+    color = "School"
+  ) +
+  theme_minimal()
+```
+
+Each of the graphs shows something significant, the data has a large population of professional baseball players who originated from BYU and are payed very well for their participation. Now this may be an issue with the data at large but if I had my sights set on playing professional baseball and making some serious money, I would do my best to get into BYU's program. On average and over time BYU's alumni have been paid more money to play baseball than alumni at any other school with very few exceptions.
+
+
+
+
+
+
+
+
+
+

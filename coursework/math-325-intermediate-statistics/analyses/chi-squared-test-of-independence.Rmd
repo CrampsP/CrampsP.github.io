@@ -1,0 +1,101 @@
+---
+title: "Chi Squared Test"
+output: 
+  html_document:
+    theme: cerulean
+    code_folding: hide
+---
+
+
+```{r}
+library(pander)
+library(haven)
+gss2021 <- read_sas("../../data/gss2021.sas7bdat")
+income_labels <- c(  "Under $1,000",
+  "$1,000 to $2,999",  "$3,000 to $3,999",
+  "$4,000 to $4,999",  "$5,000 to $5,999",
+  "$6,000 to $6,999",  "$7,000 to $7,999",
+  "$8,000 to $9,999",  "$10,000 to $14,999",
+  "$15,000 to $19,999",  "$20,000 to $24,999",  "$25,000 or more", "Other")
+gss2021$INCOME_LABEL <- factor(gss2021$INCOME,
+                               levels = 1:13,
+                               labels = income_labels)
+mytable <- table(gss2021$INCOME_LABEL, gss2021$TVHOURS)
+
+```
+
+
+<!-- Directions
+
+Come up with a chi squared test analysis of your own creation. 
+
+* Write the Background and clearly state your question. Then collect data and perform the chi-squared test analysis in order to answer your question. Use the proper order of first, ask the question, then second, figure out the answer.
+
+* You can use data from 
+    - An R data set
+    - the internet (like weather data, Facebook data, or sports data) 
+    - your own experiment 
+    - your own observational study
+* However,     
+    - Do not violate the "Human Subjects Rules" of the university: http://www.byui.edu/executive-strategy-and-planning/institutional-research/research-and-assessments/research-and-surveys
+
+* You need a sample size large enough to meet the requirements of the chi squared test. Unfortunately, the sample size is completely dependent on the situation you select. A good rule of thumb is 10 observations per "combination-group" in your data.
+
+-->
+
+
+## Background
+
+In the 21st century, television has become a staple in most homes as a source of entertainment, community and information. Our analysis today seeks to understand the relationship between the amount of hours spent in front of the TV and the income levels of individuals. Our null hypothesis therefore will be stated as 
+
+$$
+  H_{0}:\ \text{Income and hours in front of the TV are not associated.}
+$$
+
+and the alternative hypothesis will be termed as
+$$
+  H_{a}:\ \text{Income and hours in front of the TV are associated.}
+$$
+
+Finally we will measure statistical significance as any p value that falls below
+$$
+  a = 0.05
+$$
+
+
+## Analysis
+
+```{r}
+pander(mytable)
+results <- chisq.test(mytable)
+pander(results)
+```
+
+On the top x axis we can see number of hours a day spent in front of the TV. On the left side we can see the counts of individuals in certain income brackets, 1 being below 1000 dollars and 12 being above 25000 dollars. Looking at an overview of the data we can see that there are more counts of individuals in higher income brackets who watch less TV. We can see evidence of this in the test statistic and p-value. Our test statistic is very high and our p-value is way lower than our level of significance suggesting that we reject the null hypothesis and accept the alternative hypothesis that there is a relationship between income and hours in front of the TV.
+
+
+
+## Graph
+```{r}
+barplot(mytable, col = rainbow(nrow(mytable)), legend.text = TRUE, main = "How Many Hours of TV Do Rich People Watch", ylab = "Counts of Individuals", xlab = "Hours of TV Watched per Day")
+```
+
+This graph shows us visually what the analysis says. We can expect a lot of high income individuals in the 0-5 area and than it dipps down. This visual representation is very interesting because it shows us that rather than having a lot of people wasting their days away watching TV, we can see that having a TV might actually be a symbol of wealth and free time.
+
+
+## Diagnosis
+
+```{r}
+mytablestats <- chisq.test(mytable)
+pander(mytablestats$expected)
+```
+```{r}
+pander(mytablestats$residuals)
+```
+
+With an understanding of our expected counts and residuals we can say that overall our counts for a large percentage of our data is pretty average. Some interesting things to not in the 25000 or more category is that there is a lot more counts than expected and that the values are wildly greater than even a generous estimate would state. This means that not only is there a relationship between hours of TV watched and income, we have a super over representation of people in an income bracket of over 25000 watching a lot of hours of TV.
+
+
+## Conclusion
+
+Watching TV can take up many hours of the day, whether it be as a way to relax or to understand more about the world around us, people are participating in it no matter what. Based on the understanding of the data we have on wealth has with watching TV, we can say that watching TV and wealth have a significant relationship. By also understanding the diagnosis of the data overall and the graphical representation of this relationship we can say that the reason this is, is because as people accumulate more wealth they have more free time and disposable income to buy a TV. This understanding helps us to understand the type of relationship that wealth has with watching TV.

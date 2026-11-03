@@ -1,0 +1,56 @@
+---
+title: "t_test"
+output: html_document
+---
+
+```{r}
+library(mosaic) 
+library(car) 
+View(KidsFeet)
+```
+```{r}
+par(mfrow=c(3,2)) #this needs to be in an R script file
+```
+
+
+```{r}
+t.test(KidsFeet$length, mu = 28, alternative = 'two.sided', conf.level = 0.95)
+```
+```{r}
+qqPlot(KidsFeet$length)
+```
+```{r}
+boxplot(KidsFeet$length)
+```
+
+
+```{r}
+t.test(KidsFeet$length - (3*KidsFeet$width), mu = 0)
+```
+```{r}
+qqPlot(KidsFeet$length - (3*KidsFeet$width))
+```
+```{r}
+boxplot(KidsFeet$length - (3*KidsFeet$width))
+```
+
+
+```{r}
+boy <- filter(KidsFeet, sex == "B")
+View(boy)
+girl <- filter(KidsFeet, sex == "G")
+View(girl)
+```
+
+
+```{r}
+t.test(girl$length, boy$length, mu = 0, alternative = 'two.sided', conf.level = 0.95)
+```
+
+```{r}
+qqPlot(girl$length - boy$length)
+```
+```{r}
+boxplot(girl$length, boy$length)
+```
+

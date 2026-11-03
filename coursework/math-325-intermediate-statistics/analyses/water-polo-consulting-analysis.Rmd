@@ -1,0 +1,250 @@
+---
+title: "ConsultingWP"
+output: html_document
+---
+
+```{r, include=FALSE}
+library(mosaic)
+library(ResourceSelection) 
+library(tidyverse)
+library(pander)
+library(ResourceSelection)
+wp <- read_csv("../data/WP Stata.csv") 
+wp <- transform(wp, Position = factor(Position))
+
+post_left  <- c(x = 0.575, y = 2.35)
+post_right <- c(x = 1.325, y = 2.35)
+
+pos_coords <- list(
+  "1" = c(x = 0.25, y = 2),
+  "2" = c(x = 0.25, y = 1),
+  "3" = c(x = 0.95, y = 1),
+  "4" = c(x = 1.65, y = 1),
+  "5" = c(x = 1.65, y = 2),
+  "6" = c(x = 0.95, y = 2)
+)
+### Function to compute angle of attack using law of cosines
+angle_of_attack <- function(C, A, B) {
+  # distances
+  AC <- sqrt((A[1] - C[1])^2 + (A[2] - C[2])^2)
+  BC <- sqrt((B[1] - C[1])^2 + (B[2] - C[2])^2)
+  AB <- sqrt((A[1] - B[1])^2 + (A[2] - B[2])^2)
+  
+  # law of cosines
+  angle_rad <- acos((AC^2 + BC^2 - AB^2) / (2 * AC * BC))
+  
+  # convert to degrees (optional)
+  angle_deg <- angle_rad * 180 / pi
+  
+  return(angle_deg)
+}
+
+
+### Add new column to your dataset
+wp$angle_attack <- sapply(wp$Position, function(pos) {
+  C <- pos_coords[[as.character(pos)]]
+  angle_of_attack(C, post_left, post_right)
+})
+
+wp$angle_attack <- round(wp$angle_attack, 0)
+
+View(wp)
+```
+
+## Background
+
+In water polo, offensive structure and scoring efficiency vary substantially across positions. Each location in the offensive setup presents distinct angles, defensive pressure, and shooting probabilities. Understanding which positions generate the highest shooting percentage can guide strategic decisions such as play-calling, lineup formation, and targeted training for specific player roles.
+
+This dataset captures fundamental shot-level information across multiple teams and players, allowing for a statistical comparison of shooting success by position.
+
+The research question is answers the following:
+
+**Which position in water polo has a better shooting percentage?**
+
+This question is well-suited to logistic regression because the shot outcome is binary (made = 1, missed = 0). By modeling the probability of a made shot as a function of player position, we can identify whether certain positions are inherently more efficient.
+
+
+## Understanding the Data
+
+This dataset consists of 215 total shots collected across various players and games. Each observation includes:
+
+Team ID: identifies the team that attempted the shot
+
+Player ID: identifies the player attempting the shot
+
+Shot Outcome (1/0): 1 if the shot was made, 0 if missed
+
+Player Position (1-6): categorical label indicating the player’s in-pool offensive position
+
+Attack Angle: numerical measurement of the angle at which the offender is to the goal. This measurement was taken by creating a triangle between the middle of each position and the two goal posts to create a average angle for the whole position
+
+Because team ID and player ID are identifiers rather than predictors in this simple model, the logistic regression uses shot outcome as the response and attack angle as the explanatory variable.
+
+Before running the model, understanding what the data looks like in real life will help us to make our hypothesis and further dig into the data later.
+
+## Graphical Introduction
+
+```{r}
+# Map the positions to coordinates
+coords <- data.frame(
+  Position = c(1,2,3,4,5,6),
+  x = c(0.25, 0.25, 0.95, 1.65, 1.65, 0.95),   # compressed x values
+  y = c(2,1,1,1,2,2)
+)
+
+# Merge into your dataset
+wp2 <- merge(wp, coords, by="Position")
+
+wp2$col <- ifelse(wp2$Binary_Goal == 1, "red", "blue")
+
+
+plot(jitter(wp2$x, amount = 0.35),
+     jitter(wp2$y, amount = 0.35),
+     pch = 16,
+     col = wp2$col,
+     xlab = "",
+     ylab = "",
+     xaxt = "n",
+     yaxt = "n",
+     xlim = c(0, 1.9),
+     ylim = c(0.5, 2.5),
+     main = "Water Polo Shot Map (Colored by Goal)")
+
+
+# Add position labels
+text(coords$x, coords$y,
+     labels = coords$Position,
+     cex = 1.5,
+     font = 2)
+
+abline(1.5, 0, lwd = 2, lty = 2)
+abline(2.35, 0, lty = 2)
+
+
+abline(v = 0.575, lwd = 2, lty = 2)
+abline(v = 1.325, lwd = 2, lty = 2)
+
+rect(0.575, 2.35, 1.325, 2.55, col = "gray80", border = "black")
+text(0.95, 2.45, "GOAL", cex = 0.8)
+
+
+# First draw a bigger white label (acts like an outline)
+text(coords$x, coords$y,
+     labels = coords$Position,
+     cex = 1.75,
+     col = "white",
+     font = 2)
+
+# Then draw the real label on top
+text(coords$x, coords$y,
+     labels = coords$Position,
+     cex = 1.5,
+     col = "black",
+     font = 2)
+
+rect(-0.055, 0.42, 0.36, 0.75, col = "white")
+
+legend("bottomleft",
+       inset = c(0, -0.03),
+       legend = c("Goal Made", "Missed Shot"),
+       col = c("blue", "red"),
+       pch = 16,
+       bty = "n",
+       cex = 1)
+
+
+```
+
+**Data points here are a representation of possible positions to describe the data. They do not show where a player was actually at**
+
+The data in this graph gives us a representative overview of the relationship that each position in water polo has on shooting percentage. We can see a larger population of successful shots from areas like the 2, 3, and 4 where the angle of the shot is larger and therefore easier to make. While areas like the 1 and 5 have a larger portion of unsuccessful shots because of the more difficult angle to shoot at. The 6 is an interesting example because it seems to have an even distribution of made and missed shots even though it is the closest and has the widest angle of attack of the whole pool. This may be because there are more defenders here than other positions and because the way the 6 position is played is very different than the way you play in the rest of the pool. Only further analysis can tell us if these observations are true.
+
+
+
+## Hypothesis
+
+Given that we want to determine whether the probability of scoring (πᵢ) differs depending on a player’s angle of attack, we will use a Simple Logistic Regression model with a binary response variable and one explanatory variable.
+
+The logistic regression model will use the equation:
+
+$$
+P(Y_i = 1 \mid x_i) = 
+\frac{e^{\beta_0 + \beta_1 x_i}}{1 + e^{\beta_0 + \beta_1 x_i}}
+= \pi_i
+$$
+
+If β₁ = 0, then the position gives no information about shooting probability.
+Therefore our hypotheses are:
+
+$$
+H_0 : \beta_1 = 0
+$$
+
+$$
+H_a : \beta_1 \neq 0
+$$
+
+The test uses a significance level of α = 0.05
+
+$$
+\alpha = 0.05
+$$
+
+
+## Analysis
+
+First to check to see if our data is a good fit for a logistic regression test we will diagnose our data using a deviance goodness of fit test. 
+
+```{r}
+wp.model <- glm(Binary_Goal ~ angle_attack, data = wp, family = binomial)
+b <- coef(wp.model)
+pchisq(277.7, 213, lower.tail=FALSE)
+```
+
+Our p-value is very small. So small in fact that we must reject the null and conclude that our data is actually a bad fit for our idea of doing logistic regression on it. A logistic regression in this case would not be able to accurately tell us the certainty of which an attack angle helps us to make goals.
+
+We will continue with the analysis either way just to understand why this is and how we can improve in the future. Whether that be in data collection or other types of analyses.
+
+```{r}
+pos_means <- aggregate(Binary_Goal ~ angle_attack, data = wp, FUN = mean)
+plot(pos_means$angle_attack, pos_means$Binary_Goal, pch = 19, xlab = "Angle of Attack", ylab = "Mean Scoring Probability", ylim = c(0,1))
+curve(exp((b[1]) + (b[2])*x)/(1 + exp((b[1]) + (b[2])*x)), add = TRUE)
+```
+
+This graph shows the different angles of attack there are in the game of water polo and their average shot percentage per angle. We can see that the highest percentage coincides with the 94 degree angle of attack seen by the 6 position right in front of the goal. the other angles (25, 29, 31) correspond with the other 5 positions. The 3 position has a 31 degree angle, the 2 and 4 have a 29 degree angle and the 1 and 5 have 25 degree angles. While the hypothesized statement is true that as the angle of attack increases the liklihood of a successful shot increases, that isn't the whole story, as we can see with the increase in percentage in the 29 degree shots.
+
+```{r}
+plot(jitter(Binary_Goal, amount = 0.25) ~ angle_attack, data = wp)
+curve(exp((b[1]) + (b[2])*x)/(1 + exp((b[1]) + (b[2])*x)), add = TRUE)
+```
+
+This graph shows with a little bit more detail the results of the graph above. We can see that the most amount of shots were taken at the 29 degree shots and the 94 degree shots. Helping us hypothesize that it might not be the angle of the shot that matters but the amount of shots taken at all.
+
+```{r}
+pander(summary(wp.model))
+```
+
+This numerical summary of the model shows us the nitty gritty of how our plots are effected by each angle of attack. We can see that the model says that for each degree we increase our angle of attack, we increase our chances of a shot by 1%. This statement also is backed by the p-value of 0.004 which is below our level of significance. Meaning we can reject the null hypothesis that there is not relationship between angle of attack and shot percentage.
+
+
+
+## Conclusion
+
+To answer the main question:
+
+Which position in water polo has a better shooting percentage?
+
+Using logistic regression, we attempted to model the probability of scoring as a function of shooting position. The analysis suggests that angle of attack does have an influence in shooting percentage and has such an effect that we can increase our shooting percentage as we increase our angle of attack. Meaning that is is better to be closer and more center to the goal if one is to make a shot.
+
+While this is a very interesting find that will help us to create personalized drills for certain teams and players, it is important to remember the diagnosis of the data. After doing a test of the goodness of fit of the data we found that the p-value was 0.001, way below our level of significance, meaning that we should not assume that a logistic regression model can accurately predict if angle of attack is a good predictor of shooting percentage. This means that although we can find useful information in the data, other methods of understanding the data would yeild better results than a logistic regression.
+
+
+
+
+
+
+
+
+
+
+

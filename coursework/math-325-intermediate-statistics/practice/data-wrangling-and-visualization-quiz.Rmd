@@ -1,0 +1,142 @@
+---
+title: "Data_Wrangling_and_Visualization"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(mosaic)
+View(KidsFeet)
+```
+
+```{r}
+KidsFeet <- KidsFeet
+```
+
+```{r}
+KidsFeet %>% 
+   group_by(sex) %>% 
+   summarise(min = min(length), Q1 = quantile(length, 0.25), med = median(length), Q3 = quantile(length, 0.75), max = max(length), mean = mean(length), sd = sd(length), n = sam(length))
+```
+
+```{r}
+?airquality
+View(airquality)
+library(mosaic)
+```
+
+```{r}
+airquality %>% 
+   group_by(Month) %>% 
+   summarise(min = min(Temp), Q1 = quantile(Temp, 0.25), med = median(Temp), Q3 = quantile(Temp, 0.75), max = max(Temp), mean = mean(Temp), sd = sd(Temp))
+```
+
+```{r}
+hist(airquality$Temp, xlab="Daily Temperature", main="LaGuardia Airport (May to September 1973)", col="slategray")
+```
+
+```{r}
+plot(Temp ~ Month, data=airquality, xlab="Month", ylab="Temperature", main="LaGuardia Airport (May to September 1973)", pch=16, col="slategray")
+```
+
+```{r}
+boxplot(Temp ~ Month, data=airquality, xlab="Month", ylab="Temperature", main="LaGuardia Airport (May to September 1973)", pch=16, col="slategray")
+```
+
+```{r}
+stripchart(Temp ~ Month, data=airquality, ylab="Month", xlab="Temperature", main="LaGuardia Airport (May to September 1973)", pch=16, col="slategray", method="stack")
+```
+
+```{r}
+plot(Temp ~ Day, data=airquality, xlab="Day of the Month", ylab="Temperature", main="LaGuardia Airport (May to September 1973)", pch=16, col="slategray")
+```
+
+```{r}
+?Orange
+View(Orange)
+```
+
+```{r}
+plot(circumference ~ age, data=Orange, ylab="Trunk Circumference (mm)", xlab="Age of Trees (days)", main="Trunk Circumference of Orange Trees", col="ivory3", pch=15)
+Orange.m <- median(circumference ~ age, data=Orange)
+lines(names(Orange.m), Orange.m, col="ivory3")
+legend("topleft", legend="Median Growth", lty=1, col='ivory3', bty='n')
+```
+
+```{r}
+boxplot(circumference ~ age, data=Orange, ylab="Trunk Circumference (mm)", xlab="Age of Trees (days)", main="Trunk Circumference of Orange Trees", col="ivory3")
+```
+
+```{r}
+stripchart(circumference ~ age, data=Orange, ylab="Trunk Circumference (mm)", xlab="Age of Trees (days)", main="Trunk Circumference of Orange Trees", col="ivory3", pch=15, method="stack", vertical=TRUE)
+```
+
+```{r}
+boxplot(Orange, xlab="Age of Tree (days)", main="Trunk Circumference of Orange Trees", col="ivory3")
+```
+```{r}
+Orange %>% 
+   group_by(age) %>% 
+   summarise(med = median(circumference))
+```
+
+```{r}
+library(mosaicData)
+View(Riders)
+```
+
+```{r}
+Riders %>% 
+   group_by(day) %>% 
+   summarise(sum = sum(riders))
+```
+
+```{r}
+View(mtcars)
+?mtcars
+```
+
+```{r}
+table(mtcars$cyl)
+```
+```{r}
+car4 <- filter(mtcars,  cyl == 4)  
+car4
+```
+
+```{r}
+cars4 <- car4 %>% 
+   group_by(am) %>% 
+   summarise(mean = mean(mpg))
+cars4
+```
+
+```{r}
+car8 <- filter(mtcars,  cyl == 8)  
+car8
+```
+
+```{r}
+cars8 <- car8 %>% 
+   group_by(am) %>% 
+   summarise(mean = mean(qsec))
+cars8
+```
+
+
+```{r}
+favstats(car8$wt)
+```
+
+```{r}
+car6 <- filter(mtcars,  cyl == 6)  
+car6
+```
+
+```{r}
+cars6 <- car6 %>% 
+   group_by(am) %>% 
+   summarise(max = max(wt))
+cars6
+```
+

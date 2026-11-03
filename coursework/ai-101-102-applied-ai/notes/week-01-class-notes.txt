@@ -1,0 +1,2170 @@
+i am taking an sql for anaytics class and i want to get an A in my class this semester. in the syllabus it says that we will have 4 tests and i need a 4/5 on each test in order to get an A. help me study an prepare for these tests
+Absolutely. Since you already have experience with basic SQL, database management, SELECT, INSERT, and joins, I would not spend this semester relearning beginner SQL. Your goal should be to become extremely reliable at analytical SQL under test conditions.
+You need 4/5 on every test to earn the A, so I’d prepare as though your target is 5/5. That gives you room for one weird question, syntax mistake, or interpretation error.
+What “SQL for Analytics” is likely to require
+Database/admin SQL often focuses on things like creating tables, managing databases, keys, permissions, inserting records, and maintaining data.
+Analytics SQL is different. You're usually given data and asked:
+“What does this data tell us?”
+For example, instead of:
+SELECT *
+FROM orders;
+you'll get questions like:
+Which customer generated the most revenue in each month?
+or:
+What percentage of sales came from each product category?
+or:
+Find customers whose spending is above the average spending of all customers.
+That means your biggest skills this semester should be:
+Turning English questions into SQL logic
+Aggregating data correctly
+Joining without accidentally duplicating rows
+Using CASE statements
+Working with dates
+Using subqueries and CTEs
+Using window functions
+Knowing what order SQL operations happen in
+Debugging queries
+Checking whether an answer actually makes sense
+Those are what I would expect to separate an A student from someone who merely knows SQL syntax.
+Your semester strategy
+Because there are only 4 tests, each one matters a lot. I wouldn't study for these like normal exams where you cram two days beforehand.
+Instead, use a repeating cycle:
+Learn → Practice → Practice without notes → Take mini-test → Fix weaknesses
+The most important part is the without notes portion.
+It's easy to look at this:
+SELECT department,
+       AVG(salary)
+FROM employees
+GROUP BY department;
+and think:
+“Yeah, I understand that.”
+That's very different from being given:
+“Find the average salary for employees in each department, excluding terminated employees, and only show departments whose average exceeds $65,000.”
+and writing this from scratch:
+SELECT department,
+       AVG(salary) AS avg_salary
+FROM employees
+WHERE status <> 'Terminated'
+GROUP BY department
+HAVING AVG(salary) > 65000;
+For your tests, recognition isn't enough. You need recall.
+The SQL hierarchy I want you to master
+Think of this like levels.
+Level 1 — Basic retrieval
+You should be able to do these almost automatically:
+SELECT
+FROM
+WHERE
+ORDER BY
+DISTINCT
+LIMIT
+Example:
+SELECT customer_name,
+       revenue
+FROM customers
+WHERE state = 'Idaho'
+ORDER BY revenue DESC;
+If these take significant mental effort by the time Test 1 arrives, we need more repetition.
+Level 2 — Aggregation
+This is probably going to be extremely important.
+Know:
+COUNT()
+SUM()
+AVG()
+MIN()
+MAX()
+GROUP BY
+HAVING
+You should immediately understand the difference between:
+WHERE
+and:
+HAVING
+WHERE
+Filters rows before aggregation.
+SELECT department,
+       AVG(salary)
+FROM employees
+WHERE salary > 30000
+GROUP BY department;
+HAVING
+Filters groups after aggregation.
+SELECT department,
+       AVG(salary)
+FROM employees
+GROUP BY department
+HAVING AVG(salary) > 60000;
+That distinction is a very testable concept.
+Level 3 — Joins
+You already know joins, so now we need to move beyond:
+“What does a LEFT JOIN do?”
+You need to understand what joins do to the grain of the dataset.
+Suppose:
+customers
+customer_id	name
+1	Bob
+2	Susan
+orders
+order_id	customer_id	total
+10	1	50
+11	1	100
+12	2	75
+After:
+SELECT *
+FROM customers c
+JOIN orders o
+    ON c.customer_id = o.customer_id;
+Bob appears twice.
+That's correct because Bob has two orders.
+But this is where analytics queries often go wrong.
+Imagine another table:
+order_items
+One order may have five products.
+Now:
+customers
+JOIN orders
+JOIN order_items
+can multiply records.
+If you calculate:
+SUM(order_total)
+after the wrong join, you might accidentally count the same order five times.
+This is one of the biggest concepts I want you thinking about this semester:
+What does one row represent right now?
+Customer?
+Order?
+Product?
+Transaction?
+Day?
+That question prevents tons of SQL mistakes.
+Level 4 — Conditional logic
+You should become very comfortable with:
+CASE
+Example:
+SELECT customer_name,
+       total_spent,
+       CASE
+           WHEN total_spent >= 1000 THEN 'High Value'
+           WHEN total_spent >= 500 THEN 'Medium Value'
+           ELSE 'Low Value'
+       END AS customer_segment
+FROM customers;
+Analytics uses CASE constantly because analysts create categories from raw data.
+For example:
+SUM(
+    CASE
+        WHEN status = 'Completed'
+        THEN revenue
+        ELSE 0
+    END
+)
+Or:
+COUNT(
+    CASE
+        WHEN state = 'ID'
+        THEN 1
+    END
+)
+These types of questions are extremely worth practicing.
+Level 5 — NULL
+Do not underestimate NULL.
+Know that this is wrong:
+WHERE value = NULL
+You need:
+WHERE value IS NULL
+or:
+WHERE value IS NOT NULL
+Also understand:
+COALESCE()
+Example:
+SELECT customer_name,
+       COALESCE(phone_number, 'No Phone') AS phone
+FROM customers;
+And understand what happens to NULL values in:
+COUNT(column)
+versus:
+COUNT(*)
+They are not necessarily the same.
+Level 6 — Dates
+Analytics uses dates constantly.
+You'll probably work with questions like:
+Revenue by month
+Customers acquired this year
+Orders during the last 30 days
+Average sales by weekday
+Year-over-year growth
+Exact date functions depend on your SQL platform, but conceptually know how to:
+extract year
+extract month
+extract day
+calculate date differences
+group dates
+filter date ranges
+For example:
+SELECT YEAR(order_date) AS year,
+       MONTH(order_date) AS month,
+       SUM(revenue)
+FROM orders
+GROUP BY YEAR(order_date),
+         MONTH(order_date);
+Your specific syntax may differ depending on whether you're using MySQL, PostgreSQL, SQL Server, Snowflake, etc.
+Level 7 — Subqueries
+Suppose I ask:
+Show employees earning more than the company average.
+You can't simply do:
+WHERE salary > AVG(salary)
+Instead:
+SELECT employee_name,
+       salary
+FROM employees
+WHERE salary >
+(
+    SELECT AVG(salary)
+    FROM employees
+);
+You should get comfortable recognizing questions that imply:
+“I need to calculate something first and then use that result.”
+That often means:
+subquery
+CTE
+window function
+Level 8 — CTEs
+CTEs are one of the best tools for analytical SQL.
+WITH customer_sales AS (
+    SELECT customer_id,
+           SUM(revenue) AS total_revenue
+    FROM orders
+    GROUP BY customer_id
+)
+SELECT *
+FROM customer_sales
+WHERE total_revenue > 1000;
+Think of a CTE as:
+Build a temporary logical table, then query it.
+For complicated test questions, CTEs can make your thinking much easier.
+Instead of trying to write one giant query, solve the problem in stages.
+Level 9 — Window functions
+This is one area I'd pay extra attention to.
+Window functions are hugely important in analytical SQL.
+Eventually you should know things like:
+ROW_NUMBER()
+RANK()
+DENSE_RANK()
+SUM() OVER()
+AVG() OVER()
+LAG()
+LEAD()
+For example:
+SELECT customer_id,
+       order_date,
+       revenue,
+       SUM(revenue) OVER (
+           PARTITION BY customer_id
+           ORDER BY order_date
+       ) AS running_total
+FROM orders;
+That calculates a running total.
+Or:
+SELECT employee_name,
+       department,
+       salary,
+       RANK() OVER (
+           PARTITION BY department
+           ORDER BY salary DESC
+       ) AS salary_rank
+FROM employees;
+Now you're ranking employees inside their departments.
+This is much more analytical than traditional basic SQL.
+One concept I really want you to memorize
+Know SQL's logical execution order.
+Conceptually:
+FROM
+JOIN
+WHERE
+GROUP BY
+HAVING
+SELECT
+DISTINCT
+ORDER BY
+LIMIT
+You write:
+SELECT
+FROM
+WHERE
+GROUP BY
+HAVING
+ORDER BY
+But SQL effectively thinks more like:
+FROM
+↓
+WHERE
+↓
+GROUP BY
+↓
+HAVING
+↓
+SELECT
+↓
+ORDER BY
+This explains a lot of confusing SQL behavior.
+For example, why can this sometimes fail?
+SELECT salary * 12 AS annual_salary
+FROM employees
+WHERE annual_salary > 50000;
+Because logically WHERE happens before the alias annual_salary is created by SELECT.
+Once you understand execution order, SQL becomes much easier to reason about.
+The method I want you to use on every analytical problem
+When a test asks:
+Find the three highest-revenue customers in 2026 who placed at least five orders.
+Don't immediately start typing SQL.
+Break it apart.
+Step 1: What table(s)?
+Probably:
+customers
+orders
+Step 2: How are they related?
+customer_id
+Step 3: What rows do I want?
+Orders in 2026.
+That's:
+WHERE
+Step 4: What am I measuring?
+SUM(revenue)
+COUNT(orders)
+Step 5: What's the grouping level?
+Customer.
+GROUP BY customer
+Step 6: Am I filtering aggregates?
+At least five orders.
+That's:
+HAVING COUNT(*) >= 5
+Step 7: How do I rank them?
+ORDER BY SUM(revenue) DESC
+Step 8: How many?
+LIMIT 3
+Then the query becomes:
+SELECT
+    c.customer_id,
+    c.customer_name,
+    SUM(o.revenue) AS total_revenue,
+    COUNT(*) AS order_count
+FROM customers c
+JOIN orders o
+    ON c.customer_id = o.customer_id
+WHERE YEAR(o.order_date) = 2026
+GROUP BY
+    c.customer_id,
+    c.customer_name
+HAVING COUNT(*) >= 5
+ORDER BY total_revenue DESC
+LIMIT 3;
+That decomposition process is what I want you practicing.
+Your weekly study system
+I'd use something like this throughout the semester.
+Since you're taking several technical classes, you don't need to spend two hours every night on SQL. Consistency matters more.
+After each SQL class
+Spend about 20–30 minutes doing three things:
+1. Rewrite
+Take one query from class and recreate it without looking.
+2. Modify
+Change the question slightly.
+For example, if class did:
+SELECT category,
+       AVG(price)
+FROM products
+GROUP BY category;
+change it to:
+Find categories whose average price exceeds $50.
+SELECT category,
+       AVG(price)
+FROM products
+GROUP BY category
+HAVING AVG(price) > 50;
+3. Explain
+Ask yourself:
+Why is this HAVING instead of WHERE?
+If you can't explain the query in plain English, you don't fully own it yet.
+Once per week: SQL challenge day
+Give yourself 5–10 problems.
+No notes.
+No Google.
+No ChatGPT initially.
+Write the queries yourself.
+Then check them.
+Anything you miss goes onto what I call your SQL mistake list.
+For example:
+SQL Mistake List
+☐ Forgetting GROUP BY
+☐ Using WHERE instead of HAVING
+☐ Confusing COUNT(*) and COUNT(column)
+☐ LEFT JOIN accidentally turned into INNER JOIN
+☐ Duplicate records after JOIN
+☐ Incorrect NULL comparison
+☐ Window function PARTITION BY mistakes
+☐ Date filtering mistakes
+Over the semester this list becomes extremely valuable.
+Two weeks before each test
+Start doing test-style questions.
+I'd divide them into three levels.
+Easy
+Single concept.
+Calculate average salary by department.
+Medium
+Two or three concepts.
+Calculate average salary by department for active employees and return departments above $60,000.
+Hard
+Several concepts together.
+Return the three departments with the highest average salary among departments with at least ten active employees.
+The hard questions are where you train for the A.
+Three days before each test
+Stop heavily learning new material.
+Start doing mock tests.
+Since your real test sounds like it effectively has five scored units/questions, we can simulate exactly that.
+I'll give you:
+SQL TEST
+Question 1
+Question 2
+Question 3
+Question 4
+Question 5
+You answer all five without help.
+Then I'll grade you:
+5/5 — A-level mastery
+4/5 — target achieved
+3/5 — dangerous
+2/5 — significant gaps
+1/5 — major review needed
+But importantly, I won't just tell you the answers.
+We'll determine why you missed them.
+Maybe it was:
+syntax
+concept
+data grain
+join logic
+aggregation
+misreading the question
+Those require different fixes.
+The day before the exam
+Don't spend five hours cramming.
+I'd do roughly:
+15 min — syntax review
+30 min — 5-question practice test
+20 min — review mistakes
+15 min — redo missed questions
+Then stop.
+At that point we want your brain recognizing patterns.
+Your pre-test checklist
+Before every exam, you should be able to answer these without hesitation:
+Can I use WHERE correctly?
+Can I use GROUP BY?
+Do I understand HAVING?
+Can I use SUM, AVG, COUNT, MIN, MAX?
+Can I explain INNER JOIN?
+Can I explain LEFT JOIN?
+Can I identify row duplication caused by joins?
+Can I handle NULL?
+Can I write CASE statements?
+Can I use subqueries?
+Can I write a CTE?
+Can I work with dates?
+Can I explain SQL execution order?
+Can I recognize the grain of a dataset?
+Can I use window functions if we've covered them?
+Can I solve a question without seeing an example first?
+If all of those are yes, you're probably in very good shape.
+What I'd especially watch out for
+Because you've already taken multiple SQL-related courses, your biggest risk probably isn't:
+“I don't understand SQL.”
+It's overconfidence from recognizing material you've seen before.
+You might see:
+GROUP BY
+and think:
+“I've known GROUP BY forever.”
+Then the professor asks:
+For each region, calculate the percentage of company-wide revenue represented by that region.
+Now you need something closer to:
+SELECT
+    region,
+    SUM(revenue) AS region_revenue,
+    SUM(revenue) * 1.0 /
+        SUM(SUM(revenue)) OVER () AS pct_total
+FROM sales
+GROUP BY region;
+That's the transition from knowing SQL commands to thinking analytically in SQL.
+That's where I want most of your studying focused.
+And we can use me as your SQL tutor all semester
+You can send me whatever your class covers each week.
+For example:
+“This week we learned GROUP BY, HAVING, and CASE.”
+I'll turn that into a practice sequence:
+Level 1
+5 easy questions
+Level 2
+5 medium questions
+Level 3
+5 hard analytics questions
+Test
+5 questions — no hints
+You answer them, and I'll grade your work instead of immediately giving you the solution.
+If you score:
+5/5 → move on
+4/5 → fix the missed concept
+3/5 → another practice set
+≤2/5 → reteach the topic
+That's probably the most effective way for us to work together.
+For Test 1
+As soon as you find out what chapters/topics are on your first SQL test, send them to me — or paste/upload the syllabus/course schedule — and I'll turn it into a Test 1 study guide, topic checklist, practice problems, and 5-question mock exam specifically designed around your 4/5 requirement.
+i want to get an A in my SQL for analytics class and I am just starting this semester. i have taken multiple sql classes talking about database management, about admin sql and about basic insert select and join statements. teach me what i need to know about analytics in context of what i already have learned.
+You’re actually in a really good position for an analytics-focused SQL class, because you already know the “database mechanics” side of SQL. What changes now is the purpose.
+In database/admin-oriented SQL, the question is usually: How do I store, retrieve, update, and organize data correctly?
+In analytics SQL, the question becomes: How do I turn raw rows into an answer to a business question?
+That distinction is the core of the class.
+You already know things like SELECT, INSERT, joins, tables, database structure, and probably some filtering. So I would not spend much time relearning basic syntax. Instead, you should focus on becoming very strong at aggregation, grouping, conditional logic, window functions, date logic, CTEs, subqueries, and translating vague questions into precise SQL.
+Here is the mental model I want you to use all semester:
+Raw data → define the grain → filter → combine → calculate → summarize → compare → explain
+That is analytics SQL.
+Suppose you have a table like:
+sales
+-----
+order_id
+customer_id
+order_date
+product_id
+quantity
+revenue
+region
+Basic SQL asks:
+SELECT *
+FROM sales;
+Analytics SQL asks:
+SELECT
+    region,
+    SUM(revenue) AS total_revenue,
+    AVG(revenue) AS avg_order_revenue,
+    COUNT(DISTINCT customer_id) AS customers
+FROM sales
+WHERE order_date >= '2026-01-01'
+GROUP BY region
+ORDER BY total_revenue DESC;
+Now you’re not retrieving records. You’re answering:
+Which regions generated the most revenue, and how many customers contributed to it?
+That is the shift you want to master.
+1. The most important concept: grain
+If I could make you master only one thing before your first exam, it would be grain.
+The grain means:
+What does one row represent?
+For example, one row might represent:
+one customer
+one transaction
+one product
+one transaction line item
+one customer per month
+one store per day
+This matters constantly.
+Imagine these tables:
+orders
+order_id
+customer_id
+order_date
+order_items
+order_id
+product_id
+quantity
+price
+orders has one row per order.
+order_items has one row per product within an order.
+If you join them:
+SELECT *
+FROM orders o
+JOIN order_items oi
+    ON o.order_id = oi.order_id;
+You have changed the grain.
+Now your result is approximately:
+one row per order-item combination
+That means if an order contains five products, the order appears five times.
+This becomes extremely important when you calculate things.
+For example, this could be wrong:
+SELECT
+    COUNT(order_id)
+FROM orders o
+JOIN order_items oi
+    ON o.order_id = oi.order_id;
+That counts line items, not orders.
+You may need:
+COUNT(DISTINCT o.order_id)
+instead.
+A lot of analytics SQL mistakes are actually grain mistakes disguised as SQL mistakes.
+Whenever you write a query, ask yourself:
+What does one row represent before the join?
+and then:
+What does one row represent after the join?
+If you consistently do that, you will already be ahead of a lot of students.
+2. Aggregations are now much more important
+You probably already know:
+SUM()
+AVG()
+COUNT()
+MIN()
+MAX()
+But analytics depends heavily on understanding exactly what those functions are doing.
+For example:
+SELECT
+    SUM(revenue)
+FROM sales;
+answers:
+What is total revenue?
+But:
+SELECT
+    region,
+    SUM(revenue)
+FROM sales
+GROUP BY region;
+answers:
+What is total revenue for each region?
+Think of GROUP BY as saying:
+Collapse the dataset into one row for each unique combination of these columns.
+Example:
+SELECT
+    region,
+    product_id,
+    SUM(revenue) AS revenue
+FROM sales
+GROUP BY
+    region,
+    product_id;
+The grain of the result is now:
+one row per region-product combination
+That way of thinking will make GROUP BY much easier.
+3. Know the difference between WHERE and HAVING
+This is a classic exam topic.
+WHERE filters rows before aggregation.
+HAVING filters groups after aggregation.
+Suppose you want regions with more than $100,000 in revenue.
+Wrong:
+SELECT
+    region,
+    SUM(revenue)
+FROM sales
+WHERE SUM(revenue) > 100000
+GROUP BY region;
+Correct:
+SELECT
+    region,
+    SUM(revenue) AS total_revenue
+FROM sales
+GROUP BY region
+HAVING SUM(revenue) > 100000;
+A useful mental model is:
+FROM
+JOIN
+WHERE
+GROUP BY
+HAVING
+SELECT
+ORDER BY
+LIMIT
+That is roughly the logical order SQL processes the query.
+That explains a lot of behavior.
+4. CASE statements are huge in analytics
+You should become very comfortable with:
+CASE
+    WHEN condition THEN value
+    WHEN condition THEN value
+    ELSE value
+END
+Example:
+SELECT
+    customer_id,
+    revenue,
+    CASE
+        WHEN revenue >= 1000 THEN 'High Value'
+        WHEN revenue >= 500 THEN 'Medium Value'
+        ELSE 'Low Value'
+    END AS customer_segment
+FROM sales;
+But the more powerful analytics use is conditional aggregation.
+Example:
+SELECT
+    region,
+    SUM(
+        CASE
+            WHEN product_category = 'Electronics'
+            THEN revenue
+            ELSE 0
+        END
+    ) AS electronics_revenue
+FROM sales
+GROUP BY region;
+You are basically saying:
+Add revenue only when the row matches this condition.
+Conditional aggregation is one of the most useful techniques you can learn.
+You can calculate several metrics in one query:
+SELECT
+    region,
+    SUM(revenue) AS total_revenue,
+    SUM(
+        CASE
+            WHEN product_category = 'Electronics'
+            THEN revenue
+            ELSE 0
+        END
+    ) AS electronics_revenue,
+    SUM(
+        CASE
+            WHEN product_category = 'Furniture'
+            THEN revenue
+            ELSE 0
+        END
+    ) AS furniture_revenue
+FROM sales
+GROUP BY region;
+That kind of query shows up constantly in business analytics.
+5. Window functions are probably the biggest new skill
+Depending on how advanced your class is, window functions may become one of the most important topics.
+A window function lets you calculate something across multiple rows without collapsing the rows like GROUP BY does.
+This distinction matters enormously.
+Imagine:
+employee | department | salary
+John     | Sales      | 70000
+Mary     | Sales      | 80000
+Sara     | Sales      | 90000
+Alex     | IT         | 95000
+Mike     | IT         | 100000
+With GROUP BY:
+SELECT
+    department,
+    AVG(salary)
+FROM employees
+GROUP BY department;
+you get:
+Sales | 80000
+IT    | 97500
+The individual employees disappear.
+But with:
+SELECT
+    employee,
+    department,
+    salary,
+    AVG(salary) OVER (
+        PARTITION BY department
+    ) AS department_avg
+FROM employees;
+you get:
+John  | Sales | 70000  | 80000
+Mary  | Sales | 80000  | 80000
+Sara  | Sales | 90000  | 80000
+Alex  | IT    | 95000  | 97500
+Mike  | IT    | 100000 | 97500
+That lets you compare each row to the group.
+For example:
+salary -
+AVG(salary) OVER (
+    PARTITION BY department
+)
+tells you how far each employee is above or below the department average.
+That is very analytics-oriented.
+6. Learn these window functions especially well
+You will likely see:
+ROW_NUMBER()
+RANK()
+DENSE_RANK()
+LAG()
+LEAD()
+SUM() OVER()
+AVG() OVER()
+COUNT() OVER()
+For example:
+SELECT
+    product_id,
+    revenue,
+    RANK() OVER (
+        ORDER BY revenue DESC
+    ) AS revenue_rank
+FROM product_sales;
+This answers:
+Which products rank highest by revenue?
+You can rank within categories:
+RANK() OVER (
+    PARTITION BY category
+    ORDER BY revenue DESC
+)
+Now the ranking resets for each category.
+7. Top N per group
+This is a classic analytics problem.
+Question:
+Find the top three products by revenue within every category.
+You cannot easily solve that with a simple GROUP BY.
+A common solution:
+WITH product_revenue AS (
+    SELECT
+        category,
+        product_id,
+        SUM(revenue) AS revenue
+    FROM sales
+    GROUP BY
+        category,
+        product_id
+),
+ranked_products AS (
+    SELECT
+        category,
+        product_id,
+        revenue,
+        RANK() OVER (
+            PARTITION BY category
+            ORDER BY revenue DESC
+        ) AS rank_num
+    FROM product_revenue
+)
+SELECT *
+FROM ranked_products
+WHERE rank_num <= 3;
+This query combines several important analytics skills:
+aggregation
+CTEs
+window functions
+filtering
+ranking
+If you can understand queries like this comfortably, you're moving toward A-level competence.
+8. CTEs will make difficult queries much easier
+A CTE uses:
+WITH name AS (
+    SELECT ...
+)
+Example:
+WITH customer_sales AS (
+    SELECT
+        customer_id,
+        SUM(revenue) AS total_revenue
+    FROM sales
+    GROUP BY customer_id
+)
+SELECT *
+FROM customer_sales
+WHERE total_revenue > 5000;
+You could sometimes accomplish the same thing with a subquery:
+SELECT *
+FROM (
+    SELECT
+        customer_id,
+        SUM(revenue) AS total_revenue
+    FROM sales
+    GROUP BY customer_id
+) x
+WHERE total_revenue > 5000;
+But CTEs tend to be much easier to read.
+Think of them as creating temporary intermediate datasets.
+I strongly recommend solving analytics problems in steps.
+Instead of trying to write one giant query, think:
+Step 1:
+Calculate customer revenue.
+Step 2:
+Rank customers.
+Step 3:
+Filter top customers.
+Then write:
+WITH customer_revenue AS (...),
+ranked_customers AS (...)
+SELECT ...
+That is much easier to debug.
+9. Learn date analytics extremely well
+Dates are everywhere in analytics.
+You may need to answer:
+revenue by month
+customer growth by week
+year-over-year change
+purchases during the last 30 days
+first purchase date
+days between purchases
+cohort retention
+monthly active users
+The exact functions vary depending on SQL dialect.
+You may see things like:
+YEAR(order_date)
+MONTH(order_date)
+DATE_TRUNC()
+DATEDIFF()
+DATEADD()
+EXTRACT()
+For example:
+SELECT
+    DATE_TRUNC('month', order_date) AS month,
+    SUM(revenue) AS revenue
+FROM sales
+GROUP BY
+    DATE_TRUNC('month', order_date)
+ORDER BY month;
+That converts transactions into monthly revenue.
+10. Running totals
+Suppose monthly revenue is:
+January   10000
+February  12000
+March     8000
+A running total would be:
+January   10000
+February  22000
+March     30000
+You can calculate that using:
+SUM(revenue) OVER (
+    ORDER BY month
+)
+Example:
+SELECT
+    month,
+    revenue,
+    SUM(revenue) OVER (
+        ORDER BY month
+    ) AS cumulative_revenue
+FROM monthly_sales;
+Window functions like this are extremely common in analytics.
+11. LAG and LEAD
+These functions let you compare rows over time.
+Suppose you have:
+month | revenue
+Jan   | 10000
+Feb   | 12000
+Mar   | 15000
+You could write:
+SELECT
+    month,
+    revenue,
+    LAG(revenue) OVER (
+        ORDER BY month
+    ) AS previous_month_revenue
+FROM monthly_sales;
+Now:
+Jan | 10000 | NULL
+Feb | 12000 | 10000
+Mar | 15000 | 12000
+Then you can calculate month-over-month growth:
+(revenue - previous_revenue)
+/
+previous_revenue
+Often you'll use a CTE:
+WITH revenue_with_previous AS (
+    SELECT
+        month,
+        revenue,
+        LAG(revenue) OVER (
+            ORDER BY month
+        ) AS previous_revenue
+    FROM monthly_sales
+)
+SELECT
+    month,
+    revenue,
+    previous_revenue,
+    (revenue - previous_revenue)
+    / previous_revenue AS growth_rate
+FROM revenue_with_previous;
+That is very typical analyst work.
+12. You need to become excellent at JOIN behavior
+You already know joins, but analytics requires a deeper understanding of them.
+You should be able to look at these and immediately understand their impact:
+INNER JOIN
+LEFT JOIN
+RIGHT JOIN
+FULL OUTER JOIN
+CROSS JOIN
+Especially LEFT JOIN.
+Suppose:
+customers
+customer_id
+and:
+orders
+customer_id
+Question:
+Which customers have never ordered?
+You could do:
+SELECT
+    c.customer_id
+FROM customers c
+LEFT JOIN orders o
+    ON c.customer_id = o.customer_id
+WHERE o.customer_id IS NULL;
+This pattern is called an anti-join conceptually.
+It is extremely useful.
+13. Watch out for duplicate multiplication
+One of the biggest real-world analytics problems happens when you join multiple one-to-many tables.
+Imagine:
+customers
+orders
+support_tickets
+A customer has:
+3 orders
+2 support tickets
+If you join all three directly:
+customers
+JOIN orders
+JOIN support_tickets
+you might get:
+3 × 2 = 6 rows
+for that customer.
+That can accidentally inflate your totals.
+The safer strategy is often:
+WITH order_summary AS (
+    SELECT
+        customer_id,
+        COUNT(*) AS orders
+    FROM orders
+    GROUP BY customer_id
+),
+ticket_summary AS (
+    SELECT
+        customer_id,
+        COUNT(*) AS tickets
+    FROM support_tickets
+    GROUP BY customer_id
+)
+SELECT ...
+You aggregate each dataset first, then join the summaries.
+This is a very important analytics habit.
+14. NULLs matter more than people realize
+You want to understand:
+NULL
+does not mean:
+0
+and does not mean:
+''
+NULL represents missing or unknown data.
+Therefore:
+column = NULL
+doesn't work correctly.
+Use:
+column IS NULL
+or:
+column IS NOT NULL
+You'll also use:
+COALESCE()
+Example:
+COALESCE(discount, 0)
+meaning:
+If discount is NULL, use 0.
+Example:
+revenue - COALESCE(discount, 0)
+Without COALESCE, a NULL discount might cause the whole expression to become NULL.
+15. COUNT(*) vs COUNT(column)
+This is another common test question.
+Suppose:
+customer_id | phone
+1           | 555...
+2           | NULL
+3           | 555...
+Then:
+COUNT(*)
+returns:
+3
+while:
+COUNT(phone)
+returns:
+2
+because COUNT(column) ignores NULLs.
+And:
+COUNT(DISTINCT customer_id)
+counts unique customers.
+You want those distinctions completely automatic in your head.
+16. Ratios and percentages
+Analytics involves tons of percentages.
+For example:
+What percentage of revenue comes from each region?
+You could use:
+SELECT
+    region,
+    SUM(revenue) AS region_revenue,
+    SUM(revenue)
+    /
+    SUM(SUM(revenue)) OVER () AS revenue_share
+FROM sales
+GROUP BY region;
+That second expression is worth studying.
+The inner:
+SUM(revenue)
+calculates revenue per region.
+Then:
+SUM(...) OVER ()
+calculates the total across all regions.
+So you're doing:
+region revenue / company revenue
+That's an extremely analytical use of SQL.
+17. Understand dimensions and measures
+This is more of a business intelligence concept, but it will help enormously.
+Dimensions describe things.
+Examples:
+region
+customer
+product
+category
+date
+salesperson
+store
+Measures are values you calculate.
+Examples:
+revenue
+profit
+quantity
+cost
+orders
+customers
+average order value
+So if someone asks:
+Show average revenue by region and product category.
+Think:
+Dimensions:
+region
+category
+Measure:
+average revenue
+Then the SQL structure becomes obvious:
+SELECT
+    region,
+    category,
+    AVG(revenue)
+FROM sales
+GROUP BY
+    region,
+    category;
+18. Learn to translate English into SQL operations
+This is probably the single best skill for tests.
+When you see:
+Find the top five customers by total spending during 2026.
+Translate it mentally.
+Dataset:
+orders
+Filter:
+2026
+Group:
+customer
+Measure:
+SUM(spending)
+Sort:
+descending
+Limit:
+5
+Then write:
+SELECT
+    customer_id,
+    SUM(amount) AS total_spending
+FROM orders
+WHERE order_date >= '2026-01-01'
+  AND order_date < '2027-01-01'
+GROUP BY customer_id
+ORDER BY total_spending DESC
+LIMIT 5;
+Do this translation before writing SQL.
+It prevents you from staring at an empty editor wondering where to begin.
+19. Ask these five questions before every analytics query
+This is a habit I would build immediately.
+What does one row currently represent?
+What should one row in my final result represent?
+What rows need to be filtered out?
+What dimensions am I grouping by?
+What metrics am I calculating?
+For example:
+Find average monthly spending for each customer.
+Current grain:
+one row per transaction
+Desired grain:
+one row per customer per month
+Dimensions:
+customer
+month
+Measure:
+SUM(transaction amount)
+Then perhaps a second aggregation:
+average monthly spending per customer
+That tells you you probably need two steps.
+20. Analytics questions often require multiple grains
+Here's an excellent example.
+Question:
+What is the average number of orders placed per customer?
+A common mistake is:
+SELECT AVG(order_id)
+FROM orders;
+Obviously wrong.
+You need to first calculate:
+orders per customer
+Then calculate:
+average of those customer totals
+So:
+WITH customer_orders AS (
+    SELECT
+        customer_id,
+        COUNT(*) AS order_count
+    FROM orders
+    GROUP BY customer_id
+)
+SELECT
+    AVG(order_count)
+FROM customer_orders;
+This is a major analytics idea:
+Sometimes the metric you need does not exist at the current grain.
+You first transform the data to the correct grain.
+21. Learn business metrics, not just SQL functions
+Analytics SQL classes often introduce metrics such as:
+Revenue
+Profit
+Profit Margin
+Average Order Value
+Conversion Rate
+Customer Lifetime Value
+Retention Rate
+Churn Rate
+Growth Rate
+Market Share
+Units Per Transaction
+Revenue Per Customer
+For example:
+Average order value:
+SUM(revenue)
+/
+COUNT(DISTINCT order_id)
+Profit margin:
+SUM(profit)
+/
+SUM(revenue)
+Revenue per customer:
+SUM(revenue)
+/
+COUNT(DISTINCT customer_id)
+SQL is simply the tool.
+The real skill is knowing what the metric means.
+22. Expect questions like these
+By the end of a good SQL analytics class, you should be comfortable answering questions like:
+Which products generate the most revenue?
+Which customers spend the most?
+What are monthly revenue trends?
+What is month-over-month growth?
+Which regions are underperforming?
+What percentage of sales comes from each category?
+Which customers haven't purchased recently?
+What are the top three products within each category?
+What is the average time between purchases?
+Which customers purchased in January but not February?
+What was each customer's first purchase?
+What is the running total of revenue?
+How does each store compare with the company average?
+How many customers return after their first purchase?
+Those are much closer to analytics than:
+INSERT INTO ...
+or:
+ALTER TABLE ...
+23. Your prior database knowledge is still useful
+Your database management background gives you an advantage.
+You probably already understand concepts like:
+primary keys
+foreign keys
+normalization
+schemas
+relationships
+indexes
+constraints
+table design
+data types
+That helps because you'll understand why analytical datasets look the way they do.
+For instance:
+customers
+orders
+order_items
+products
+is a normalized transactional structure.
+But analysts frequently need to combine those tables to create an analysis-ready dataset.
+The application database might be optimized for:
+fast transactions
+minimal duplication
+data integrity
+while analytics often wants:
+easy querying
+historical comparison
+aggregated metrics
+Later you may encounter concepts like:
+fact tables
+dimension tables
+star schemas
+data warehouses
+Those are basically database design specifically optimized for analytics.
+24. Star schemas may be important
+You may see something like:
+              dim_customer
+                   |
+                   |
+dim_product — fact_sales — dim_date
+                   |
+                   |
+               dim_store
+The center table contains measures.
+Example:
+fact_sales
+---------
+date_id
+customer_id
+product_id
+store_id
+quantity
+revenue
+cost
+profit
+Dimension tables describe the event.
+Example:
+dim_product
+-----------
+product_id
+product_name
+category
+brand
+Then an analyst can write:
+SELECT
+    p.category,
+    SUM(f.revenue)
+FROM fact_sales f
+JOIN dim_product p
+    ON f.product_id = p.product_id
+GROUP BY p.category;
+This is very common in analytics systems.
+25. Data cleaning becomes part of your job
+Analytical data is often messy.
+You may need:
+TRIM()
+UPPER()
+LOWER()
+REPLACE()
+CAST()
+COALESCE()
+NULLIF()
+Example:
+LOWER(TRIM(email))
+or:
+CAST(price AS DECIMAL)
+or:
+NULLIF(quantity, 0)
+You may also encounter duplicate records.
+Example:
+ROW_NUMBER() OVER (
+    PARTITION BY customer_id, order_date
+    ORDER BY updated_at DESC
+)
+can help identify duplicates or choose the latest record.
+26. Don't memorize giant queries
+This is especially important if your goal is an A.
+Students sometimes try to memorize query patterns.
+Instead, learn to decompose the question.
+Suppose the test asks:
+Find the three customers with the highest average monthly spending.
+Don't immediately try to write the final query.
+Break it down:
+Step 1:
+Calculate spending per customer per month.
+Step 2:
+Calculate average monthly spending per customer.
+Step 3:
+Sort customers descending.
+Step 4:
+Return top three.
+SQL:
+WITH monthly_spending AS (
+    SELECT
+        customer_id,
+        DATE_TRUNC('month', order_date) AS month,
+        SUM(revenue) AS monthly_revenue
+    FROM sales
+    GROUP BY
+        customer_id,
+        DATE_TRUNC('month', order_date)
+),
+customer_average AS (
+    SELECT
+        customer_id,
+        AVG(monthly_revenue) AS avg_monthly_revenue
+    FROM monthly_spending
+    GROUP BY customer_id
+)
+SELECT *
+FROM customer_average
+ORDER BY avg_monthly_revenue DESC
+LIMIT 3;
+That thought process is far more important than memorizing the syntax.
+27. Learn the difference between these tools
+By the end of the semester, you should know instinctively when to use each:
+Need	Likely tool
+Filter raw rows	WHERE
+Combine tables	JOIN
+Create groups	GROUP BY
+Filter aggregated groups	HAVING
+Create categories	CASE
+Replace missing values	COALESCE
+Create intermediate dataset	CTE
+Compare rows without collapsing	Window function
+Rank rows	RANK() / ROW_NUMBER()
+Compare previous period	LAG()
+Compare next period	LEAD()
+Running total	SUM() OVER()
+Remove duplicates	DISTINCT or ROW_NUMBER()
+Top records	ORDER BY + LIMIT
+You don't just want to know their syntax.
+You want to recognize which tool the question is asking for.
+28. The order I would study this semester
+Since you already know basic SQL, I would prioritize your learning roughly like this:
+Grain and aggregation
+GROUP BY / HAVING
+CASE and conditional aggregation
+JOIN behavior and duplicate multiplication
+NULLs and COALESCE
+CTEs and subqueries
+Date manipulation
+Window functions
+ROW_NUMBER / RANK / DENSE_RANK
+LAG / LEAD
+Running totals and moving averages
+Business metrics
+Data cleaning
+Star schemas / fact and dimension tables
+Performance and query optimization
+If your professor teaches them in a different order, follow the class order, but this is the conceptual hierarchy I would want in your head.
+29. What separates an A student from someone who merely knows SQL
+This is the biggest thing I want you to understand.
+A student who knows SQL sees:
+Calculate each category's percentage of total revenue.
+and thinks:
+What syntax do I use?
+A strong analytics student thinks:
+Numerator:
+category revenue
+Denominator:
+total revenue
+Grain:
+one row per category
+Then SQL becomes almost mechanical.
+They write:
+SELECT
+    category,
+    SUM(revenue) AS category_revenue,
+    SUM(revenue)
+    /
+    SUM(SUM(revenue)) OVER () AS revenue_pct
+FROM sales
+GROUP BY category;
+That's the level you want to get to.
+30. A very good daily practice routine for you
+Because you're already familiar with SQL, I would not recommend hours of passive studying.
+Do about 20–30 minutes of actual SQL most days.
+Use this progression:
+5 minutes:
+Review one concept.
+15–20 minutes:
+Solve 2–4 SQL problems without looking up the answer.
+5 minutes:
+Analyze what went wrong.
+Most importantly, when you get an answer wrong, don't just look at the correct SQL.
+Ask:
+Was my error syntax, logic, grain, join behavior, aggregation, or misunderstanding the question?
+That gives you much faster improvement.
+31. Practice in layers
+For every dataset, practice asking increasingly difficult questions.
+Imagine an orders dataset.
+Start with:
+SELECT *
+FROM orders;
+Then:
+Revenue by customer
+Then:
+Revenue by customer by month
+Then:
+Average monthly revenue per customer
+Then:
+Rank customers by average monthly revenue
+Then:
+Top three customers in each region
+Then:
+Month-over-month growth for each region
+You are gradually stacking concepts.
+That's far more effective than doing random disconnected SQL exercises.
+32. One SQL pattern I want you to internalize
+A massive number of analytics queries ultimately look like:
+WITH base AS (
+    SELECT
+        ...
+    FROM ...
+    JOIN ...
+    WHERE ...
+),
+summary AS (
+    SELECT
+        dimension,
+        SUM(metric) AS metric
+    FROM base
+    GROUP BY dimension
+),
+analysis AS (
+    SELECT
+        *,
+        RANK() OVER (
+            ORDER BY metric DESC
+        ) AS ranking
+    FROM summary
+)
+SELECT *
+FROM analysis
+WHERE ranking <= 10;
+Not every query looks exactly like that, of course.
+But the general structure is extremely common:
+Build dataset
+      ↓
+Aggregate
+      ↓
+Analyze
+      ↓
+Filter/present
+33. Your admin SQL experience may actually cause one trap
+Because you've worked with SQL administratively, you may instinctively think about tables and database operations.
+For this class, try to shift your thinking toward questions and metrics.
+Instead of starting with:
+What tables do I have?
+start with:
+What exactly am I being asked to measure?
+Then:
+At what grain should I measure it?
+Then:
+Which tables contain the dimensions and measures necessary?
+That is much closer to how an analyst thinks.
+34. A framework I want you to use on exams
+Whenever you see a word problem, write this mentally—or even on scratch paper:
+FINAL GRAIN:
+What should one row represent?
+DIMENSIONS:
+What categories/groups appear in the result?
+METRICS:
+What numbers am I calculating?
+FILTERS:
+Which rows should be included?
+TABLES:
+Where does the data come from?
+JOINS:
+How are those tables related?
+INTERMEDIATE STEPS:
+Do I need more than one grain?
+WINDOW:
+Do I need ranking/comparison/running calculations?
+SORT/LIMIT:
+How should the final output be presented?
+For example:
+Find the five highest-revenue products in each region during the last quarter.
+You would translate that to:
+Final grain:
+region/product
+Dimensions:
+region
+product
+Metric:
+SUM(revenue)
+Filter:
+last quarter
+First calculation:
+revenue per region/product
+Window:
+rank products within region
+Final filter:
+rank <= 5
+Then the SQL practically writes itself.
+35. I think this is the biggest shift for you
+Given what you've already learned, I'd describe your progression like this:
+Database SQL
+"What rows are stored?"
+       ↓
+Query SQL
+"How do I retrieve the rows I need?"
+       ↓
+Analytics SQL
+"What does the data tell me?"
+       ↓
+Advanced Analytics SQL
+"How do things compare across groups and over time?"
+       ↓
+Business Analytics
+"What decision should someone make based on this?"
+You're entering that third stage now.
+Your prior classes taught you the language.
+This class should teach you how to reason with the language.
+And if your goal is an A, that reasoning is exactly where I'd put most of your effort.
+For this semester, I would make your personal target: by the first major exam, be able to look at an analytics word problem and identify the grain, dimensions, measures, filters, joins, and whether it needs aggregation or a window function before you write any SQL. If you can do that consistently, your existing SQL background should give you a substantial advantage.
+i am starting an sql for analytics class and want to get an A how do i prepare for the test and get the grade i want
+You can absolutely prepare for an A in an SQL-for-analytics class, but the key is to prepare for writing SQL under pressure, not just recognizing what SQL looks like.
+For a class like yours, I would use this approach:
+Learn the core patterns cold. You should be able to write SELECT, WHERE, ORDER BY, GROUP BY, HAVING, CASE, joins, subqueries/CTEs, aggregate functions, and basic window functions without constantly looking up syntax.
+Practice from a blank screen. Looking at completed queries feels productive, but exams usually require you to produce the query yourself. Take a question like “show total sales by customer for customers with more than $500 in sales” and write it from scratch.
+Predict the result before running the query. This is one of the fastest ways to actually understand SQL. Ask yourself: “How many rows should this return? What will one row represent?”
+Get extremely good at joins and aggregation. Those are where many analytics students lose points. You want to understand why a join multiplies rows, when to use LEFT JOIN versus INNER JOIN, and why WHERE and HAVING are different.
+Practice debugging. Intentionally take broken SQL and fix it. Exams often include mistakes involving commas, aliases, grouping, ambiguous columns, nulls, or incorrect join conditions.
+The mental model I want you to use
+Whenever you see an SQL problem, think through it in this order:
+1. What should one row of my final answer represent?
+Suppose the question says:
+Find the average order value for each customer.
+One final row = one customer.
+That immediately tells you you'll probably need:
+GROUP BY customer_id
+Then ask:
+2. Which table contains the thing I'm measuring?
+Maybe:
+customers
+orders
+order_items
+products
+If you're measuring order value, you'll probably start around orders or order_items.
+3. Do I need another table?
+If yes, determine how the tables relate before writing the join.
+FROM customers c
+JOIN orders o
+    ON c.customer_id = o.customer_id
+4. Am I filtering individual rows or groups?
+Individual rows:
+WHERE order_date >= '2026-01-01'
+Groups:
+HAVING COUNT(*) >= 5
+5. Do I need aggregation?
+Think:
+COUNT()
+SUM()
+AVG()
+MIN()
+MAX()
+That process will solve a surprisingly large percentage of analytics SQL questions.
+What I would memorize
+Not entire queries. Memorize templates.
+Basic query:
+SELECT column1, column2
+FROM table
+WHERE condition
+ORDER BY column1;
+Aggregation:
+SELECT category,
+       COUNT(*) AS count,
+       AVG(value) AS avg_value
+FROM table
+WHERE condition
+GROUP BY category
+HAVING COUNT(*) > 5
+ORDER BY avg_value DESC;
+Join:
+SELECT a.column,
+       b.column
+FROM table_a a
+JOIN table_b b
+    ON a.id = b.id;
+CTE:
+WITH summary AS (
+    SELECT customer_id,
+           SUM(amount) AS total_amount
+    FROM orders
+    GROUP BY customer_id
+)
+SELECT *
+FROM summary
+WHERE total_amount > 1000;
+Window function:
+SELECT employee,
+       department,
+       salary,
+       RANK() OVER (
+           PARTITION BY department
+           ORDER BY salary DESC
+       ) AS salary_rank
+FROM employees;
+You don't have to memorize hundreds of commands. You want maybe 15–20 patterns that you can adapt.
+Your best study routine
+Because you're taking SQL specifically for analytics, I would study SQL almost like a math class.
+Spend around 30–45 minutes a day instead of doing one giant cram session.
+A strong study session could look like:
+10 minutes: review previous concepts.
+20 minutes: solve 3–5 SQL questions without notes.
+10 minutes: look at mistakes and rewrite the queries correctly.
+The mistake review is probably the most important part.
+Keep a little document called something like:
+SQL Mistakes
+Write things such as:
+Mistake:
+Used WHERE COUNT(*) > 5
+Correct:
+HAVING COUNT(*) > 5
+Reason:
+WHERE filters rows before grouping.
+HAVING filters groups after GROUP BY.
+After a few weeks you'll have a personalized study guide made from the exact things you struggle with.
+The topics I would prioritize
+If I were trying to maximize your exam grade, I'd learn them roughly in this order:
+SELECT
+WHERE
+ORDER BY
+aliases with AS
+DISTINCT
+COUNT, SUM, AVG, MIN, MAX
+GROUP BY
+HAVING
+CASE WHEN
+INNER JOIN
+LEFT JOIN
+multiple joins
+NULL / IS NULL
+date functions
+string functions
+subqueries
+CTEs
+window functions
+ROW_NUMBER, RANK, DENSE_RANK
+more advanced analytical problems
+Those first 12 or so concepts are probably the foundation of the course.
+You especially need to master GROUP BY
+This is one of the biggest concepts in analytics SQL.
+Suppose the data is:
+customer	amount
+Bob	20
+Bob	30
+Sarah	10
+Sarah	50
+This:
+SELECT customer,
+       SUM(amount)
+FROM sales
+GROUP BY customer;
+returns:
+customer	sum
+Bob	50
+Sarah	60
+The idea is:
+GROUP BY changes what one row represents.
+Before grouping:
+one row = one transaction
+After:
+GROUP BY customer
+one row = one customer
+That mental model will help you tremendously.
+Understand joins visually
+Imagine:
+customers
+customer_id	name
+1	Jake
+2	Sam
+3	Mia
+orders
+order_id	customer_id
+100	1
+101	1
+102	3
+If you run:
+SELECT *
+FROM customers c
+JOIN orders o
+    ON c.customer_id = o.customer_id;
+you get Jake twice because Jake has two orders.
+That isn't SQL messing up.
+The relationship is:
+Jake
+ ├── Order 100
+ └── Order 101
+Understanding row multiplication is critical.
+Whenever you join tables, ask:
+What is the relationship?
+one-to-one
+one-to-many
+many-to-many
+This will prevent a ton of analytics mistakes.
+Practice English → SQL
+This may be the single best test-prep exercise.
+Take this:
+Show the five customers who spent the most money in 2026.
+Break it apart.
+Entity
+customer
+Measure
+SUM(amount)
+Filter
+2026
+Grouping
+customer
+Ranking
+highest first
+Limit
+5
+Then:
+SELECT customer_id,
+       SUM(amount) AS total_spent
+FROM orders
+WHERE order_date >= '2026-01-01'
+  AND order_date < '2027-01-01'
+GROUP BY customer_id
+ORDER BY total_spent DESC
+LIMIT 5;
+Eventually you want your brain automatically translating questions like that into SQL components.
+The week before the test
+I'd stop doing mostly notes and move almost entirely to practice problems.
+Do sets like:
+5 WHERE questions
+5 GROUP BY questions
+5 JOIN questions
+5 aggregation questions
+5 CASE questions
+5 multi-concept questions
+Then combine concepts.
+For example:
+For every department, return the number of employees earning more than $50,000, but only show departments with at least five such employees.
+That's an excellent test-style question because it combines:
+WHERE
+GROUP BY
+COUNT
+HAVING
+Solution:
+SELECT department,
+       COUNT(*) AS employee_count
+FROM employees
+WHERE salary > 50000
+GROUP BY department
+HAVING COUNT(*) >= 5;
+The night before the exam
+Do not try to learn ten new SQL topics.
+Instead, review your patterns:
+SELECT / WHERE
+GROUP BY
+HAVING
+CASE
+JOIN
+LEFT JOIN
+CTE
+window function
+NULL
+dates
+Then solve maybe 10 mixed questions from scratch.
+Anything you miss goes on a one-page review sheet.
+During the test
+Don't immediately start typing a complicated query.
+Read the question and identify:
+What does one row represent?
+Which tables?
+Which columns?
+What filtering?
+What grouping?
+What calculation?
+What sorting?
+Then build the query incrementally.
+For example, don't write this all at once:
+SELECT c.customer_name,
+       SUM(oi.quantity * p.price) AS revenue
+FROM customers c
+JOIN orders o ON c.customer_id = o.customer_id
+JOIN order_items oi ON o.order_id = oi.order_id
+JOIN products p ON oi.product_id = p.product_id
+WHERE o.order_date >= '2026-01-01'
+GROUP BY c.customer_name
+HAVING SUM(oi.quantity * p.price) > 1000
+ORDER BY revenue DESC;
+Build:
+SELECT *
+FROM customers c
+JOIN orders o
+    ON c.customer_id = o.customer_id;
+Then add the next table.
+Then filtering.
+Then grouping.
+Then aggregation.
+You'll catch mistakes much more easily.
+One thing I'd do starting today
+Since you want an A rather than simply passing, I'd create an ongoing test-prep system for your SQL class.
+For every class topic, maintain three things:
+1. Concept
+2. Query template
+3. Practice question
+For example:
+Concept:
+GROUP BY + HAVING
+Template:
+SELECT category,
+       COUNT(*)
+FROM table
+GROUP BY category
+HAVING COUNT(*) > 5;
+Practice question:
+Find product categories containing more than 10 products.
+By exam time, instead of rereading weeks of PowerPoints, you'll have a compact SQL playbook.
+Given that you're already studying Data Science and Business Analytics, SQL can become one of the more useful skills you take out of your degree—not just another class to survive. The goal I'd set is: by the test, you should be able to look at an analytics question and know the rough shape of the SQL before touching the keyboard.
+how to get better at my sql for analytics class
+For a SQL for Analytics class, the fastest way to improve is to stop treating SQL like something you memorize and start treating it like a language for answering business questions.
+A good goal is: when you see a question like “Which customers spent the most last month?”, you should automatically start thinking:
+FROM → JOIN → WHERE → GROUP BY → aggregate → ORDER BY
+That mental translation is the real skill.
+Given that you’re taking BA 300 and already have some data/programming background, I’d focus on these areas in roughly this order:
+Get extremely comfortable with the core query structure. You should be able to write SELECT, FROM, WHERE, ORDER BY, GROUP BY, and HAVING without thinking much about syntax.
+SELECT
+    category,
+    COUNT(*) AS number_of_sales,
+    SUM(revenue) AS total_revenue,
+    AVG(revenue) AS avg_revenue
+FROM sales
+WHERE sale_date >= '2026-01-01'
+GROUP BY category
+HAVING SUM(revenue) > 10000
+ORDER BY total_revenue DESC;
+The important thing here isn't memorizing the query. It's understanding the pipeline:
+Get rows → filter rows → group rows → calculate metrics → filter groups → sort the answer.
+Master JOINs early. This is probably the single biggest jump from beginner SQL to useful analytics SQL.
+Imagine:
+customers
+---------
+customer_id
+name
+state
+orders
+------
+order_id
+customer_id
+order_date
+amount
+If someone asks:
+How much has each customer spent?
+You need to immediately recognize that the information lives in two tables, connected by customer_id.
+SELECT
+    c.customer_id,
+    c.name,
+    SUM(o.amount) AS total_spent
+FROM customers c
+JOIN orders o
+    ON c.customer_id = o.customer_id
+GROUP BY
+    c.customer_id,
+    c.name
+ORDER BY total_spent DESC;
+Spend extra time learning the difference between:
+INNER JOIN
+LEFT JOIN
+RIGHT JOIN
+FULL OUTER JOIN
+For analytics, INNER JOIN and LEFT JOIN will probably do the majority of your work.
+Practice aggregation constantly. Analytics SQL is full of questions involving:
+COUNT()
+SUM()
+AVG()
+MIN()
+MAX()
+For example:
+What is average order value by state?
+SELECT
+    c.state,
+    AVG(o.amount) AS avg_order_value
+FROM customers c
+JOIN orders o
+    ON c.customer_id = o.customer_id
+GROUP BY c.state
+ORDER BY avg_order_value DESC;
+Whenever you see phrases like:
+"per customer"
+"by state"
+"for each department"
+"by month"
+"per product"
+your brain should start thinking GROUP BY.
+Learn CASE WHEN really well. It's one of the most useful tools in analytics.
+SELECT
+    customer_id,
+    amount,
+    CASE
+        WHEN amount >= 500 THEN 'High Value'
+        WHEN amount >= 100 THEN 'Medium Value'
+        ELSE 'Low Value'
+    END AS order_segment
+FROM orders;
+Then you can combine it with aggregation:
+SELECT
+    CASE
+        WHEN amount >= 500 THEN 'High Value'
+        WHEN amount >= 100 THEN 'Medium Value'
+        ELSE 'Low Value'
+    END AS order_segment,
+    COUNT(*) AS orders
+FROM orders
+GROUP BY 1;
+Now you're doing actual business analytics rather than just retrieving records.
+Get comfortable with dates. Analytics questions almost always involve time.
+You'll eventually want to answer questions like:
+What were monthly sales?
+Something conceptually like:
+SELECT
+    DATE_TRUNC('month', order_date) AS month,
+    SUM(amount) AS revenue
+FROM orders
+GROUP BY month
+ORDER BY month;
+Or:
+What happened in the last 30 days?
+WHERE order_date >= CURRENT_DATE - INTERVAL '30 days'
+Exact date functions vary depending on whether your class uses Snowflake, PostgreSQL, MySQL, SQL Server, etc., but the analytics concepts stay the same.
+Learn CTEs before you get addicted to giant queries.
+A CTE uses WITH:
+WITH customer_sales AS (
+    SELECT
+        customer_id,
+        SUM(amount) AS total_spent
+    FROM orders
+    GROUP BY customer_id
+)
+SELECT *
+FROM customer_sales
+WHERE total_spent > 1000;
+Think of it like creating a temporary result that you can reference later.
+Instead of writing one monstrous query, you can break the problem into steps:
+Step 1: calculate customer sales
+Step 2: classify customers
+Step 3: summarize classifications
+That becomes:
+WITH customer_sales AS (
+    SELECT
+        customer_id,
+        SUM(amount) AS total_spent
+    FROM orders
+    GROUP BY customer_id
+),
+customer_segments AS (
+    SELECT
+        customer_id,
+        total_spent,
+        CASE
+            WHEN total_spent >= 5000 THEN 'VIP'
+            WHEN total_spent >= 1000 THEN 'Regular'
+            ELSE 'Low Spend'
+        END AS segment
+    FROM customer_sales
+)
+SELECT
+    segment,
+    COUNT(*) AS customers,
+    AVG(total_spent) AS avg_spending
+FROM customer_segments
+GROUP BY segment;
+That's the kind of SQL you'll use in real analytics work.
+Eventually get good at window functions. These are where SQL starts becoming extremely powerful.
+For example, suppose you want to rank customers:
+SELECT
+    customer_id,
+    total_spent,
+    RANK() OVER (
+        ORDER BY total_spent DESC
+    ) AS spending_rank
+FROM customer_sales;
+Or compare a row to a previous month:
+LAG(revenue) OVER (
+    ORDER BY month
+)
+Common ones worth learning are:
+ROW_NUMBER()
+RANK()
+DENSE_RANK()
+LAG()
+LEAD()
+SUM() OVER()
+AVG() OVER()
+Don't worry if those seem weird initially. Window functions feel strange until they suddenly click.
+The best practice method
+I wouldn't spend most of your study time watching SQL tutorials.
+Instead, spend roughly:
+20% learning → 80% writing SQL
+Take a small database and give yourself questions.
+For example:
+customers
+orders
+products
+order_items
+employees
+Then answer increasingly difficult questions:
+How many customers are there?
+Which five products cost the most?
+How many customers live in each state?
+What is total revenue?
+What is revenue by month?
+Which customer spent the most?
+Which product generated the most revenue?
+Which customers haven't ordered anything?
+What percentage of revenue came from each category?
+What are the top three products within each category?
+Which customers increased their spending from last month?
+That progression takes you from beginner SQL to legitimately useful analytics SQL.
+One habit that will dramatically improve your SQL
+Before typing anything, write the problem in plain English.
+For example:
+Find the top 10 customers by total spending in 2026.
+Then translate it:
+Need:
+customer
+total spending
+Tables:
+customers
+orders
+Relationship:
+customers.customer_id = orders.customer_id
+Filter:
+orders from 2026
+Aggregation:
+SUM(amount)
+Group:
+customer
+Sort:
+total spending DESC
+Limit:
+10
+Then write the SQL.
+SELECT
+    c.customer_id,
+    c.name,
+    SUM(o.amount) AS total_spent
+FROM customers c
+JOIN orders o
+    ON c.customer_id = o.customer_id
+WHERE o.order_date >= '2026-01-01'
+  AND o.order_date < '2027-01-01'
+GROUP BY
+    c.customer_id,
+    c.name
+ORDER BY total_spent DESC
+LIMIT 10;
+That method prevents a ton of mistakes.
+Also learn SQL's logical execution order
+This is extremely useful because SQL isn't logically processed in the same order you type it.
+You write:
+SELECT
+FROM
+WHERE
+GROUP BY
+HAVING
+ORDER BY
+But conceptually SQL works more like:
+FROM / JOIN
+↓
+WHERE
+↓
+GROUP BY
+↓
+HAVING
+↓
+SELECT
+↓
+ORDER BY
+↓
+LIMIT
+Once you understand that, things like "why can't I use this alias here?" start making much more sense.
+For your class specifically, I would aim to reach a point where these feel comfortable:
+SELECT / DISTINCT
+WHERE
+AND / OR / NOT
+IN / BETWEEN / LIKE
+NULL / IS NULL
+ORDER BY
+LIMIT
+COUNT / SUM / AVG / MIN / MAX
+GROUP BY
+HAVING
+CASE WHEN
+INNER JOIN
+LEFT JOIN
+multiple-table joins
+subqueries
+CTEs
+date manipulation
+string manipulation
+window functions
+If you get genuinely good at those, you'll be ahead of where most introductory analytics SQL classes finish.
+And there's one thing I'd strongly recommend for this semester: whenever you get a BA 300 assignment, don't just try to get the correct answer. Afterward, take one question from the assignment and modify it three ways. For example, if the assignment asks for sales by region, also calculate sales by month, average sales by region, and the highest-selling product inside each region.
+That extra 10–15 minutes per assignment will make SQL stick much faster than rereading your notes.
+If you want, you can also send me your first BA 300 assignment, lecture, or SQL exercise, and I can tutor you through it without simply giving you the answers—basically increasing the difficulty as you improve.
+In Wednesdays class, we learned about ethics and AI. We talked about different ways the church uses AI and started to debate AI and plagurism. 

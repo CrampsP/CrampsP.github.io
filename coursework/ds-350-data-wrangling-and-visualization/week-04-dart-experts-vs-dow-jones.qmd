@@ -1,0 +1,46 @@
+---
+title: "w04_Task1"
+---
+
+
+```{r}
+library(tidyverse)
+library(readr)
+```
+
+```{r}
+df <- read_rds("https://github.com/byuistats/data/raw/master/Dart_Expert_Dow_6month_anova/Dart_Expert_Dow_6month_anova.RDS")
+View(df)
+```
+
+```{r}
+firstsep <- separate(df, contest_period, sep = "-",
+ into = c("Beginning Month-Year", "Ending Month-Year"), remove = TRUE)
+```
+
+```{r}
+secondsep <- separate(firstsep, "Ending Month-Year", sep =  "(?=\\d{4}$)", into = c("MonthEnd", "YearEnd"), remove = TRUE) %>% 
+    select(-"Beginning Month-Year") 
+
+View(secondsep)
+```
+
+```{r}
+write_rds(secondsep, "secondsep.rds")
+```
+
+```{r}
+newdf <- read_rds("secondsep.RDS")
+
+newdf
+```
+
+```{r}
+DJIA <- filter(newdf, variable == "DJIA") %>% 
+  pivot_wider(names_from = YearEnd, values_from = value) %>% 
+  arrange(match(MonthEnd, month.name))
+
+DJIA
+
+```
+

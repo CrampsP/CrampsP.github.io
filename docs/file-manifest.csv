@@ -1,0 +1,280 @@
+original_path (Documents),portfolio_path
+Apache_Airflow/dags/final_weather_dagV2.py,projects/airflow-etl-pipelines/dags/weather_forecast_etl_dag.py
+Apache_Airflow/dags/final_stock_dagV3.py,projects/airflow-etl-pipelines/dags/stock_market_etl_dag.py
+Apache_Airflow/dags/final_news_dag.py,projects/airflow-etl-pipelines/dags/news_sftp_ingestion_dag.py
+Apache_Airflow/dags/sftp_latest_to_snowflake.py,projects/airflow-etl-pipelines/dags/sftp_to_snowflake_loader_dag.py
+Apache_Airflow/dags/catchup_dag.py,projects/airflow-etl-pipelines/dags/weekly_backfill_catchup_dag.py
+Apache_Airflow/dags/tutorial.py,projects/airflow-etl-pipelines/dags/airflow_tutorial_dag.py
+Apache_Airflow/dags/utils.py,projects/airflow-etl-pipelines/dags/utils.py
+Apache_Airflow/README.md,projects/airflow-etl-pipelines/SETUP.md
+Apache_Airflow/DAG3_Airflow_3_0_Guide.md,projects/airflow-etl-pipelines/docs/airflow-3-dag-authoring-guide.md
+Apache_Airflow/airflow_docker_reference_airflow3.md,projects/airflow-etl-pipelines/docs/airflow-3-docker-reference.md
+Apache_Airflow/airflow_scheduling_and_catchup.md,projects/airflow-etl-pipelines/docs/scheduling-and-catchup.md
+Apache_Airflow/QUICK_REFERENCE.md,projects/airflow-etl-pipelines/docs/quick-reference.md
+Apache_Airflow/WEATHER_DAG_UPDATE.md,projects/airflow-etl-pipelines/docs/weather-dag-changelog.md
+Apache_Airflow/start_mongo_tunnel_student.py,projects/airflow-etl-pipelines/scripts/start_mongodb_ssh_tunnel.py
+Apache_Airflow/test_sftp_download.py,projects/airflow-etl-pipelines/tests/test_sftp_download.py
+Apache_Airflow/staging/sftp_test.py,projects/airflow-etl-pipelines/tests/sftp_connection_smoke_test.py
+Apache_Airflow/OLD/dagv1.py,projects/airflow-etl-pipelines/archive/weather_dag_v1.py
+Apache_Airflow/OLD/fetch_opemneteo.py,projects/airflow-etl-pipelines/archive/open_meteo_fetcher.py
+Apache_Airflow/OLD/lat_long.py,projects/airflow-etl-pipelines/archive/city_coordinates.py
+Apache_Airflow/OLD/stock_dagV1.py,projects/airflow-etl-pipelines/archive/stock_dag_v1.py
+Apache_Airflow/OLD/dev_stock_dagV1.py,projects/airflow-etl-pipelines/archive/stock_dag_dev_v1.py
+Apache_Airflow/OLD/v3_dev_stock_dag.py,projects/airflow-etl-pipelines/archive/stock_dag_dev_v3.py
+Apache_Airflow/OLD/v3_stock_etl_pipeline.py,projects/airflow-etl-pipelines/archive/stock_etl_pipeline_v3.py
+Apache_Airflow/OLD/test_etl_local.py,projects/airflow-etl-pipelines/archive/test_etl_local.py
+Apache_Airflow/docker-compose.yaml,projects/airflow-etl-pipelines/docker-compose.yaml
+Apache_Airflow/dockerfile,projects/airflow-etl-pipelines/Dockerfile
+Apache_Airflow/requirements.txt,projects/airflow-etl-pipelines/requirements.txt
+Apache_Airflow/editme.env,projects/airflow-etl-pipelines/example.env
+Apache_Airflow/.gitignore,projects/airflow-etl-pipelines/.gitignore
+weather-dag-dev/dagv1.py,projects/airflow-etl-pipelines/prototypes/weather-dag/weather_dag_v1.py
+weather-dag-dev/exdag.py,projects/airflow-etl-pipelines/prototypes/weather-dag/example_dag.py
+weather-dag-dev/fetch_opemneteo.py,projects/airflow-etl-pipelines/prototypes/weather-dag/open_meteo_fetcher.py
+weather-dag-dev/lat_long.py,projects/airflow-etl-pipelines/prototypes/weather-dag/city_coordinates.py
+weather-dag-dev/notsure.py,projects/airflow-etl-pipelines/prototypes/weather-dag/snowflake_connection_helper.py
+weather-dag-dev/start_mongo_tunnel_student.py,projects/airflow-etl-pipelines/prototypes/weather-dag/start_mongodb_ssh_tunnel.py
+weather-dag-dev/dag_guide.md,projects/airflow-etl-pipelines/prototypes/weather-dag/dag-guide.md
+weather-dag-dev/daily_01_New_York-NY.csv,projects/airflow-etl-pipelines/prototypes/weather-dag/sample-data/daily_01_New_York-NY.csv
+weather-dag-dev/daily_02_Los_Angeles-CA.csv,projects/airflow-etl-pipelines/prototypes/weather-dag/sample-data/daily_02_Los_Angeles-CA.csv
+weather-dag-dev/daily_03_Chicago-IL.csv,projects/airflow-etl-pipelines/prototypes/weather-dag/sample-data/daily_03_Chicago-IL.csv
+weather-dag-dev/daily_04_Houston-TX.csv,projects/airflow-etl-pipelines/prototypes/weather-dag/sample-data/daily_04_Houston-TX.csv
+weather-dag-dev/daily_05_Phoenix-AZ.csv,projects/airflow-etl-pipelines/prototypes/weather-dag/sample-data/daily_05_Phoenix-AZ.csv
+weather-dag-dev/daily_06_Philadelphia-PA.csv,projects/airflow-etl-pipelines/prototypes/weather-dag/sample-data/daily_06_Philadelphia-PA.csv
+weather-dag-dev/daily_07_San_Antonio-TX.csv,projects/airflow-etl-pipelines/prototypes/weather-dag/sample-data/daily_07_San_Antonio-TX.csv
+weather-dag-dev/daily_08_San_Diego-CA.csv,projects/airflow-etl-pipelines/prototypes/weather-dag/sample-data/daily_08_San_Diego-CA.csv
+weather-dag-dev/daily_09_Dallas-TX.csv,projects/airflow-etl-pipelines/prototypes/weather-dag/sample-data/daily_09_Dallas-TX.csv
+weather-dag-dev/daily_10_San_Jose-CA.csv,projects/airflow-etl-pipelines/prototypes/weather-dag/sample-data/daily_10_San_Jose-CA.csv
+weather-dag-dev/daily_all_locations.csv,projects/airflow-etl-pipelines/prototypes/weather-dag/sample-data/daily_all_locations.csv
+AI 101-102/portlight/.dockerignore,projects/portlight-system-monitor/.dockerignore
+AI 101-102/portlight/.gitignore,projects/portlight-system-monitor/.gitignore
+AI 101-102/portlight/app/analysis.py,projects/portlight-system-monitor/app/analysis.py
+AI 101-102/portlight/app/demo.py,projects/portlight-system-monitor/app/demo.py
+AI 101-102/portlight/app/server.py,projects/portlight-system-monitor/app/server.py
+AI 101-102/portlight/app/static/app.js,projects/portlight-system-monitor/app/static/app.js
+AI 101-102/portlight/app/static/index.html,projects/portlight-system-monitor/app/static/index.html
+AI 101-102/portlight/app/static/styles.css,projects/portlight-system-monitor/app/static/styles.css
+AI 101-102/portlight/compose.yaml,projects/portlight-system-monitor/compose.yaml
+AI 101-102/portlight/Dockerfile,projects/portlight-system-monitor/Dockerfile
+AI 101-102/portlight/docs/dashboard-demo.png,projects/portlight-system-monitor/docs/dashboard-demo.png
+AI 101-102/portlight/README.md,projects/portlight-system-monitor/README.md
+AI 101-102/portlight/scripts/Collect-Windows.ps1,projects/portlight-system-monitor/scripts/Collect-Windows.ps1
+AI 101-102/portlight/scripts/Start-Portlight.ps1,projects/portlight-system-monitor/scripts/Start-Portlight.ps1
+AI 101-102/portlight/scripts/Stop-Portlight.ps1,projects/portlight-system-monitor/scripts/Stop-Portlight.ps1
+AI 101-102/portlight/scripts/Verify-Portlight.ps1,projects/portlight-system-monitor/scripts/Verify-Portlight.ps1
+AI 101-102/portlight/tests/test_portlight.py,projects/portlight-system-monitor/tests/test_portlight.py
+AI 101-102/portlight/VERIFICATION.md,projects/portlight-system-monitor/VERIFICATION.md
+MATH 488/Surfboards_csv_data/Surfboard_data_importation.py,projects/surfboard-sales-analysis/load_monthly_sales_data.py
+Math 221D/Student_Work/1-Data_Literacy/1-Course_Introduction.qmd,coursework/math-221d-intro-statistics/01-data-literacy/01-course-introduction.qmd
+Math 221D/Student_Work/1-Data_Literacy/10-AA_Data_Summaries.qmd,coursework/math-221d-intro-statistics/01-data-literacy/10-applied-activity-data-summaries.qmd
+Math 221D/Student_Work/1-Data_Literacy/2-Stat_Process.qmd,coursework/math-221d-intro-statistics/01-data-literacy/02-stat-process.qmd
+Math 221D/Student_Work/1-Data_Literacy/3-Statistical_Process_Practice.qmd,coursework/math-221d-intro-statistics/01-data-literacy/03-statistical-process-practice.qmd
+Math 221D/Student_Work/1-Data_Literacy/5-Shape_and_Center.qmd,coursework/math-221d-intro-statistics/01-data-literacy/05-shape-and-center.qmd
+Math 221D/Student_Work/1-Data_Literacy/6-Spread.qmd,coursework/math-221d-intro-statistics/01-data-literacy/06-spread.qmd
+Math 221D/Student_Work/1-Data_Literacy/7-Introducing_R_Practice.qmd,coursework/math-221d-intro-statistics/01-data-literacy/07-introducing-r-practice.qmd
+Math 221D/Student_Work/1-Data_Literacy/8-Summarizing_Data_Multiple_Groups.qmd,coursework/math-221d-intro-statistics/01-data-literacy/08-summarizing-data-multiple-groups.qmd
+Math 221D/Student_Work/1-Data_Literacy/9-Summarizing_Data_Practice.qmd,coursework/math-221d-intro-statistics/01-data-literacy/09-summarizing-data-practice.qmd
+Math 221D/Student_Work/2-Tidy_Data/01-Wrangling_Basics.qmd,coursework/math-221d-intro-statistics/02-data-wrangling-with-tidyverse/01-wrangling-basics.qmd
+Math 221D/Student_Work/2-Tidy_Data/02-Filter.qmd,coursework/math-221d-intro-statistics/02-data-wrangling-with-tidyverse/02-filter.qmd
+Math 221D/Student_Work/2-Tidy_Data/03-Select.qmd,coursework/math-221d-intro-statistics/02-data-wrangling-with-tidyverse/03-select.qmd
+Math 221D/Student_Work/2-Tidy_Data/04-Tidyverse_Fundamentals.qmd,coursework/math-221d-intro-statistics/02-data-wrangling-with-tidyverse/04-tidyverse-fundamentals.qmd
+Math 221D/Student_Work/2-Tidy_Data/05-Exploring_New_Data_with_Tidyverse.qmd,coursework/math-221d-intro-statistics/02-data-wrangling-with-tidyverse/05-exploring-new-data-with-tidyverse.qmd
+Math 221D/Student_Work/2-Tidy_Data/06-GGPlot_Intro.qmd,coursework/math-221d-intro-statistics/02-data-wrangling-with-tidyverse/06-ggplot-intro.qmd
+Math 221D/Student_Work/2-Tidy_Data/Bonus_GroupBy_Summarise.qmd,coursework/math-221d-intro-statistics/02-data-wrangling-with-tidyverse/bonus-group-by-summarise.qmd
+Math 221D/Student_Work/2-Tidy_Data/Bonus_More_Tidy_Practice.qmd,coursework/math-221d-intro-statistics/02-data-wrangling-with-tidyverse/bonus-more-tidy-practice.qmd
+Math 221D/Student_Work/2-Tidy_Data/Bonus_Mutate.qmd,coursework/math-221d-intro-statistics/02-data-wrangling-with-tidyverse/bonus-mutate.qmd
+Math 221D/Student_Work/3-Stat_Fundamentals/01-Intro_to_Probability.qmd,coursework/math-221d-intro-statistics/03-probability-and-sampling-distributions/01-intro-to-probability.qmd
+Math 221D/Student_Work/3-Stat_Fundamentals/02-The_Normal_Distribution_Textbook.qmd,coursework/math-221d-intro-statistics/03-probability-and-sampling-distributions/02-the-normal-distribution-textbook.qmd
+Math 221D/Student_Work/3-Stat_Fundamentals/03-Normal_Distribution_Workbook.qmd,coursework/math-221d-intro-statistics/03-probability-and-sampling-distributions/03-normal-distribution-workbook.qmd
+Math 221D/Student_Work/3-Stat_Fundamentals/04-Normal_Probability_Practice.qmd,coursework/math-221d-intro-statistics/03-probability-and-sampling-distributions/04-normal-probability-practice.qmd
+Math 221D/Student_Work/3-Stat_Fundamentals/05-The_Central_Limit_Theorem.qmd,coursework/math-221d-intro-statistics/03-probability-and-sampling-distributions/05-the-central-limit-theorem.qmd
+Math 221D/Student_Work/3-Stat_Fundamentals/06-Central_Limit_Theorem_Practice.qmd,coursework/math-221d-intro-statistics/03-probability-and-sampling-distributions/06-central-limit-theorem-practice.qmd
+Math 221D/Student_Work/3-Stat_Fundamentals/07-Prob_Calculations_for_Means.qmd,coursework/math-221d-intro-statistics/03-probability-and-sampling-distributions/07-prob-calculations-for-means.qmd
+Math 221D/Student_Work/3-Stat_Fundamentals/08-CLT_Normal_Prob_for_Means.qmd,coursework/math-221d-intro-statistics/03-probability-and-sampling-distributions/08-clt-normal-prob-for-means.qmd
+Math 221D/Student_Work/3-Stat_Fundamentals/09-Prob_Calculations_for_Means_Practice.qmd,coursework/math-221d-intro-statistics/03-probability-and-sampling-distributions/09-prob-calculations-for-means-practice.qmd
+Math 221D/Student_Work/3-Stat_Fundamentals/10-Assessing_Normality.qmd,coursework/math-221d-intro-statistics/03-probability-and-sampling-distributions/10-assessing-normality.qmd
+Math 221D/Student_Work/4-Statistical_Tests_Part1/01-Inference_for_mean_sigma_unknown.qmd,coursework/math-221d-intro-statistics/04-inference-for-means/01-inference-for-mean-sigma-unknown.qmd
+Math 221D/Student_Work/4-Statistical_Tests_Part1/02-AA_Hypothesis_Conf_Int.qmd,coursework/math-221d-intro-statistics/04-inference-for-means/02-applied-activity-hypothesis-conf-int.qmd
+Math 221D/Student_Work/4-Statistical_Tests_Part1/03-Paired_ttest.qmd,coursework/math-221d-intro-statistics/04-inference-for-means/03-paired-ttest.qmd
+Math 221D/Student_Work/4-Statistical_Tests_Part1/04-Paired_ttest_Practice.qmd,coursework/math-221d-intro-statistics/04-inference-for-means/04-paired-ttest-practice.qmd
+Math 221D/Student_Work/4-Statistical_Tests_Part1/05-Independent_2_sample_ttest.qmd,coursework/math-221d-intro-statistics/04-inference-for-means/05-independent-2-sample-ttest.qmd
+Math 221D/Student_Work/4-Statistical_Tests_Part1/06-Independent_2_sample_ttest_practice.qmd,coursework/math-221d-intro-statistics/04-inference-for-means/06-independent-2-sample-ttest-practice.qmd
+Math 221D/Student_Work/4-Statistical_Tests_Part1/07-ANOVA_Intro.qmd,coursework/math-221d-intro-statistics/04-inference-for-means/07-anova-intro.qmd
+Math 221D/Student_Work/4-Statistical_Tests_Part1/08-ANOVA_Practice.qmd,coursework/math-221d-intro-statistics/04-inference-for-means/08-anova-practice.qmd
+Math 221D/Student_Work/4-Statistical_Tests_Part1/09-AA_Unit4_Review.qmd,coursework/math-221d-intro-statistics/04-inference-for-means/09-applied-activity-unit4-review.qmd
+Math 221D/Student_Work/5-Statistical_Tests_Part2/01-Bivariate_Data_Intro.qmd,coursework/math-221d-intro-statistics/05-proportions-regression-and-chi-square/01-bivariate-data-intro.qmd
+Math 221D/Student_Work/5-Statistical_Tests_Part2/02-Linear_Regression_Intro.qmd,coursework/math-221d-intro-statistics/05-proportions-regression-and-chi-square/02-linear-regression-intro.qmd
+Math 221D/Student_Work/5-Statistical_Tests_Part2/03-Regression_Practice.qmd,coursework/math-221d-intro-statistics/05-proportions-regression-and-chi-square/03-regression-practice.qmd
+Math 221D/Student_Work/5-Statistical_Tests_Part2/05-Distribution_of_Phat.qmd,coursework/math-221d-intro-statistics/05-proportions-regression-and-chi-square/05-distribution-of-phat.qmd
+Math 221D/Student_Work/5-Statistical_Tests_Part2/06-Distribution_of_Phat_Practice.qmd,coursework/math-221d-intro-statistics/05-proportions-regression-and-chi-square/06-distribution-of-phat-practice.qmd
+Math 221D/Student_Work/5-Statistical_Tests_Part2/07-One_Sample_Proportion_Ztest.qmd,coursework/math-221d-intro-statistics/05-proportions-regression-and-chi-square/07-one-sample-proportion-ztest.qmd
+Math 221D/Student_Work/5-Statistical_Tests_Part2/08-One_Sample_Proportion_Practice.qmd,coursework/math-221d-intro-statistics/05-proportions-regression-and-chi-square/08-one-sample-proportion-practice.qmd
+Math 221D/Student_Work/5-Statistical_Tests_Part2/09-Two_Sample_Proportion_Ztest.qmd,coursework/math-221d-intro-statistics/05-proportions-regression-and-chi-square/09-two-sample-proportion-ztest.qmd
+Math 221D/Student_Work/5-Statistical_Tests_Part2/10-Two_Sample_Proportion_Practice.qmd,coursework/math-221d-intro-statistics/05-proportions-regression-and-chi-square/10-two-sample-proportion-practice.qmd
+Math 221D/Student_Work/5-Statistical_Tests_Part2/11-Chi_Square_Intro.qmd,coursework/math-221d-intro-statistics/05-proportions-regression-and-chi-square/11-chi-square-intro.qmd
+Math 221D/Student_Work/5-Statistical_Tests_Part2/12-Chi_Square_Practice.qmd,coursework/math-221d-intro-statistics/05-proportions-regression-and-chi-square/12-chi-square-practice.qmd
+Math 221D/Student_Work/5-Statistical_Tests_Part2/13-AA_Who_Shot_First_Cat_Vars.qmd,coursework/math-221d-intro-statistics/05-proportions-regression-and-chi-square/13-applied-activity-who-shot-first-cat-vars.qmd
+Math 221D/Student_Work/5-Statistical_Tests_Part2/Summarizing_Categorical_Data.qmd,coursework/math-221d-intro-statistics/05-proportions-regression-and-chi-square/summarizing-categorical-data.qmd
+Math 221D/Student_Work/6-Semester_Project/Importing_Data.qmd,coursework/math-221d-intro-statistics/06-semester-project/importing-data.qmd
+Math 221D/Student_Work/6-Semester_Project/Semester_Project_Instructions.qmd,coursework/math-221d-intro-statistics/06-semester-project/semester-project-instructions.qmd
+Math 325/Analyses/StudentHousing.Rmd,coursework/math-325-intermediate-statistics/analyses/student-housing-cost-analysis.Rmd
+Math 325/Analyses/Rent.Rmd,coursework/math-325-intermediate-statistics/analyses/rent-graphical-and-numerical-summary.Rmd
+Math 325/Analyses/Stephanie.Rmd,coursework/math-325-intermediate-statistics/analyses/housing-recommendation-client-request.Rmd
+Math 325/Analyses/ConsultingWP.Rmd,coursework/math-325-intermediate-statistics/analyses/water-polo-consulting-analysis.Rmd
+Math 325/Analyses/t Tests/HighSchoolSeniors.Rmd,coursework/math-325-intermediate-statistics/analyses/high-school-seniors-t-test.Rmd
+Math 325/Analyses/Wilcoxon Tests/HighSchoolSeniorsWilcoxon.Rmd,coursework/math-325-intermediate-statistics/analyses/high-school-seniors-wilcoxon-test.Rmd
+Math 325/Analyses/ANOVA/MyTwoWayANOVA.Rmd,coursework/math-325-intermediate-statistics/analyses/two-way-anova-analysis.Rmd
+Math 325/Analyses/Kruskal-Wallis Test/Food.Rmd,coursework/math-325-intermediate-statistics/analyses/college-food-kruskal-wallis-test.Rmd
+Math 325/Analyses/Chi Squared Tests/MyChiSquaredTest.Rmd,coursework/math-325-intermediate-statistics/analyses/chi-squared-test-of-independence.Rmd
+Math 325/Analyses/Linear Regression/MySimpleLinearRegression.Rmd,coursework/math-325-intermediate-statistics/analyses/simple-linear-regression-analysis.Rmd
+Math 325/Analyses/Linear Regression/Weather.Rmd,coursework/math-325-intermediate-statistics/analyses/weather-prediction-linear-regression.Rmd
+Math 325/Analyses/Logistic Regression/MyLogisticRegression.rmd,coursework/math-325-intermediate-statistics/analyses/logistic-regression-analysis.Rmd
+Math 325/Study_Guide.R,coursework/math-325-intermediate-statistics/practice/statistics-study-guide.R
+Math 325/Final/Final.R,coursework/math-325-intermediate-statistics/practice/final-exam-solutions.R
+Math 325/Skill_Quizzes/Practice_Final1.R,coursework/math-325-intermediate-statistics/practice/practice-final-1.R
+Math 325/Skill_Quizzes/Practice_Final2.R,coursework/math-325-intermediate-statistics/practice/practice-final-2.R
+Math 325/Skill_Quizzes/Data_Wrangling_and_Visualization.Rmd,coursework/math-325-intermediate-statistics/practice/data-wrangling-and-visualization-quiz.Rmd
+Math 325/Skill_Quizzes/ANOVA.R,coursework/math-325-intermediate-statistics/practice/anova-skill-quiz.R
+Math 325/Skill_Quizzes/LogR.R,coursework/math-325-intermediate-statistics/practice/logistic-regression-skill-quiz.R
+Math 325/Skill_Quizzes/MLR.R,coursework/math-325-intermediate-statistics/practice/multiple-linear-regression-skill-quiz.R
+Math 325/Skill_Quizzes/Wilcox.R,coursework/math-325-intermediate-statistics/practice/wilcoxon-skill-quiz.R
+Math 325/Assessment_Quizes/DataWranglingandViz.Rmd,coursework/math-325-intermediate-statistics/practice/data-wrangling-assessment.Rmd
+Math 325/Class_Activities/Wilcoxon_Tests.R,coursework/math-325-intermediate-statistics/practice/wilcoxon-tests-class-activity.R
+Math 325/Class_Activities/MLR.R,coursework/math-325-intermediate-statistics/practice/multiple-regression-class-activity.R
+Math 325/Class_Activities/MLRpt2.R,coursework/math-325-intermediate-statistics/practice/multiple-regression-class-activity-part-2.R
+Math 325/Class_Activities/Olympic.Rmd,coursework/math-325-intermediate-statistics/practice/olympics-data-class-activity.Rmd
+Math 325/Class_Activities/PrincipalsofGoodGraphics.Rmd,coursework/math-325-intermediate-statistics/practice/principles-of-good-graphics.Rmd
+Math 325/Class_Activities/TypesofData.Rmd,coursework/math-325-intermediate-statistics/practice/types-of-data.Rmd
+Math 325/Class_Activities/t_test.Rmd,coursework/math-325-intermediate-statistics/practice/t-test-class-activity.Rmd
+Math 325/Class_Activities/Rand.R,coursework/math-325-intermediate-statistics/practice/randomization-class-activity.R
+Math 325/Data/Rent.csv,coursework/math-325-intermediate-statistics/data/Rent.csv
+Math 325/Data/HighSchoolSeniors.csv,coursework/math-325-intermediate-statistics/data/HighSchoolSeniors.csv
+Math 325/Data/MyTwoWayANOVA.csv,coursework/math-325-intermediate-statistics/data/MyTwoWayANOVA.csv
+Math 325/Data/food.csv,coursework/math-325-intermediate-statistics/data/food.csv
+Math 325/Data/WP Stata.csv,coursework/math-325-intermediate-statistics/data/WP Stata.csv
+Math 325/Data/waterpolo_data.csv,coursework/math-325-intermediate-statistics/data/waterpolo_data.csv
+Math 325/Data/ClassSurvey.csv,coursework/math-325-intermediate-statistics/data/ClassSurvey.csv
+Math 325/Data/YoungAdults.csv,coursework/math-325-intermediate-statistics/data/YoungAdults.csv
+Math 325/Data/CarPrices.csv,coursework/math-325-intermediate-statistics/data/CarPrices.csv
+Math 325/Data/mouse.csv,coursework/math-325-intermediate-statistics/data/mouse.csv
+Math 326/Math326_Quarto4-master/Case Studies/BF[1].Rmd,coursework/math-326-design-of-experiments/case-studies/paper-airplane-one-factor-experiment.Rmd
+Math 326/Math326_Quarto4-master/Case Studies/BF[2].Rmd,coursework/math-326-design-of-experiments/case-studies/oreo-dissolving-two-factor-experiment.Rmd
+Math 326/Math326_Quarto4-master/Case Studies/paper_airplane.png,coursework/math-326-design-of-experiments/case-studies/paper-airplane-designs.png
+Math 326/Math326_Quarto4-master/Class Activites/CA - BF[1] Factor Structure.Rmd,coursework/math-326-design-of-experiments/class-activities/one-factor-structure.Rmd
+Math 326/Math326_Quarto4-master/Class Activites/CA - BF[2] Factor Structure.Rmd,coursework/math-326-design-of-experiments/class-activities/two-factor-structure.Rmd
+Math 326/Math326_Quarto4-master/Class Activites/Contrasts.Rmd,coursework/math-326-design-of-experiments/class-activities/contrasts.Rmd
+Math 326/Math326_Quarto4-master/Class Activites/UnbalancedData.Rmd,coursework/math-326-design-of-experiments/class-activities/unbalanced-data.Rmd
+Math 326/Math326_Quarto4-master/data/data_for_class/Data/paper_airplane.csv,coursework/math-326-design-of-experiments/data/paper_airplane.csv
+Math 326/Math326_Quarto4-master/data/data_for_class/Data/Oreo.csv,coursework/math-326-design-of-experiments/data/Oreo.csv
+DS250/FPS_8-12-25_Report.qmd,coursework/ds-250-data-science-programming/baseball-relationships-sql-report.qmd
+DS250/P3_template.qmd,coursework/ds-250-data-science-programming/late-flights-missing-data-report.qmd
+DS250/Coding Challenge Spencer Payne.qmd,coursework/ds-250-data-science-programming/coding-challenge.qmd
+DS 350/DS350_S26_Payne_Spen/w01/my_first_quarto.qmd,coursework/ds-350-data-wrangling-and-visualization/week-01-first-quarto-document.qmd
+DS 350/DS350_S26_Payne_Spen/w02/w02_task1.qmd,coursework/ds-350-data-wrangling-and-visualization/week-02-nyc-flight-delay-distributions.qmd
+DS 350/DS350_S26_Payne_Spen/w02/w02_task3.qmd,coursework/ds-350-data-wrangling-and-visualization/week-02-gapminder-life-expectancy-vs-gdp.qmd
+DS 350/DS350_S26_Payne_Spen/w03/w03_task1.qmd,coursework/ds-350-data-wrangling-and-visualization/week-03-gapminder-visualization-recreation.qmd
+DS 350/DS350_S26_Payne_Spen/w03/w03_task2.qmd,coursework/ds-350-data-wrangling-and-visualization/week-03-us-gun-deaths-analysis.qmd
+DS 350/DS350_S26_Payne_Spen/w03/w03_task3.qmd,coursework/ds-350-data-wrangling-and-visualization/week-03-delta-airlines-late-arrivals.qmd
+DS 350/DS350_S26_Payne_Spen/w04/w04_task1.qmd,coursework/ds-350-data-wrangling-and-visualization/week-04-dart-experts-vs-dow-jones.qmd
+DS 350/DS350_S26_Payne_Spen/w04/w04_task2.qmd,coursework/ds-350-data-wrangling-and-visualization/week-04-tidying-height-data.qmd
+DS 350/DS350_S26_Payne_Spen/w04/w04_task3.qmd,coursework/ds-350-data-wrangling-and-visualization/week-04-male-height-by-birth-year-multisource.qmd
+DS 350/DS350_S26_Payne_Spen/w05/w05_task1.qmd,coursework/ds-350-data-wrangling-and-visualization/week-05-gun-deaths-by-demographics.qmd
+DS 350/DS350_S26_Payne_Spen/w05/w05_task2.qmd,coursework/ds-350-data-wrangling-and-visualization/week-05-fruit-supply-vs-gdp.qmd
+DS 350/DS350_S26_Payne_Spen/w05/w05_task3.qmd,coursework/ds-350-data-wrangling-and-visualization/week-05-life-expectancy-chart-recreation.qmd
+DS 350/DS350_S26_Payne_Spen/w06/W06_task1.qmd,coursework/ds-350-data-wrangling-and-visualization/week-06-flight-delays-by-plane-age.qmd
+DS 350/DS350_S26_Payne_Spen/w06/w06_task3.qmd,coursework/ds-350-data-wrangling-and-visualization/week-06-utah-baseball-alumni-salaries.qmd
+DS 350/DS350_S26_Payne_Spen/w07/w07_task1.qmd,coursework/ds-350-data-wrangling-and-visualization/week-07-car-wash-sales-and-weather.qmd
+DS 350/DS350_S26_Payne_Spen/w07/w07_task2.qmd,coursework/ds-350-data-wrangling-and-visualization/week-07-small-business-revenue-trends.qmd
+DS 350/DS350_S26_Payne_Spen/w07/w07_task3.qmd,coursework/ds-350-data-wrangling-and-visualization/week-07-stock-picking-competition.qmd
+DS 350/DS350_S26_Payne_Spen/w08/w08_task1.qmd,coursework/ds-350-data-wrangling-and-visualization/week-08-largest-cities-by-state-map.qmd
+DS 350/DS350_S26_Payne_Spen/w08/w08_task2.qmd,coursework/ds-350-data-wrangling-and-visualization/week-08-idaho-wells-and-dams-spatial.qmd
+DS 350/DS350_S26_Payne_Spen/w08/w08_task3.qmd,coursework/ds-350-data-wrangling-and-visualization/week-08-building-permits-geofacet.qmd
+DS 350/DS350_S26_Payne_Spen/w09/w09_task1.qmd,coursework/ds-350-data-wrangling-and-visualization/week-09-interactive-stock-prices.qmd
+DS 350/DS350_S26_Payne_Spen/w09/w09_task2.qmd,coursework/ds-350-data-wrangling-and-visualization/week-09-student-risk-perception-survey.qmd
+DS 350/DS350_S26_Payne_Spen/w09/w09_task3.qmd,coursework/ds-350-data-wrangling-and-visualization/week-09-california-building-permits.qmd
+DS 350/DS350_S26_Payne_Spen/w10/w10_task1.qmd,coursework/ds-350-data-wrangling-and-visualization/week-10-string-decoding-hidden-message.qmd
+DS 350/DS350_S26_Payne_Spen/w10/w10_task2.qmd,coursework/ds-350-data-wrangling-and-visualization/week-10-scripture-word-counts.qmd
+DS 350/DS350_S26_Payne_Spen/w10/w10_task3.qmd,coursework/ds-350-data-wrangling-and-visualization/week-10-savior-name-frequency.qmd
+DS 350/DS350_S26_Payne_Spen/w10/w10_Class_Notes.qmd,coursework/ds-350-data-wrangling-and-visualization/notes/coding-challenge-strategy.qmd
+DS 350/DS350_S26_Payne_Spen/w11/w11_Class_Notes.qmd,coursework/ds-350-data-wrangling-and-visualization/notes/regex-in-r-cheat-sheet.qmd
+DS 350/DS350_S26_Payne_Spen/w12/w12_task1.qmd,coursework/ds-350-data-wrangling-and-visualization/week-12-string-and-factor-practice.qmd
+DS 350/DS350_S26_Payne_Spen/w12/w12_task2.qmd,coursework/ds-350-data-wrangling-and-visualization/week-12-chipotle-visits-by-weekday.qmd
+DS 350/DS350_S26_Payne_Spen/w12/w12_task3.qmd,coursework/ds-350-data-wrangling-and-visualization/week-12-words-between-savior-names.qmd
+DS 350/DS350_S26_Payne_Spen/w13/challenge_template (2).qmd,coursework/ds-350-data-wrangling-and-visualization/week-13-star-wars-survey-challenge.qmd
+DS 350/DS350_S26_Payne_Spen/w13/w13_task3.qmd,coursework/ds-350-data-wrangling-and-visualization/semester-project-medicaid-drug-pricing.qmd
+DS 350/DS350_S26_Payne_Spen/r_tidyverse_weeks_0_7_study_guide.Rmd,coursework/ds-350-data-wrangling-and-visualization/notes/r-tidyverse-study-guide.Rmd
+DS 350/DS350_S26_Payne_Spen/w04/Height.xlsx,coursework/ds-350-data-wrangling-and-visualization/Height.xlsx
+DS 350/DS350_S26_Payne_Spen/w08/data/dams/Dam_Safety.dbf,coursework/ds-350-data-wrangling-and-visualization/data/dams/Dam_Safety.dbf
+DS 350/DS350_S26_Payne_Spen/w08/data/dams/Dam_Safety.prj,coursework/ds-350-data-wrangling-and-visualization/data/dams/Dam_Safety.prj
+DS 350/DS350_S26_Payne_Spen/w08/data/dams/Dam_Safety.shp,coursework/ds-350-data-wrangling-and-visualization/data/dams/Dam_Safety.shp
+DS 350/DS350_S26_Payne_Spen/w08/data/dams/Dam_Safety.shx,coursework/ds-350-data-wrangling-and-visualization/data/dams/Dam_Safety.shx
+DS 350/DS350_S26_Payne_Spen/w08/data/idaho/County-AK-HI-Moved-USA-Map.dbf,coursework/ds-350-data-wrangling-and-visualization/data/idaho/County-AK-HI-Moved-USA-Map.dbf
+DS 350/DS350_S26_Payne_Spen/w08/data/idaho/County-AK-HI-Moved-USA-Map.prj,coursework/ds-350-data-wrangling-and-visualization/data/idaho/County-AK-HI-Moved-USA-Map.prj
+DS 350/DS350_S26_Payne_Spen/w08/data/idaho/County-AK-HI-Moved-USA-Map.qpj,coursework/ds-350-data-wrangling-and-visualization/data/idaho/County-AK-HI-Moved-USA-Map.qpj
+DS 350/DS350_S26_Payne_Spen/w08/data/idaho/County-AK-HI-Moved-USA-Map.shp,coursework/ds-350-data-wrangling-and-visualization/data/idaho/County-AK-HI-Moved-USA-Map.shp
+DS 350/DS350_S26_Payne_Spen/w08/data/idaho/County-AK-HI-Moved-USA-Map.shx,coursework/ds-350-data-wrangling-and-visualization/data/idaho/County-AK-HI-Moved-USA-Map.shx
+CSE 111/# Kights games.py,coursework/cse-111-python-programming/knights_games.py
+CSE 111/accidents.py,coursework/cse-111-python-programming/accidents.py
+CSE 111/ANOVA_data.py,coursework/cse-111-python-programming/anova_sample_data.py
+CSE 111/can_sizes.py,coursework/cse-111-python-programming/can_sizes.py
+CSE 111/chemistry.py,coursework/cse-111-python-programming/chemistry.py
+CSE 111/discount.py,coursework/cse-111-python-programming/discount.py
+CSE 111/esteem.py,coursework/cse-111-python-programming/esteem.py
+CSE 111/example.py,coursework/cse-111-python-programming/temperature_example.py
+CSE 111/family_history.py,coursework/cse-111-python-programming/family_history.py
+CSE 111/fitness.py,coursework/cse-111-python-programming/fitness.py
+CSE 111/formula.py,coursework/cse-111-python-programming/formula.py
+CSE 111/fuel_usage.py,coursework/cse-111-python-programming/fuel_usage.py
+CSE 111/heart_rate.py,coursework/cse-111-python-programming/heart_rate.py
+CSE 111/hypotenuse_calculator.py,coursework/cse-111-python-programming/hypotenuse_calculator.py
+CSE 111/math.py,coursework/cse-111-python-programming/simulated_experiment_dataset.py
+CSE 111/modify_args.py,coursework/cse-111-python-programming/modify_args.py
+CSE 111/names.py,coursework/cse-111-python-programming/names.py
+CSE 111/pendulum.py,coursework/cse-111-python-programming/pendulum.py
+CSE 111/provinces.py,coursework/cse-111-python-programming/provinces.py
+CSE 111/pupils.py,coursework/cse-111-python-programming/pupils.py
+CSE 111/receipt.py,coursework/cse-111-python-programming/receipt.py
+CSE 111/sentences.py,coursework/cse-111-python-programming/sentences.py
+CSE 111/students.py,coursework/cse-111-python-programming/students.py
+CSE 111/test_chemistry_1.py,coursework/cse-111-python-programming/test_chemistry_1.py
+CSE 111/test_hypotenuse_calculator.py,coursework/cse-111-python-programming/test_hypotenuse_calculator.py
+CSE 111/test_names.py,coursework/cse-111-python-programming/test_names.py
+CSE 111/test_water_flow.py,coursework/cse-111-python-programming/test_water_flow.py
+CSE 111/tire_volume.py,coursework/cse-111-python-programming/tire_volume.py
+CSE 111/vehicles.py,coursework/cse-111-python-programming/vehicles.py
+CSE 111/water_flow.py,coursework/cse-111-python-programming/water_flow.py
+CSE 111/accidents.csv,coursework/cse-111-python-programming/accidents.csv
+CSE 111/data.txt,coursework/cse-111-python-programming/data.txt
+CSE 111/products.csv,coursework/cse-111-python-programming/products.csv
+CSE 111/provinces.txt,coursework/cse-111-python-programming/provinces.txt
+CSE 111/pupils.csv,coursework/cse-111-python-programming/pupils.csv
+CSE 111/request.csv,coursework/cse-111-python-programming/request.csv
+CSE 111/students.csv,coursework/cse-111-python-programming/students.csv
+CSE 111/students_scores.csv,coursework/cse-111-python-programming/students_scores.csv
+BA 315/MP 1.1 Final.pbix,coursework/ba-315-business-intelligence-power-bi/mini-project-1-final.pbix
+BA 315/MP1_DAX.pbix,coursework/ba-315-business-intelligence-power-bi/mini-project-1-dax-measures.pbix
+BA 315/MP 2.1.pbix,coursework/ba-315-business-intelligence-power-bi/mini-project-2.pbix
+BA 315/MP 3.1.pbix,coursework/ba-315-business-intelligence-power-bi/mini-project-3.pbix
+BA 315/MP4.1.pbix,coursework/ba-315-business-intelligence-power-bi/mini-project-4.pbix
+BA 315/BYU-I College Evaluation.pbix,coursework/ba-315-business-intelligence-power-bi/college-evaluation-dashboard.pbix
+BA 315/Le_Pokemon.pbix,coursework/ba-315-business-intelligence-power-bi/pokemon-stats-dashboard.pbix
+BA 315/Spencer_Payne_ChurchStats_Part_B.pbix,coursework/ba-315-business-intelligence-power-bi/church-membership-statistics-dashboard.pbix
+BA 315/Spencer_Payne_Temple_SqrFt.pbix,coursework/ba-315-business-intelligence-power-bi/temple-square-footage-analysis.pbix
+BA 315/Cost of Living/Spencer_Payne_CostofLiving_Part_B.pbix,coursework/ba-315-business-intelligence-power-bi/cost-of-living-dashboard.pbix
+BA 315/Cost of Living/Cost of Living Index.xlsx,coursework/ba-315-business-intelligence-power-bi/data/cost-of-living-index.xlsx
+AI 101-102/AI Roadmap.md,coursework/ai-101-102-applied-ai/ai-learning-roadmap.md
+AI 101-102/W1 Class Notes.txt,coursework/ai-101-102-applied-ai/notes/week-01-class-notes.txt
+AI 101-102/Week 4.md,coursework/ai-101-102-applied-ai/notes/week-04-notes.md
+AI 101-102/Week 5.md,coursework/ai-101-102-applied-ai/notes/week-05-notes.md
+AI 101-102/Week6.md,coursework/ai-101-102-applied-ai/notes/week-06-notes.md
+AI 101-102/Week6Participation.md,coursework/ai-101-102-applied-ai/notes/week-06-participation.md
+AI 101-102/Week7Essay.txt,coursework/ai-101-102-applied-ai/week-07-essay.txt
+AI 101-102/Week7Lesson_Plan.txt,coursework/ai-101-102-applied-ai/week-07-lesson-plan.txt
+AI 101-102/AI_Agents/fact_checker.md,coursework/ai-101-102-applied-ai/agents/fact-checker-agent-prompt.md
+Collab_workbooks/Copy of starter_housing.ipynb,coursework/machine-learning-notebooks/housing-price-prediction.ipynb
+Collab_workbooks/Another copy of True starter_housing.ipynb,coursework/machine-learning-notebooks/housing-price-feature-engineering.ipynb
+Collab_workbooks/Copy of starter_bikes.ipynb,coursework/machine-learning-notebooks/bike-rental-demand-neural-network.ipynb
+Collab_workbooks/Image_Recognition_Model.ipynb,coursework/machine-learning-notebooks/traffic-sign-image-classifier-cnn.ipynb
+Collab_workbooks/Copy of starter_publishing.ipynb,coursework/machine-learning-notebooks/transformer-language-model-bpe-pytorch.ipynb
+Collab_workbooks/Copy of text_generation.ipynb,coursework/machine-learning-notebooks/text-generation-rnn-tensorflow-tutorial.ipynb
+Collab_workbooks/Untitled1.ipynb,coursework/machine-learning-notebooks/bank-marketing-campaign-exploration.ipynb

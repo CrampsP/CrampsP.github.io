@@ -1,0 +1,482 @@
+---
+title: Comparing Means
+subtitle: Unit 2 Review
+format:
+  html:
+    self_contained: true
+    embed-resources: true
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, error = TRUE)
+```
+
+# Introduction
+
+In this activity, you will use everything we've covered up to this point including:
+
+-   Data manipulation using tidyverse functions
+-   Hypothesis tests
+    -   1-Sample t-test
+    -   2-sample dependent t-test
+    -   2-sample independent t-test
+    -   ANOVA
+-   Confidence Intervals where applicable
+
+We will be using data collected about students in 2 Portuguese schools including their final grade. The goal is to answer research questions using statistical methods to see what factors significantly impact final grades.
+
+## Getting to know a new dataset
+
+In class, we have reinforced a process for approaching a new dataset. The following is a summary of activities that help us conduct good research:
+
+-   **Read in the data**\
+-   **Explore the dataset as a whole**:
+    -   What are the column names? What do they mean? Where can I find information about them?
+    -   What is the response/dependent variable? Could there be more than one?
+    -   What are some factors that may impact the response variable? Which are likely the most important?
+-   **Explore specific columns**
+    -   Start with the response variable. Are there any outliers? Obtain summary statistics (`favstats()`), visualize the data (`histogram()`, `boxplot()`).
+    -   Explore the explanatory variables you think are most impact to the response variable. What type of data are they (categorical, quantitative)? For categorical variables, what are all the levels (`unique()`)
+-   **Formalize statistical hypotheses**. If your factors are categorical, how many groups will you be comparing? Is it a 1-sample t-test, 2-sample t-test, ANOVA?
+-   **Prepare data for analysis**. You may need to clean the data (eg. `data %>% filter() %>% select()`)
+-   **Perform the appropriate analysis** (`t.test()`, `aov()`)
+
+All these activities are important, but we may spend more or less time on any one of them depending on the state of the data.
+
+## Load the Libraries and Data
+
+```{r, echo=FALSE, include=FALSE}
+
+## Don't worry about this line of code. It is included for purposes of rendering the document
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, error = TRUE)
+
+library(rio)
+library(tidyverse)
+library(mosaic)
+library(car)
+
+student <- read_csv('https://raw.githubusercontent.com/byuistats/Math221D_Cannon/master/Data/student_data_kaggle.csv')
+
+view(student)
+
+```
+
+# Review the data
+
+Take some time to familiarize yourself with the data. Check the [website](https://www.kaggle.com/datasets/whenamancodes/student-performance) to see what the columns are.
+
+What is the response variable? - Final Grade
+
+Create a histogram of the response variable.
+
+```{r}
+hist(student$G3)
+```
+
+What do you notice about the shape of the distribution? - almost a normal distribution
+
+What anomalies, if any, do you notice? - We have an extra toe that came from 0's in the dataset
+
+Calculate summary statistics for the response variable.
+
+```{r}
+favstats(student$G3)
+```
+
+**Question**: What is the minimum?\
+**Answer**: 0
+
+**Question**: What is the maximum?\
+**Answer**: 20
+
+**Question**: How many students participated in the survey?\
+**Answer**: 395
+
+**Question**: Rank order the top 5 explanatory variables you think most influence the response and identify each as a categorical or quantitative variable:
+
+1.  Study time - quantitative
+
+2.  activities - categorical
+
+3.  address - quantitative
+
+4.  absenses - quantitative
+
+5.  failures - quantitative
+
+**NOTE**: Some of the above variables may be quantitative, which is great! Next unit will cover how to analyze those relationships. This assignment, however, focuses on comparing differences between groups and only considers categorical explanatory variables variables.
+
+# Preparing data for analysis
+
+## Categories Labeled as Numbers
+
+Sometimes even correct data can have issues that must be addressed. For example, categories are often labeled as numbers. Software can't guess when numbers are supposed to be categories, so we have to tell R when a number should be treated as a category.
+
+To force a variable to be a category, we use the `factor()` function in R. We can change the variable type in the data itself or change it in the analysis. We demonstrate both methods below.
+
+### Changing a Column Type in a dataset
+
+Father's education, `Fedu`, shows up as a number in R. The website suggests that the numbers represent categories (0 = none, 1 = primary education (4th grade), 2 = 5th to 9th grade, 3 = secondary education or 4 = higher education).
+
+To change the data type in the data itself, we can use a mutate statement in the following manner:
+
+```{r, eval=FALSE}
+
+# Create a new dataset called fedu_data that begins with the clean data and adds a column that we called Fedu_factor, which is the factorized column, Fedu:
+
+new_data <- student %>%
+  mutate(Fedu_factor = factor(Fedu))
+
+# Check the column names of the new dataset.  Notice the new column
+names(new_data)
+
+# glimpse() shows us data types.  Notice after Fedu_factor, the <fct>, which shows us that this is in fact, a factor variable type.  <dbl> stands for "double" and is a numeric variable type
+
+glimpse(new_data)
+
+```
+
+### Changing the Variable Type "on the fly"
+
+You may not want to bother changing all the variable types for each potential analysis. Fortunately, you can create a factor "on the fly" within the analysis function itself.
+
+Because there are more than 2 levels of Father's Education, I will demonstrate how this is done in an ANOVA:
+
+```{r}
+
+# Force Fedu to be treated like a category in ANOVA:
+fedu_anova <- aov(student$G3 ~ factor(student$Fedu))
+
+summary(fedu_anova)
+
+```
+
+This works with most analysis functions including `t.test()` and `aov()`.
+
+**NOTE**: You only have to do this for variables in a dataset that are categories labeled as numbers. If the categories are text, `t.test()` and `aov()` automatically recognizes the variable as categorical. However, it does no harm to put a column with text into a `factor()` statement.
+
+## Cleaning the Data
+
+While exploring the data, you may have noticed a few students ended up with a final grade of zero. While it may be interesting to explore what factors lead to an incomplete grade, we want to make conclusions about students who completed the course.
+
+Create a clean dataset called, `clean`, that excludes zeros for G3. This will be used for the following analyses.
+
+```{r}
+clean <- student %>%
+  filter(G3 >0)
+
+favstats(clean$G3)
+```
+
+# Perform the Appropriate Analysis
+
+## Comparing Schools
+
+Suppose the Gabriel Pereira school (GP) has more stringent admissions requirements. We suspect this would lead to higher grades, on average.
+
+Create a side-by-side boxplot of the final grades for each school. Change the y-axis label to read "Final Grade out of 20", the x-axis label to read "School", and add a title.
+
+```{r}
+boxplot(G3 ~ school, data=clean, main = "Final Exam Scores by School", ylab = "Final Grade out of 20", xlab = "School", col = c(2,3))
+
+
+```
+
+**Question**: What do you notice?\
+**Answer**: GP has a higher max than MS
+
+Create a table of summary statistics of final grade for each school:
+
+```{r}
+favstats(G3 ~ school, data=clean)
+```
+
+### Hypothesis Test
+
+Create a qqPlot to look at the normality of both groups:
+
+```{r}
+qqPlot(G3 ~ school, data=clean)
+
+```
+
+**Question**: Do the grades look normally distributed for both groups? If not, should we be concerned?\
+**Answer**: The data for MS looks normally distributed while GP does not look normally distributed but we have a large sample size so central limit theorem applies
+
+**Question**: Can we trust the P-value?\
+**Answer**: Yes
+
+State your null and alternative hypotheses and significance level.
+
+**NOTE**: Recall that R uses alphabetical order to determine which group is the reference group. It is useful to put this group on the left side of the null hypothesis and set your alternative hypothesis accordingly.
+
+$$H_o: \mu_1 = \mu_2$$
+
+$$H_a: \mu_1 > \mu_2$$
+
+$$\alpha = 0.05$$\
+Perform the appropriate statistical test:
+
+```{r}
+t.test(clean$G3 ~ clean$school, alternative = "greater")
+
+```
+
+**Question**: What is the P-value?\
+**Answer**: 0.05197
+
+**Question**: What is your conclusion in context of the research question?\
+**Answer**: We fail to reject the null hypothesis. Meaning that we can say that we have insufficient evidence that GP schools are higher than MS schools
+
+### Confidence Interval
+
+Create a $(1-\alpha)$% confidence interval and explain it in context of the research question.
+
+```{r}
+t.test(clean$G3 ~ clean$school, conf.level = .95)$conf.int
+
+```
+
+**Explanation**: We can determine that the difference of the sample means is between -0.1775092 and 1.8505250 to 95%. Because 0 is within this range we cannot detect a difference
+
+## Comparing Second Period Grade with Final Grade
+
+We suspect there is a difference between the second period and the final grade, though we do not know if they go up or down. Carry out a hypothesis test to evaluate this suspicion.
+
+### Hypothesis Test
+
+Choose how you will define the difference between final grade and second period grade, and create a new object called `diff`:
+
+```{r}
+diff <- clean$G3 - clean$G2
+view(diff)
+```
+
+**Question**: What does a negative number mean?\
+**Answer**: A negative number means that a student had a better grade in the second period than the final
+
+Create a `qqPlot()` of `diff` and check for normality:
+
+```{r}
+qqPlot(diff)
+
+```
+
+**Question**: Do the grade differences look normally distributed? If not, should we be concerned?\
+**Answer**: It does not look normally distributed but we should not be concerned because our sample size is huge
+
+**Question**: Can we trust the P-value?\
+**Answer**: Yes because n is greater than 30
+
+State your null and alternative hypothesis and choose a significance level:
+
+$$H_o: \mu_d = 0$$
+
+$$Ha:  \mu_d \ne 0$$
+
+$$\alpha = 0.$$
+
+Perform the appropriate analysis.
+
+```{r}
+t.test(diff)
+
+```
+
+**Question**: What is the P-value?\
+**Answer**:0.0002341
+
+**Question**: What conclusion do you make in context of this research question?\
+**Answer**: We reject the null and have sufficient evidence that there is a difference between G2 and G3
+
+### Confidence Interval
+
+Create a $(1-\alpha)$% confidence interval for the differences and explain it in context of the research question.
+
+```{r}
+t.test(diff, conf.level = 0.95)$conf.int
+
+
+```
+
+**Explanation**: We are 95% sure that the true mean difference is between 0.07782404 and 0.25270817. Since 0 is not in that range we know that our alternative hypothesis is correct and that the final exam scores are greater
+
+## Absenteeism in Portugal
+
+In 2021, Portugal [reported](https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Secondary_education_statistics#Out-of-school_rates) having 0% absenteeism for 15-year-olds. We suspect that the actual absenteeism is higher than the reported value (zero).
+
+### Hypothesis Test
+
+Create a `qqPlot()` for absences.
+
+```{r}
+clean15 <- clean %>% 
+  filter(age == 15)
+qqPlot(clean15$absences)
+
+```
+
+**Question**: Do absences look normally distributed? If not, should we be concerned?\
+**Answer**: No but the sample size is large enough to compensate
+
+**Question**: Can we trust the P-value?\
+**Answer**: Yes because the sample size is large
+
+State your null and alternative hypotheses and choose a significance level:
+
+$$H_o: \mu = 0$$
+
+$$H_a: \mu >0$$
+
+$$\alpha = 0.05$$
+
+Perform the appropriate analysis.
+
+```{r}
+t.test(clean$absences, mu = 0, alternative = "greater")
+
+```
+
+**Question**: What is the P-value?\
+**Answer**: 2.991e-11
+
+**Question**: What conclusion do you make in context of this research question?\
+**Answer**: We reject the null because the p-value is insigificant and we have sufficient evidence that the mean absenteeism for 15 year olds is greater than 0
+
+### Confidence Interval
+
+Create a $(1-\alpha)$% confidence interval for average absences and interpret it in context of the problem.
+
+```{r}
+t.test(clean15$absences,conf.level=0.95)$conf.int
+
+```
+
+**Explanation**: We are 95% confident that the true mean is between 2.664144 and 4.546382.
+
+## The Impact of Mother's Education Level
+
+The level of education of the mother in the home is thought to have a significant impact on student success.
+
+Create a side-by-side boxplot of final grades for each level of mother's education.
+
+```{r}
+boxplot(G3 ~ Medu, data = clean)
+
+```
+
+Create a table of summary statistics of final grades for each level of mother's education.
+
+```{r}
+favstats(G3 ~ Medu, data = clean)
+
+```
+
+**Question**: How many respondents have a mother with no formal education (level 0)?\
+**Answer**: 3
+
+Create a new dataset, `clean_medu`, that does not include mother's education level 0.
+
+```{r}
+
+clean_medu <- clean %>% 
+  filter (Medu > 0)
+
+```
+
+Create another boxplot with the new dataset that excludes level 0.
+
+```{r}
+boxplot(G3 ~ Medu, data = clean_medu)
+
+
+```
+
+Create a summary table of final grades for each level of a mother's education with the new dataset.
+
+```{r}
+favstats(clean_medu$G3~clean_medu$Medu)
+
+sds <- favstats(clean_medu$G3~clean_medu$Medu)$sd
+max(sds) / min(sds)
+
+```
+
+**Question**: What is the maximum standard deviation?\
+**Answer**: 3.475202
+
+**Question**: What is the minimum standard deviation?\
+**Answer**: 2.495383
+
+**Question**: Verify that the maximum is less than twice as large as the minimum to check the "equality of standard deviations".\
+**Answer**: The ratio is 1.392653 which is less than twice the minimum.
+
+### Hypothesis Test
+
+State your null and alternative hypotheses and pick alpha:
+
+$$H_o: \mu_1 = \mu_2 = \mu_3 = \mu_4$$
+
+$$H_a: \text{at least one } \mu_k \text{ is different}$$
+
+$$\alpha = 0.05$$
+
+Perform the appropriate statistical test.
+
+```{r}
+aov_cleanmedu <- aov(G3 ~ as.factor(Medu), data=clean_medu)
+summary(aov_cleanmedu)
+
+```
+
+**Question**: What is the test statistic?\
+**Answer**: 5.748
+
+**Question**: What is the P-value?\
+**Answer**: 0.000756
+
+Check the normality of the residuals.
+
+```{r}
+qqPlot(aov_cleanmedu$residuals)
+
+
+```
+
+**Question**: Do the residuals appear roughly normally distributed?\
+**Answer**: Yes
+
+**Question**: Can we trust the P-value.\
+**Answer**: Yes because the qqPlot says its pretty normal
+
+State your conclusion.
+
+We can reject the null because the p-value is less than the level of significance. Meaning that we know that at least one of the means is different
+
+## Choose your own adventure
+
+Pick another variable that was not analyzed above.
+
+Create a side-by-side boxplot. Be sure to properly label the graph and add sufficient information so readers can know what they are looking at without having to search through the report or code.
+
+```{r}
+boxplot(G3 ~ sex, data = clean, main = "Final Scores by Gender", col = c("pink", "blue"))
+```
+
+$$H_0:  \mu_F = \mu_M$$
+
+$$H_0:  \mu_F < \mu_M$$
+
+Perform the appropriate analysis. Be sure to include a concise conclusion in the context of the research question, including a hypothesis test (and confidence interval if applicable.)
+
+```{r}
+favstats(G3 ~ sex, data = clean)
+qqPlot(G3 ~ sex, data = clean)
+t.test(G3 ~ sex, data = clean,alternative="less")
+t.test(G3 ~ sex, data = clean,conf.level = 0.95)$conf.int
+
+```
+
+Based on the findings we can determine that males did score higher in their final grade than females. We know that throught the sentral limit theorem, that we can trust our p-value of 0.02667 and it is below the level of significance. We reject the null hypothesis and we can determine with 95% accuracy that the difference between the sample populations lies between -1.331331307 and 0.009583978. The issue is that 0 is between that confidence interval so even though all of the rest of our findings say to reject the null hypothesis we still must be a little weary about our findings.

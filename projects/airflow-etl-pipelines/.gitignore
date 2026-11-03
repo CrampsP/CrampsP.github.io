@@ -1,0 +1,8 @@
+.env
+/logs/
+/dags/__pycache__
+/config/
+/archive/
+dags/stocks_to_mongo_dag_v3.py
+dags/weather_to_snowflake_dag.py
+dags/utils.py

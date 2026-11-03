@@ -1,0 +1,365 @@
+---
+title: "CA - BF[1] Factor Structure"
+output: html_document
+---
+
+```{r}
+library(mosaic)
+library(tidyverse)
+library(readr)
+library(emmeans)
+library(car)
+```
+
+
+```{r}
+set.seed(4782055)
+Store <- paste("store", seq(1:96))
+AvgFootTraffic <- c(floor(rnorm(48, mean=120, sd=7)), floor(rnorm(48, mean=160, sd=9)))
+WindowTreatment <- rep(c("Current", "New"), each = 48, times =1)
+```
+
+```{r}
+WindowDataBF1 <- tibble(Store, AvgFootTraffic, WindowTreatment)
+```
+
+```{r}
+windowaov <- aov(AvgFootTraffic ~ WindowTreatment, data = WindowDataBF1)
+summary(windowaov)
+dummy.coef(windowaov)
+```
+
+
+```{r}
+favstats(WindowDataBF1$AvgFootTraffic)
+favstats(WindowDataBF1$AvgFootTraffic ~ WindowDataBF1$WindowTreatment)
+favstats(AvgFootTraffic ~ WindowTreatment, data = WindowDataBF1)
+boxplot(AvgFootTraffic ~ WindowTreatment, data = WindowDataBF1)
+```
+
+
+```{r}
+bonedata <- read.csv("../data/Bonemineral.csv")
+headdata <- read.csv("../data/headinjury.csv")
+```
+
+
+```{r}
+View(bonedata)
+favstats(bonedata$BMD)
+favstats(bonedata$BMD ~ bonedata$Treatment)
+boxplot(BMD ~ Treatment, data = bonedata)
+```
+
+```{r}
+myaov <- aov(BMD ~ Treatment, data = bonedata, contrasts = list(Treatment = contr.sum))
+summary(myaov)
+dummy.coef(myaov)
+```
+```{r}
+par(mfrow = c(1,3))
+plot(myaov, which = 1)
+plot(myaov, which = 2)
+qqPlot(myaov$residuals)
+```
+
+
+```{r}
+View(headdata)
+favstats(headdata$HeadInjury)
+favstats(headdata$HeadInjury ~ headdata$Type)
+boxplot(HeadInjury ~ Type, data = headdata)
+```
+```{r}
+myaov <- aov(HeadInjury ~ Type, data = headdata)
+summary(myaov)
+```
+```{r}
+head_means <- emmeans(myaov, "Type")
+head_means
+contrast(head_means, list(i = c(-1/4,-1/4,-1/4,-1/4,1/3,1/3,1/3),
+                          ii = c(-1/2,1/2,-1/2,1/2,0,0,0),
+                          iii = c(-1,0,1,0,0,0,0)),adjust = "none")
+```
+
+
+
+```{r}
+cancerdata <- read.csv("../data/Cancer.csv")
+```
+```{r}
+View(cancerdata)
+favstats(cancerdata$days)
+favstats(cancerdata$days ~ cancerdata$type)
+boxplot(days ~ type, data = cancerdata)
+```
+```{r}
+myaov <- aov(log(days) ~ type, data = cancerdata)
+summary(myaov)
+dummy.coef(myaov)
+```
+```{r}
+par(mfrow = c(1,3))
+plot(myaov, which = 1)
+plot(myaov, which = 2)
+qqPlot(myaov$residuals)
+```
+```{r}
+boxplot(days ~ type, data = cancerdata)
+
+```
+
+
+
+
+
+
+```{r}
+head1 <- read.csv("../data/headinjury-1.csv")
+```
+
+```{r}
+View(head1)
+favstats(head1$HeadInjury)
+favstats(head1$HeadInjury ~ headdata$Type)
+boxplot(HeadInjury ~ Type, data = head1)
+```
+
+```{r}
+headaov <- aov(HeadInjury ~ Type, data = head1)
+summary(headaov)
+```
+
+```{r}
+head1_means <- emmeans(headaov, "Type")
+head1_means
+contrast(head1_means, list(i = c(-1/4,-1/4,-1/4,-1/4,1/3,1/3,1/3),
+                          ii = c(-1/2,1/2,-1/2,1/2,0,0,0),
+                          iii = c(-1,0,1,0,0,0,0)),adjust = "none")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+head2 <- read.csv("../data/headinjury-2.csv")
+```
+
+```{r}
+View(head2)
+favstats(head2$HeadInjury)
+favstats(head2$HeadInjury ~ headdata$Type)
+boxplot(HeadInjury ~ Type, data = head2)
+```
+
+```{r}
+head2aov <- aov(HeadInjury ~ Type, data = head2)
+summary(head2aov)
+```
+
+```{r}
+par(mfrow = c(1,3))
+plot(head2aov, which = 1)
+plot(head2aov, which = 2)
+qqPlot(head2aov$residuals)
+```
+
+```{r}
+head2_means <- emmeans(head2aov, "Type")
+head2_means
+```
+
+```{r}
+pairs(head2_means, adjust = "scheffe")
+```
+
+```{r}
+contrast(head2_means, list(i =
+                             c(-1/4,-1/4,-1/4,-1/4,1/3,1/3,1/3),
+                          ii = 
+                            c(-1/2,1/2,-1/2,1/2,0,0,0),
+                          iii = 
+                            c(-1,0,1,0,0,0,0)),
+         adjust = "none")
+```
+
+
+
+
+
+
+
+
+
+```{r}
+candata <- read.csv("../data/Cancer for HW.csv")
+```
+
+```{r}
+View(candata)
+```
+```{r}
+favstats(log(candata$days))
+favstats(log(days) ~ type, data = candata)
+boxplot(log(days) ~ type, data = candata)
+```
+
+```{r}
+canaov <- aov(log(candata$days) ~ type, data = candata)
+summary(canaov)
+```
+
+```{r}
+par(mfrow = c(1,3))
+plot(canaov, which = 1)
+plot(canaov, which = 2)
+qqPlot(canaov$residuals)
+```
+
+```{r}
+can_means <- emmeans(canaov, "type")
+can_means
+```
+
+```{r}
+pairs(can_means, adjust = "none")
+```
+```{r}
+contrast(can_means, list(i = c(-1/5,1,-1/5,-1/5,-1/5,-1/5)), adjust = "Scheffe")
+```
+
+
+
+
+
+```{r}
+IVData <- read_csv("../data/data_for_class/Data/IVData.csv")
+View(IVData)
+```
+```{r}
+myaov <- aov(Particles ~ Companies, data = IVData)
+summary(myaov)
+```
+
+```{r}
+IV_means <- emmeans(myaov, "Companies")
+IV_means
+```
+```{r}
+contrast(IV_means, list(Abbot_vs_McGaw = c(1,0,-1)),adjust = "")
+```
+
+
+```{r}
+favstats(IVData$Particles ~ IVData$Companies)
+```
+```{r}
+stripchart(Particles ~ Companies, data = IVData, vertical = TRUE)
+```
+```{r}
+par(mfrow = c(1,3))
+plot(myaov, which = 1)
+plot(myaov, which = 2)
+qqPlot(myaov$residuals)
+```
+```{r}
+leveneTest(myaov)
+```
+```{r}
+View(auxin)
+```
+```{r}
+myaov2 <- aov(days ~ auxin, data = auxin)
+summary(myaov2)
+```
+```{r}
+favstats(auxin$days ~ auxin$auxin)
+stripchart(days ~ auxin, data = auxin, vertical = TRUE)
+```
+```{r}
+par(mfrow = c(1,2))
+plot(myaov2, which = 1)
+qqPlot(myaov2$residuals)
+hist(myaov2$residuals)
+```
+```{r}
+leveneTest(myaov2)
+```
+```{r}
+myaov3 <- aov(log(days) ~ auxin, data = auxin)
+```
+
+
+
+
+
+
+
+```{r}
+pain <- read_csv("../data/pain_long.csv")
+View(pain)
+```
+```{r}
+painaov <- aov(pain ~ treatment, data = pain)
+summary(painaov)
+```
+
+
+
+
+
+
+```{r}
+pain <- read_csv("../data/.csv")
+View(pain)
+```
+```{r}
+painaov <- aov(pain ~ treatment, data = pain)
+summary(painaov)
+```
+
+
+
+```{r}
+exam <- read_csv("../data/Exam_1_Practice_Gratitude.csv")
+View(exam)
+```
+
+```{r}
+favstats(exam$happiness)
+stripchart(happiness ~ treatment, data = exam)
+boxplot(happiness ~ treatment, data = exam)
+```
+
+```{r}
+examaov <- aov(happiness ~ treatment, data = exam)
+summary(examaov)
+```
+
+```{r}
+par(mfrow = c(1,3))
+plot(examaov, which = 1)
+plot(examaov, which = 2)
+qqPlot(examaov$residuals)
+```
+
+```{r}
+exam_means <- emmeans(examaov, "treatment")
+exam_means
+```
+
+```{r}
+pairs(exam_means, adjust = "Bonferroni")
+```
+
+
+
+

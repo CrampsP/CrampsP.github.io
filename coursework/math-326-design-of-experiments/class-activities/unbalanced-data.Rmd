@@ -1,0 +1,114 @@
+---
+title: "UnbalancedData"
+output: html_document
+---
+
+```{r}
+library(mosaic)
+library(car)
+library(emmeans)
+library(pander)
+library(tidyverse)
+library(readr)
+```
+
+```{r}
+cancer <- read_csv("../data/Cancer.csv")
+View(cancer)
+cancer$gender <- as.factor(cancer$gender)
+```
+
+```{r}
+favstats(days ~ gender + type, data = cancer)
+```
+
+```{r}
+cancer.aov <- aov(days ~ gender * type, data = cancer, contrasts = list(gender = contr.sum, type = contr.sum))
+cancer.aov2 <- aov(days ~ type * gender, data = cancer, contrasts = list(gender = contr.sum, type = contr.sum))
+summary(cancer.aov)
+summary(cancer.aov2)
+```
+
+```{r}
+car::Anova(cancer.aov, type = 3)
+car::Anova(cancer.aov2, type = 3)
+```
+
+```{r}
+can <- read_csv("../data/Cancer_10-24.csv")
+View(can)
+```
+
+```{r}
+favstats(days ~ gender + type, data = can)
+```
+
+```{r}
+canaov <- aov(days ~ gender * type, data = can)
+summary(canaov)
+car::Anova(canaov, type = 3)
+
+```
+
+```{r}
+par(mfrow = c(1, 3))
+plot(canaov, which = 1)
+plot(canaov, which = 2)
+qqPlot(canaov$residuals)
+```
+
+```{r}
+logcanaov <- aov(log(days) ~ gender * type, data = can)
+summary(logcanaov)
+```
+
+```{r}
+par(mfrow = c(1, 3))
+plot(logcanaov, which = 1)
+plot(logcanaov, which = 2)
+qqPlot(logcanaov$residuals)
+```
+
+
+
+```{r}
+sing <- read_csv("../data/singerheights.csv")
+View(sing)
+```
+
+```{r}
+favstats(height ~ gender + part, data = sing)
+```
+
+```{r}
+singaov <- aov(height ~ gender * part, data = sing)
+summary(singaov)
+car::Anova(singaov, type = 3)
+
+```
+
+```{r}
+par(mfrow = c(1, 3))
+plot(singaov, which = 1)
+plot(singaov, which = 2)
+qqPlot(singaov$residuals)
+```
+
+```{r}
+logsingaov <- aov(log(height) ~ gender * part, data = sing)
+summary(logsingaov)
+```
+
+```{r}
+par(mfrow = c(1, 3))
+plot(logsingaov, which = 1)
+plot(logsingaov, which = 2)
+qqPlot(logsingaov$residuals)
+```
+
+
+
+
+
+
+

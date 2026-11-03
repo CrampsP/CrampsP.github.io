@@ -1,0 +1,73 @@
+---
+title: "W10_task3"
+format: html
+---
+
+
+
+```{r}
+library(stringr)
+library(readr)
+library(tidyverse)
+```
+
+```{r}
+savior_names <- read_rds("https://byuistats.github.io/M335/data/BoM_SaviorNames.rds")
+
+scripture <- read.csv("https://github.com/beandog/lds-scriptures/raw/master/csv/lds-scriptures.csv")
+
+View(savior_names)
+View(scripture)
+```
+
+
+```{r}
+BOM <- scripture %>%
+mutate(word_count = str_count(scripture_text, " ") + 1) %>% 
+  filter(volume_id == 3) %>% 
+  pull(scripture_text) %>% 
+  paste(collapse = " ")
+
+View(BOM)
+```
+
+
+```{r}
+savior_text <- savior_names %>%
+  arrange(desc(nchar(name))) %>%
+  pull(name) %>%
+  str_c(collapse = "|")
+
+bom_text <- scripture %>%
+  filter(volume_id == 3) %>%
+  pull(scripture_text) %>%
+  str_c(collapse = " ")
+
+combined <- str_split(bom_text, savior_text)[[1]]
+
+length(combined)
+```
+
+```{r}
+words_between <- tibble(text_between = combined) %>%
+  mutate(words = str_count(text_between, "\\w+"),
+    section_number = row_number()) %>%
+  filter(section_number != 1,
+    section_number != n())
+```
+
+```{r}
+average_words_between <- mean(words_between$words)
+median_words_between <- median(words_between$words)
+
+average_words_between
+median_words_between
+```
+```{r}
+ggplot(words_between, aes(x = words)) +
+  geom_histogram(binwidth = 10) +
+  coord_cartesian(xlim = c(0, 170)) +
+  theme_bw()
+```
+
+

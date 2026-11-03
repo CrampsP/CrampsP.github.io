@@ -1,0 +1,98 @@
+---
+title: "Food at College"
+output: 
+  html_document:
+    theme: cerulean
+    code_folding: hide
+---
+
+```{r, warning=FALSE, message=FALSE}
+# From your file menu (at the top of R-Studio) select:
+# "Session -> Set working directory -> To source file location"
+# Then play this chunk to get the data into R.
+
+library(mosaic)
+library(car)
+library(DT)
+library(pander)
+library(readr)
+library(dplyr)
+
+Food <- read_csv("../../data/food.csv") #food.csv is in the Data folder...
+
+Food <- Food %>%
+  mutate(grade_label = case_when(
+    grade_level == 1 ~ "Freshman",
+    grade_level == 2 ~ "Sophomore",
+    grade_level == 3 ~ "Junior",
+    grade_level == 4 ~ "Senior",
+    TRUE ~ NA_character_
+  )) %>%
+  relocate(grade_label, .after = grade_level)
+
+View(Food)
+```
+
+
+## Background
+In this study, we are interested in exploring whether a student’s academic grade level (Freshman through Senior) has an influence on how healthy they feel on a self-reported scale from 1 to 10. We aim to understand how health can vary across grade levels due to differences in stress, academic workload, lifestyle habits, and social adjustment. For instance, upperclassmen might have developed healthier routines or coping mechanisms over time, whereas newer students could experience more irregular sleep, diet, and stress patterns. Understanding whether perceived health differs across these academic stages can provide insight into how universities and health programs might tailor wellness initiatives for students at different points in their college experience. The variable "healthy_feel" represents each student’s subjective perception of their overall health and wellness, while "grade_level" categorizes them into their respective year in school. 
+
+## Hypothesis
+To examine whether perceived health levels differ across grade levels, a Kruskal–Wallis H test will be used. This nonparametric test is appropriate because it compares the medians of independent groups (Freshman, Sophomore, Junior, Senior). Assuming an alpha of 0.05, if the test yields a significant result, it would suggest that students at different grade levels perceive their health differently.
+
+$$
+  H_0: \text{There is no difference in healthiness scores across grade levels}
+$$ 
+
+$$
+  H_a: \text{There is at least one grade level healthiness score that is different than the others.}
+$$
+
+$$
+  \alpha = 0.05
+$$
+
+
+## Understanding the Data
+
+```{r}
+favstats(healthy_feeling ~ grade_level, data=Food)[,c(-2, -3, -5, -6,-10)] %>%
+  pander(caption="Healthy Student Stats")
+```
+
+```{r}
+boxplot(healthy_feeling ~ grade_level, data=Food, col='lightblue', ylab="Healthiness Score", main="Does Senioritis affect Student Health", xlab=" Grades")
+```
+
+By looking at the data through numeric and graphical summaries we can see that the means and the spreads of the data do seem to differ a little bit. This is interesting to note because it gives us a little hint as to what the results of our Kruskal-Walis test will infer about our data.
+
+
+
+In order to understand more about the data before proceeding with the test, we will perform an ANOVA test which will tell us about the normality of the data and if a Kruskal-Walis test is necesary.
+
+
+```{r}
+Senioritis.aov <- aov(healthy_feeling ~ grade_level, data = Food)
+summary(Senioritis.aov) %>% pander()
+```
+
+```{r}
+par(mfrow=c(1,2))
+plot(Senioritis.aov, which=1, pch=16)
+qqPlot(Senioritis.aov$residuals, id=FALSE)
+```
+
+We can see from our ANOVA that the data might not be significant or normally distributed enough to count this test as a credible test to use to analyse our data. With that in mind we will move on to the Kruskal-Walis test.
+
+
+```{r}
+kruskal.test(healthy_feeling ~ grade_level, data = Food)
+```
+
+## Conclusion
+
+We can see from our final test that while there may be some evidence in our graphical and numerical summaries to suggest that at least one grade level has a significant difference in healthiness scores, our p-value tells us that the difference is insignificant. This leads us to fail to reject the null hypothesis which states that all grade levels have similar healthiness scores.
+
+
+
+

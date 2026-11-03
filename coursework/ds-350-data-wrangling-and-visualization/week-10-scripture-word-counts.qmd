@@ -1,0 +1,67 @@
+---
+title: "W10_task2"
+format: html
+---
+
+
+```{r}
+library(stringr)
+library(readr)
+library(tidyverse)
+```
+
+
+```{r}
+scripture <- read.csv("https://github.com/beandog/lds-scriptures/raw/master/csv/lds-scriptures.csv")
+```
+
+```{r}
+NT <- scripture %>%
+mutate(word_count = str_count(scripture_text, " ") + 1) %>% 
+  filter(volume_id == 2)
+View(NT)
+
+BM <- scripture %>%
+mutate(word_count = str_count(scripture_text, " ") + 1) %>% 
+  filter(volume_id == 3)
+View(BM)
+```
+
+```{r}
+mean(NT$word_count)
+mean(BM$word_count)
+```
+
+
+```{r}
+J_NT <- NT %>% 
+  mutate(jesus = str_count(scripture_text, "\\bJesus\\b")) %>% 
+  mutate(book_title = factor(book_title, levels = rev(unique(book_title))))
+
+J_BM <- BM %>% 
+  mutate(jesus = str_count(scripture_text, "\\bJesus\\b")) %>% 
+  mutate(book_title = factor(book_title, levels = rev(unique(book_title))))
+
+sum(J_NT$jesus)
+sum(J_BM$jesus)
+```
+
+```{r}
+ggplot(J_BM, aes(x = book_title, y = word_count)) +
+  geom_boxplot() +
+  coord_flip() +
+  theme_bw()
+```
+
+```{r}
+ggplot(J_BM, aes(x = book_title)) +
+  geom_bar() +
+  coord_flip() +
+  theme_bw()
+```
+
+
+
+
+
+

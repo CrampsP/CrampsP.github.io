@@ -1,0 +1,111 @@
+---
+title: Summarizing Data - One Group
+subtitle: Summarizing Quantitative Data
+format:
+  html:
+    self_contained: yes
+---
+
+```{r setup, include=FALSE}
+# Ignore this bit of code.  This makes it so that you can render the qmd file even when there are errors in your code.
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, error = TRUE)
+```
+
+# Introduction
+
+In these document, we explore 2 datasets. The first is data collected on the duration and the time between geyser eruptions at Old Faithful in Yellowstone National park. The second is data collected about expressions of gratitude and their impact on subjective well-being.
+
+For each dataset, you will create numerical and visual summaries of the data.
+
+# Load libraries and Data
+
+```{r}
+
+library(rio)
+library(mosaic)
+library(tidyverse)
+library(car)
+
+
+old_faithful <- rio::import("https://byuistats.github.io/M221R/Data/old_faithful.xlsx")
+
+gratitude <- rio::import("https://byuistats.github.io/M221R/Data/gratitude.xlsx")
+
+```
+
+# Old Faithful
+
+## Calculate the Summary Statistics for Duration
+
+```{r}
+mean(old_faithful$duration)
+sd(old_faithful$duration)
+
+```
+
+What is the mean duration time of Old Faithful eruptions? 3.48 sec
+
+What is the standard deviation of duration? 1.1 sec
+
+## Create a Historgram for Duration
+
+Create a histogram and describe the shape of the distribution of duration: left leaning
+
+```{r}
+hist(old_faithful$duration)
+
+```
+
+## Calculate Summary Statistics for Wait time
+
+```{r}
+mean(old_faithful$wait)
+max(old_faithful$wait)
+median(old_faithful$wait)
+
+
+```
+
+**Question**: What is the mean wait time between eruptions?\
+**Answer**: 70.89sec
+
+**Question**: What is the maximum wait time between eruptions?\
+**Answer**: 96 sec
+
+**Question**: The middle 50% of wait times will be between what 2 numbers?\
+**Answer**: 76 sec
+
+# Gratitude
+
+In this dataset, there is a column called `treatment` which has the group designation, and a single column called `happiness` which is the self-reported happiness score for the participants in the sample.
+
+Data are often organized this way. In the [next lesson](https://byuistats.github.io/Math221D_Course/1-Data_Literacy/8-Summarizing_Data_Multiple_Groups.html), we will learn how to break down data summaries for different groups. For now, let's get a sense for the distribution of self-reported happiness scores for everyone in the study, regardless of treatment group.
+
+Create a summary statistics table and answer the questions below:
+
+```{r}
+max(gratitude$happiness)
+sd(gratitude$happiness)
+
+```
+
+**Question**: What is the maximum self-reported happiness score?\
+**Answer**: 7.5
+
+**Question**: What is the standard deviation of happiness scores?\
+**Answer**:0.89
+
+**Question**: In your own words, explain what the standard deviation means in context of this problem:\
+**Answer**:It means that on average people are a point away from each other in happiness scores
+
+## Histogram
+
+Create a histogram of happiness scores:
+
+```{r}
+hist(gratitude$happiness)
+
+```
+
+**Question**: What is the general shape of the distribution?\
+**Answer**: It is a bell curve or more right leaning

@@ -1,0 +1,33 @@
+---
+title: "Olympic"
+output: html_document
+---
+
+```{r}
+library(readr)
+library(mosaic)
+library(tidyverse)
+library(pander)
+Olympics <- read_csv("Data/Olympics.csv")
+View(Olympics)
+```
+
+Have male gymnasts who compete in the summer olympics gotten shorter over the years
+
+```{r}
+NewData <- Olympics %>% 
+  group_by(ID, Name, Sex, Year, Season, Sport) %>% 
+  summarise(Ave_Ht = mean(Height),
+            Ave_Wt = mean(Weight))
+View(NewData)
+```
+
+```{r}
+Summer <- filter(NewData, Season %in% "Summer" & Sex %in% "M" & Sport %in% "Gymnastics")
+View(Summer)
+```
+
+```{r}
+boxplot(Ave_Ht ~ Year, data=Summer)
+```
+

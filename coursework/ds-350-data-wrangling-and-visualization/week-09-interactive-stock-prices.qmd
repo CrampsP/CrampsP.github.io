@@ -1,0 +1,45 @@
+---
+title: "W09_task1"
+format: html
+---
+
+```{r}
+library(tidyverse) 
+library(dygraphs)
+library(tidyquant)
+library(timetk)
+```
+
+```{r}
+stocks <- c("TSLA", "AAPL", "LMT", "AMZN","MSFT","WMT")
+
+stock_prices <- tq_get(stocks) %>% 
+    filter(date >= Sys.Date() - years(5))
+
+View(stock_prices)
+```
+
+```{r}
+stockxts <- stock_prices %>% 
+  pivot_wider(names_from = symbol,
+              values_from = close,
+              id_cols = date) %>% 
+  tk_xts(date = date)
+
+View(stockxts)
+```
+
+```{r}
+dygraph(stockxts) %>% 
+  dyRangeSelector() %>% 
+  dyAxis("y", label = "Stock price") %>% 
+  dyLegend(show = "always") %>% 
+   dyHighlight(highlightCircleSize = 5,
+    highlightSeriesBackgroundAlpha = 0.3,
+    hideOnMouseOut = FALSE)
+  
+```
+
+
+Each one of my stocks is in an upward trend which would be very helpful and uplifting if I was actually investing in them. It seemed like tech industry stocks continuously went up with time and shopping centers like Walmart and Amazon went up as well but at a slower and less obvious pace.
+

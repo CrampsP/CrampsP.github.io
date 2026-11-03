@@ -1,0 +1,65 @@
+---
+title: Distribution of P-hat Practice
+format:
+  html:
+    self_contained: true
+    embed-resources: true
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, error = TRUE)
+```
+
+# Instructions
+
+Complete the following questions about the sampling distribution of $\hat{p}$. When completed, Render the `qmd` file and submit the `html`.
+
+# Questions
+
+**Question**: When can we use the normal distribution to approximate the sampling distribution of $\hat{p}$?\
+**Answer**: When the sample proportion is greater than 10
+
+**Question**: What is the mean of the sampling distribution of $\hat{p}$?\
+**Answer**: $$z = \frac{\hat{p}-p}{\sqrt{\frac{p(1-p)}{N}}}$$
+
+**Question**: What is the standard deviation of the sampling distribution of $\hat{p}$?\
+**Answer**: $$\mu_{\hat{p}} = p$$
+
+Suppose the true *population* proportion, $p$, of people who support a candidate for office is 52%. We would like to learn something about a *sample* proportion, $\hat{p}$, with a sample size $n=1000$ suggesting that the candidate will lose the election ($\hat{p}<0.50$).
+
+Use the following R code to answer the questions below:
+
+```{r}
+
+# Given data
+x <- 1000*0.5
+n <- 1000
+p_hat <- x/n
+
+# population proportion
+p <- 0.52
+
+# Calculate standard deviation
+sigma_phat <- sqrt(p * (1 - p) / n)
+sigma_phat
+# Calculate z-score
+z <- (p_hat - p) / sigma_phat
+z
+# Left Tail (lower than p)
+pnorm(z)
+
+# Right Tail (greater than p)
+1-pnorm(z)
+
+```
+
+**Question**: What is the $z$-score associated with $\hat{p}<0.5$?\
+**Answer**: -1.2659
+
+**Question**: What is the standard deviation of $\hat{p}$?\
+**Answer**: 0.01579
+
+**Question**: What is the probability of a sample of size $n=1000$ suggesting that the candidate will lose even if the true population support, $p=0.52$?\
+**Answer**: 0.10277

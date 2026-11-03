@@ -1,0 +1,138 @@
+---
+title: "Simple Linear Regression"
+output: 
+  html_document:
+    theme: cerulean
+    code_folding: hide
+---
+
+```{r, message=FALSE, warning=FALSE}
+# Load your libraries
+library(car)
+library(tidyverse)
+library(pander)
+
+waterpolo <- read_csv("../../data/waterpolo_data.csv")
+
+
+# Load your data after saving a csv file in your Data folder.
+# You can use either 
+#   someName <- read.csv("../data/YourDataFileName.csv", header=TRUE)
+# or
+#   library(readr)
+#   someName <- read_csv("../data/YourDataFileName.csv")
+
+# Don't forget to run "Session -> Set Working Directory -> To Source file location"
+
+```
+
+
+<!-- Directions
+
+Come up with a simple linear regression of your own creation. 
+
+* Write the Background and clearly state your question. Then collect data and perform the linear regression analysis in order to answer your question. Use the proper order of first, ask the question, then second, figure out the answer.
+
+* You should collect both the quantitative response variable and the quantitative explanatory variable yourself. This can be data you collect from 
+    - the internet (like weather data, Facebook data, or sports data) 
+    - your own experiment 
+    - your own observational study
+* However,     
+    - The data should not be a single pre-existing dataset. It must be something that you piece together yourself.
+
+* You need at least $n=3$ $(X,Y)$ pairs to perform the regression. However, your regression will only be useful if you can get around $n=10$ or more observations.
+
+-->
+
+
+## Background
+
+In most games that involve getting an object into a specified area in order to earn points, it is safe to assume that the more attempts that you have to make that objective the greater the likelihood that you will earn more points. Data was taken from different water polo games to help determine if that really is a fact. Does practice make perfect or does perfect practice make perfect?
+
+This data was taken during the course of several different high scoring water polo games. Each data point is a player who had tried to make a goal and either successfully or unsuccessfully earned the point. 
+
+
+
+## Analysis
+
+This report will attempt to model the relationship between successful shots and how many attempts were made in total.
+
+We will model the number of goals scored by player *i* as a linear function of their total attempts:
+$$
+  \underbrace{Y_i}_\text{Goals Scored} = \beta_0 + \beta_1 \underbrace{X_i}_\text{Total Attempts} + \epsilon_i \quad \text{where} \ \epsilon_i \sim N(0, \sigma^2) 
+$$
+
+
+We are interested in whether there is a statistically significant linear relationship between total attempts and goals scored.
+
+Our starting null hypothesis is that there is not a significant linear relationship between attempts and goals scored
+
+$$
+  H_0: \beta_1 = 0
+$$
+
+
+Our alternative hypothesis will be that there is a significant linear relationship between attempts and goals scored.
+
+$$
+  H_a: \beta_1 \neq 0
+$$
+
+
+We will finally assume that our level of significance is 0.05
+
+$$
+  \alpha = 0.05
+$$
+
+
+With this understanding we can start our analysis of the data using a scatterplot to find any obvious trends in our data.
+
+```{r}
+plot(Goals_Scored ~ Attempts, data = waterpolo, pch = 21, bg = "skyblue", col = "steelblue", xlab = "Total Attempts Made on Goal", ylab = "Goals Made", main = "Successful Shot Rate")
+abline(polo_lm)
+```
+
+Our estimated equation for this line looks as follows
+
+$$
+  \underbrace{Y_i}_\text{Goals Scored} = -0.2807 + 0.4274 \underbrace{X_i}_\text{Total Attempts}
+$$
+
+Here is the full analysis
+
+```{r}
+polo_lm <- lm(Goals_Scored ~ Attempts, data = waterpolo)
+pander(summary(polo_lm))
+```
+
+
+## Interpretation
+
+The estimated slope of the regression line is 0.4274, indicating that a player scores a little less than 50% of the time when they take a shot. This suggests that increases in shot attempts are strongly associated with higher goal counts. The intercept of −0.2807 implies that a player taking zero shots score zero goals. The negative value just represents the line as it occurs in reality and does not indicate that players who do not shoot would retract the score as indicated by the p-value in the intercept row being higher than the level of significance.
+
+The p value (9.257e-13) is less than the level of significance (0.05) meaning that we can conclude that there is a statistically significant positive linear relationship between total attempts and goals scored.
+
+
+## Appropriateness of the Regression
+
+Within the analysis we can find out if our data is sufficient to perform a linear regression. 
+
+```{r}
+par(mfrow=c(1,3))
+plot(polo_lm,which=1:2)
+plot(polo_lm$residuals)
+```
+
+From the graphs above we can analyse the residuals, the normality and if the linear regression left any further information that might further explain the model. 
+
+Our Residuals vs. Fitted graph may be the graph with the most concerning visuals. Our residuals line gets farther from 0 as we continue along the x-axis which may cause us to question the data or acquire more data to help understand our linear regression model.
+In our QQ Plot we can see that a large percentage falls along the expected normality line which is great for our analysis.
+In our final graph, Residuals vs. Order, we can find a good amount of random noise that has no distinct shape. This suggest that our model extracted all of the useful data.
+
+
+## Conclusion
+
+From all of the data we have collected and different ways we have looked at and interpreted the data we can verify several of our findings. Each of these help to support our hypothesis that there is a significant linear relationship between attempts on goal and goals scored. We can see from the diagnostic plots that the data we have is adequate for use in this linear regression model. From the scatter plot and subsequent linear model we can verify that our data shows us that type of relationship. Finally, using a linear regression model we can determine that the slope of the line best fitting the data has a positive slope that follows our data about 65% of the time, according to the R Squared and Adjusted R Squared.
+
+

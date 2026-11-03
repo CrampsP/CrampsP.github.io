@@ -1,0 +1,2370 @@
+---
+title: "R / Tidyverse Coding Challenge Study Guide: Weeks 0-7"
+author: "Cramps Study Guide"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    theme: readable
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+
+# How to Use This Study Guide
+
+This guide is for your R coding challenge. It focuses on the main things your professor said matter:
+
+- different ways to read data into R
+- cleaning messy data
+- formatting data
+- renaming columns
+- transforming data with `dplyr`
+- joining tables with `*_join()` functions
+- changing the shape of data with `tidyr`
+- graphing data with `ggplot2`
+- making clean, publication-worthy visuals
+
+Simple banana idea:
+
+- One row = one banana or one observation.
+- One column = one fact about the banana, like color, price, weight, store, date sold, etc.
+
+Most R data work follows this pattern:
+
+1. Read the data.
+2. Look at the data.
+3. Clean column names.
+4. Clean messy values.
+5. Select useful columns.
+6. Filter useful rows.
+7. Make new columns.
+8. Group and summarize.
+9. Reshape if needed.
+10. Join with other tables if needed.
+11. Graph the story.
+
+# Load Packages
+
+```{r libraries, eval=FALSE}
+library(tidyverse)
+library(readxl)
+library(janitor)
+library(lubridate)
+```
+
+## What These Packages Do
+
+`tidyverse`
+
+Loads the main tools for data work:
+
+- `dplyr`: clean, transform, summarize, and join data
+- `ggplot2`: graph data
+- `tidyr`: reshape data
+- `readr`: read CSV and text data
+- `stringr`: clean text
+- `forcats`: work with categories/factors
+- `tibble`: nicer data frames
+
+`readxl`
+
+Reads Excel files like `.xlsx`.
+
+`janitor`
+
+Cleans messy column names with `clean_names()`.
+
+`lubridate`
+
+Cleans and works with dates.
+
+Banana version:
+
+The tidyverse is your banana toolbox. `dplyr` sorts and cleans bananas. `ggplot2` draws banana pictures. `tidyr` reshapes the banana boxes.
+
+# Reading Data Into R
+
+Your professor specifically said to know different approaches for reading data into R.
+
+## `read_csv()`
+
+Use for CSV files.
+
+```{r read-csv, eval=FALSE}
+data <- read_csv("bananas.csv")
+```
+
+Common form:
+
+```{r read-csv-arguments, eval=FALSE}
+read_csv(file, col_names = TRUE, na = c("", "NA"))
+```
+
+Arguments:
+
+- `file`: the file path or URL. It expects text in quotes.
+- `col_names`: tells R if the first row contains column names. It expects `TRUE` or `FALSE`.
+- `na`: tells R which values should count as missing. It expects a vector like `c("", "NA", "missing")`.
+
+Banana example:
+
+```{r read-csv-banana, eval=FALSE}
+banana_data <- read_csv("data/bananas.csv", na = c("", "NA", "unknown"))
+```
+
+Banana version:
+
+Read the banana file. If a banana price says `unknown`, treat it like missing.
+
+## `read_csv()` From a URL
+
+```{r read-csv-url, eval=FALSE}
+data <- read_csv("https://example.com/bananas.csv")
+```
+
+This reads a CSV directly from the internet.
+
+## `read_excel()`
+
+Use for Excel files.
+
+```{r read-excel, eval=FALSE}
+data <- read_excel("bananas.xlsx")
+```
+
+Common form:
+
+```{r read-excel-arguments, eval=FALSE}
+read_excel(path, sheet = 1, range = NULL, col_names = TRUE)
+```
+
+Arguments:
+
+- `path`: the Excel file location. It expects text in quotes.
+- `sheet`: which sheet/tab to read. It expects a number like `1` or a sheet name like `"Sales"`.
+- `range`: the cells to read. It expects text like `"A1:D20"`.
+- `col_names`: whether the first row contains names. It expects `TRUE` or `FALSE`.
+
+Examples:
+
+```{r read-excel-examples, eval=FALSE}
+data <- read_excel("bananas.xlsx", sheet = "Sales")
+data <- read_excel("bananas.xlsx", sheet = 2)
+data <- read_excel("bananas.xlsx", range = "A1:D20")
+```
+
+Banana version:
+
+If your Excel workbook has multiple banana tabs, `sheet` tells R which tab to read.
+
+## `read_delim()`
+
+Use when the file uses a separator that is not a comma.
+
+```{r read-delim, eval=FALSE}
+data <- read_delim("bananas.txt", delim = ";")
+```
+
+Arguments:
+
+- `file`: the file path.
+- `delim`: the symbol that separates columns. It expects text like `","`, `";"`, or `"\t"`.
+
+Banana version:
+
+Every time R sees a semicolon, it knows a new banana column starts.
+
+## Base R `read.csv()`
+
+Older style, but still common.
+
+```{r base-read-csv, eval=FALSE}
+data <- read.csv("bananas.csv", header = TRUE, stringsAsFactors = FALSE)
+```
+
+Arguments:
+
+- `file`: file path.
+- `header`: whether the first row has column names.
+- `stringsAsFactors`: whether text should automatically become categories. Usually use `FALSE`.
+
+## Other File Types With `haven`
+
+```{r haven-read, eval=FALSE}
+library(haven)
+
+data <- read_sav("bananas.sav")
+data <- read_dta("bananas.dta")
+data <- read_xpt("bananas.xpt")
+```
+
+Use these for SPSS, Stata, or SAS files.
+
+# Looking At Your Data
+
+Before cleaning, always inspect the data.
+
+## `glimpse()`
+
+```{r glimpse, eval=FALSE}
+glimpse(data)
+```
+
+Argument:
+
+- `x`: the data frame you want to inspect.
+
+Shows:
+
+- column names
+- column types
+- example values
+
+Banana version:
+
+Open the banana box and quickly see what kinds of banana facts are inside.
+
+## `head()`
+
+```{r head, eval=FALSE}
+head(data)
+head(data, 10)
+```
+
+Arguments:
+
+- `x`: the data.
+- `n`: how many rows to show.
+
+Shows the first rows.
+
+## `tail()`
+
+```{r tail, eval=FALSE}
+tail(data)
+```
+
+Shows the last rows. Useful when files have weird notes at the bottom.
+
+## `View()`
+
+```{r view, eval=FALSE}
+View(data)
+```
+
+Opens a spreadsheet-style viewer in RStudio.
+
+## `names()`
+
+```{r names, eval=FALSE}
+names(data)
+```
+
+Shows column names.
+
+## `dim()`, `nrow()`, and `ncol()`
+
+```{r dimensions, eval=FALSE}
+dim(data)
+nrow(data)
+ncol(data)
+```
+
+- `dim(data)`: rows and columns
+- `nrow(data)`: number of rows
+- `ncol(data)`: number of columns
+
+## `summary()`
+
+```{r summary, eval=FALSE}
+summary(data)
+```
+
+Gives quick summaries such as min, max, mean, median, and missing values.
+
+# Cleaning Column Names
+
+Messy column names cause many errors.
+
+Messy names:
+
+```text
+Banana Price ($)
+Store Name
+date SOLD
+```
+
+Clean names:
+
+```text
+banana_price
+store_name
+date_sold
+```
+
+## `clean_names()`
+
+```{r clean-names, eval=FALSE}
+data <- data |>
+  clean_names()
+```
+
+Argument:
+
+- `dat`: the data frame to clean.
+
+Banana version:
+
+Take all the ugly banana labels and make them lowercase, simple, and R-friendly.
+
+# The Pipe Operator
+
+You will see this constantly:
+
+```{r pipe-example, eval=FALSE}
+data |>
+  clean_names() |>
+  glimpse()
+```
+
+The pipe `|>` means:
+
+Take the thing on the left and send it into the next function.
+
+Banana version:
+
+1. Take banana data.
+2. Clean banana names.
+3. Look at the cleaned banana data.
+
+The older tidyverse pipe is `%>%`. Your class may use either one.
+
+# Selecting Columns With `select()`
+
+Use `select()` to keep, drop, or reorder columns.
+
+```{r select-basic, eval=FALSE}
+data |>
+  select(store, price, weight)
+```
+
+Common form:
+
+```{r select-form, eval=FALSE}
+select(.data, columns...)
+```
+
+Arguments:
+
+- `.data`: the data frame.
+- `columns...`: the columns you want to keep, remove, or move.
+
+Banana version:
+
+From the banana table, only keep store, price, and weight.
+
+## Keep Columns
+
+```{r select-keep, eval=FALSE}
+data |>
+  select(store, price)
+```
+
+## Drop Columns
+
+```{r select-drop, eval=FALSE}
+data |>
+  select(-notes)
+```
+
+The minus sign means remove.
+
+## Select a Range
+
+```{r select-range, eval=FALSE}
+data |>
+  select(store:price)
+```
+
+Keeps all columns from `store` through `price`.
+
+## Reorder Columns
+
+```{r select-everything, eval=FALSE}
+data |>
+  select(id, date, everything())
+```
+
+`everything()` means all the other columns not already selected.
+
+## Select Helpers
+
+```{r select-helpers, eval=FALSE}
+data |> select(starts_with("price"))
+data |> select(ends_with("date"))
+data |> select(contains("store"))
+data |> select(where(is.numeric))
+data |> select(where(is.character))
+```
+
+Arguments:
+
+- `starts_with("price")`: expects text; keeps columns starting with that text.
+- `ends_with("date")`: expects text; keeps columns ending with that text.
+- `contains("store")`: expects text; keeps columns containing that text.
+- `where(is.numeric)`: expects a test function; keeps numeric columns.
+- `where(is.character)`: expects a test function; keeps text columns.
+
+# Filtering Rows With `filter()`
+
+Use `filter()` to keep rows that meet conditions.
+
+```{r filter-basic, eval=FALSE}
+data |>
+  filter(price > 1)
+```
+
+Common form:
+
+```{r filter-form, eval=FALSE}
+filter(.data, condition)
+```
+
+Arguments:
+
+- `.data`: the data frame.
+- `condition`: a TRUE/FALSE test.
+
+Banana version:
+
+Only keep bananas where price is greater than 1 dollar.
+
+## Common Filter Operators
+
+```{r filter-operators, eval=FALSE}
+data |> filter(price > 1)
+data |> filter(price < 5)
+data |> filter(color == "yellow")
+data |> filter(color != "brown")
+data |> filter(price >= 1)
+data |> filter(price <= 5)
+```
+
+Meanings:
+
+- `>` greater than
+- `<` less than
+- `==` equal to
+- `!=` not equal to
+- `>=` greater than or equal to
+- `<=` less than or equal to
+
+Important: use `==` to check equality, not `=`.
+
+## Multiple Conditions
+
+AND:
+
+```{r filter-and, eval=FALSE}
+data |>
+  filter(color == "yellow", price < 2)
+```
+
+OR:
+
+```{r filter-or, eval=FALSE}
+data |>
+  filter(color == "yellow" | color == "green")
+```
+
+Banana version:
+
+- AND: yellow bananas that cost less than $2.
+- OR: yellow bananas or green bananas.
+
+## `%in%`
+
+```{r filter-in, eval=FALSE}
+data |>
+  filter(color %in% c("yellow", "green", "brown"))
+```
+
+Arguments:
+
+- left side: the column to check.
+- `c(...)`: a vector/list of allowed values.
+
+Banana version:
+
+Keep bananas if their color is in this approved banana color list.
+
+## Missing Values
+
+```{r filter-missing, eval=FALSE}
+data |> filter(is.na(price))
+data |> filter(!is.na(price))
+```
+
+- `is.na(price)`: price is missing.
+- `!is.na(price)`: price is not missing.
+
+# Making New Columns With `mutate()`
+
+Use `mutate()` to create or change columns.
+
+```{r mutate-basic, eval=FALSE}
+data |>
+  mutate(price_per_pound = price / weight)
+```
+
+Common form:
+
+```{r mutate-form, eval=FALSE}
+mutate(.data, new_column = formula)
+```
+
+Arguments:
+
+- `.data`: the data frame.
+- `new_column`: the new column name.
+- `formula`: how to calculate the new column.
+
+Banana version:
+
+Make a new banana fact using old banana facts.
+
+## Create a New Column
+
+```{r mutate-new, eval=FALSE}
+data |>
+  mutate(total_price = price * quantity)
+```
+
+## Change an Existing Column
+
+```{r mutate-change, eval=FALSE}
+data |>
+  mutate(price = price * 1.08)
+```
+
+Banana version:
+
+Replace price with price plus tax.
+
+## `if_else()`
+
+```{r if-else, eval=FALSE}
+data |>
+  mutate(expensive = if_else(price > 2, "expensive", "cheap"))
+```
+
+Common form:
+
+```{r if-else-form, eval=FALSE}
+if_else(condition, true_value, false_value)
+```
+
+Arguments:
+
+- `condition`: TRUE/FALSE test.
+- `true_value`: what to put if true.
+- `false_value`: what to put if false.
+
+Banana version:
+
+If banana price is greater than $2, label it expensive. Otherwise label it cheap.
+
+## `case_when()`
+
+Use when you have more than two categories.
+
+```{r case-when, eval=FALSE}
+data |>
+  mutate(
+    ripeness_group = case_when(
+      color == "green" ~ "not ripe",
+      color == "yellow" ~ "ripe",
+      color == "brown" ~ "overripe",
+      TRUE ~ "unknown"
+    )
+  )
+```
+
+Each line means:
+
+```text
+condition ~ result
+```
+
+`TRUE ~ "unknown"` is the default if nothing else matches.
+
+# Renaming Columns
+
+## `rename()`
+
+```{r rename-basic, eval=FALSE}
+data |>
+  rename(
+    banana_price = price,
+    store_name = store
+  )
+```
+
+Common form:
+
+```{r rename-form, eval=FALSE}
+rename(.data, new_name = old_name)
+```
+
+Arguments:
+
+- `.data`: the data frame.
+- `new_name = old_name`: the new name goes first, the old name goes second.
+
+Banana version:
+
+Rename the old banana label `price` to the clearer name `banana_price`.
+
+## `rename_with()`
+
+Use when renaming many columns at once.
+
+```{r rename-with, eval=FALSE}
+data |>
+  rename_with(str_to_lower)
+
+data |>
+  rename_with(str_to_upper, starts_with("banana"))
+```
+
+Arguments:
+
+- `.fn`: the function used to rename.
+- `.cols`: which columns to rename.
+
+# Sorting Rows With `arrange()`
+
+```{r arrange-basic, eval=FALSE}
+data |>
+  arrange(price)
+```
+
+Common form:
+
+```{r arrange-form, eval=FALSE}
+arrange(.data, column)
+```
+
+Arguments:
+
+- `.data`: the data frame.
+- `column`: the column to sort by.
+
+Banana version:
+
+Line up bananas from cheapest to most expensive.
+
+## Descending Order
+
+```{r arrange-desc, eval=FALSE}
+data |>
+  arrange(desc(price))
+```
+
+`desc(price)` means biggest to smallest.
+
+## Sort by Multiple Columns
+
+```{r arrange-multiple, eval=FALSE}
+data |>
+  arrange(store, desc(price))
+```
+
+Banana version:
+
+Sort by store first, then within each store put expensive bananas first.
+
+# Summarizing Data With `summarize()`
+
+Also spelled `summarise()`.
+
+```{r summarize-basic, eval=FALSE}
+data |>
+  summarize(avg_price = mean(price, na.rm = TRUE))
+```
+
+Common form:
+
+```{r summarize-form, eval=FALSE}
+summarize(.data, new_summary = summary_function(column))
+```
+
+Arguments:
+
+- `.data`: the data frame.
+- `new_summary`: the name of the result.
+- `summary_function(column)`: function like `mean()`, `median()`, `sum()`, `n()`, `min()`, or `max()`.
+
+Banana version:
+
+Turn a big banana table into one summary number.
+
+## Common Summary Functions
+
+```{r summary-functions, eval=FALSE}
+data |> summarize(count = n())
+data |> summarize(avg_price = mean(price, na.rm = TRUE))
+data |> summarize(median_price = median(price, na.rm = TRUE))
+data |> summarize(total_sales = sum(price, na.rm = TRUE))
+data |> summarize(min_price = min(price, na.rm = TRUE))
+data |> summarize(max_price = max(price, na.rm = TRUE))
+data |> summarize(sd_price = sd(price, na.rm = TRUE))
+```
+
+`na.rm = TRUE` means remove missing values before calculating.
+
+Banana version:
+
+If some bananas have no price listed, ignore those missing prices when finding the average.
+
+# Grouping Data With `group_by()`
+
+`group_by()` lets you summarize by category.
+
+```{r group-by-basic, eval=FALSE}
+data |>
+  group_by(color) |>
+  summarize(avg_price = mean(price, na.rm = TRUE))
+```
+
+Common form:
+
+```{r group-by-form, eval=FALSE}
+group_by(.data, column)
+```
+
+Arguments:
+
+- `.data`: the data frame.
+- `column`: the category to group by.
+
+Banana version:
+
+Put bananas into piles by color, then calculate the average price for each pile.
+
+## Group by Multiple Columns
+
+```{r group-by-multiple, eval=FALSE}
+data |>
+  group_by(store, color) |>
+  summarize(avg_price = mean(price, na.rm = TRUE))
+```
+
+## `.groups = "drop"`
+
+```{r groups-drop, eval=FALSE}
+data |>
+  group_by(color) |>
+  summarize(
+    avg_price = mean(price, na.rm = TRUE),
+    .groups = "drop"
+  )
+```
+
+`.groups = "drop"` tells R to stop treating the result as grouped.
+
+Banana version:
+
+After summarizing banana piles, unpile them.
+
+# Counting Data With `count()`
+
+`count()` is a shortcut for `group_by()` plus `summarize(n = n())`.
+
+```{r count-basic, eval=FALSE}
+data |>
+  count(color)
+```
+
+Common form:
+
+```{r count-form, eval=FALSE}
+count(.data, column, sort = FALSE)
+```
+
+Arguments:
+
+- `.data`: the data frame.
+- `column`: the category to count.
+- `sort`: whether to sort biggest counts first. Expects `TRUE` or `FALSE`.
+
+Example:
+
+```{r count-sort, eval=FALSE}
+data |>
+  count(color, sort = TRUE)
+```
+
+# Distinct Values
+
+## `distinct()`
+
+```{r distinct-basic, eval=FALSE}
+data |>
+  distinct(color)
+```
+
+Arguments:
+
+- `.data`: the data frame.
+- `column`: the column to check.
+
+Banana version:
+
+What banana colors exist in this dataset?
+
+## Keep All Columns
+
+```{r distinct-keep-all, eval=FALSE}
+data |>
+  distinct(store, .keep_all = TRUE)
+```
+
+`.keep_all = TRUE` keeps the rest of the row too.
+
+# Missing Data
+
+## `is.na()`
+
+```{r is-na, eval=FALSE}
+is.na(data$price)
+```
+
+Checks which values are missing.
+
+## `drop_na()`
+
+```{r drop-na, eval=FALSE}
+data |>
+  drop_na(price)
+```
+
+Arguments:
+
+- `.data`: the data frame.
+- columns: columns that must not be missing.
+
+Drop rows with any missing value:
+
+```{r drop-na-any, eval=FALSE}
+data |>
+  drop_na()
+```
+
+## `replace_na()`
+
+```{r replace-na, eval=FALSE}
+data |>
+  mutate(price = replace_na(price, 0))
+```
+
+Arguments:
+
+- first argument: the column with missing values.
+- second argument: the replacement value.
+
+Banana version:
+
+If banana price is blank, replace it with 0. Only do this if 0 makes sense.
+
+# Working With Text
+
+Use `stringr` functions for text cleaning.
+
+## Lowercase, Uppercase, and Title Case
+
+```{r text-case, eval=FALSE}
+data |> mutate(color = str_to_lower(color))
+data |> mutate(color = str_to_upper(color))
+data |> mutate(store = str_to_title(store))
+```
+
+Arguments:
+
+- first argument: the text column.
+
+Banana version:
+
+`Yellow`, `YELLOW`, and `yellow` can all become `yellow`.
+
+## `str_trim()`
+
+```{r str-trim, eval=FALSE}
+data |>
+  mutate(color = str_trim(color))
+```
+
+Removes extra spaces.
+
+Banana version:
+
+`" yellow "` becomes `"yellow"`.
+
+## `str_replace()`
+
+```{r str-replace, eval=FALSE}
+data |>
+  mutate(color = str_replace(color, "yelow", "yellow"))
+```
+
+Common form:
+
+```{r str-replace-form, eval=FALSE}
+str_replace(string, pattern, replacement)
+```
+
+Arguments:
+
+- `string`: the text column.
+- `pattern`: what to find.
+- `replacement`: what to replace it with.
+
+## `str_replace_all()`
+
+```{r str-replace-all, eval=FALSE}
+data |>
+  mutate(store = str_replace_all(store, " ", "_"))
+```
+
+Replaces all matches, not just the first.
+
+## `str_detect()`
+
+```{r str-detect, eval=FALSE}
+data |>
+  filter(str_detect(store, "Market"))
+```
+
+Arguments:
+
+- `string`: text column.
+- `pattern`: text to search for.
+
+Banana version:
+
+Keep stores with `Market` in the name.
+
+# Working With Dates
+
+Use `lubridate`.
+
+## `ymd()`, `mdy()`, and `dmy()`
+
+```{r date-parsing, eval=FALSE}
+data |> mutate(date_sold = ymd(date_sold))
+data |> mutate(date_sold = mdy(date_sold))
+data |> mutate(date_sold = dmy(date_sold))
+```
+
+Use:
+
+- `ymd()` for year-month-day, like `2024-01-25`
+- `mdy()` for month-day-year, like `01/25/2024`
+- `dmy()` for day-month-year, like `25/01/2024`
+
+## Pull Parts From Dates
+
+```{r date-parts, eval=FALSE}
+data |>
+  mutate(
+    year = year(date_sold),
+    month = month(date_sold),
+    day = day(date_sold),
+    day_of_week = wday(date_sold, label = TRUE)
+  )
+```
+
+Arguments:
+
+- date functions expect a real date column.
+- `label = TRUE` gives names like Mon, Tue, Wed instead of numbers.
+
+# Changing Data Shape With `tidyr`
+
+This is very important.
+
+Wide data:
+
+```text
+store   jan_sales   feb_sales   mar_sales
+A       10          15          20
+B       5           8           12
+```
+
+Long data:
+
+```text
+store   month   sales
+A       jan     10
+A       feb     15
+A       mar     20
+B       jan     5
+B       feb     8
+B       mar     12
+```
+
+`ggplot2` usually likes long data better.
+
+## `pivot_longer()`
+
+Use when many columns should become two columns.
+
+```{r pivot-longer, eval=FALSE}
+data_long <- data |>
+  pivot_longer(
+    cols = jan_sales:mar_sales,
+    names_to = "month",
+    values_to = "sales"
+  )
+```
+
+Arguments:
+
+- `data`: your data frame.
+- `cols`: the columns you want to stack.
+- `names_to`: the name of the new column that stores old column names. Expects text in quotes.
+- `values_to`: the name of the new column that stores old values. Expects text in quotes.
+
+Banana version:
+
+Before: separate boxes for January bananas, February bananas, March bananas.
+
+After: one `month` column and one `sales` column.
+
+## `pivot_wider()`
+
+Use when one column should become many columns.
+
+```{r pivot-wider, eval=FALSE}
+data_wide <- data_long |>
+  pivot_wider(
+    names_from = month,
+    values_from = sales
+  )
+```
+
+Arguments:
+
+- `data`: your data frame.
+- `names_from`: the column whose values become new column names.
+- `values_from`: the column whose values fill the new columns.
+
+Banana version:
+
+Turn the month column back into separate January, February, March banana boxes.
+
+## `separate()`
+
+Splits one column into multiple columns.
+
+```{r separate, eval=FALSE}
+data |>
+  separate(
+    col = full_name,
+    into = c("first_name", "last_name"),
+    sep = " "
+  )
+```
+
+Arguments:
+
+- `col`: column to split.
+- `into`: new column names. Expects a vector like `c("first", "last")`.
+- `sep`: what separates the pieces. Expects text like `" "`, `"-"`, or `","`.
+
+Banana version:
+
+Split `"yellow banana"` into `"yellow"` and `"banana"`.
+
+## `unite()`
+
+Combines columns.
+
+```{r unite, eval=FALSE}
+data |>
+  unite(
+    col = full_label,
+    color,
+    fruit,
+    sep = " "
+  )
+```
+
+Arguments:
+
+- `col`: name of the new combined column.
+- following columns: columns to combine.
+- `sep`: what to put between them.
+
+# Joins With `dplyr`
+
+Joins combine two tables.
+
+Example table 1: banana sales
+
+```text
+store_id   price
+1          2.50
+2          3.00
+```
+
+Example table 2: store info
+
+```text
+store_id   store_name
+1          Banana Mart
+2          Fruit Town
+```
+
+The matching column is the key. Here the key is `store_id`.
+
+## `left_join()`
+
+Most common join.
+
+```{r left-join, eval=FALSE}
+sales |>
+  left_join(stores, by = "store_id")
+```
+
+Common form:
+
+```{r left-join-form, eval=FALSE}
+left_join(x, y, by)
+```
+
+Arguments:
+
+- `x`: main table.
+- `y`: table you want to add information from.
+- `by`: column used to match rows. Usually text in quotes.
+
+Banana version:
+
+Keep all banana sales. Add store names where `store_id` matches.
+
+## `inner_join()`
+
+Keeps only rows that match in both tables.
+
+```{r inner-join, eval=FALSE}
+sales |>
+  inner_join(stores, by = "store_id")
+```
+
+Banana version:
+
+Only keep banana sales that have a matching store.
+
+## `right_join()`
+
+Keeps all rows from the second table.
+
+```{r right-join, eval=FALSE}
+sales |>
+  right_join(stores, by = "store_id")
+```
+
+Banana version:
+
+Keep all stores, even if they have no banana sales.
+
+## `full_join()`
+
+Keeps everything from both tables.
+
+```{r full-join, eval=FALSE}
+sales |>
+  full_join(stores, by = "store_id")
+```
+
+Banana version:
+
+Keep every banana sale and every store, even if some do not match.
+
+## `anti_join()`
+
+Finds rows in `x` that do not match `y`.
+
+```{r anti-join, eval=FALSE}
+sales |>
+  anti_join(stores, by = "store_id")
+```
+
+Banana version:
+
+Show me banana sales with store IDs that are missing from the store table.
+
+This is very useful for checking problems.
+
+## `semi_join()`
+
+Keeps rows in `x` that have a match in `y`, but does not add columns.
+
+```{r semi-join, eval=FALSE}
+sales |>
+  semi_join(stores, by = "store_id")
+```
+
+Banana version:
+
+Keep banana sales that have valid stores, but do not bring in store info.
+
+## Join When Column Names Are Different
+
+```{r join-different-names, eval=FALSE}
+sales |>
+  left_join(stores, by = c("store_id" = "id"))
+```
+
+Meaning:
+
+`store_id` in `sales` matches `id` in `stores`.
+
+# Binding Data
+
+## `bind_rows()`
+
+Stacks rows.
+
+```{r bind-rows, eval=FALSE}
+all_sales <- bind_rows(january_sales, february_sales)
+```
+
+Arguments:
+
+- tables with similar columns.
+
+Banana version:
+
+Put January banana sales on top of February banana sales.
+
+## `bind_cols()`
+
+Adds columns side by side.
+
+```{r bind-cols, eval=FALSE}
+combined <- bind_cols(data1, data2)
+```
+
+Be careful: rows must already be in the correct order.
+
+# Factors and Ordering Categories
+
+Graphs often look better when categories are ordered.
+
+## `factor()`
+
+```{r factor, eval=FALSE}
+data |>
+  mutate(
+    ripeness = factor(
+      ripeness,
+      levels = c("green", "yellow", "brown")
+    )
+  )
+```
+
+Arguments:
+
+- first argument: the column.
+- `levels`: the order you want. Expects a vector.
+
+Banana version:
+
+Tell R that green comes before yellow, and yellow comes before brown.
+
+## `fct_reorder()`
+
+```{r fct-reorder, eval=FALSE}
+data |>
+  mutate(banana_type = fct_reorder(banana_type, price))
+```
+
+Arguments:
+
+- `.f`: the category column.
+- `.x`: the numeric column used to reorder.
+
+Banana version:
+
+Order banana types by price.
+
+# Basic `ggplot2` Structure
+
+```{r ggplot-structure, eval=FALSE}
+ggplot(data, aes(x = column1, y = column2)) +
+  geom_something()
+```
+
+The three main parts:
+
+1. `ggplot()`: starts the graph.
+2. `aes()`: tells R which columns control x, y, color, fill, size, etc.
+3. `geom_*()`: tells R what kind of graph to draw.
+
+Banana version:
+
+- `ggplot()`: get the banana canvas ready.
+- `aes()`: tell R what banana facts go on the graph.
+- `geom_*()`: choose bars, points, lines, boxes, etc.
+
+# `ggplot()` and `aes()`
+
+```{r ggplot-aes, eval=FALSE}
+ggplot(data, aes(x = color, y = price))
+```
+
+Arguments:
+
+- `data`: the data frame.
+- `aes`: aesthetic mapping. It tells ggplot which columns to use visually.
+
+Common aesthetics:
+
+```{r ggplot-aesthetics, eval=FALSE}
+aes(x = color)
+aes(y = price)
+aes(color = store)
+aes(fill = color)
+aes(size = weight)
+aes(alpha = transparency_column)
+aes(group = store)
+```
+
+Important:
+
+Inside `aes()`, use column names.
+
+Outside `aes()`, use fixed values.
+
+```{r aes-inside-outside, eval=FALSE}
+# Every point is blue
+ggplot(data, aes(x = weight, y = price)) +
+  geom_point(color = "blue")
+
+# Points change color by store
+ggplot(data, aes(x = weight, y = price, color = store)) +
+  geom_point()
+```
+
+# Scatterplots With `geom_point()`
+
+Use when both variables are numeric.
+
+```{r geom-point, eval=FALSE}
+ggplot(data, aes(x = weight, y = price)) +
+  geom_point()
+```
+
+Arguments:
+
+- `color`: point color.
+- `size`: point size.
+- `alpha`: transparency from 0 to 1.
+
+Example:
+
+```{r geom-point-styled, eval=FALSE}
+ggplot(data, aes(x = weight, y = price)) +
+  geom_point(color = "gold", size = 3, alpha = 0.7)
+```
+
+Banana version:
+
+Do heavier bananas cost more?
+
+## Add a Trend Line With `geom_smooth()`
+
+```{r geom-smooth, eval=FALSE}
+ggplot(data, aes(x = weight, y = price)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+Arguments:
+
+- `method = "lm"`: use a straight-line model.
+- `se = FALSE`: remove the gray confidence band.
+
+# Bar Charts
+
+## `geom_bar()`
+
+Counts rows automatically.
+
+```{r geom-bar, eval=FALSE}
+ggplot(data, aes(x = color)) +
+  geom_bar(fill = "gold")
+```
+
+Banana version:
+
+Count how many bananas are each color.
+
+## `geom_col()`
+
+Uses numbers you already calculated.
+
+```{r geom-col, eval=FALSE}
+summary_data <- data |>
+  group_by(color) |>
+  summarize(avg_price = mean(price, na.rm = TRUE), .groups = "drop")
+
+ggplot(summary_data, aes(x = color, y = avg_price)) +
+  geom_col()
+```
+
+Difference:
+
+- `geom_bar()` counts for you.
+- `geom_col()` uses your y-value.
+
+# Histograms With `geom_histogram()`
+
+Use for one numeric variable.
+
+```{r geom-histogram, eval=FALSE}
+ggplot(data, aes(x = price)) +
+  geom_histogram(binwidth = 0.50, fill = "gold", color = "black")
+```
+
+Arguments:
+
+- `binwidth`: width of each bin/group.
+- `fill`: inside color.
+- `color`: border color.
+
+Banana version:
+
+Show the distribution of banana prices in 50-cent chunks.
+
+# Boxplots With `geom_boxplot()`
+
+Use to compare numeric values across categories.
+
+```{r geom-boxplot, eval=FALSE}
+ggplot(data, aes(x = color, y = price, fill = color)) +
+  geom_boxplot()
+```
+
+Boxplots show:
+
+- middle value
+- spread
+- outliers
+- high/low values
+
+Banana version:
+
+Compare price spread for green, yellow, and brown bananas.
+
+# Line Graphs With `geom_line()`
+
+Use for time trends.
+
+```{r geom-line, eval=FALSE}
+daily_prices <- data |>
+  group_by(date_sold) |>
+  summarize(avg_price = mean(price, na.rm = TRUE), .groups = "drop")
+
+ggplot(daily_prices, aes(x = date_sold, y = avg_price)) +
+  geom_line()
+```
+
+Arguments:
+
+- `x`: usually date or ordered variable.
+- `y`: numeric value.
+- `color`: can separate groups.
+
+Example:
+
+```{r geom-line-color, eval=FALSE}
+ggplot(daily_prices, aes(x = date_sold, y = avg_price, color = store)) +
+  geom_line()
+```
+
+# Facets
+
+Facets make small graphs split by category.
+
+## `facet_wrap()`
+
+```{r facet-wrap, eval=FALSE}
+ggplot(data, aes(x = price)) +
+  geom_histogram() +
+  facet_wrap(~ color)
+```
+
+Argument:
+
+- `~ color`: split the graph by the `color` column.
+
+Banana version:
+
+Make a separate banana price graph for each banana color.
+
+## `facet_grid()`
+
+```{r facet-grid, eval=FALSE}
+ggplot(data, aes(x = price)) +
+  geom_histogram() +
+  facet_grid(store ~ color)
+```
+
+Argument form:
+
+```text
+rows ~ columns
+```
+
+Banana version:
+
+Make a graph grid where rows are stores and columns are banana colors.
+
+# Publication-Worthy Visuals
+
+## Add Labels With `labs()`
+
+```{r labs-example, eval=FALSE}
+ggplot(data, aes(x = color, y = price)) +
+  geom_boxplot() +
+  labs(
+    title = "Banana Prices by Color",
+    subtitle = "Yellow bananas tend to cost more than brown bananas",
+    x = "Banana Color",
+    y = "Price in Dollars",
+    caption = "Source: Banana Sales Dataset"
+  )
+```
+
+Arguments:
+
+- `title`: main graph title.
+- `subtitle`: explanation under title.
+- `x`: x-axis label.
+- `y`: y-axis label.
+- `caption`: small source note at bottom.
+
+## Themes
+
+```{r themes, eval=FALSE}
++ theme_minimal()
++ theme_classic()
++ theme_bw()
+```
+
+- `theme_minimal()`: clean graph.
+- `theme_classic()`: clean graph with axis lines.
+- `theme_bw()`: black-and-white academic style.
+
+## Customize With `theme()`
+
+```{r theme-custom, eval=FALSE}
++ theme(
+    plot.title = element_text(size = 16, face = "bold"),
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.position = "bottom"
+  )
+```
+
+Arguments:
+
+- `plot.title`: controls title style.
+- `element_text()`: changes text.
+- `size`: text size.
+- `face`: `"bold"`, `"italic"`, or `"plain"`.
+- `axis.text.x`: controls x-axis text.
+- `angle`: rotates text.
+- `hjust`: horizontal adjustment.
+- `legend.position`: where legend goes: `"right"`, `"left"`, `"top"`, `"bottom"`, or `"none"`.
+
+# Color Scales
+
+## `scale_fill_manual()`
+
+Used for bar and box fill colors.
+
+```{r scale-fill-manual, eval=FALSE}
++ scale_fill_manual(
+    values = c(
+      "green" = "darkgreen",
+      "yellow" = "gold",
+      "brown" = "saddlebrown"
+    )
+  )
+```
+
+Argument:
+
+- `values`: a named list of category colors.
+
+## `scale_color_manual()`
+
+Used for point and line colors.
+
+```{r scale-color-manual, eval=FALSE}
++ scale_color_manual(
+    values = c("Store A" = "blue", "Store B" = "red")
+  )
+```
+
+Remember:
+
+- `fill`: inside of bars/boxes.
+- `color`: lines, borders, points.
+
+# Axis Scales
+
+## `scale_y_continuous()`
+
+```{r scale-y-continuous, eval=FALSE}
++ scale_y_continuous(
+    limits = c(0, 10),
+    breaks = seq(0, 10, by = 2)
+  )
+```
+
+Arguments:
+
+- `limits`: minimum and maximum axis values.
+- `breaks`: where tick marks appear.
+
+Banana version:
+
+Make the banana price axis go from $0 to $10, counting by 2.
+
+## `scale_x_discrete()`
+
+```{r scale-x-discrete, eval=FALSE}
++ scale_x_discrete(
+    labels = c(
+      "grn" = "Green",
+      "ylw" = "Yellow"
+    )
+  )
+```
+
+Argument:
+
+- `labels`: changes how category names appear on the graph.
+
+# Coordinates
+
+## `coord_flip()`
+
+```{r coord-flip, eval=FALSE}
+ggplot(data, aes(x = color)) +
+  geom_bar() +
+  coord_flip()
+```
+
+Flips x and y axes.
+
+Banana version:
+
+Turn vertical banana bars sideways.
+
+## `coord_cartesian()`
+
+```{r coord-cartesian, eval=FALSE}
++ coord_cartesian(ylim = c(0, 10))
+```
+
+Arguments:
+
+- `xlim`: visible x range.
+- `ylim`: visible y range.
+
+This zooms without deleting data.
+
+# Saving Graphs With `ggsave()`
+
+```{r ggsave, eval=FALSE}
+plot <- ggplot(data, aes(x = color, y = price)) +
+  geom_boxplot() +
+  theme_minimal()
+
+ggsave("banana_prices.png", plot = plot, width = 8, height = 6, dpi = 300)
+```
+
+Arguments:
+
+- `filename`: name of file to save.
+- `plot`: the plot object to save.
+- `width`: width of image.
+- `height`: height of image.
+- `dpi`: image quality/resolution. Use `300` for school/publication quality.
+
+# Common Data Cleaning Functions
+
+## `as.numeric()`
+
+```{r as-numeric, eval=FALSE}
+data |>
+  mutate(price = as.numeric(price))
+```
+
+Turns values into numbers.
+
+If the column has dollar signs, use `parse_number()` instead or remove the dollar sign first.
+
+## `parse_number()`
+
+```{r parse-number, eval=FALSE}
+data |>
+  mutate(price = parse_number(price))
+```
+
+Argument:
+
+- `x`: text column with numbers inside.
+
+Banana version:
+
+Turn `"$2.50"` into `2.50`.
+
+## `as.character()`
+
+```{r as-character, eval=FALSE}
+data |>
+  mutate(id = as.character(id))
+```
+
+Turns values into text.
+
+Good for ID numbers like `001`.
+
+## `as.factor()`
+
+```{r as-factor, eval=FALSE}
+data |>
+  mutate(color = as.factor(color))
+```
+
+Turns text into a category.
+
+## `cut()`
+
+```{r cut, eval=FALSE}
+data |>
+  mutate(
+    price_group = cut(
+      price,
+      breaks = c(0, 1, 2, 5),
+      labels = c("cheap", "medium", "expensive")
+    )
+  )
+```
+
+Arguments:
+
+- `x`: numeric column.
+- `breaks`: cut points.
+- `labels`: names for groups.
+
+Banana version:
+
+Put bananas into cheap, medium, and expensive buckets.
+
+# Working Across Multiple Columns
+
+## `across()`
+
+Use inside `mutate()` or `summarize()` to apply a function to many columns.
+
+```{r across-clean-text, eval=FALSE}
+data |>
+  mutate(across(where(is.character), str_trim))
+```
+
+Arguments:
+
+- `.cols`: which columns to affect.
+- `.fns`: function to apply.
+
+Banana version:
+
+Clean extra spaces from every banana text column.
+
+## Summarize Many Numeric Columns
+
+```{r across-summarize, eval=FALSE}
+data |>
+  summarize(across(where(is.numeric), mean, na.rm = TRUE))
+```
+
+Banana version:
+
+Find the average for every numeric banana column.
+
+# Slice Functions
+
+Use these to grab rows by position or rank.
+
+## `slice_head()`
+
+```{r slice-head, eval=FALSE}
+data |>
+  slice_head(n = 5)
+```
+
+Gets first 5 rows.
+
+## `slice_tail()`
+
+```{r slice-tail, eval=FALSE}
+data |>
+  slice_tail(n = 5)
+```
+
+Gets last 5 rows.
+
+## `slice_max()`
+
+```{r slice-max, eval=FALSE}
+data |>
+  slice_max(price, n = 5)
+```
+
+Arguments:
+
+- `order_by`: column to rank by.
+- `n`: how many rows.
+
+Banana version:
+
+Show the 5 most expensive bananas.
+
+## `slice_min()`
+
+```{r slice-min, eval=FALSE}
+data |>
+  slice_min(price, n = 5)
+```
+
+Shows the 5 lowest values.
+
+# Pulling Values With `pull()`
+
+```{r pull, eval=FALSE}
+prices <- data |>
+  pull(price)
+```
+
+Argument:
+
+- `var`: column to pull.
+
+Banana version:
+
+Take just the banana prices out of the table.
+
+# Moving Columns With `relocate()`
+
+```{r relocate, eval=FALSE}
+data |>
+  relocate(price, .after = store)
+```
+
+Arguments:
+
+- columns: columns to move.
+- `.before`: move before a column.
+- `.after`: move after a column.
+
+Example:
+
+```{r relocate-id, eval=FALSE}
+data |>
+  relocate(id, .before = everything())
+```
+
+Banana version:
+
+Put banana ID at the front of the table.
+
+# Full Cleaning Pipeline Template
+
+```{r full-cleaning-pipeline, eval=FALSE}
+library(tidyverse)
+library(janitor)
+library(lubridate)
+
+bananas_clean <- bananas_raw |>
+  clean_names() |>
+  rename(
+    store_name = store,
+    banana_price = price
+  ) |>
+  mutate(
+    store_name = str_to_title(str_trim(store_name)),
+    color = str_to_lower(str_trim(color)),
+    banana_price = parse_number(banana_price),
+    date_sold = mdy(date_sold),
+    price_group = case_when(
+      banana_price < 1 ~ "cheap",
+      banana_price >= 1 & banana_price < 3 ~ "medium",
+      banana_price >= 3 ~ "expensive",
+      TRUE ~ "unknown"
+    )
+  ) |>
+  filter(
+    !is.na(banana_price),
+    !is.na(date_sold)
+  ) |>
+  select(
+    date_sold,
+    store_name,
+    color,
+    banana_price,
+    price_group,
+    everything()
+  )
+```
+
+What this does:
+
+1. Cleans column names.
+2. Renames important columns.
+3. Cleans text.
+4. Turns price into a number.
+5. Turns date into a real date.
+6. Creates price groups.
+7. Removes rows with missing price/date.
+8. Reorders columns.
+
+# Full Summary Pipeline Template
+
+```{r summary-pipeline, eval=FALSE}
+banana_summary <- bananas_clean |>
+  group_by(color, price_group) |>
+  summarize(
+    count = n(),
+    avg_price = mean(banana_price, na.rm = TRUE),
+    median_price = median(banana_price, na.rm = TRUE),
+    min_price = min(banana_price, na.rm = TRUE),
+    max_price = max(banana_price, na.rm = TRUE),
+    .groups = "drop"
+  )
+```
+
+Simple meaning:
+
+Group bananas by color and price group. Then calculate how many there are and what their prices look like.
+
+# Full Publication-Worthy Graph Template
+
+```{r publication-worthy-graph, eval=FALSE}
+banana_summary |>
+  mutate(color = fct_reorder(color, avg_price)) |>
+  ggplot(aes(x = color, y = avg_price, fill = color)) +
+  geom_col(width = 0.7) +
+  geom_text(
+    aes(label = round(avg_price, 2)),
+    vjust = -0.3,
+    size = 4
+  ) +
+  scale_fill_manual(
+    values = c(
+      "green" = "darkgreen",
+      "yellow" = "gold",
+      "brown" = "saddlebrown"
+    )
+  ) +
+  labs(
+    title = "Average Banana Price by Color",
+    subtitle = "Prices are averaged after removing missing values",
+    x = "Banana Color",
+    y = "Average Price",
+    caption = "Source: Banana sales dataset"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 16, face = "bold"),
+    plot.subtitle = element_text(size = 12),
+    legend.position = "none"
+  )
+```
+
+Important parts:
+
+- `geom_col()`: makes bars from already summarized data.
+- `geom_text()`: adds number labels.
+- `round(avg_price, 2)`: rounds to 2 decimals.
+- `vjust`: moves labels up or down.
+- `scale_fill_manual()`: controls colors.
+- `labs()`: adds title and axis labels.
+- `theme_minimal()`: makes it clean.
+- `theme()`: fine-tunes professional formatting.
+
+# Graph Choice Cheat Sheet
+
+## How many observations are in each category?
+
+Use `geom_bar()`.
+
+```{r graph-choice-bar, eval=FALSE}
+ggplot(data, aes(x = category_column)) +
+  geom_bar()
+```
+
+## What is the average value by group?
+
+Use `group_by()`, `summarize()`, and `geom_col()`.
+
+```{r graph-choice-col, eval=FALSE}
+summary_data <- data |>
+  group_by(group_column) |>
+  summarize(avg_value = mean(number_column, na.rm = TRUE), .groups = "drop")
+
+ggplot(summary_data, aes(x = group_column, y = avg_value)) +
+  geom_col()
+```
+
+## How are numeric values spread out?
+
+Use `geom_histogram()`.
+
+```{r graph-choice-histogram, eval=FALSE}
+ggplot(data, aes(x = number_column)) +
+  geom_histogram()
+```
+
+## How do numeric values compare across categories?
+
+Use `geom_boxplot()`.
+
+```{r graph-choice-boxplot, eval=FALSE}
+ggplot(data, aes(x = category_column, y = number_column)) +
+  geom_boxplot()
+```
+
+## Are two numeric variables related?
+
+Use `geom_point()`.
+
+```{r graph-choice-point, eval=FALSE}
+ggplot(data, aes(x = number_column_1, y = number_column_2)) +
+  geom_point()
+```
+
+## How does something change over time?
+
+Use `geom_line()`.
+
+```{r graph-choice-line, eval=FALSE}
+ggplot(data, aes(x = date_column, y = number_column)) +
+  geom_line()
+```
+
+## How does the same graph look across groups?
+
+Use `facet_wrap()`.
+
+```{r graph-choice-facet, eval=FALSE}
+ggplot(data, aes(x = number_column)) +
+  geom_histogram() +
+  facet_wrap(~ group_column)
+```
+
+# Common Errors and Fixes
+
+## Error: object 'price' not found
+
+Usually means:
+
+- the column name is misspelled
+- you cleaned names and the name changed
+- you are using the wrong data frame
+
+Fix:
+
+```{r error-object-not-found, eval=FALSE}
+names(data)
+glimpse(data)
+```
+
+## Error: could not find function `clean_names`
+
+You forgot:
+
+```{r error-clean-names, eval=FALSE}
+library(janitor)
+```
+
+## Error: could not find function `ggplot`
+
+You forgot:
+
+```{r error-ggplot, eval=FALSE}
+library(tidyverse)
+```
+
+or:
+
+```{r error-ggplot2, eval=FALSE}
+library(ggplot2)
+```
+
+## Summary gives `NA`
+
+You probably forgot `na.rm = TRUE`.
+
+```{r error-na-summary, eval=FALSE}
+mean(price, na.rm = TRUE)
+```
+
+## Dates turn into `NA`
+
+You probably used the wrong date parser.
+
+Try:
+
+```{r error-dates, eval=FALSE}
+ymd(date)
+mdy(date)
+dmy(date)
+```
+
+## Graph looks weird
+
+Check your data:
+
+```{r error-graph-weird, eval=FALSE}
+glimpse(data)
+summary(data)
+count(data, category_column)
+```
+
+Your column may be the wrong type or have messy categories.
+
+# Important `dplyr` Functions To Memorize
+
+| Function | Simple Meaning | Banana Meaning |
+|---|---|---|
+| `select()` | Keep/remove columns | Which banana facts do I want? |
+| `filter()` | Keep rows by condition | Which bananas do I want? |
+| `mutate()` | Create/change columns | What new banana fact do I need? |
+| `rename()` | Rename columns | What banana label needs a better name? |
+| `arrange()` | Sort rows | How should bananas be ordered? |
+| `group_by()` | Make groups | What banana piles do I need? |
+| `summarize()` | Make summary numbers | What number do I want from each pile? |
+| `count()` | Count rows by group | How many bananas are in each pile? |
+| `distinct()` | Find unique values | What banana colors exist? |
+| `left_join()` | Add info from another table | Add store info to banana sales. |
+| `inner_join()` | Keep matching rows only | Keep only bananas with matching store info. |
+| `anti_join()` | Find non-matches | Which banana rows have missing matches? |
+| `bind_rows()` | Stack tables | Put January bananas on top of February bananas. |
+| `relocate()` | Move columns | Put banana ID first. |
+| `across()` | Apply function to many columns | Clean many banana columns at once. |
+
+# Important `tidyr` Functions To Memorize
+
+| Function | Simple Meaning | Banana Meaning |
+|---|---|---|
+| `pivot_longer()` | Make wide data longer | Stack many banana month columns into one month column. |
+| `pivot_wider()` | Make long data wider | Spread one banana month column into many month columns. |
+| `drop_na()` | Remove missing rows | Drop bananas with missing important facts. |
+| `replace_na()` | Replace missing values | Fill missing banana facts if appropriate. |
+| `separate()` | Split one column into many | Split `yellow banana` into `yellow` and `banana`. |
+| `unite()` | Combine many columns into one | Combine `yellow` and `banana`. |
+
+# Important `ggplot2` Functions To Memorize
+
+| Function | Simple Meaning |
+|---|---|
+| `ggplot()` | Starts the graph |
+| `aes()` | Maps columns to visual parts |
+| `geom_point()` | Scatterplot |
+| `geom_bar()` | Counts categories |
+| `geom_col()` | Bar chart using existing numbers |
+| `geom_histogram()` | Distribution of one numeric variable |
+| `geom_boxplot()` | Compare numeric spread across groups |
+| `geom_line()` | Trends over time |
+| `geom_smooth()` | Trend line |
+| `facet_wrap()` | Split graph by one category |
+| `facet_grid()` | Split graph by two categories |
+| `labs()` | Titles and labels |
+| `theme_minimal()` | Clean theme |
+| `theme()` | Customize graph appearance |
+| `scale_fill_manual()` | Manual fill colors |
+| `scale_color_manual()` | Manual line/point colors |
+| `ggsave()` | Save graph |
+
+# Coding Challenge Strategy
+
+When you get a new challenge, do this.
+
+## 1. Load packages
+
+```{r challenge-step-1, eval=FALSE}
+library(tidyverse)
+library(janitor)
+library(lubridate)
+```
+
+## 2. Read data
+
+```{r challenge-step-2, eval=FALSE}
+data <- read_csv("file.csv")
+```
+
+## 3. Clean names
+
+```{r challenge-step-3, eval=FALSE}
+data <- data |>
+  clean_names()
+```
+
+## 4. Inspect data
+
+```{r challenge-step-4, eval=FALSE}
+glimpse(data)
+summary(data)
+names(data)
+```
+
+## 5. Clean obvious problems
+
+```{r challenge-step-5, eval=FALSE}
+data_clean <- data |>
+  mutate(across(where(is.character), str_trim))
+```
+
+## 6. Select useful columns
+
+```{r challenge-step-6, eval=FALSE}
+data_clean <- data_clean |>
+  select(column1, column2, column3)
+```
+
+## 7. Filter rows
+
+```{r challenge-step-7, eval=FALSE}
+data_clean <- data_clean |>
+  filter(!is.na(important_column))
+```
+
+## 8. Make new columns
+
+```{r challenge-step-8, eval=FALSE}
+data_clean <- data_clean |>
+  mutate(new_column = old_column * 2)
+```
+
+## 9. Summarize
+
+```{r challenge-step-9, eval=FALSE}
+summary_table <- data_clean |>
+  group_by(group_column) |>
+  summarize(
+    count = n(),
+    average = mean(number_column, na.rm = TRUE),
+    median = median(number_column, na.rm = TRUE),
+    .groups = "drop"
+  )
+```
+
+## 10. Graph
+
+```{r challenge-step-10, eval=FALSE}
+ggplot(summary_table, aes(x = group_column, y = average)) +
+  geom_col(fill = "steelblue") +
+  labs(
+    title = "Clear Title",
+    x = "Clear X Label",
+    y = "Average Value",
+    caption = "Source: Dataset"
+  ) +
+  theme_minimal()
+```
+
+# Mini Reusable Template
+
+Copy this and replace the placeholder column names.
+
+```{r reusable-template, eval=FALSE}
+library(tidyverse)
+library(janitor)
+library(lubridate)
+
+# 1. Read data
+raw_data <- read_csv("your_file.csv")
+
+# 2. Clean names and inspect
+data <- raw_data |>
+  clean_names()
+
+glimpse(data)
+summary(data)
+names(data)
+
+# 3. Clean and transform
+clean_data <- data |>
+  mutate(
+    across(where(is.character), str_trim)
+  ) |>
+  filter(!is.na(your_important_column))
+
+# 4. Summarize
+summary_data <- clean_data |>
+  group_by(your_group_column) |>
+  summarize(
+    count = n(),
+    average = mean(your_number_column, na.rm = TRUE),
+    median = median(your_number_column, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# 5. Visualize
+ggplot(summary_data, aes(x = your_group_column, y = average)) +
+  geom_col(fill = "steelblue") +
+  labs(
+    title = "Your Clear Title Here",
+    x = "Your Group Label",
+    y = "Average Value",
+    caption = "Source: Your Dataset"
+  ) +
+  theme_minimal()
+```
+
+# Final Banana Memory Trick
+
+If you get confused, ask:
+
+- `select()`: Which banana columns do I want?
+- `filter()`: Which banana rows do I want?
+- `mutate()`: What new banana fact do I need?
+- `rename()`: What banana label needs a better name?
+- `group_by()`: What banana piles do I need?
+- `summarize()`: What number do I want from each banana pile?
+- `pivot_longer()`: Do I need to stack many banana columns into one?
+- `pivot_wider()`: Do I need to spread one banana column into many?
+- `left_join()`: Do I need to add banana information from another table?
+- `ggplot()`: What banana story do I want to show visually?
+
+# One-Sentence Version
+
+R data work is mostly this:
+
+Read the data, look at it, clean the names, keep the right columns, filter the right rows, create useful new columns, summarize by groups, reshape if needed, join extra information if needed, and use `ggplot2` to clearly show the story.

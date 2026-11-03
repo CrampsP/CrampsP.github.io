@@ -1,0 +1,89 @@
+---
+title: "Words Between Savior Names by Book"
+format: html
+---
+
+```{r}
+library(stringr)
+library(readr)
+library(tidyverse)
+```
+
+```{r}
+savior_names <- read_rds("https://byuistats.github.io/M335/data/BoM_SaviorNames.rds")
+
+scripture <- read.csv("https://github.com/beandog/lds-scriptures/raw/master/csv/lds-scriptures.csv")
+
+View(savior_names)
+View(scripture)
+```
+
+```{r}
+savior_text <- savior_names %>%
+  arrange(desc(nchar(name))) %>%
+  pull(name) %>%
+  str_c(collapse = "|")
+```
+
+```{r}
+bom_books <- scripture %>%
+  filter(volume_id == 3) %>%
+  group_by(book_id, book_title) %>%
+  nest()
+```
+
+```{r}
+bom_books <- bom_books %>%
+  mutate(book_text = map_chr(data, ~ str_c(.x$scripture_text, collapse = " ")),
+    split_text = map(book_text, ~ str_split(.x, savior_text)[[1]]),
+    distances = map(split_text, ~ tibble(text_between = .x) %>%
+      mutate(words = str_count(text_between, "\\w+"),
+        section_number = row_number()) %>%
+        filter(section_number != 1, section_number != n())))
+```
+
+```{r}
+words_between_books <- bom_books %>%
+  select(book_id, book_title, distances) %>%
+  unnest(distances)
+```
+
+```{r}
+book_order <- scripture %>%
+  filter(volume_id == 3) %>%
+  distinct(book_id, book_title) %>%
+  arrange(book_id) %>%
+  pull(book_title)
+```
+
+```{r}
+words_between_books <- words_between_books %>%
+  mutate(book_title = factor(book_title, levels = book_order))
+```
+
+```{r}
+book_summary <- words_between_books %>%
+  group_by(book_title) %>%
+  summarize(number_of_gaps = n(),
+    average_words = mean(words),
+    median_words = median(words),
+    maximum_words = max(words),
+    .groups = "drop")
+
+book_summary
+```
+
+```{r}
+ggplot(words_between_books, aes(x = words)) +
+  geom_histogram(aes(y = after_stat(density)), binwidth = 20, boundary = 0, fill = "steelblue", color = "white") +
+  coord_cartesian(xlim = c(0, 150)) +
+  facet_wrap(~ book_title, ncol = 3) +
+  labs(title = "Words Between References to the Savior",
+    x = "Number of words between Savior references",
+    y = "Density") +
+  theme_bw()
+```
+
+The distributions are mostly skewed to the right. In many of the books, most references to the Savior are separated by a fairly small number of words, while a smaller number of long gaps stretch the graph farther to the right. This means that the median may give a better idea of the usual distance between Savior references since the average is dragged by the outliers.
+
+The graph also shows that the pattern different in every book. Some books have most of their gaps near the lower end, while others have a wider spread and longer gaps. I used density instead of raw counts because the books are very different in length and in how many references to the Savior they contain. This makes it easier to compare the shape of each book’s distribution without the longest books overpowering the shorter ones.

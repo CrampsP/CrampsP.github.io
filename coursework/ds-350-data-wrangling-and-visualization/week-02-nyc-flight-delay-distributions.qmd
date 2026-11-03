@@ -1,0 +1,36 @@
+---
+title: "W02 Task"
+---
+```{r}
+library(tidyverse)
+library(ggplot2)
+flights <- nycflights13::flights
+```
+
+
+```{r}
+ggplot(flights, aes(x = dep_delay)) +
+  geom_histogram(fill = "blue", color = "white") +
+  labs(title = "Distribution of Departure Delays",
+    x = "Departure Delay (minutes)",
+    y = "Count") +
+  xlim(-50, 200)
+```
+
+```{r}
+ggplot(flights, aes(x = distance)) +
+  geom_histogram(binwidth = 100, fill = "green", color = "white") +
+  labs(title = "Distribution of Flight Distances",
+    x = "Distance (miles)",
+    y = "Count")
+```
+
+```{r}
+ggplot(flights, aes(x = distance, y = dep_delay)) +
+  geom_point(alpha = 0.2) +
+  labs(title = "Departure Delay vs Flight Distance",
+    x = "Distance (miles)",
+    y = "Departure Delay (minutes)")
+```
+
+In the graphs above we study a couple of important things about flights at NYC. In the first graph we are looking at the amount of flights that have been delayed by individual minutes. We can see that a lot of flights get delayed under an hour, it is pretty common but delays lasting longer than an hour are much less common. In the second graph we can see the relationship between flights and their individual distances. Obviously, because of the cost of fuel and such, shorter flights are more common because they connect individual airports. It is also important to note that there are spikes in the data because airports have a fixed distance between each other so valleys just mean that not many airports are that specific distance away. In the final graph we can see the relationship between the distance and delays. We can see that flights have their really insot a relationship between delay and distance so your flight from NYC to New Jersey isn't more likely to be delayed than your flight from NYC to Huston.

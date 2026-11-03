@@ -1,0 +1,75 @@
+---
+title: "w05_Task1"
+---
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+```
+
+```{r}
+df <- read_csv("https://github.com/fivethirtyeight/guns-data/raw/master/interactive_data.csv")
+```
+
+```{r}
+nona <- df %>% 
+          filter(df$Deaths!=0& df$Population!=0 & df$Rate!=0.0 & df$Race!="None selected" & df$Gender!="None selected" & df$Age!="None selected")
+View(nona)
+```
+
+```{r}
+nona$Age <- factor(
+  nona$Age,
+  levels = c("Under 15", "15 - 34", "35 - 64", "65+")
+)
+```
+
+```{r}
+ggplot(nona, mapping = aes(x = Age))+
+  geom_bar() +
+  geom_text(x = -Inf, y = Inf, label = "Top Left", hjust = -0.1, vjust = 1.2)+
+  geom_text(x = Inf, y = Inf, label = "Top Right", hjust = 1.1, vjust = 1.2)+
+  geom_text(x = -Inf, y = -Inf, label = "Bottom Left", hjust = -0.1, vjust = -0.3)+
+  geom_text(x = Inf, y = -Inf, label = "Bottom Left", hjust = 1.1, vjust = -0.3)
+```
+
+
+Here in this visualization we can see the different age demographics that are dying from gun related incidents. 
+The biggest issue that we see is that a larger percentage of young adults have died as a result of individual shootings.
+While the numbers are not that far apart for any of the 4 categories we can see how we can start to affect the problem in a big way by educating younger people on the importance of gun safety.
+
+
+```{r}
+highrate <- nona %>%
+              filter(nona$Rate>10)
+View(highrate)
+```
+```{r}
+ggplot(highrate, mapping = aes(x = Race, y = Rate))+
+  geom_dotplot(binaxis = 'y')
+```
+
+
+This graph shows us the demographics with the highest risk of gun violence based off of population per 100000 people and death count.
+It shows us that Black Americans have the highest average rate of risk of gun violence while White Americans have larger counts of high rates of gun violence.
+
+
+```{r}
+cleanintent <- nona %>%
+              filter(nona$Intent!='None selected' & nona$Intent!='Unknown')
+View(cleanintent)
+```
+```{r}
+ggplot(cleanintent, mapping = aes(x = Age, y = Rate, fill = Intent))+
+  geom_col(position = "dodge")+ 
+  annotate("text", x = 2, y = 5, label = "This is a label", size = 4)
+```
+
+
+
+We can clearly see that younger grown people between the ages of 15–34 face much higher killing rates, while self-killing with guns becomes far more common among older people, most of all those aged 65 and up. The biggest warning is that younger adults face a greater threat from killings, while older adults face a stronger threat from suicide.
+
+
+
+

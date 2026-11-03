@@ -1,0 +1,23 @@
+---
+title: "w02_Task3"
+---
+
+
+```{r}
+library(gapminder)
+library(tidyverse)
+```
+
+```{r}
+nokuwait <- gapminder %>% filter(gapminder$country != "Kuwait")
+```
+
+
+```{r}
+ggplot(nokuwait, mapping = aes(x = lifeExp, y = gdpPercap, color = continent, size = pop/100000)) +
+  geom_point(alpha = 0.5) +
+  facet_wrap(~ year, nrow = 1) +
+  scale_y_continuous(trans = "sqrt") +
+  theme_bw()
+```
+

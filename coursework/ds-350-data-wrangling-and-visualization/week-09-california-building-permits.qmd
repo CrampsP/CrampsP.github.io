@@ -1,0 +1,96 @@
+---
+title: "W09_task3"
+format: html
+---
+
+```{r}
+library(tidyverse)
+library(sf)
+library(USAboundaries)
+library(geofacet)
+library(scales)
+library(viridis)
+library(buildings)
+library(leaflet)
+
+data("permits")
+View(permits)
+```
+
+```{r}
+california_county_permits <- permits %>%
+  filter(variable == "Single Family") %>%
+  filter(StateAbbr == "CA")
+View(california_county_permits)
+```
+
+```{r}
+ca_counties <- us_counties(states = "California")
+View(ca_counties)
+```
+
+```{r}
+california_county_permits <- california_county_permits %>%
+  mutate(state_fips = str_pad(state, width = 2, pad = "0")) %>% 
+  mutate(county_fips = str_pad(county, width = 3, pad = "0")) %>% 
+  mutate(full_county_fips = paste0(state_fips, county_fips))
+
+View(california_county_permits)
+```
+
+```{r}
+ca_county_permits_map <- ca_counties %>%
+  mutate(full_county_fips = geoid) %>%
+  left_join(california_county_permits, by = "full_county_fips")
+
+View(ca_county_permits_map)
+```
+
+```{r}
+ca_county_change <- california_county_permits %>%
+  group_by(full_county_fips, year) %>% 
+  summarize(total_permits = sum(value, na.rm = TRUE), .groups = "drop") %>%
+  filter(year %in% c(2006, 2010)) %>%
+  pivot_wider(names_from = year, values_from = total_permits, 
+    names_prefix = "permits_") %>%
+  mutate(percent_change = (permits_2010 - permits_2006) / permits_2006)
+
+View(ca_county_change)
+```
+
+```{r}
+ca_county_change_map <- ca_counties %>%
+  mutate(full_county_fips = geoid) %>%
+  left_join(ca_county_change, by = "full_county_fips")
+
+View(ca_county_change_map)
+```
+
+```{r}
+ggplot(ca_county_change_map) +
+  geom_sf(aes(fill = percent_change), color = "white", linewidth = 0.2) +
+  scale_fill_gradient2(low = "red", mid = "white", high = "blue", midpoint = 0, 
+    labels = percent_format()) +
+  labs(title = "Single Family Building Permits by County in CA",
+    fill = "% change") +
+  theme_classic()
+```
+
+
+
+
+```{r}
+pal <- colorNumeric(palette = c("red", "white", "blue"), domain = ca_county_change_map$percent_change, na.color = "gray")
+
+leaflet(ca_county_change_map) %>% 
+  addTiles() %>% 
+  addPolygons(fillColor = ~pal(percent_change), fillOpacity = 0.7, color = "white", weight = 1)
+```
+
+
+These maps show that most California counties had fewer single-family building permits in 2010 than in 2006. Most counties are red, which means building permits went down. Only a few counties are blue, which means permits went up. The map also shows that some counties had a much sharper drop than others, so the fall in home building was not the same across the whole state.
+
+I used percent change because counties can be very different in size and in how many homes they build. Looking only at permit totals could make large counties stand out too much. The red, white, and blue scale also makes the map easy to read. Red shows a drop, white shows little change, and blue shows growth. The first map gives a clear view of the whole state, while the Leaflet map lets the reader zoom in and look at each county more closely.
+
+
+

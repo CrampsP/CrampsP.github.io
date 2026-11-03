@@ -1,0 +1,159 @@
+---
+title: "W09_task2"
+format: html
+---
+
+```{r}
+library(tidyverse)
+library(jsonlite)
+library(janitor)
+library(scales)
+library(httr2)
+```
+
+
+```{r}
+#Risk perceptions among university students
+harvard <- read_tsv("https://dataverse.harvard.edu/api/access/datafile/14011164")
+View(harvard)
+```
+
+```{r}
+#	PPI industry sub-sector data for Chemical mfg, not seasonally adjusted
+url <- "https://api.bls.gov/publicAPI/v2/timeseries/data/PCU325---325---?startyear=2016&endyear=2026"
+bls_raw <- fromJSON(url)
+bls_data <- bls_raw$Results$series$data[[1]] %>%
+  as_tibble()
+View(bls_data)
+```
+
+
+```{r}
+#Product Data for Newly Reported Drugs in the Medicaid Drug Rebate Program 10-20-2025-to-10-26-2025
+
+#What kinds of drug products are being newly reported to CMS for the Medicaid Drug Rebate Program?
+
+
+url <- "https://download.medicaid.gov/data/mdrp-newly-rprt-drug-10-20-2025-to-10-26-2025.csv"
+
+response <- request(url) %>%
+  req_user_agent("Mozilla/5.0") %>%
+  req_perform()
+
+medicaid_drugs <- response %>%
+  resp_body_string() %>%
+  read_csv(show_col_types = FALSE)
+
+View(medicaid_drugs)
+```
+This data dictionary explains the columns in the Medicaid newly reported drugs dataset. Each row represents a drug product reported to CMS for the Medicaid Drug Rebate Program.
+
+
+NDC1 - The first part of the National Drug Code. This identifies the company connected to the drug, such as the manufacturer, labeler, packager, or distributor.
+
+NDC2 - The second part of the National Drug Code. This identifies the specific drug product.
+
+NDC3 - The third part of the National Drug Code. This identifies the package size or package version of the drug.
+
+Labeler Name - The name of the company or labeler connected to the drug.
+
+Labeler Status - Shows whether the labeler is active or terminated in the Medicaid Drug Rebate Program.
+
+FDA Name - The official drug name as reported to the FDA.
+
+COD Status - Stands for Covered Outpatient Drug Status. This shows the regulatory category that explains how the drug qualifies, or does not qualify, as a covered outpatient drug.
+
+FDA Application Number - The official FDA application number or OTC monograph number connected to the drug.
+
+Drug Category - Shows whether the drug is single source, innovator multiple source, or non-innovator multiple source.
+
+Drug Type - Shows whether the drug is prescription or over-the-counter.
+
+Line Extension - Shows whether the drug is a new version or variation of an existing drug.
+
+FDA Approval Date - The date the FDA approved the drug. For some drugs that do not need regular FDA approval, this may be a placeholder date or the first market date.
+
+Market Date - The earliest date the drug was first sold or marketed.
+
+Unit Type - The unit or form the drug is measured in, such as tablet, capsule, milliliter, gram, or patch.
+
+Unit Per Package Size - The number of units in the smallest package size for that drug.
+
+Therapeutic Equivalent Code - A code from the FDA that shows whether the drug is considered therapeutically equivalent to another drug.
+
+5i Indicator - Shows whether the drug is inhaled, instilled, implanted, injected, or infused.
+
+Purchased Product Date - The date the current company first started marketing the drug under this specific NDC.
+
+Coverage Effective Date - The date the drug first became eligible for coverage under the Medicaid Drug Rebate Program.
+
+Drug Termination Date - The date the drug was withdrawn from the market or the date its last lot expired.
+
+Drug Reactivation Date - The date a previously terminated drug was brought back to the market.
+
+Date Reported to CMS - The date the drug was first reported to CMS through the Medicaid Drug Programs system.
+
+
+
+
+
+
+
+
+```{r}
+medicaid_clean <- medicaid_drugs %>%
+  mutate(`Drug Category` = as.factor(`Drug Category`),
+    `Drug Type` = as.factor(`Drug Type`),
+    `Labeler Status` = as.factor(`Labeler Status`),
+    `COD Status` = as.factor(`COD Status`))
+```
+
+```{r}
+labeler %>%
+  count(`Labeler Name`, sort = TRUE)
+
+ggplot(labeler, mapping = aes(x = reorder(`Labeler Name`, n), y = n)) +
+  geom_col() +
+  labs(title = "Top 15 Labelers in Newly Reported Medicaid Drug Data",
+    x = "Labeler Name",
+    y = "Number of Drugs") +
+  theme_bw() +
+  theme(axis.text.x = element_blank())
+```
+
+
+```{r}
+drugs %>%
+  count(`Drug Category`, sort = TRUE)
+
+ggplot(drugs, mapping = aes(x = reorder(`Drug Category`, n), y = n)) +
+  geom_col() +
+  labs(title = "Number of Drugs by Drug Category",
+    x = "Drug Category",
+    y = "Number of Drugs") +
+  theme_bw()
+```
+
+
+```{r}
+category %>%
+  count(`Drug Category`, `Drug Type`)
+
+ggplot(category, mapping = aes(x = `Drug Category`, y = n, fill = `Drug Type`)) +
+  geom_col(position = "dodge") +
+  labs(title = "Drug Type by Drug Category",
+    x = "Drug Category",
+    y = "Number of Drugs",
+    fill = "Drug Type") +
+  theme_bw()
+```
+
+
+
+This dataset only covers one reporting period, so it does not show all Medicaid drugs or long-term trends. Because of that, I should not make conclusions about the whole Medicaid drug market from this one file. Another limitation is that “newly reported” does not always mean the drug is brand new. Some drugs may have older FDA approval dates or market dates but were only recently reported to CMS. The dataset also does not include prices, prescription counts, patient use, or Medicaid spending. This means I can describe what kinds of drugs were reported, but I cannot answer questions about cost, popularity, or patient impact. Some columns use codes instead of normal words, such as Drug Type and Drug Category. These need to be recoded so the graphs are easier to understand. Some fields may also have missing values, especially dates like termination or reactivation dates.
+
+
+
+One follow-on question is whether newly reported drugs are actually newly approved drugs. I could compare FDA Approval Date, Market Date, and Date Reported to CMS. I could also ask which labelers reported the most drugs, whether the drugs are mostly prescription or over-the-counter, and whether they are mostly single source, innovator multiple source, or non-innovator multiple source. Another possible question is what unit types are most common, such as tablets, capsules, liquids, or patches. A stronger final project question could be: What types of drugs are being newly reported to CMS, and are they actually new to the market?
+
+

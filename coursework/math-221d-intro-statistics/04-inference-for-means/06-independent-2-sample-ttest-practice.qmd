@@ -1,0 +1,289 @@
+---
+title: 2-Sample Independent T-Test Practice
+warning: false
+format:
+  html:
+    self_contained: true
+    embed-resources: true
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, error = TRUE)
+```
+
+# Instructions
+
+Here are several opportunities to practice analyzing 2-sample independent t-tests using R. For each question, you will:
+
+-   Read in data
+-   Identify the Response and Independent variable
+-   Create data summaries (numerical and graphical)
+-   Statistically analyze the data
+-   Check for the suitability of the statistical test (CLT, Normality)
+-   State your hypothesis test conclusions and interpret your confidence intervals
+
+When you finish, render this document and submit the `.html` in Canvas.
+
+```{r}
+# Load the libraries
+
+library(rio)
+library(mosaic)
+library(tidyverse)
+library(car)
+
+```
+
+# It's a Date!
+
+Dating Behavior was studied in a speed dating experiment where random matching was generated and created randomization in the number of potential dates. In a survey to each participant, one question was asked about how important attraction is when they date. The attraction value is on a scale from 0 (not important at all) to 100 (very important).
+
+The researchers want to determine if males report to value attractiveness more than females. Use a level of significance of 0.05.
+
+## Load the Data
+
+```{r}
+dating <- read_csv('https://github.com/byuistats/Math221D_Course/raw/main/Data/dating_attractive_longformat.csv')
+view(dating)
+```
+
+## Explore the Data
+
+**Question**: What is the *response* variable?\
+**Answer**: This is the importance variable
+
+**Question**: What is the *explanatory* variable?\
+**Answer**: This is the biosex variable
+
+Create a side-by-side boxplot for the amount of reported importance of attractiveness for each biosex.
+
+Add a title and change the colors of the boxes.
+
+```{r}
+ggplot(data = dating, mapping = aes(x = Importance, fill = Biosex)) + 
+  geom_boxplot() +
+  labs(title = "Dating", 
+       xlab = "Importance")
+
+```
+
+What do you observe?
+
+Males rated attraction higher than females during speed dating
+
+Create a table of summary statistics for each group (`favstats()`):
+
+```{r}
+favstats(dating$Importance ~ dating$Biosex)
+```
+
+## Hypothesis Test
+
+State your null and alternative hypotheses (replace the ??? with the appropriate symbol):
+
+$$H_0:  \mu_{F}=\mu_{M}$$
+
+$$H_a:\mu_{F}<\mu_{M}$$
+
+**NOTE**: The default for R is to set group order alphabetically. This means Group 1 = Female.
+
+Check that the samples for both groups are normally distributed
+
+```{r}
+qqPlot(dating$Importance~dating$Biosex)
+```
+
+Do the data for each group appear normally distributed? No the qqPlot looks like it wouldn't be normally distributed
+
+Why is it OK to continue with the analysis? It is ok because the sample size is way over 30
+
+Perform a t-test.
+
+```{r}
+t.test(dating$Importance ~ dating$Biosex, alternative = "less")
+
+```
+
+**Question**: What is the value of the test statistic?\
+**Answer**: -8.9016
+
+**Question**: How many degrees of freedom for this test?\
+**Answer**: 495.36
+
+**Question**: What is the p-value?\
+**Answer**: Close to 0
+
+**Question**: What do you conclude?\
+**Answer**: We can reject the null hypotheses because the p-value is below the level of significance
+
+### Confidence Interval
+
+Create a confidence interval for the difference of the average Importance Score between both groups:
+
+```{r}
+t.test(dating$Importance ~ dating$Biosex, conf.level = .95)$conf.int
+
+
+```
+
+# Tooth hurty
+
+A simple random sample of dental bill costs was collected at offices in Rexburg and Idaho Falls. Let $\mu_{IF}$ be the *population* mean of dental costs in Idaho Falls and $\mu_{R}$ be the *population* mean of dentals costs in Rexburg.
+
+We suspect that dental costs are higher in Rexburg because of less competition.
+
+Use the data imported below to answer the following questions.
+
+```{r}
+dentist <- read_csv('https://github.com/byuistats/Math221D_Course/raw/main/Data/DentistOfficeBills_longformat.csv')
+view(dentist)
+```
+
+## Review The Data
+
+**Question**: What is the *response* variable?\
+**Answer**: Cost
+
+**Question**: What is the *explanatory* variable?\
+**Answer**: Location
+
+Create summary statistics tables of dental costs for each office:
+
+```{r}
+favstats(dentist$Cost ~ dentist$Location)
+```
+
+Create a side-by-side boxplot for dental costs for each office.
+
+```{r}
+ggplot(data = dentist, mapping = aes(x = Cost, fill = Location)) + 
+  geom_boxplot() +
+  labs(title = "Dentist", 
+       xlab = "Cost")
+```
+
+Check the normality of each group.
+
+```{r}
+qqPlot(dentist$Cost~dentist$Location)
+```
+
+**Question**: Do the samples from both groups appear to be normally distributed? If not, is it a cause for concern for our statistical inference? It does not seem normally distributed and since there is less than 30 samples for each of our strata our sample size is not normal. This is cause for concern
+
+## Hypothesis Test
+
+State your null and alternative hypotheses (replace the question marks with the appropriate symbols):
+
+$$H_0:  \mu_{IF}=\mu_{R}$$
+
+$$H_a:\mu_{IF}<\mu_{R}$$
+
+Perform the appropriate analysis:
+
+```{r}
+t.test(dentist$Cost ~ dentist$Location, alternative = "less")
+
+```
+
+**Question**: What is the test statistic?\
+**Answer**: -0.43437
+
+**Question**: What is the P-value?\
+**Answer**: 0.3332
+
+State your conclusion: We fail to reject the null hypothesis because our p-value is higher than our level of significance. We have insufficient evidence that there is a difference between the two groups.
+
+## Confidence Interval
+
+Create a confidence interval for the difference in costs between the IF and Rexburg offices:
+
+```{r}
+t.test(dentist$Cost ~ dentist$Location, conf.level = .95)$conf.int
+
+```
+
+Explain the confidence interval in context of the research question: We are 95% certain that the mean difference falls between -161.5398 and 104.4638
+
+# Birth Weights
+
+A study was conducted in which researchers obtained birth weights of infants born in Illinois during the same year. The birth weights are categorized based on the race and birthplace of the mother. Researchers want to know if there is a difference in mean birth weights of babies born to black women who were born in the United States and babies born to black women who were born in Africa. Values were recorded (in grams) for each infant born. The data are recorded in the file.
+
+Let $\mu_A$ be the *population* average of babies born to African-born mothers and $\mu_{IL}$ be the *population* mean weight of babies born to mothers in Illinois.
+
+Use the data imported below to answer the following questions.
+
+```{r}
+birth_weights <- read_csv('https://github.com/byuistats/Math221D_Course/raw/main/Data/IllinoisBirthWeightsTwoVar_longformat.csv')
+view(birth_weights)
+```
+
+## Review The Data
+
+**Question**: What is the *response* variable?\
+**Answer**: Weight_g
+
+**Question**: What is the *explanatory* variable?\
+**Answer**: Birth_Place
+
+Create summary statistics tables of birth weights for each country:
+
+```{r}
+favstats(birth_weights$Weight_g ~ birth_weights$Birth_Place)
+```
+
+Create a side-by-side boxplot for birth weights for each country:
+
+```{r}
+ggplot(data = birth_weights, mapping = aes(x = Weight_g, fill = Birth_Place)) + 
+  geom_boxplot() +
+  labs(title = "Weights", 
+       xlab = "Weight")
+```
+
+Check the normality of each group.
+
+```{r}
+qqPlot(birth_weights$Weight_g~birth_weights$Birth_Place)
+```
+
+**Question**: Do the samples from both groups appear to be normally distributed? If not, is it a cause for concern for our statistical inference? Yes they are normally distributed
+
+## Hypothesis Test
+
+State your null and alternative hypotheses (replace the question marks with the appropriate symbols):
+
+$$H_0:  \mu_{A}=\mu_{IL}$$
+
+$$H_a:\mu_{A}>\mu_{IL}$$
+
+Perform the appropriate analysis:
+
+```{r}
+t.test(birth_weights$Weight_g ~ birth_weights$Birth_Place, alternative = "greater")
+
+```
+
+**Question**: What is the test statistic?\
+**Answer**: 1.9021
+
+**Question**: What is the P-value?\
+**Answer**: 0.0306
+
+State your conclusion: We reject the null hypothesis because the p-value is less than the level of significance. Meaning we can determine that African babies are heavier than babies from Illinois
+
+## Confidence Interval
+
+Create a confidence interval for the average difference in weights between babies born to mothers in Africa and Illinois:
+
+```{r}
+t.test(birth_weights$Weight_g ~ birth_weights$Birth_Place, conf.level = .95)$conf.int
+
+```
+
+Explain the confidence interval in context of the research question: We are 95% certain that the mean difference falls between -11.76601 and 499.76455
+
+# Miscellany
+
+**Question**: A financial economist is studying married couples in which both spouses work. He wants to compare the mean income earned by husbands with the mean income earned by their wives. Should he use independent sampling or dependent sampling, and why? **Answer**: He should do dependant samples to not only compare husbands AND wives but also husbands WITH wives.

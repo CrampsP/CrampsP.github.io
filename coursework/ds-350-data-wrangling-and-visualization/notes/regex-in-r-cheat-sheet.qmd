@@ -1,0 +1,925 @@
+# ============================================================
+# REGEX IN R CHEAT SHEET
+# ============================================================
+# Regex = regular expressions
+# Regex is used to find patterns in text.
+#
+# In R, regex is commonly used with stringr functions:
+#
+# str_detect()      # TRUE/FALSE: does this pattern exist?
+# str_extract()     # pulls out the first match
+# str_extract_all() # pulls out all matches
+# str_replace()     # replaces first match
+# str_replace_all() # replaces all matches
+# str_count()       # counts matches
+# str_split()       # splits text using a pattern
+#
+# Load stringr:
+library(stringr)
+# ============================================================
+# 1. BASIC STRINGR FUNCTIONS
+# ============================================================
+
+text <- "Jesus Christ was born in Bethlehem in 1 AD."
+
+# Detect whether pattern exists
+str_detect(text, "Jesus")
+# TRUE
+
+# Extract first match
+str_extract(text, "Jesus")
+# "Jesus"
+
+# Extract all matches
+str_extract_all(text, "in")
+# "in" "in"
+
+# Replace first match
+str_replace(text, "Jesus", "The Savior")
+
+# Replace all matches
+str_replace_all(text, "in", "INSIDE")
+
+# Count matches
+str_count(text, "in")
+
+# Split text
+str_split(text, " ")
+# ============================================================
+# 2. IMPORTANT REGEX SYMBOLS
+# ============================================================
+
+# .        any single character
+# \\d      any digit, 0-9
+# \\D      anything that is NOT a digit
+# \\w      word character: letters, numbers, underscore
+# \\W      anything that is NOT a word character
+# \\s      whitespace: space, tab, newline
+# \\S      anything that is NOT whitespace
+#
+# ^        start of string
+# $        end of string
+#
+# *        0 or more
+# +        1 or more
+# ?        0 or 1
+#
+# {n}      exactly n times
+# {n,}     n or more times
+# {n,m}    between n and m times
+#
+# []       character set
+# [^]      not these characters
+# |        OR
+# ()       group
+# ============================================================
+# 3. WHY R USES DOUBLE BACKSLASHES
+# ============================================================
+
+# In normal regex, digit is:
+# \d
+#
+# But in R strings, you need:
+# "\\d"
+#
+# Because R uses backslash for escape characters.
+# So regex patterns often need double backslashes.
+
+text <- "I have 3 dogs and 12 fish."
+
+str_extract_all(text, "\\d+")
+# Extracts: "3" "12"
+# ============================================================
+# 4. DIGITS AND NUMBERS
+# ============================================================
+
+text <- "The prices are $5, $12, and $100."
+
+# Find one digit
+str_extract_all(text, "\\d")
+# "5" "1" "2" "1" "0" "0"
+
+# Find full numbers
+str_extract_all(text, "\\d+")
+# "5" "12" "100"
+
+# Find exactly 2 digits
+str_extract_all(text, "\\d{2}")
+# "12" "10"
+
+# Find 1 or more digits
+str_extract_all(text, "\\d+")
+
+# Find numbers with decimals
+text2 <- "The values are 4.5, 10.25, and 7."
+
+str_extract_all(text2, "\\d+\\.\\d+")
+# "4.5" "10.25"
+
+# Find numbers with optional decimals
+str_extract_all(text2, "\\d+(\\.\\d+)?")
+# "4.5" "10.25" "7"
+# ============================================================
+# 5. LETTERS AND WORDS
+# ============================================================
+
+text <- "Nephi saw 3 visions."
+
+# Find word characters
+str_extract_all(text, "\\w+")
+# "Nephi" "saw" "3" "visions"
+
+# Find letters only
+str_extract_all(text, "[A-Za-z]+")
+# "Nephi" "saw" "visions"
+
+# Find uppercase letters
+str_extract_all(text, "[A-Z]")
+# "N"
+
+# Find lowercase letters
+str_extract_all(text, "[a-z]+")
+# "ephi" "saw" "visions"
+
+# Find words that start with capital letter
+text2 <- "Nephi and Lehi went to Jerusalem."
+
+str_extract_all(text2, "[A-Z][a-z]+")
+# "Nephi" "Lehi" "Jerusalem"
+# ============================================================
+# 6. WHITESPACE
+# ============================================================
+
+text <- "Hello     world"
+
+# Find spaces
+str_extract_all(text, "\\s+")
+
+# Replace multiple spaces with one space
+str_replace_all(text, "\\s+", " ")
+# "Hello world"
+
+# Remove all whitespace
+str_replace_all(text, "\\s+", "")
+# "Helloworld"
+# ============================================================
+# 7. START AND END OF STRING
+# ============================================================
+
+text <- c("apple pie", "banana bread", "apple juice", "grape apple")
+
+# Starts with apple
+str_detect(text, "^apple")
+# TRUE FALSE TRUE FALSE
+
+# Ends with apple
+str_detect(text, "apple$")
+# FALSE FALSE FALSE TRUE
+
+# Starts with apple OR banana
+str_detect(text, "^(apple|banana)")
+# TRUE TRUE TRUE FALSE
+
+# Ends with pie OR bread
+str_detect(text, "(pie|bread)$")
+# TRUE TRUE FALSE FALSE
+# ============================================================
+# 8. CHARACTER SETS []
+# ============================================================
+
+text <- "cat, bat, rat, mat, dog"
+
+# Match cat, bat, or rat
+str_extract_all(text, "[cbr]at")
+# "cat" "bat" "rat"
+
+# Match anything ending in at
+str_extract_all(text, ".at")
+# "cat" "bat" "rat" "mat"
+
+# Match vowels
+str_extract_all(text, "[aeiou]")
+# "a" "a" "a" "a" "o"
+
+# Match anything that is NOT a vowel
+str_extract_all(text, "[^aeiou]")
+# ============================================================
+# 9. OR WITH |
+# ============================================================
+
+text <- "I like cats and dogs."
+
+# Detect cat OR dog
+str_detect(text, "cat|dog")
+# TRUE
+
+# Extract cat OR dog
+str_extract_all(text, "cat|dog")
+# "cat" "dog"
+
+# Extract cats OR dogs
+str_extract_all(text, "cats|dogs")
+# "cats" "dogs"
+# ============================================================
+# 10. GROUPS WITH ()
+# ============================================================
+
+text <- "Jesus Christ, Lord Jesus, Savior Jesus"
+
+# Match either Jesus Christ or Lord Jesus
+str_extract_all(text, "(Jesus Christ|Lord Jesus)")
+# "Jesus Christ" "Lord Jesus"
+
+# Groups are useful when using OR with longer phrases
+# ============================================================
+# 11. WORD BOUNDARIES
+# ============================================================
+
+# \\b means word boundary.
+# It helps match whole words only.
+
+text <- c("he", "the", "hello", "he is here")
+
+# Detect "he" anywhere
+str_detect(text, "he")
+# TRUE TRUE TRUE TRUE
+
+# Detect "he" as a whole word
+str_detect(text, "\\bhe\\b")
+# TRUE FALSE FALSE TRUE
+
+# This matters a lot.
+# Without word boundaries, "he" matches inside "the" and "hello".
+# ============================================================
+# 12. CASE SENSITIVITY
+# ============================================================
+
+text <- c("Jesus", "jesus", "JESUS")
+
+# Normal regex is case-sensitive
+str_detect(text, "Jesus")
+# TRUE FALSE FALSE
+
+# Ignore case
+str_detect(text, regex("jesus", ignore_case = TRUE))
+# TRUE TRUE TRUE
+# ============================================================
+# 13. ESCAPING SPECIAL CHARACTERS
+# ============================================================
+
+# Some characters have special regex meanings:
+#
+# . ^ $ * + ? ( ) [ ] { } | \
+#
+# If you want the literal character, escape it with \\
+
+text <- "The file is report.pdf"
+
+# WRONG: "." means any character
+str_detect(text, ".pdf")
+
+# RIGHT: "\\." means a literal period
+str_detect(text, "\\.pdf")
+
+# Find dollar signs
+text2 <- "The price is $25."
+
+str_detect(text2, "\\$")
+# TRUE
+
+# Find parentheses
+text3 <- "Call me at (555) 123-4567."
+
+str_extract(text3, "\\(555\\)")
+# "(555)"
+# ============================================================
+# 14. COMMON PATTERNS
+# ============================================================
+
+# Any number:
+"\\d+"
+
+# Decimal number:
+"\\d+\\.\\d+"
+
+# Optional decimal:
+"\\d+(\\.\\d+)?"
+
+# Any word:
+"\\w+"
+
+# Letters only:
+"[A-Za-z]+"
+
+# Capitalized word:
+"[A-Z][a-z]+"
+
+# Whitespace:
+"\\s+"
+
+# Whole word "the":
+"\\bthe\\b"
+
+# Starts with "A":
+"^A"
+
+# Ends with ".":
+"\\.$"
+
+# Email-ish pattern:
+"\\w+@\\w+\\.\\w+"
+
+# Phone number like 555-123-4567:
+"\\d{3}-\\d{3}-\\d{4}"
+
+# Date like 2026-07-03:
+"\\d{4}-\\d{2}-\\d{2}"
+# ============================================================
+# 15. EXTRACTING DATES
+# ============================================================
+
+text <- "The dates are 2026-07-03 and 2027-12-15."
+
+str_extract_all(text, "\\d{4}-\\d{2}-\\d{2}")
+# "2026-07-03" "2027-12-15"
+
+# Pattern explanation:
+# \\d{4}  = four digits
+# -       = literal dash
+# \\d{2}  = two digits
+# -       = literal dash
+# \\d{2}  = two digits
+# ============================================================
+# 16. EXTRACTING PHONE NUMBERS
+# ============================================================
+
+text <- "Call 555-123-4567 or 801-555-9999."
+
+str_extract_all(text, "\\d{3}-\\d{3}-\\d{4}")
+# "555-123-4567" "801-555-9999"
+
+# Pattern explanation:
+# \\d{3} = exactly 3 digits
+# -      = dash
+# \\d{3} = exactly 3 digits
+# -      = dash
+# \\d{4} = exactly 4 digits
+# ============================================================
+# 17. EXTRACTING EMAILS
+# ============================================================
+
+text <- "Email me at student@byui.edu or help@example.com."
+
+str_extract_all(text, "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}")
+# "student@byui.edu" "help@example.com"
+
+# Simpler but less accurate:
+str_extract_all(text, "\\w+@\\w+\\.\\w+")
+# ============================================================
+# 18. REPLACING TEXT
+# ============================================================
+
+text <- "My phone number is 555-123-4567."
+
+# Replace phone number with hidden version
+str_replace_all(text, "\\d{3}-\\d{3}-\\d{4}", "XXX-XXX-XXXX")
+# "My phone number is XXX-XXX-XXXX."
+
+# Replace all digits with X
+str_replace_all(text, "\\d", "X")
+# "My phone number is XXX-XXX-XXXX."
+# ============================================================
+# 19. SPLITTING TEXT
+# ============================================================
+
+text <- "apple,banana,orange"
+
+str_split(text, ",")
+# splits into apple banana orange
+
+text2 <- "apple banana    orange"
+
+str_split(text2, "\\s+")
+# splits on one or more spaces
+# ============================================================
+# 20. COUNTING WORDS
+# ============================================================
+
+text <- "The Savior loves the people."
+
+# Count spaces + 1
+str_count(text, " ") + 1
+# 5
+
+# Better: count words
+str_count(text, "\\w+")
+# 5
+
+# Count a specific word
+str_count(text, "\\bthe\\b")
+# 1 because lowercase "the" only
+
+# Ignore case
+str_count(str_to_lower(text), "\\bthe\\b")
+# 2
+# ============================================================
+# 21. COUNTING PHRASES
+# ============================================================
+
+text <- "Jesus Christ is the Son of God. I believe in Jesus Christ."
+
+str_count(text, "Jesus Christ")
+# 2
+
+# Ignore case
+str_count(str_to_lower(text), "jesus christ")
+# 2
+# ============================================================
+# 22. MATCHING MULTIPLE PHRASES
+# ============================================================
+
+text <- "Jesus Christ is Lord and Savior."
+
+pattern <- "Jesus Christ|Lord|Savior"
+
+str_extract_all(text, pattern)
+# "Jesus Christ" "Lord" "Savior"
+
+str_count(text, pattern)
+# 3
+# ============================================================
+# 23. USING A VECTOR OF WORDS OR PHRASES
+# ============================================================
+
+names <- c("Jesus Christ", "Lord", "Savior", "Redeemer")
+
+text <- "Jesus Christ is my Savior and Redeemer."
+
+# Collapse names into one regex pattern separated by OR
+pattern <- paste(names, collapse = "|")
+
+pattern
+# "Jesus Christ|Lord|Savior|Redeemer"
+
+str_extract_all(text, pattern)
+# "Jesus Christ" "Savior" "Redeemer"
+# ============================================================
+# 24. IMPORTANT: ESCAPE SPECIAL CHARACTERS IN A VECTOR
+# ============================================================
+
+# If your search terms contain punctuation, escape them.
+
+terms <- c("God's Son", "Lord.", "Savior?")
+
+escaped_terms <- str_replace_all(terms, "([\\W])", "\\\\\\1")
+
+escaped_terms
+
+pattern <- paste(escaped_terms, collapse = "|")
+
+text <- "I believe in God's Son. He is Lord. Is He Savior?"
+
+str_extract_all(text, pattern)
+# ============================================================
+# 25. UNDERSTANDING THIS ESCAPE CODE
+# ============================================================
+
+str_replace_all(terms, "([\\W])", "\\\\\\1")
+
+# This is advanced, but here is the idea:
+#
+# [\\W] means:
+#   find any non-word character
+#   punctuation, spaces, apostrophes, periods, question marks, etc.
+#
+# () means:
+#   capture what you found
+#
+# "\\\\\\1" means:
+#   put a backslash before the thing you found
+#
+# So:
+# "Lord."
+# becomes:
+# "Lord\\."
+#
+# That way the period is treated as a real period,
+# not the regex symbol for "any character".
+# ============================================================
+# 26. GREEDY VS LAZY MATCHING
+# ============================================================
+
+text <- "Start here. Stop here. Really stop here."
+
+# Greedy: grabs as much as possible
+str_extract(text, "Start.*Stop")
+# May grab too much
+
+# Lazy: grabs as little as possible
+str_extract(text, "Start.*?Stop")
+
+# .* means:
+#   any character, 0 or more times
+#
+# .*? means:
+#   any character, 0 or more times, but as little as possible
+# ============================================================
+# 27. EXTRACT EVERYTHING BEFORE OR AFTER SOMETHING
+# ============================================================
+
+text <- "Name: Nephi"
+
+# Extract everything before colon
+str_extract(text, ".*(?=:)")
+# "Name"
+
+# Extract everything after colon and space
+str_extract(text, "(?<=: ).*")
+# "Nephi"
+
+# (?=...) is lookahead
+# (?<=...) is lookbehind
+#
+# These are advanced. Use only if needed.
+# ============================================================
+# 28. COMMON STRING CLEANING TASKS
+# ============================================================
+
+text <- "   Hello     world!!!   "
+
+# Remove extra spaces at beginning/end
+str_trim(text)
+
+# Replace multiple spaces with one space
+str_squish(text)
+
+# Make lowercase
+str_to_lower(text)
+
+# Make uppercase
+str_to_upper(text)
+
+# Remove punctuation
+str_replace_all(text, "[[:punct:]]", "")
+
+# Remove digits
+str_replace_all(text, "\\d", "")
+
+# Remove letters
+str_replace_all(text, "[A-Za-z]", "")
+# ============================================================
+# 29. CHARACTER CLASSES IN R
+# ============================================================
+
+# [[:digit:]]  digits
+# [[:alpha:]]  letters
+# [[:alnum:]]  letters and digits
+# [[:space:]]  spaces
+# [[:punct:]]  punctuation
+# [[:lower:]]  lowercase letters
+# [[:upper:]]  uppercase letters
+
+text <- "Hello!!! 123"
+
+str_extract_all(text, "[[:digit:]]+")
+# "123"
+
+str_extract_all(text, "[[:alpha:]]+")
+# "Hello"
+
+str_replace_all(text, "[[:punct:]]", "")
+# "Hello 123"
+# ============================================================
+# 30. REGEX WITH FILTER()
+# ============================================================
+
+library(tidyverse)
+
+df <- tibble(
+  name = c("Apple", "Banana", "Apricot", "Grape"),
+  price = c(1, 2, 3, 4)
+)
+
+# Keep rows where name starts with A
+df %>%
+  filter(str_detect(name, "^A"))
+
+# Keep rows where name contains "ap", ignoring case
+df %>%
+  filter(str_detect(name, regex("ap", ignore_case = TRUE)))
+
+# Remove rows where name contains "Banana"
+df %>%
+  filter(!str_detect(name, "Banana"))
+# ============================================================
+# 31. REGEX WITH MUTATE()
+# ============================================================
+
+df <- tibble(
+  code = c("CA-2020", "ID-2021", "UT-2022")
+)
+
+df %>%
+  mutate(
+    state = str_extract(code, "^[A-Z]{2}"),
+    year = str_extract(code, "\\d{4}")
+  )
+
+# Explanation:
+# ^[A-Z]{2} = two capital letters at the start
+# \\d{4}    = four digits
+# ============================================================
+# 32. REGEX WITH SEPARATE-LIKE WORK
+# ============================================================
+
+df <- tibble(
+  quarter = c("2017 Q1", "2017 Q2", "2018 Q1")
+)
+
+df %>%
+  mutate(
+    year = str_extract(quarter, "\\d{4}"),
+    qtr = str_extract(quarter, "Q\\d")
+  )
+
+# year gets 2017, 2018, etc.
+# qtr gets Q1, Q2, etc.
+# ============================================================
+# 33. QUICK GUIDE: WHICH FUNCTION DO I USE?
+# ============================================================
+
+# I need TRUE/FALSE:
+str_detect()
+
+# I need to pull out text:
+str_extract()
+
+# I need all matches:
+str_extract_all()
+
+# I need to replace text:
+str_replace()
+str_replace_all()
+
+# I need to count matches:
+str_count()
+
+# I need to split text:
+str_split()
+
+# I need to remove spaces:
+str_trim()
+str_squish()
+
+# I need to change case:
+str_to_lower()
+str_to_upper()
+# ============================================================
+# 34. QUICK GUIDE: WHICH PATTERN DO I USE?
+# ============================================================
+
+# Any digit:
+"\\d"
+
+# Full number:
+"\\d+"
+
+# Any letter:
+"[A-Za-z]"
+
+# Any word:
+"\\w+"
+
+# Any spaces:
+"\\s+"
+
+# Whole word:
+"\\bword\\b"
+
+# Starts with:
+"^pattern"
+
+# Ends with:
+"pattern$"
+
+# OR:
+"cat|dog"
+
+# One or more:
+"+"
+
+# Zero or more:
+"*"
+
+# Optional:
+"?"
+
+# Exact count:
+"{3}"
+
+# Between counts:
+"{2,4}"
+# ============================================================
+# 35. COMMON ERRORS
+# ============================================================
+
+# ERROR 1:
+# Using "\d" instead of "\\d"
+
+str_extract_all("abc123", "\d")
+# This may error or not work correctly.
+
+# Correct:
+str_extract_all("abc123", "\\d")
+
+
+# ERROR 2:
+# Forgetting that "." means any character
+
+text <- "file.pdf"
+
+str_detect(text, ".pdf")
+# This can match more than you mean.
+
+# Correct:
+str_detect(text, "\\.pdf")
+
+
+# ERROR 3:
+# Forgetting word boundaries
+
+text <- c("he", "the", "hello")
+
+str_detect(text, "he")
+# TRUE TRUE TRUE
+
+# Correct if you only want the word "he":
+str_detect(text, "\\bhe\\b")
+# TRUE FALSE FALSE
+
+
+# ERROR 4:
+# Putting fixed colors inside aes()
+
+# Wrong:
+ggplot(df, aes(x = name, y = price, fill = "blue")) +
+  geom_col()
+
+# Better:
+ggplot(df, aes(x = name, y = price)) +
+  geom_col(fill = "blue")
+# ============================================================
+# 36. MINI PRACTICE EXAMPLES
+# ============================================================
+
+text <- "Order #123 was placed on 2026-07-03 by john@email.com."
+
+# Extract order number
+str_extract(text, "#\\d+")
+# "#123"
+
+# Extract order number without #
+str_extract(text, "\\d+")
+
+# Extract date
+str_extract(text, "\\d{4}-\\d{2}-\\d{2}")
+
+# Extract email
+str_extract(text, "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}")
+
+# Replace email
+str_replace(text, "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}", "[hidden email]")
+# ============================================================
+# 37. REGEX MENTAL CHECKLIST
+# ============================================================
+
+# 1. What am I trying to find?
+#    digits, words, dates, punctuation, spaces, phrases?
+#
+# 2. Do I need one match or all matches?
+#    one match = str_extract()
+#    all matches = str_extract_all()
+#
+# 3. Do I need TRUE/FALSE?
+#    str_detect()
+#
+# 4. Do I need to replace something?
+#    str_replace_all()
+#
+# 5. Does my pattern use backslashes?
+#    In R, use double backslash.
+#    "\\d", "\\s", "\\b", "\\."
+#
+# 6. Do I need whole words only?
+#    Use "\\bword\\b"
+#
+# 7. Do I need to ignore case?
+#    regex("pattern", ignore_case = TRUE)
+# ============================================================
+# 38. MOST USEFUL REGEX EXAMPLES FOR CLASS
+# ============================================================
+
+# Extract year from "2017 Q1"
+str_extract("2017 Q1", "\\d{4}")
+# "2017"
+
+# Extract quarter from "2017 Q1"
+str_extract("2017 Q1", "Q\\d")
+# "Q1"
+
+# Extract state from "CA-2010"
+str_extract("CA-2010", "^[A-Z]{2}")
+# "CA"
+
+# Extract number from "Sales: 483"
+str_extract("Sales: 483", "\\d+")
+# "483"
+
+# Remove commas from numbers
+str_replace_all("1,250,000", ",", "")
+# "1250000"
+
+# Remove dollar signs
+str_replace_all("$25.99", "\\$", "")
+# "25.99"
+
+# Remove percent signs
+str_replace_all("45%", "%", "")
+# "45"
+
+# Keep only digits
+str_extract_all("abc123def456", "\\d+")[[1]]
+# "123" "456"
+# ============================================================
+# 39. REMEMBER THIS
+# ============================================================
+
+# Regex pattern:
+"\\d+"
+
+# stringr function:
+str_extract(text, "\\d+")
+
+# tidyverse use:
+data %>%
+  mutate(number = str_extract(text_column, "\\d+"))
+
+# filter use:
+data %>%
+  filter(str_detect(text_column, "pattern"))
+
+# replace use:
+data %>%
+  mutate(clean_text = str_replace_all(text_column, "pattern", "replacement"))
+# ============================================================
+# 40. THE BIGGEST REGEX MEMORY TRICK
+# ============================================================
+
+# In R:
+#
+# "\\d+" means:
+#   one or more digits
+#
+# "\\s+" means:
+#   one or more spaces
+#
+# "\\w+" means:
+#   one or more word characters
+#
+# "\\bword\\b" means:
+#   the whole word "word"
+#
+# "\\." means:
+#   a real period
+#
+# "^word" means:
+#   starts with word
+#
+# "word$" means:
+#   ends with word
+#
+# "cat|dog" means:
+#   cat OR dog
+#
+# "[A-Z]" means:
+#   one capital letter
+#
+# "[A-Za-z]+" means:
+#   one or more letters
+#
+# "\\d{4}" means:
+#   exactly four digits
+
+For your class, the highest-value things to memorize are:
+
+str_detect()
+str_extract()
+str_replace_all()
+str_count()
+pivot_longer()
+mutate(year = str_extract(column, "\\d{4}"))
+"\\d+"
+"\\d{4}"
+"\\s+"
+"\\bword\\b"
+"[A-Za-z]+"

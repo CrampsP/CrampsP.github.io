@@ -1,0 +1,91 @@
+---
+title: "Rent"
+output: 
+  html_document:
+    theme: cerulean
+    code_folding: hide
+    toc: true
+    toc_float: true
+---
+
+<!-- Welcome to the first Analysis for Math 325! 
+The goal of this first assignment is to have you produce a graphical summary and a numerical summary of the "Rent" data set. The fun part is that you get to decide what type of graph and what type of numerical summary to create! You will need to read through the "green text" instructions of this document to find the places where you are supposed to enter R-code in order to complete the assignment. -->
+
+
+**Week 1 Analysis**
+
+```{r, message=FALSE, warning=FALSE}
+# This gray area is called an "R-chunk". 
+# These library commands install some powerful functions for your use later on.
+library(mosaic)
+library(pander)
+library(tidyverse)
+library(DT) 
+
+# This read_csv command reads in the "Rent" data set into an object called "Rent"
+Rent <- read_csv("../data/rent.csv")
+
+# To load this data set into your R-Console do the following:
+#  1. From your top file menu select "Session -> Set Working Directory -> To Source File Location"
+#  2. Press the green "play button" in the top right corner of this gray box (which is called an "R-chunk").
+#  3. Then in your "Console" window run View(Rent)
+print(Rent)
+```
+
+<br />
+
+## Background
+
+Here is a data table showing the available approved housing apartment options at BYU-Idaho for single students. 
+
+```{r, warning=FALSE}
+# Code to get you started. 
+# View(...) works great in the Console, but datatable(...) must be
+# used instead within an R-chunk.
+datatable(Rent, options=list(lengthMenu = c(3,10,30)), extensions="Responsive")
+```
+
+
+## Graphic
+
+<!-- Present an interesting graphic using the Rent data set. Do not create the same graphics that are shown in the [Good Example Analysis](./Analyses/StudentHousing.html), but you can certainly use those graphics as a guide to inspire you on what to do yourself. -->
+
+
+```{r}
+# Use this R-chunk to...
+# ...Create an interesting graphic using the Rent data set.
+plot(Longitude ~ Latitude, data=Rent, main = "Geographic locations of single student housing in Rexburg Idaho", col = "firebrick", pch=15, ylim = c(-111.77349, -111.795),  xlim = c(43.8117, 43.8255))
+
+
+
+```
+
+
+<!-- Write a few statements here that explain your graphic and what it shows. -->
+
+This graph shows the actual locations of the housing options in Rexburg, Idaho. It uses Longitude and Latitude to map out each option. This helps illustrate where the housing options are placed and their concentration within Rexburg.
+
+
+
+
+```{r}
+# Use this R-chunk to...
+# ...compute and display a meaningful table of numerical summaries supporting your above graphic.
+Rent2 <- Rent %>% 
+  mutate(PriceAverage =  (Rent$PriceLow+Rent$PriceHigh)/2,
+         )
+
+summary(Rent2$PriceAverage)
+
+```
+
+<!-- Write a few statements here that introduce your table of numerical summaries and what they show. -->
+
+This table shows some important stats about the average pricing of the housing in Rexburg. It shows that at the minimum you will be paying $900 and at the max $2079. Within this range we can find how where other housing fits relative to theses stats.
+
+
+## Conclusion
+
+Using these graphical and numerical summaries we can link up the points on the graph to the average price summary to show us where the most expensive and where the cheapest housing is located and how much more populated one part of Rexburg is over another.
+
+

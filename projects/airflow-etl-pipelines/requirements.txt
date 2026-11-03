@@ -1,0 +1,8 @@
+pymongo
+sshtunnel
+yfinance
+pandas
+pandas_market_calendars
+git+https://github.com/m0rp43us/openmeteopy
+apache-airflow-providers-snowflake
+snowflake-connector-python

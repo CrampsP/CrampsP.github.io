@@ -1,0 +1,942 @@
+The big idea
+
+When you get the challenge, do not start coding immediately.
+
+First, look at the picture and ask:
+
+What does one bar/point/line represent?
+
+That one question tells you what your final cleaned data needs to look like.
+
+For example, in your dealership challenge, each bar represented:
+
+one dealership’s total sales in one year
+
+So your final data needed one row per:
+
+year + dealership
+
+and a number column:
+
+total_sold
+
+That is why the final data needed to look like:
+
+year	dealership	total_sold
+2017	BEACON	270
+2017	DRAPER	406
+2018	BEACON	253
+2018	DRAPER	373
+
+The graph becomes much easier once you know what one row of the final plotting data should represent.
+
+Your general test process
+
+Use this order almost every time:
+
+library(tidyverse)
+
+data <- read_csv("...")
+
+glimpse(data)
+View(data)
+names(data)
+
+Then ask:
+
+Are the column names clean?
+Is the data wide or long?
+Do I need to create a date/year/month column?
+Do I need to filter rows?
+Do I need to group and summarize?
+What goes into ggplot(aes())?
+What geom_ matches the picture?
+
+That is your whole battle plan.
+
+Scenario 1: Wide data that needs pivot_longer()
+
+This is what happened with your dealership challenge.
+
+You see data like:
+
+quarter	BEACON	DRAPER	FILMORE
+2017 Q1	69	130	85
+2017 Q2	77	86	97
+
+The dealership names are currently column names.
+
+But in a nice tidy dataset, dealership should be its own column.
+
+So you use:
+
+data_long <- data %>%
+  pivot_longer(
+    cols = -quarter,
+    names_to = "dealership",
+    values_to = "cars_sold"
+  )
+
+Read that in English:
+
+cols = -quarter
+
+means:
+
+Take every column except quarter.
+
+names_to = "dealership"
+
+means:
+
+Put the old column names into a new column called dealership.
+
+values_to = "cars_sold"
+
+means:
+
+Put the numbers into a new column called cars_sold.
+
+You use pivot_longer() when the column names are secretly values.
+
+Examples:
+
+Bad/wide columns	What they really are
+BEACON, DRAPER, FILMORE	dealership names
+Male, Female	gender values
+2019, 2020, 2021	year values
+January, February, March	month values
+Math, Science, English	subject values
+
+Pattern:
+
+data %>%
+  pivot_longer(
+    cols = columns_to_stack,
+    names_to = "new_category_column",
+    values_to = "new_number_column"
+  )
+Scenario 2: Long data that needs pivot_wider()
+
+Sometimes the data is too long and you need separate columns.
+
+Example:
+
+country	year	metric	value
+USA	2020	population	331
+USA	2020	gdp	21000
+Canada	2020	population	38
+Canada	2020	gdp	1700
+
+Maybe you need a scatterplot:
+
+x-axis = population
+y-axis = gdp
+
+For a scatterplot, you need population and gdp as separate columns.
+
+So you use:
+
+data_wide <- data %>%
+  pivot_wider(
+    names_from = metric,
+    values_from = value
+  )
+
+This makes:
+
+country	year	population	gdp
+USA	2020	331	21000
+Canada	2020	38	1700
+
+Use pivot_wider() when one column contains variable names that need to become separate columns.
+
+Pattern:
+
+data %>%
+  pivot_wider(
+    names_from = column_with_future_column_names,
+    values_from = column_with_values
+  )
+
+Memory trick:
+
+pivot_longer() = more rows, fewer columns
+pivot_wider() = fewer rows, more columns
+Scenario 3: Bar chart of totals
+
+Image clue:
+
+You see bars comparing categories.
+
+Example final chart:
+
+Total revenue by store
+
+You probably need:
+
+group_by(store) %>%
+summarize(total_revenue = sum(revenue))
+
+Full pattern:
+
+plot_data <- data %>%
+  group_by(store) %>%
+  summarize(total_revenue = sum(revenue), .groups = "drop")
+
+ggplot(plot_data, aes(x = store, y = total_revenue)) +
+  geom_col()
+
+Important difference:
+
+Use geom_col() when your data already has the y-values.
+
+Use geom_bar() when you want R to count rows for you.
+
+Usually in your class, you will probably use:
+
+geom_col()
+
+because you are summarizing first.
+
+Scenario 4: Bar chart of counts
+
+Image clue:
+
+The chart shows number of rows/items in each category.
+
+Example:
+
+Count the number of flights by airline.
+
+You can do:
+
+plot_data <- data %>%
+  count(airline)
+
+That gives:
+
+airline	n
+Delta	300
+United	280
+
+Then:
+
+ggplot(plot_data, aes(x = airline, y = n)) +
+  geom_col()
+
+count(airline) is basically a shortcut for:
+
+data %>%
+  group_by(airline) %>%
+  summarize(n = n(), .groups = "drop")
+
+Use this when the graph is counting how many observations are in each category.
+
+Scenario 5: Grouped bar chart
+
+Image clue:
+
+Bars are side-by-side, usually with colors.
+
+Example:
+
+Revenue by class type, colored by location
+
+Your final data probably needs one row per:
+
+class_type + location
+
+Code pattern:
+
+plot_data <- data %>%
+  group_by(class_type, location) %>%
+  summarize(total_revenue = sum(revenue), .groups = "drop")
+
+ggplot(plot_data, aes(x = class_type, y = total_revenue, fill = location)) +
+  geom_col(position = "dodge")
+
+The key argument is:
+
+position = "dodge"
+
+That means:
+
+Put the bars next to each other instead of stacking them.
+
+Without it, the bars may stack on top of each other.
+
+Scenario 6: Stacked bar chart
+
+Image clue:
+
+Bars are stacked, and colors show parts of a total.
+
+Example:
+
+Total sales by year, split by dealership type
+
+Pattern:
+
+ggplot(plot_data, aes(x = year, y = total_sales, fill = dealership_type)) +
+  geom_col()
+
+Notice there is no:
+
+position = "dodge"
+
+Because stacked bars are the default when you use fill.
+
+If you want percentages:
+
+ggplot(plot_data, aes(x = year, y = total_sales, fill = dealership_type)) +
+  geom_col(position = "fill")
+
+position = "fill" means:
+
+Make each bar equal 100%.
+
+Scenario 7: Line chart over time
+
+Image clue:
+
+You see a trend over days, months, quarters, or years.
+
+Example:
+
+Monthly revenue over time
+
+Final data needs one row per time period:
+
+month	total_revenue
+Jan	1200
+Feb	1500
+Mar	1800
+
+Pattern:
+
+plot_data <- data %>%
+  group_by(month) %>%
+  summarize(total_revenue = sum(revenue), .groups = "drop")
+
+ggplot(plot_data, aes(x = month, y = total_revenue, group = 1)) +
+  geom_line() +
+  geom_point()
+
+If there are multiple lines:
+
+ggplot(plot_data, aes(x = month, y = total_revenue, color = location, group = location)) +
+  geom_line() +
+  geom_point()
+
+Important:
+
+For line charts, you often need group.
+
+If there is one line:
+
+group = 1
+
+If there are multiple lines:
+
+group = location
+Scenario 8: Scatterplot
+
+Image clue:
+
+You see dots, not bars, comparing two numeric variables.
+
+Example:
+
+Relationship between ad spending and revenue
+
+Pattern:
+
+ggplot(data, aes(x = ad_spend, y = revenue)) +
+  geom_point()
+
+Add color if the dots are grouped:
+
+ggplot(data, aes(x = ad_spend, y = revenue, color = region)) +
+  geom_point()
+
+Add a trend line:
+
+ggplot(data, aes(x = ad_spend, y = revenue)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+
+Scatterplot usually does not need group_by() first unless the image is using averages or summaries.
+
+Scenario 9: Faceted chart
+
+Image clue:
+
+The chart is split into multiple mini charts.
+
+Your dealership chart had one panel for each year.
+
+Pattern:
+
+ggplot(plot_data, aes(x = total_sold, y = dealership)) +
+  geom_col() +
+  facet_wrap(~ year)
+
+or:
+
+facet_grid(. ~ year)
+
+Use facet_wrap() for a flexible layout.
+
+Use facet_grid() when you want strict rows/columns.
+
+Common patterns:
+
+facet_wrap(~ year)
+
+means:
+
+Make one chart per year.
+
+facet_grid(region ~ year)
+
+means:
+
+Rows are region, columns are year.
+
+Scenario 10: Need to extract year/month from a date
+
+You might see a date column like:
+
+date
+2026-01-15
+2026-02-20
+
+First make sure it is a date:
+
+data <- data %>%
+  mutate(date = as.Date(date))
+
+Then use lubridate.
+
+library(lubridate)
+
+data <- data %>%
+  mutate(
+    year = year(date),
+    month = month(date, label = TRUE),
+    quarter = quarter(date)
+  )
+
+If the date is text like "2017 Q1" like your dealers data, you may use string tools instead:
+
+data <- data %>%
+  mutate(year = as.numeric(str_sub(quarter, 1, 4)))
+
+For "2017 Q1":
+
+str_sub(quarter, 1, 4)
+
+gets:
+
+"2017"
+Scenario 11: Need to filter to certain rows
+
+Image clue:
+
+The title says something like:
+
+Top 10 countries in 2020
+California counties only
+Sales after 2018
+Only single-family permits
+
+Pattern:
+
+data %>%
+  filter(year == 2020)
+
+Multiple conditions:
+
+data %>%
+  filter(year == 2020, state == "California")
+
+That means both must be true.
+
+Another way:
+
+data %>%
+  filter(year == 2020 & state == "California")
+
+For “or”:
+
+data %>%
+  filter(state == "California" | state == "Idaho")
+
+Better version:
+
+data %>%
+  filter(state %in% c("California", "Idaho"))
+
+Use %in% when you want several possible values.
+
+Scenario 12: Need top 10
+
+Image clue:
+
+The graph only shows the largest 10 categories.
+
+Pattern:
+
+plot_data <- data %>%
+  group_by(category) %>%
+  summarize(total = sum(value), .groups = "drop") %>%
+  slice_max(total, n = 10)
+
+Then for a horizontal bar chart:
+
+ggplot(plot_data, aes(x = total, y = reorder(category, total))) +
+  geom_col()
+
+This part:
+
+reorder(category, total)
+
+means:
+
+Sort the categories by the total.
+
+For horizontal bar charts, this is super useful.
+
+Scenario 13: Need percentages
+
+Image clue:
+
+The y-axis says percent, share, proportion, or rate.
+
+Example:
+
+What percent of sales came from each region?
+
+Pattern:
+
+plot_data <- data %>%
+  group_by(region) %>%
+  summarize(total_sales = sum(sales), .groups = "drop") %>%
+  mutate(percent = total_sales / sum(total_sales))
+
+Then:
+
+ggplot(plot_data, aes(x = region, y = percent)) +
+  geom_col()
+
+Format y-axis as percent:
+
+library(scales)
+
+ggplot(plot_data, aes(x = region, y = percent)) +
+  geom_col() +
+  scale_y_continuous(labels = percent)
+
+Important idea:
+
+sum(total_sales)
+
+inside mutate() after summarizing means:
+
+Add all the summarized totals together.
+
+Then each category gets its share.
+
+Scenario 14: Need to clean column names
+
+Raw data may have awful names like:
+
+"Drug Category"
+"Labeler Name"
+"Number of Cars Sold"
+"...1"
+
+Option 1: Rename manually:
+
+data <- data %>%
+  rename(
+    drug_category = `Drug Category`,
+    labeler_name = `Labeler Name`,
+    cars_sold = `Number of Cars Sold`
+  )
+
+Use backticks when column names have spaces:
+
+`Drug Category`
+
+Option 2: Use janitor:
+
+library(janitor)
+
+data <- data %>%
+  clean_names()
+
+That changes:
+
+Drug Category
+
+into:
+
+drug_category
+
+This is often worth doing at the start.
+
+Scenario 15: Need to recode confusing values
+
+Raw data may have codes:
+
+drug_type
+1
+2
+
+But the chart wants:
+
+drug_type
+Prescription
+Over the counter
+
+Use case_when():
+
+data <- data %>%
+  mutate(
+    drug_type = case_when(
+      drug_type == 1 ~ "Prescription",
+      drug_type == 2 ~ "Over the counter",
+      TRUE ~ "Other"
+    )
+  )
+
+Pattern:
+
+mutate(
+  new_column = case_when(
+    condition1 ~ "Label 1",
+    condition2 ~ "Label 2",
+    TRUE ~ "Other"
+  )
+)
+
+TRUE ~ "Other" is the fallback.
+
+Scenario 16: Need to reorder bars
+
+Image clue:
+
+Bars go from biggest to smallest.
+
+Use:
+
+ggplot(plot_data, aes(x = total, y = reorder(category, total))) +
+  geom_col()
+
+If vertical bars:
+
+ggplot(plot_data, aes(x = reorder(category, total), y = total)) +
+  geom_col()
+
+If you want biggest at top in a horizontal bar chart:
+
+ggplot(plot_data, aes(x = total, y = reorder(category, total))) +
+  geom_col()
+
+Usually this works well.
+
+If it is backwards, use:
+
+reorder(category, -total)
+
+or:
+
+forcats::fct_reorder(category, total)
+
+But simple reorder() is enough for most class challenges.
+
+How to recognize what code you need from the picture
+If the picture has bars
+
+Ask:
+
+Are bars showing totals, counts, or averages?
+
+Totals:
+
+summarize(total = sum(value))
+
+Counts:
+
+count(category)
+
+Averages:
+
+summarize(avg = mean(value, na.rm = TRUE))
+
+Then:
+
+geom_col()
+If the picture has lines
+
+Ask:
+
+What is the time variable?
+
+Usually:
+
+year
+month
+date
+quarter
+
+Then:
+
+group_by(time)
+summarize(...)
+geom_line()
+If the picture has dots
+
+Ask:
+
+What two numeric columns are being compared?
+
+Then:
+
+ggplot(data, aes(x = numeric1, y = numeric2)) +
+  geom_point()
+If the picture has multiple panels
+
+Look for:
+
+facet_wrap()
+facet_grid()
+If the picture has colors
+
+Look for:
+
+fill =
+
+for bars.
+
+color =
+
+for points and lines.
+
+Bars:
+
+aes(fill = category)
+
+Points/lines:
+
+aes(color = category)
+The most common argument mistakes
+filter()
+
+Correct:
+
+filter(year == 2020)
+
+Wrong:
+
+filter(year = 2020)
+
+Why?
+
+One equals sign assigns. Two equals signs tests equality.
+
+Use:
+
+==
+
+inside filter().
+
+select()
+
+Correct:
+
+select(year, dealership, sales)
+
+This keeps columns.
+
+You do not use quotes usually.
+
+mutate()
+
+Correct:
+
+mutate(total = price * quantity)
+
+This creates or changes columns.
+
+Pattern:
+
+mutate(new_column = formula)
+group_by() plus summarize()
+
+Correct:
+
+group_by(region) %>%
+summarize(total_sales = sum(sales), .groups = "drop")
+
+The column you group by stays as categories.
+
+The column you summarize becomes a new number.
+
+ggplot(aes())
+
+This is a big one.
+
+Correct:
+
+ggplot(data, aes(x = region, y = total_sales)) +
+  geom_col()
+
+Inside aes(), put column names.
+
+Outside aes(), put fixed choices.
+
+Correct:
+
+geom_col(fill = "blue")
+
+because every bar is blue.
+
+Correct:
+
+ggplot(data, aes(x = region, y = total_sales, fill = region))
+
+because the fill color changes based on the region column.
+
+Wrong-ish:
+
+ggplot(data, aes(x = region, y = total_sales, fill = "blue"))
+
+That makes "blue" act like a category, not a color setting.
+
+Your test cheat sheet
+
+Here are the code chunks you should have ready in your brain.
+
+Read and inspect
+library(tidyverse)
+
+data <- read_csv("LINK_OR_FILE")
+
+glimpse(data)
+names(data)
+View(data)
+Clean names
+library(janitor)
+
+data <- data %>%
+  clean_names()
+Rename one weird column
+data <- data %>%
+  rename(new_name = old_name)
+
+For weird names:
+
+data <- data %>%
+  rename(new_name = `Old Name With Spaces`)
+Pivot longer
+data_long <- data %>%
+  pivot_longer(
+    cols = columns_to_stack,
+    names_to = "category_name",
+    values_to = "value_name"
+  )
+
+Example:
+
+data_long <- data %>%
+  pivot_longer(
+    cols = -quarter,
+    names_to = "dealership",
+    values_to = "cars_sold"
+  )
+Pivot wider
+data_wide <- data %>%
+  pivot_wider(
+    names_from = category_column,
+    values_from = value_column
+  )
+Summarize totals
+plot_data <- data %>%
+  group_by(category) %>%
+  summarize(total = sum(value, na.rm = TRUE), .groups = "drop")
+Summarize averages
+plot_data <- data %>%
+  group_by(category) %>%
+  summarize(avg = mean(value, na.rm = TRUE), .groups = "drop")
+Count rows
+plot_data <- data %>%
+  count(category)
+Basic bar chart
+ggplot(plot_data, aes(x = category, y = total)) +
+  geom_col()
+Horizontal bar chart
+ggplot(plot_data, aes(x = total, y = reorder(category, total))) +
+  geom_col()
+Line chart
+ggplot(plot_data, aes(x = year, y = total, group = 1)) +
+  geom_line() +
+  geom_point()
+Multiple-line chart
+ggplot(plot_data, aes(x = year, y = total, color = category, group = category)) +
+  geom_line() +
+  geom_point()
+Scatterplot
+ggplot(data, aes(x = variable1, y = variable2)) +
+  geom_point()
+Facets
+facet_wrap(~ category)
+
+or:
+
+facet_grid(. ~ category)
+Let’s make this into real practice
+
+I’ll give you a fake image description and fake raw data shape. You tell me the first 2–3 coding moves. I will correct you.
+
+Practice Challenge 1
+
+The final image is:
+
+A horizontal bar chart showing the top 10 counties by total housing permits in 2010. The bars are ordered from smallest at the bottom to largest at the top. The x-axis is total permits. The y-axis is county name.
+
+The raw data has columns:
+
+state
+county
+year
+permit_type
+value
+
+Example rows:
+
+state	county	year	permit_type	value
+CA	Los Angeles	2010	Single Family	1200
+CA	Orange	2010	Single Family	900
+CA	Los Angeles	2010	Multi Family	400
+ID	Madison	2010	Single Family	80
+
+Your goal is California only, year 2010, total permits by county, top 10.
+
+Start with this:
+
+permits %>%
+
+Your job: write the next few lines to filter to California and 2010, then group by county.
+
+Do not write the plot yet.
+
+Use this shape:
+
+permits %>%
+  filter(_____, _____) %>%
+  group_by(_____)
+
+Send your code, and I’ll correct it like a teacher.

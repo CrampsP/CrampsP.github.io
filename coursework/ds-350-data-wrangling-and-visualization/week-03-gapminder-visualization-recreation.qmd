@@ -1,0 +1,47 @@
+---
+title: "w03_Task1"
+---
+```{r}
+library(gapminder)
+library(tidyverse)
+```
+
+```{r}
+trend <- gapminder %>% 
+  filter(country != "Kuwait") %>% 
+  group_by(continent, year) %>% 
+  summarize(
+    weighted_gdpPercap = weighted.mean(gdpPercap, pop),
+    total_pop = sum(pop),
+    .groups = "drop"
+  )
+```
+
+```{r}
+ggplot(
+  data = gapminder %>% filter(country != "Kuwait"),
+  mapping = aes(x = year, y = gdpPercap, color = continent, group = country)) +
+  geom_point(aes(size = pop), alpha = 0.3) +
+  geom_line(alpha = 0.5) +
+  geom_line(data = trend,
+            aes(
+              x = year,
+              y = weighted_gdpPercap,
+              group = 1
+            ),
+            color = "black"
+            ) +
+  geom_point(data = trend,
+            aes(
+              x = year,
+              y = weighted_gdpPercap,
+              size = total_pop / 100000,
+              group = 1
+            ),
+            color = "black"
+            ) +
+  facet_wrap(~ continent, nrow = 1) +
+  scale_y_continuous(trans = "sqrt") +
+  theme_bw()
+```
+

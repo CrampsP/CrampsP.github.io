@@ -1,0 +1,21 @@
+name: portlight
+services:
+  dashboard:
+    build: .
+    ports:
+      - "127.0.0.1:${PORTLIGHT_PORT:-9090}:9090"
+    environment:
+      PORTLIGHT_INGEST_TOKEN: "${PORTLIGHT_INGEST_TOKEN:?Run scripts/Start-Portlight.ps1 to provide the local collector token}"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 80
+    mem_limit: 192m
+    cpus: 1.0
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "2m"
+        max-file: "2"

@@ -1,0 +1,88 @@
+---
+title: "challenge template"
+format:
+  html:
+    self-contained: true
+    code-fold: true
+---
+
+```{r}
+#| warning: false
+#| message: false
+
+#load your libraries in this chunk
+library(tidyverse)
+dat_multi <- read_csv("https://github.com/byuidatascience/data_fivethirtyeight_starwars/raw/master/survey_multiresponse_questions.csv")
+dat_single <- read_csv("https://github.com/byuidatascience/data_fivethirtyeight_starwars/raw/master/survey_oneresponse_questions.csv")
+dat_wide <- read_csv("https://github.com/byuidatascience/data_fivethirtyeight_starwars/raw/master/survey_wide_all.csv")
+
+```
+
+```{r}
+View(dat_multi)
+View(dat_single)
+View(dat_wide)
+
+```
+
+```{r}
+single <- dat_single %>% 
+  rename(
+    ID = respondentid,
+    exposure = seen_any6,
+    fan = fan_yn,
+    expanded = fan_expanded,
+    startrek = fan_startrek) %>% 
+  select(c(1,7,8,9,10,11)) %>% 
+  drop_na(shot_first)
+
+View(single)
+
+
+
+wide <- dat_wide %>% 
+  rename(
+    ID = respondentid,
+    exposure = seen_any6,
+    fan = fan_yn,
+    E1_Rank = "rank_1f6w__StarWars:EpisodeIThePhantomMenace",
+    E2_Rank = "rank_1f6w__StarWars:EpisodeIIAttackoftheClones",
+    E3_Rank = "rank_1f6w__StarWars:EpisodeIIIRevengeoftheSith",
+    E4_Rank = "rank_1f6w__StarWars:EpisodeIVANewHope",
+    E5_Rank = "rank_1f6w__StarWars:EpisodeVTheEmpireStrikesBack",
+    E6_Rank = "rank_1f6w__StarWars:EpisodeVIReturnoftheJedi") %>% 
+  select(c(1,2,3,10,11,12,13,14,15)) %>% 
+  filter(exposure == "Yes") %>% 
+  drop_na()
+
+View(wide)
+```
+
+```{r}
+best <- wide %>% 
+    mutate(best = case_when(
+      E1_Rank == 1 ~ "The Phantom Menace",
+      E2_Rank == 1  ~ "Attack of the Clones",
+      E3_Rank == 1 ~ "Revenge of the Sith",
+      E4_Rank == 1 ~ "A New Hope",
+      E5_Rank == 1  ~ "The Empire Strikes Back",
+      E6_Rank == 1 ~ "Return of the Jedi"))
+
+View(best)
+```
+
+```{r}
+ggplot(best, mapping = aes(best))+
+  geom_bar(fill = "blue")+
+  coord_flip()+
+  labs(title = "What's the Best 'Star Wars' Movie?",
+       subtitle = "Of 471 respondents who have seen all six films")
+```
+
+```{r}
+ggplot(single, mapping = aes(shot_first))+
+  geom_bar(fill = "blue")+
+  coord_flip()+
+  labs(title = "Who Shot First?",
+         subtitle = "According to 834 respondents")
+```

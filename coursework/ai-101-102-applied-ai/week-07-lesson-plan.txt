@@ -1,0 +1,317 @@
+
+I am a college student who is very curious and eager to learn about new things. You are a helpful professor building a custom course for me. You are patient, have a talent for explaining complex concepts, and are very good at organizing information. 
+
+Your task is to find 10 sources on the topic of “Investment Banking and Stock Trading” These sources must be from high quality sources. Specifically, we are looking for the fundementals all the way to advanced financials
+
+The purpose of these sources is to build a one hour course on the Investment Banking and Stock Trading.
+
+6:22 PM
+I selected 10 high-quality sources to support a course that moves from basic stock ownership to company valuation and professional trade execution. The focus is primarily U.S. markets.
+
+For a one-hour course, I would teach selected concepts from these sources; the longer lectures and readings provide a path for deeper study afterward.
+
+Stocks — U.S. Securities and Exchange Commission, Investor.gov
+Level: Beginner | Format: Article
+Explains stock ownership, common versus preferred shares, dividends, capital appreciation, and shareholder risks.
+Course use: Establish what investors actually own when they buy shares. This is a foundational source from the U.S. securities regulator.
+
+Investment Banking: Definition and Core Services — Société Générale
+Level: Beginner | Format: Industry overview
+Explains mergers and acquisitions, equity and debt capital markets, and financing for acquisitions and leveraged buyouts.
+Course use: Introduce how investment banks help organizations raise capital and execute transactions. It provides a practitioner’s perspective; its institutional context should be recognized.
+
+Beginners’ Guide to Financial Statements — SEC
+Level: Beginner–Intermediate | Format: Guide
+Covers balance sheets, income statements, cash flow statements, financial ratios, and management commentary.
+Course use: Explain how the statements connect, why profit differs from cash flow, and how analysts begin evaluating a business.
+
+Updated Investor Bulletin: Investing in an IPO — SEC
+Level: Beginner–Intermediate | Format: Bulletin
+Explains initial public offerings, registration statements, prospectuses, underwriting, and the distinction between offering and subsequent trading prices.
+Course use: Connect investment banking with stock trading by following a company’s transition into public markets.
+
+Valuation Lecture Notes — Aswath Damodaran, NYU Stern
+Level: Intermediate–Advanced | Format: University lecture slides
+Includes discounted cash flow valuation, discount rates, terminal value, relative valuation, and acquisition valuation.
+Course use: Introduce forecasting free cash flow, weighted average cost of capital, valuation multiples, and acquisition value. Select material from Parts I–III; retain the full packets for advanced study.
+
+Portfolio Diversification and Supporting Financial Institutions — Robert Shiller, Yale
+Level: Intermediate–Advanced | Format: Lecture and transcript
+Introduces portfolio theory, diversification, leverage, the efficient frontier, and the capital asset pricing model.
+Course use: Explain why a stock must be evaluated within a portfolio and connect market risk with required returns. Focus on the portfolio-analysis and CAPM chapters.
+
+Types of Orders — SEC, Investor.gov
+Level: Beginner–Intermediate | Format: Short guide
+Explains market, limit, and stop orders, including their different execution and price characteristics.
+Course use: Practice selecting an order type and explain why a displayed stock price may differ from the execution price.
+
+Understanding Margin Accounts — SEC
+Level: Intermediate | Format: Bulletin with numerical examples
+Explains borrowing to purchase securities, interest costs, margin calls, and forced liquidation.
+Course use: Demonstrate how leverage magnifies gains and losses, including losses exceeding the investor’s initial contribution.
+
+Trade Strategy and Execution — CFA Institute, 2026 Curriculum
+Level: Advanced | Format: Professional curriculum overview
+Covers liquidity, market impact, execution algorithms, execution benchmarks, and implementation shortfall—the cost of executing a decision relative to a theoretical trade.
+Course use: Introduce institutional trading and why execution quality matters. The introduction and summary are publicly accessible; the full reading requires Learning Ecosystem access.
+
+Trading Is Hazardous to Your Wealth — Brad Barber and Terrance Odean
+Level: Intermediate–Advanced | Format: Peer-reviewed research, Journal of Finance (2000)
+Examines trading activity and investment performance across 66,465 households, finding lower net returns among the most active traders in its sample.
+Course use: Discuss transaction costs, overconfidence, and evaluating trading claims. Use the abstract and conclusion, while recognizing that the data come from 1991–1996.
+
+For the 60-minute course, I recommend this sequence. These are teaching allocations, not the time required to complete each source.
+
+Time	Lesson	Sources
+0–9 minutes	Stock ownership and the role of investment banks	1–2
+9–16 minutes	Reading financial statements	3
+16–20 minutes	From private company to public stock: the IPO	4
+20–32 minutes	Valuation: cash flows, discount rates, multiples, and acquisitions	5
+32–38 minutes	Diversification, portfolio risk, and required returns	6
+38–47 minutes	Order types and trading with borrowed money	7–8
+47–53 minutes	Professional execution and trading costs	9
+53–56 minutes	What research says about frequent trading	10
+56–60 minutes	Applied exercise and knowledge check	All
+For the final exercise, use a fictional company: identify how it could raise capital, distinguish its earnings from cash flow, explain what could change its valuation, and choose an order type for a hypothetical share purchase. This connects the banking and trading sides of the course in one practical example.
+
+6:24 PM
+Again, I am the college student, and you are the professor.
+
+Please summarize the previously acquired sources into a 4-paragraph essay. This involves reading each source carefully. The summary should come only from the sources if possible. If additional sources are needed, please list them explicitly.
+
+The essay is to serve as an introduction to the 1-hour course on Investment Banking and Stock Trading. It must include multiple quotes and concepts from Warren Buffet and other investment gurus.
+
+6:24 PM
+Investment banking and stock trading connect businesses that need capital with investors who supply it. A stock represents partial ownership in a company, with potential returns from dividends and rising share prices, alongside the possibility of losses. The SEC’s introduction to stocks establishes this foundation, while Société Générale’s overview explains how investment bankers arrange financing and advise on mergers and acquisitions. An initial public offering, or IPO, connects these activities: underwriters help manage a company’s public offering, after which investors can trade its shares. The SEC’s IPO bulletin emphasizes studying the prospectus and distinguishing the offering price from subsequent trading prices. Behind these transactions lies a productive business. Warren Buffett captures this perspective: “Focus on the future productivity of the asset you are considering.” His approach begins with understanding what an asset can earn. (Berkshire Hathaway, 2013 shareholder letter)
+
+Understanding a business requires learning its financial language. The SEC’s financial statements guide explains how the balance sheet records assets and obligations, the income statement measures profitability, and the cash flow statement tracks cash movements. Together, these statements reveal why reported profit and available cash can differ. Analysts then use this information to estimate value. In Aswath Damodaran’s NYU valuation materials, discounted cash flow analysis translates expected future cash flows into present value using a discount rate appropriate to their risk. More advanced analysis examines reinvestment, terminal value beyond the explicit forecast period, and the weighted average cost of debt and equity financing. Relative valuation compares companies through multiples, while acquisition analysis evaluates whether anticipated benefits justify the purchase price. These methods develop Benjamin Graham’s distinction, repeated by Buffett: “Price is what you pay, value is what you get.” The market supplies a price; analysis supplies an estimate of value. (Berkshire Hathaway, 2013 shareholder letter)
+
+Trading introduces another set of decisions: how, when, and at what cost to act. The SEC’s guide to order types explains that market orders seek immediate execution without fixing the execution price, while limit orders specify an acceptable price but may remain unfilled. A stop order becomes a market order when triggered, so its eventual execution price can differ from its stop price. At the institutional level, CFA Institute’s public summary on trade execution examines liquidity, bid–ask spreads, market impact, algorithms, and implementation shortfall—the difference between actual results and a theoretical portfolio traded at decision prices. Financing also matters: the SEC’s margin account bulletin shows how borrowing magnifies outcomes and can produce forced sales or losses exceeding the original investment. Uncertainty therefore belongs within the analysis. As Howard Marks writes, “The important thing is to recognize that cycles reverse, and to allow for it.” (Oaktree, 2001 memo)
+
+Sound financial judgment also requires understanding portfolios and investor behavior. In his Yale lecture, Robert Shiller explains how diversification depends on the relationships among investments: assets that move differently can reduce portfolio risk. The capital asset pricing model connects expected returns with exposure to market risk, while the Sharpe ratio evaluates returns relative to volatility. These concepts help distinguish investment skill from returns achieved by assuming greater risk. Behavioral evidence adds another dimension. Barber and Odean’s study of 66,465 households found that frequent trading was associated with weaker returns after transaction costs; the authors identified overconfidence as a plausible explanation. Their evidence comes from a historical sample spanning 1991–1996, which matters when interpreting its results. The paper opens with Graham’s observation: “The investor’s chief problem—and even his worst enemy—is likely to be himself.” Throughout this course, we will connect financial analysis, valuation, execution, and risk management with the discipline needed to make informed decisions.
+
+Additional sources used for quotations and investment concepts:
+
+Warren Buffett, Berkshire Hathaway’s 2013 shareholder letter, printed pages 18–21. Includes Buffett’s productivity principle and his attribution of the price–value quotation to Graham.
+Howard Marks, “You Can’t Predict. You Can Prepare.”, November 20, 2001, PDF page 4. Graham’s quotation about investor behavior appears in the previously selected Barber–Odean paper.
+6:27 PM
+Again, I am the college student, and you are the professor.
+
+Create a lesson plan on how to best spend the remainder of our 1-hour course. This lesson plan should divide the topic into several units. Each unit will take about 10 minutes to execute. A unit will consist of a summary, an interactive Q & A, and a formative quiz. Give each part a name such as “Part 1: The Stock Market”
+
+6:27 PM
+Assuming our introduction took 5 minutes, we have 55 minutes remaining: five 10-minute units followed by a 5-minute review. Each unit follows the same rhythm: 3 minutes of explanation, 4 minutes of interactive Q&A, and a 3-minute formative quiz.
+
+Our goal is to explain how companies raise money, assess a business, understand valuation, execute trades, and evaluate risk. We’ll use fictional examples throughout.
+
+Part 1: The Stock Market and Investment Banking — Minutes 5–15
+
+Summary — “Follow the Money”
+Stocks represent ownership in businesses. Investment banks help companies raise money through stock and bond offerings and advise on mergers and acquisitions. We’ll distinguish the primary market, where securities are issued, from the secondary market, where investors trade existing securities.
+
+Interactive Q&A — “Where Does Your Dollar Go?”
+
+A company sells newly issued shares to fund a factory. Who receives the proceeds?
+You later purchase those shares from another investor. Who receives your payment?
+I’ll then ask you to explain how the investment bank’s role differs from the broker’s role.
+Formative quiz — “Identify the Transaction”
+
+A company issues new bonds to investors. Is this a primary-market or secondary-market transaction?
+Which is an investment banking service: advising on an acquisition or accepting a student’s checking-account deposit?
+Reading connection: SEC stock and IPO guides; Société Générale’s investment banking overview.
+
+Part 2: Understanding Financial Statements — Minutes 15–25
+
+Summary — “Read the Business”
+The balance sheet shows assets, liabilities, and shareholders’ equity at a particular date. The income statement measures revenue, expenses, and profit over a period. The cash flow statement explains cash movements. These statements work together: a profitable company can still face cash shortages.
+
+Interactive Q&A — “Profitable but Short of Cash”
+
+A business records a sale today, but its customer pays in 90 days. Why might profit rise before cash arrives?
+A company borrows money. How does this affect cash and liabilities? Does borrowing itself create profit?
+We’ll trace both events through the statements together.
+Formative quiz — “Check the Financial Picture”
+
+A company has $100 million in assets and $40 million in liabilities. What is shareholders’ equity?
+Which statement would you inspect to distinguish operating cash generation from cash raised through borrowing?
+Reading connection: SEC financial statements guide.
+
+Part 3: Valuation and Acquisition Decisions — Minutes 25–35
+
+Summary — “Estimate What It Is Worth”
+Discounted cash flow analysis estimates value from expected future cash flows, adjusted for timing and risk. We’ll introduce the discount rate, terminal value, and comparable-company multiples. We’ll also distinguish the value of business operations from shareholders’ value and examine whether acquisition benefits justify the purchase price.
+
+Interactive Q&A — “Challenge the Assumptions”
+
+If expected cash flows stay constant but the discount rate rises, what happens to estimated value—and why?
+Two analysts produce different valuations. Which assumptions would you compare first?
+We’ll connect this discussion to Graham’s distinction between price and value.
+Formative quiz — “Value Versus Price”
+
+A simplified business produces $10 million annually forever, starting one year from now, with no growth. At a 10% discount rate, its value is cash flow ÷ discount rate. What is its value?
+An acquisition target is worth $80 million independently. Additional benefits have a present value of $15 million. Does paying $105 million create value for the buyer, before other transaction costs?
+Reading connection: Damodaran’s valuation materials; Buffett’s shareholder letter.
+
+Part 4: How Stock Trades Execute — Minutes 35–45
+
+Summary — “Turn a Decision into a Trade”
+Market orders seek immediate execution without fixing the price. Limit orders specify an acceptable price but may remain unfilled. Stop orders become market orders when triggered. Professional traders also consider liquidity, bid–ask spreads, market impact, and the costs of delaying or failing to complete a trade.
+
+Interactive Q&A — “Choose Your Order”
+
+A stock’s bid is $19.98 and its ask is $20.02. Around which price would a small market purchase normally execute, assuming sufficient shares are available?
+You refuse to pay more than $20. Which order could express that instruction?
+I’ll then reduce the available trading volume and ask how your execution decision changes.
+Formative quiz — “Price or Execution?”
+
+Does a buy limit order at $20 guarantee that you will acquire shares?
+A sell stop at $18 triggers during a sharp decline. Must the sale execute at exactly $18?
+Reading connection: SEC order-types guide; CFA Institute’s trade-execution summary.
+
+Part 5: Portfolio Risk, Leverage, and Investor Behavior — Minutes 45–55
+
+Summary — “Evaluate the Whole Decision”
+Diversification considers how investments move together. Leverage magnifies exposure and can force investors to sell when prices fall. Performance should therefore be assessed alongside risk and costs. Barber and Odean’s historical research also gives us a basis for examining frequent trading and overconfidence.
+
+Interactive Q&A — “Stress-Test Your Thinking”
+
+Would owning ten companies in the same industry necessarily provide strong diversification?
+Two portfolios earn the same return, but one uses substantial borrowing. What else would you investigate?
+We’ll discuss how Buffett’s emphasis on understanding businesses and Marks’s attention to cycles inform these questions.
+Formative quiz — “Spot the Hidden Risk”
+
+You invest $1,000 and borrow another $1,000. Your $2,000 investment falls 10%. Ignoring interest, what percentage of your original equity have you lost?
+Does a successful month of frequent trading establish that a strategy reliably outperforms after costs? Explain briefly.
+Reading connection: Shiller’s Yale lecture; SEC margin guide; Barber–Odean study; Marks’s memo.
+
+Final Review: Explain Your Decision — Minutes 55–60
+
+You’ll give a short explanation of how you would evaluate a fictional company before purchasing its shares. Include its financing, financial statements, valuation assumptions, order type, and portfolio risk. I’ll use your explanation to identify one concept to revisit and one topic for deeper study.
+
+Quiz answers — check after completing each unit:
+
+Part 1: 1. Primary market. 2. Acquisition advice.
+Part 2: 1. $60 million. 2. Cash flow statement.
+Part 3: 1. $100 million. 2. No; estimated benefits total $95 million, leaving a $10 million shortfall against the price.
+Part 4: 1. No. 2. No; the triggered market order may execute below $18.
+Part 5: 1. 20%: the $200 loss reduces your equity to $800. 2. No; assess a longer record, risk, costs, and a suitable benchmark.
+For any missed answer, we’ll revisit the reasoning with a simpler example before moving forward.
+
+6:28 PM
+Again, I am the college student, and you are the professor. From our lesson plan previously created, please create the lesson for each unit. 
+
+1.A 2-page summary of the unit, including all the key facts and concepts. This is to be written in a format accessible to a college students.
+2.Give me a chance to ask questions. For each question, provide answers. Continue until I say “Done” or something like that.
+3.A formative evaluation comprehension quiz. Identify the most important 10 facts. Create a multiple-choice quiz item for each of these facts. Give this quiz to me one question at a time.
+4.After the quiz is done, explain to me what I got wrong and what the correct answer is. Please quote the actual sources with your answers.
+
+6:28 PM
+Part 1: The Stock Market and Investment Banking
+
+Two-page summary. The ten numbered concepts below are the learning targets for your eventual quiz. After reading, we’ll stay in the question-and-answer stage until you say “Done.”
+
+Imagine a fictional business called Campus Coffee. Its founders want to open additional locations, but expansion requires money for equipment, buildings, inventory, and employees. Investors may be willing to provide that money in exchange for ownership or a financial claim against the business. Investment banking helps arrange financing and corporate transactions; stock trading allows investors to buy and sell ownership interests. Following the money will help you understand how these activities connect.
+
+1. A stock represents ownership in a company.
+
+Stocks are also called equities. Purchasing shares makes you a shareholder: you own a fraction of the company. If Campus Coffee has one million shares outstanding and you own 1,000, your ownership stake is 0.1%. Common shares generally provide voting rights, although the rights attached to particular share classes can differ. Ownership does not guarantee a positive return. (SEC: Stocks)
+
+2. Stock returns can come from dividends and price appreciation.
+
+A dividend distributes money to shareholders. Capital appreciation occurs when a share’s price increases. A company may retain earnings to fund growth instead of distributing dividends. Prices can also fall, producing losses. When evaluating a stock, consider both distributions and changes in its price, along with the costs of investing. (SEC: Stocks)
+
+3. Common and preferred shareholders have different rights.
+
+Common shareholders generally vote on corporate matters. Preferred shareholders usually have priority over common shareholders for dividends and distributions if the company is liquidated. Bondholders are paid before shareholders. Common shareholders receive what remains after higher-priority claims are satisfied, which may be nothing. These differences explain why the type of security matters. (SEC: Stocks)
+
+4. The primary market raises money through newly issued securities.
+
+The primary market is where an issuer sells new securities to investors and receives the proceeds. The issuer is the organization creating the security.
+
+Suppose Campus Coffee issues 100,000 new shares for $10 each. Investors pay $1 million, and the company receives that money before offering expenses. Campus Coffee can then use the proceeds for its stated purposes.
+
+Primary-market financing includes newly issued stock and newly issued bonds. A company does not have to be conducting its first public offering for a transaction to involve the primary market. The defining features are the new securities and the proceeds flowing to the issuer. (SEC: Primary Market)
+
+5. The secondary market transfers existing securities between investors.
+
+The secondary market is where investors buy and sell securities that already exist.
+
+Suppose you bought 100 Campus Coffee shares and later sold them to another investor for $12 each. The buyer pays you $1,200 before transaction costs. Campus Coffee receives no new financing from that particular resale.
+
+This distinction explains why buying a company’s publicly traded stock usually does not mean sending money directly to that company. You are commonly purchasing an existing owner’s shares. The business remains the issuer, but ownership changes hands between investors. To classify a transaction, identify whether the securities are newly issued or already outstanding, then trace who receives the proceeds. (SEC: Secondary Market)
+
+6. Investment banks help organizations raise capital.
+
+Capital is money committed to financing a business or other activity. Investment bankers help clients arrange equity and debt financing.
+
+Equity financing raises money through ownership interests. Debt financing raises borrowed money through instruments such as bonds. Investment banking teams specializing in these activities are often called equity capital markets, or ECM, and debt capital markets, or DCM.
+
+Campus Coffee might consider issuing shares or arranging debt financing for its expansion. The investment bank helps structure and execute the financing transaction. Its corporate client’s financing needs guide the assignment. (Société Générale: Investment Banking)
+
+7. Investment bankers also advise on mergers and acquisitions.
+
+A merger combines businesses; an acquisition involves purchasing a business or ownership interest. These activities are commonly grouped as M&A.
+
+If Campus Coffee wants to acquire a smaller coffee chain, investment bankers may advise on the transaction. Other specialized teams can help arrange acquisition financing, including combinations of debt and equity.
+
+Investment banking therefore includes both raising capital and advising on major corporate decisions. A banker advising Campus Coffee’s acquisition and an investor trading its shares are performing different activities, even though both concern the same company. (Société Générale: Investment Banking)
+
+8. An IPO introduces a company’s shares to public investors.
+
+An initial public offering, or IPO, generally marks a company’s first public share offering. Investment banks serving as underwriters manage and sell the offering. Some IPOs also include shares sold by existing owners. Proceeds from those owners’ sales go to them; proceeds from newly issued company shares go to the company. (SEC: Investing in an IPO)
+
+9. An IPO’s offering price can differ from its trading price.
+
+The company and underwriters determine an offering price through analysis, negotiation, and indications of investor demand. Once public trading begins, shares may trade above or below that price.
+
+If Campus Coffee’s offering price is $10 but you purchase shares in public trading at $14, your purchase price is $14. Your investment’s subsequent return depends on what you actually paid. (SEC: Investing in an IPO)
+
+10. Disclosure supports analysis; SEC review does not guarantee investment quality.
+
+The prospectus describes the company, offering terms, risks, finances, and planned use of proceeds. Investors should examine it before evaluating an IPO.
+
+SEC review focuses on disclosure requirements. A registration statement becoming effective does not mean the SEC recommends the investment, guarantees its accuracy, or promises that investors will earn a profit. (SEC: Investing in an IPO)
+
+Your questions
+
+What would you like me to explain, illustrate, or revisit? You can ask one question or several. When you’re finished asking questions, say “Done,” and I’ll begin the ten-question quiz one question at a time, saving corrections and source quotations until the end.
+
+6:30 PM
+Based on my questions in the Q & A and based on what I got wrong on the formative evaluation comprehension quizzes, summarize everything that I learned on this topic. Emphasize the key points. Finally, from the original sources, show the key quotes that others have said which explain well how investment banking and stock trading.
+
+6:52 PM
+We have completed the course introduction and the detailed Unit 1 reading. There are no Q&A exchanges or completed quiz answers in this chat yet, so I can’t identify personal misunderstandings or assess your mastery. The following summarizes the material presented so far, including the concepts introduced for later units.
+
+The key points to retain are:
+
+Stocks represent ownership. Shareholders may receive dividends and benefit from rising prices, but they can also lose money. Common shareholders generally have voting rights; preferred shareholders have priority over common shareholders for certain distributions. In liquidation, bondholders rank ahead of shareholders. (SEC: Stocks)
+
+Investment banks help organizations finance and reshape their businesses. Their services include arranging stock and bond offerings, advising on mergers and acquisitions, and structuring acquisition financing. These activities connect corporate financing decisions with investors supplying capital. (Société Générale)
+
+Trace who receives the money. In the primary market, investors purchase newly issued securities and the issuer receives the proceeds. In the secondary market, existing securities change hands between investors. Buying publicly traded shares usually pays the selling investor, rather than providing new money directly to the company. (SEC: Primary Market, Secondary Market)
+
+An IPO’s offering price and its subsequent trading price can differ. Underwriters manage the offering, and the prospectus explains its terms, risks, finances, and planned use of proceeds. Existing shareholders may also sell shares in an IPO. SEC review addresses disclosure requirements; it does not certify that the investment is attractive or safe. (SEC: IPO Bulletin)
+
+Financial statements explain different aspects of a business. The balance sheet shows financial position, the income statement measures profitability, and the cash flow statement explains cash movements. Profit and cash generation are different, so analysts need to read the statements together. (SEC: Financial Statements)
+
+Valuation depends on assumptions. Discounted cash flow analysis estimates present value from expected future cash flows and an appropriate discount rate. Relative valuation compares market prices through multiples. Acquisition analysis examines whether expected benefits justify the price paid. Estimates change when assumptions about growth, reinvestment, or risk change. (Damodaran: Valuation Materials)
+
+Execution affects investment results. Market orders prioritize execution without fixing the price. Limit orders specify an acceptable price but may remain unfilled. Triggered stop orders become market orders. Professional execution also considers liquidity, spreads, market impact, and delay costs. (SEC: Order Types, CFA Institute)
+
+Judge returns alongside risk, costs, and behavior. Diversification depends on how investments move together. Borrowing magnifies gains and losses and can force sales. Barber and Odean’s historical study found weaker net performance among the most active traders in its sample, illustrating the importance of transaction costs and overconfidence. (Shiller’s Yale lecture, SEC: Margin Accounts, Barber and Odean)
+
+These quotations from the original sources express several central ideas particularly well:
+
+Investment banking combines advice and financing. Société Générale identifies its two pillars as “Advisory, which includes M&A and strategic advice” and “Capital Markets, covering equity and debt issuance.” These describe the core services investment banks provide. (Source)
+
+Profit does not necessarily mean cash. The SEC explains: “While an income statement can tell you whether a company made a profit, a cash flow statement can tell you whether the company generated cash.” This distinction is essential when evaluating financial health. (Source)
+
+Value connects cash flows with risk. Aswath Damodaran states: “The value of an asset is the risk-adjusted present value of the cash flows.” This is the foundation of discounted cash flow valuation. (Source, PDF page 4)
+
+Trading can move the price against you. CFA Institute defines market impact as “the adverse price impact in a security caused from trading an order.” Execution costs therefore extend beyond explicit commissions. (Source)
+
+Investor behavior matters. Barber and Odean open their paper with Benjamin Graham’s observation: “The investor’s chief problem—and even his worst enemy—is likely to be himself.” The quotation connects financial knowledge with the discipline needed to use it. (Source, opening page)
+
+From the supplementary source added for our introductory essay, Warren Buffett offers a useful guiding principle: “Focus on the future productivity of the asset you are considering.” It directs your attention toward the business’s earning capacity when assessing an investment. (Berkshire Hathaway’s 2013 shareholder letter, printed page 18)
+
+6:53 PM

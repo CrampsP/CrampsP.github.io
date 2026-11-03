@@ -1,0 +1,14 @@
+Scenario 1: Résumé
+A human would be helpful because I know my experience, and a career counselor could help me decide what to include. Regular software could help with the layout and spelling. AI could help organize my résumé and improve how I describe my skills. I would use AI with human review because it would save time, but I would check that everything is true.
+Scenario 2: Job Search
+A human would be helpful for talking to local employers and asking friends or family about jobs. Regular software could search for nearby internships, filter results, and track applications. AI could suggest job titles and help me understand job descriptions. I would mainly use job search software and personal contacts because they could help me find real openings close to home.
+Scenario 3: Sacrament Talk
+A human would be the best choice because the talk should reflect my own beliefs and experiences. Regular software could help me find scriptures, write notes, and time my practice. AI could suggest a basic outline, but I would check any quotes and use my own words and testimony. I would prepare the talk myself with help from software because a sincere message matters more than fancy wording.
+Scenario 4: History Paper
+A human is needed because the teacher requires every word to come from my own mind. Regular software could help me find sources, take notes, and type the paper. I would not use AI to write or rewrite anything, and I would only use it for other help if the teacher allowed it. I would do the research and writing myself with regular software because that follows the rules and helps me learn.
+Scenario 5: Performance Evaluation
+A human would be needed to understand the feedback and make a fair decision about the employee. Regular software could organize comments and calculate sales results. AI could group similar comments and point out feedback that disagrees. I would use all three, with the manager making the final decision, because the tools could save time while the manager checks the facts and considers the employee’s side.
+Scenario 6: Red Flags
+A human would be helpful for looking into complaints and teaching employees how to improve. Regular software could track complaints, compare them with the number of calls, and give workers easy access to correct answers. AI could look for common problems in feedback and approved call records. I would use all three, with the manager in charge, because finding the causes of complaints would help improve service.
+Scenario 7: Feedback
+A human would be helpful because the professor knows the assignment and each student’s progress. Regular software could organize papers, track grades, and save common comments. AI could help draft feedback, but the professor would need to check it and use a school-approved tool. I would use AI with the professor’s review because it could save time while keeping the feedback useful and the grading fair.

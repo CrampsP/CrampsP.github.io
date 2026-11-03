@@ -1,0 +1,57 @@
+---
+title: "TypesofData"
+output: html_document
+---
+
+```{r}
+library(mosaic)
+library(tidyverse)
+library(pander)
+```
+
+```{r}
+View(KidsFeet)
+
+```
+
+```{r}
+table(KidsFeet$sex)
+barplot(table(KidsFeet$sex))
+```
+
+```{r}
+mean(KidsFeet$length)
+
+```
+
+```{r}
+favstats(length ~ sex, data=KidsFeet)
+
+```
+
+```{r}
+mean(KidsFeet$length ~ KidsFeet$sex)
+
+KidsFeet %>% 
+  group_by(birthmonth) %>% 
+  summarise(avelength = mean(length))
+boxplot(length ~ birthmonth, data=KidsFeet)
+```
+
+```{r}
+plot(length ~ width, data=KidsFeet)
+cor(length ~ width, data=KidsFeet)
+```
+
+```{r}
+boxplot(width ~ domhand, KidsFeet)
+
+```
+
+```{r}
+mykidsfeet$season<- factor(myKidsFeet$season, 
+                           levels = c("Winter", "Spring", "Summer", "Fall"),
+                           ordered = TRUE)
+plot(sex ~ birthmonth, KidsFeet)
+```
+

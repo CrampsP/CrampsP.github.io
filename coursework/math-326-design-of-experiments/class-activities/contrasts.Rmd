@@ -1,0 +1,62 @@
+---
+title: "Contrasts"
+output: html_document
+---
+
+```{r}
+library(readr)
+library(tidyverse)
+library(emmean)
+library(mosaic)
+library(car)
+library(pander)
+```
+
+```{r}
+Nicotine <- read_csv("../data/data_for_class/Data/Nicotine.csv")
+View(Nicotine)
+```
+
+```{r}
+Nicotine$Groups <- factor(Nicotine$Groups)
+```
+
+```{r}
+myaov <- aov(Meconium~Groups, data = Nicotine)
+#group_means <- emmeans(myaov, "Groups")
+#contrast_results <- contrast(group_means, list(groups <- c(-1,1,0))
+summary(myaov)
+facstats(Meconium ~ Groups, data = Nicotine)
+stripchart(Meconium ~ Groups, data = Nicotine, vertical = TRUE)
+```
+
+```{r}
+mymeans <- emmeans(myaov, "Groups", infer = c(TRUE, TRUE))
+symmary(emmeans)
+```
+
+
+
+```{r}
+contrast_results <- contrast(mymeans, adjust = "none")
+contrast_results
+confint(contrast_results)
+```
+
+
+```{r}
+contrast_results <- contrasts(mymeans, list(APvN = c(0.5,0.5,-1), AvP = c(1,-2,0)), adjust = "none")
+contrast_results
+confint(contrast_results())
+```
+
+
+
+
+
+
+
+```{r}
+
+```
+

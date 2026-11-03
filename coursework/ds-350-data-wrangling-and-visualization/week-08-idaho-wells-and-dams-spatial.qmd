@@ -1,0 +1,85 @@
+---
+title: "W08_task2"
+format: html
+---
+
+
+```{r}
+library(tidyverse)
+library(sf)
+```
+
+```{r}
+dir.create("data")
+
+download.file(url = "https://byuistats.github.io/M335/data/Wells.zip", destfile = "data/Wells.zip", mode = "wb")
+
+download.file(url = "https://byuistats.github.io/M335/data/Idaho_Dams.zip", destfile = "data/Idaho_Dams.zip", mode = "wb")
+
+download.file(url = "https://byuistats.github.io/M335/data/water.zip", destfile = "data/water.zip", mode = "wb")
+
+download.file(url = "https://byuistats.github.io/M335/data/shp.zip", destfile = "data/shp.zip", mode = "wb")
+
+unzip("data/Wells.zip", exdir = "data/wells")
+unzip("data/Idaho_Dams.zip", exdir = "data/dams")
+unzip("data/water.zip", exdir = "data/water")
+unzip("data/shp.zip", exdir = "data/idaho")
+
+wells <- st_read("data/wells/Wells.shp")
+dams <- st_read("data/dams/Dam_Safety.shp")
+water <- st_read("data/water/hyd250.shp")
+idaho <- st_read("data/idaho/County-Ak-HI-Moved-USA-Map.shp")
+```
+
+```{r}
+names(wells)
+names(dams)
+names(water)
+names(idaho)
+```
+
+```{r}
+wells_filtered <- wells %>%
+  filter(Production > 5000)
+```
+
+```{r}
+dams_filtered <- dams %>%
+  filter(SurfaceAre > 50)
+```
+
+```{r}
+water_filtered <- water %>%
+  filter(FEAT_NAME%in% c("Snake River", "Henrys Fork"))
+```
+
+```{r}
+idaho_filtered <- idaho %>%
+  filter(StateFIPSN == "16")
+
+idaho_projected <- st_transform(idaho_filtered, 26911)
+wells_projected <- st_transform(wells_filtered, 26911)
+dams_projected <- st_transform(dams_filtered, 26911)
+water_projected <- st_transform(water_filtered, 26911)
+```
+
+```{r}
+idaho_water_map <- ggplot() +
+  geom_sf(data = idaho_projected, fill = "gray", color = "black", linewidth = 0.6) +
+  geom_sf(data = water_projected, color = "blue", linewidth = 0.8) +
+  geom_sf(data = dams_projected, color = "darkred", size = 2, alpha = 0.8) +
+  geom_sf(data = wells_projected, color = "darkgreen", size = 1.5, alpha = 0.7) +
+  coord_sf(expand = FALSE) +
+  labs(title = "Key Water System Features in Idaho") +
+  theme_void()
+
+idaho_water_map
+```
+
+```{r}
+ggsave(filename = "idaho_water_system_map.png", plot = idaho_water_map, width = 10, height = 12, units = "in")
+```
+
+
+
+

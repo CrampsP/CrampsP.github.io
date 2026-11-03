@@ -1,0 +1,73 @@
+---
+title: "Stephanie's Housing Request"
+output: 
+  html_document:
+    theme: cerulean
+    code_folding: hide
+    toc: true
+    toc_float: true
+---
+
+**Week 2 Analysis**
+
+```{r, message=FALSE, warning=FALSE}
+library(mosaic)
+library(tidyverse)
+library(pander)
+library(DT) # If you get an error stating: 
+            # Error in library(DT): there is no package called 'DT'
+            # You will need to run: install.packages("DT") 
+            # in your Console, then try "Knit HTML" again.
+Rent <- read_csv("../data/rent.csv")
+```
+
+
+<br />
+
+## Background
+
+Stephanie[^1] is a student that will be starting school at BYU-Idaho next semester. Suppose she sent you the following email.
+
+----
+
+"Hi. My name is Stephanie. I would like to learn about what housing options I have for living at BYU-Idaho next semester. It will be my first semester there, so I would like to find something that is close to campus and around $300 a month in rent. I'm not too picky on roommates, but I would like somewhere that has a lot of people around so I can get to know as many people as possible. Thanks in advance!"
+
+
+----
+
+# Research
+
+```{r}
+Rent2 <- 
+  mutate(Monthly =  ((Rent$PriceLow+Rent$PriceHigh)/2)/3, Rent) %>%
+  filter(HousingType == "Approved Women's Housing" & CrowFlyMetersToMC < 800 & CrowFlyMetersToMC < 1000 & Residents > 50 & Monthly > 200 & Monthly < 400)
+View(Rent2)
+pander(Rent2[, c(1,8,18)])
+```
+
+
+```{r}
+plot(Latitude ~ Longitude, Rent2, xlim = c(-111.795, -111.77), ylim = c(43.814, 43.826), pch = 19, col = "blue", xlab = "South Campus", ylab = "West Campus", main = "North Campus")
+
+points(c(-111.782584, -111.781302), c(43.818478, 43.814786), pch = 17, col = "red", cex = 1.5)
+
+text(Rent2$Longitude, Rent2$Latitude, labels = sub(" .*", "", Rent2$ApartmentName) , pos = 4, col = "red", cex = 0.5)
+
+```
+
+
+
+## Response
+
+Dear Stephanie,
+
+  After taking some time to look at your desired criteria in finding suitable options for housing next semester I have come up with 6 options that might be optimal for you. These 6 options have rent that averages to around $300 a month and have over 50 residents for you to interact with. 
+  I chose the criteria of $300 a month because of your budgetary restrictions and 50 residents seemed adequate because it means that you will be with at least 8 other rooms to hang out with and 8 other sets of guys apartments during FHE activities.
+
+My personal recommendation for all of your needs would be Royal Crest. It is close enough to both the MC and the Ricks buildings that the walking won't be bad(about 5-10 minutes max). Its one caveat is that its on the more expensive side but to make up for that it has the largest student population of the 5 other apartment complexes.
+
+
+
+
+
+[^1]: Note that Stephanie is a fictional character who is based on real experiences of many faculty and staff here at BYU-Idaho.

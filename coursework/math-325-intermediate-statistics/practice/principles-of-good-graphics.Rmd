@@ -1,0 +1,40 @@
+---
+title: "PrincipalsofGoodGraphics"
+output: html_document
+---
+
+```{r}
+hist(airquality$Wind, col='skyblue', xlab="Daily Average Wind Speeds (mhp)", main="La Guardia Airport from May to September, 1973")
+```
+```{r}
+myAirquality <- airquality %>% 
+  mutate(
+    MonthName = case_when(
+      Month == 5 ~ 'May'
+      Month == 6 ~ 'June'
+      Month == 7 ~ 'July'
+      Month == 8 ~ 'August'
+    )
+  )
+myAirquality
+```
+
+
+```{r}
+# Filter rows where Wind is between 8 and 10
+days <- airquality[airquality$Wind >= 8 & airquality$Wind <= 10, ]
+
+# Count the number of rows
+nrow(days)
+
+head(days)
+```
+
+```{r}
+boxplot(Wind ~ Month, airquality, col="steelblue")
+```
+
+```{r}
+plot(Ozone ~ Temp, airquality, pch=16, col='steelblue')
+```
+

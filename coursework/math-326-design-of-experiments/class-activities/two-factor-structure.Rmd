@@ -1,0 +1,178 @@
+---
+title: "CA - BF[2] Factor Structure"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(readr)
+library(mosaic)
+library(car)
+```
+
+
+```{r}
+garlic <- read_csv("../data/garlic_bulb_mass.csv")
+View(garlic)
+```
+
+```{r}
+favstats(garlic$bulb_mass_g)
+boxplot(bulb_mass_g ~ variety, data = garlic)
+stripchart(bulb_mass_g ~ variety, data = garlic)
+boxplot(bulb_mass_g ~ sun_exposure, data = garlic)
+stripchart(bulb_mass_g ~ sun_exposure, data = garlic)
+```
+
+```{r}
+interaction.plot(garlic$variety, garlic$sun_exposure, garlic$bulb_mass_g)
+```
+
+```{r}
+gar1aov <- aov(bulb_mass_g ~ variety, data = garlic)
+summary(gar1aov)
+gar2aov<- aov(bulb_mass_g ~ sun_exposure, data = garlic)
+summary(gar2aov)
+```
+
+```{r}
+myaov <- aov(bulb_mass_g ~ variety + sun_exposure variety:sun_exposure, data = garlic)
+myaov2 <- aov(bulb_mass_g ~ variety * sun_exposure, data = garlic)
+legeneTest(myaov2)
+```
+
+
+```{r}
+favstats(bulb_mass_g ~ variety + sun_exposure, data = garlic)
+```
+```{r}
+par(mfrow = c(1,3))
+plot(gar1aov, which = 1)
+plot(gar1aov, which = 2)
+qqPlot(gar1aov$residuals)
+```
+
+```{r}
+par(mfrow = c(1,3))
+plot(gar2aov, which = 1)
+plot(gar2aov, which = 2)
+qqPlot(gar2aov$residuals)
+```
+
+
+
+
+```{r}
+wear <- read_csv("../data/wear.csv")
+View(wear)
+wear$prop <- factor(wear$prop)
+wear$filler <- factor(wear$filler)
+```
+
+```{r}
+favstats(wear$wear3)
+boxplot(wear3 ~ prop, data = wear)
+stripchart(wear3 ~ prop, data = wear)
+boxplot(wear3 ~ filler, data = wear)
+stripchart(wear3 ~ filler, data = wear)
+```
+
+```{r}
+interaction.plot(wear$prop, wear$filler, wear$wear3)
+```
+
+```{r}
+wear1aov <- aov(wear3 ~ prop, data = wear)
+summary(wear1aov)
+wear2aov<- aov(wear3 ~ filler, data = wear)
+summary(wear2aov)
+```
+
+```{r}
+BF2wear <- aov(wear3 ~ prop * filler, data = wear)
+leveneTest(wear3 ~ interaction(prop, filler), data = wear)
+summary(BF2wear2)
+```
+
+
+
+
+```{r}
+p <- read_csv("../data/programmers.csv")
+View(p)
+```
+
+```{r}
+favstats(p$wear3)
+boxplot(TimePredE ~ YearsOfExp, data = p)
+stripchart(TimePredE ~ YearsOfExp, data = p)
+boxplot(TimePredE ~ LgSysEx, data = p)
+stripchart(TimePredE ~ LgSysEx, data = p)
+```
+
+```{r}
+interaction.plot(p$YearsOfExp, p$LgSysEx, p$TimePredE)
+```
+
+```{r}
+p1aov <- aov(TimePredE ~ YearsOfExp, data = p)
+summary(p1aov)
+p2aov<- aov(TimePredE ~ LgSysEx, data = p)
+summary(p2aov)
+```
+
+```{r}
+BF2p <- aov(TimePredE ~ YearsOfExp * LgSysEx, data = p)
+leveneTest(TimePredE ~ interaction(YearsOfExp, LgSysEx), data = p)
+summary(BF2p)
+```
+
+```{r}
+par(mfrow = c(1,3))
+plot(BF2p, which = 1)
+plot(BF2p, which = 2)
+qqPlot(BF2p$residuals)
+```
+
+
+
+
+
+
+
+```{r}
+pain <- read_csv("../data/pain_long.csv")
+View(pain)
+```
+
+```{r}
+favstats(pain$wear3)
+boxplot(TimePredE ~ YearsOfExp, data = pain)
+stripchart(TimePredE ~ YearsOfExp, data = pain)
+boxplot(TimePredE ~ LgSysEx, data = pain)
+stripchart(TimePredE ~ LgSysEx, data = pain)
+```
+
+```{r}
+interaction.plot(pain$YearsOfExp, pain$LgSysEx, pain$TimePredE)
+```
+
+```{r}
+p1aov <- aov(TimePredE ~ YearsOfExp, data = pain)
+summary(p1aov)
+p2aov<- aov(TimePredE ~ LgSysEx, data = pain)
+summary(p2aov)
+```
+
+```{r}
+BF2p <- aov(TimePredE ~ YearsOfExp * LgSysEx, data = pain)
+leveneTest(TimePredE ~ interaction(YearsOfExp, LgSysEx), data = pain)
+summary(BF2p)
+```
+
+```{r}
+par(mfrow = c(1,3))
+plot(BF2p, which = 1)
+plot(BF2p, which = 2)
+qqPlot(BF2p$residuals)
+```

@@ -1,0 +1,267 @@
+---
+title: Don't Take it Personally
+subtitle: Hypothesis Tests and Confidence Intervals
+format:
+  html:
+    self_contained: yes
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, error = TRUE)
+```
+
+# Introduction
+
+In this activity, you will execute statistical hypothesis tests and generate confidence intervals for each of the Big 5 personality traits using data collected from a random sample of Brother Cannon's Math 221 students.
+
+**Question**: What is the population of this analysis?\
+**Answer**:Bro Cannon's Math 221 students
+
+For each personality trait, include:
+
+1.  A statement of the null and alternative hypotheses and why you chose the alternative you did.
+2.  Choose alpha, \$\alpha = \$
+3.  Check that you can trust the normality of the mean (`n > 30` or `qqPlot(respons_variable)`)
+4.  Run the one-sample t-test and state your conclusion (technical and contextual explanation)
+5.  Calculate a $1-\alpha$ level confidence interval and describe in words what it means in context of the research question
+
+Recall that we can use `favstats()` to get summary statistics, `boxplot()` and `histogram()` to get visualizations, and the `t.test()` function to get hypothesis tests and confidence intervals. **Be sure to label your plots' axes and include a title.**
+
+```{r}
+
+# Load Libraries
+
+library(tidyverse)
+library(mosaic)
+library(rio)
+library(car)
+
+
+# Load Data
+big5 <- import('https://raw.githubusercontent.com/byuistats/Math221D_Cannon/master/Data/All_class_combined_personality_data.csv')
+
+```
+
+# Extroversion
+
+State your null and alternative hypotheses:
+
+$$H_o:  \mu = 50$$\
+$$H_a:  \mu > 50$$
+
+$$\alpha = 0.025 $$\
+1. Create a table of summary statistics:
+
+```{r}
+# Extroversion
+
+favstats(big5$Extroversion) %>% knitr::kable()
+```
+
+2.  Create a histogram of Extroversion:
+
+```{r}
+### I'm making a single variable called "extrov" that drops the missing values.  You can do the same thing with the other traits to make analysis a little easier
+extrov <- na.omit(big5$Extroversion) 
+
+histogram(extrov, xlab = "Extroversion", main = "Histogram of Extroversion Percentiles")
+```
+
+3.  Perform the one-sample t.test:
+
+```{r}
+# For Hypothesis Test:
+t.test(extrov, mu = 50, alternative = "greater")
+```
+
+4.  Explain your conclusion:
+
+Technical: Because the p-value is less than $\alpha$, I reject the null hypothesis.
+
+Contextual: I have sufficient evidence to suggest that Brother Cannon's students are, on average, more Extroverted than the general population.
+
+5.  Create a Confidence Interval for the average extroversion of Brother Cannon's students:
+
+```{r}
+# For a Confidence Interval:
+t.test(extrov, conf.level = 1-.025)$conf.int
+```
+
+6.  Explain your confidence interval:
+
+I am 97.5% confident that the true average extroversion of Brother Cannon's students is somewhere between the 54.62 and 59.34 percentiles.
+
+# Agreeableness
+
+State your null and alternative hypotheses. For example, do you think Brother Cannon's students are more, less, or just different than the general population?
+
+$$H_o:  50  $$\
+$$H_a:  < 50 $$
+
+$$\alpha = 0.025 $$\
+1. Create a table of summary statistics for Agreeableness:
+
+```{r}
+favstats(big5$Agreeableness)
+```
+
+2.  Create a histogram of Agreeableness:
+
+```{r}
+agree <- na.omit(big5$Agreeableness) 
+
+histogram(agree, xlab = "Agreeableness", main = "Histogram of Agreableness Percentiles")
+```
+
+3.  Perform the one-sample t.test:
+
+```{r}
+t.test(agree, mu = 50, alternative = "greater")
+```
+
+4.  Explain your conclusion:
+
+Technical: The P-value is less than alpha so we reject the null hypothesis
+
+Contextual: I have sufficient evidence to say that Bro Cannon's class is more agreeable than the general population
+
+5.  Create a Confidence Interval for the average agreeableness of Brother Cannon's students:
+
+```{r}
+# For a Confidence Interval:
+t.test(agree, conf.level = 1-.025)$conf.int
+```
+
+6.  Explain your confidence interval: I am 97.5% sure that the true mean is between 71 and 74
+
+# Openness
+
+State your null and alternative hypotheses:
+
+$$H_o:  50 $$\
+$$H_a:  < 50 $$
+
+$$\alpha = 0.025 $$
+
+1.  Create a table of summary statistics for Openness:
+
+```{r}
+favstats(big5$Openness)
+```
+
+2.  Create a histogram of Openness:
+
+```{r}
+open <- na.omit(big5$Openness) 
+
+histogram(open, xlab = "Openness", main = "Histogram of Oppenness Percentiles")
+```
+
+3.  Perform the one-sample t.test:
+
+```{r}
+t.test(open, mu = 50, alternative = "greater")
+```
+
+4.  Explain your conclusion:
+
+Technical: The P-value is less than alpha so we reject the null hypothesis
+
+Contextual: We can conclude that Bro Cannon's class is more open than the general population
+
+5.  Create a Confidence Interval for the average openness of Brother Cannon's students:
+
+```{r}
+# For a Confidence Interval:
+t.test(open, conf.level = 1-.025)$conf.int
+```
+
+6.  Explain your confidence interval: We are 97.5% sure that the true mean is between 69-73
+
+# Neuroticism
+
+State your null and alternative hypotheses:
+
+$$H_o:  50 $$\
+$$H_a:  < 50 $$
+
+$$\alpha = 0.025 $$\
+1. Create a table of summary statistics for Neuroticism:
+
+```{r}
+favstats(big5$Neuroticism)
+```
+
+2.  Create a histogram of Neuroticism:
+
+```{r}
+neuro <- na.omit(big5$Neuroticism) 
+
+histogram(neuro, xlab = "Neuroticism", main = "Histogram of Neuroticism Percentiles")
+```
+
+3.  Perform the one-sample t.test:
+
+```{r}
+t.test(neuro, mu = 50, alternative = "greater")
+```
+
+4.  Explain your conclusion:
+
+Technical: The P-value is above the alpha so we fail to reject the null hypothesis
+
+Contextual: Bro Cannon's class is less Neurotic than the general population
+
+5.  Create a Confidence Interval for the average neuroticism of Brother Cannon's students:
+
+```{r}
+# For a Confidence Interval:
+t.test(neuro, conf.level = 1-.025)$conf.int
+```
+
+6.  Explain your confidence interval: we are 97.5% sure that the true mean falls between 45-49
+
+# Conscientiousness
+
+State your null and alternative hypotheses:
+
+$$H_o:  50 $$\
+$$H_a:  > 50 $$
+
+$$\alpha = 0.025 $$\
+1. Create a table of summary statistics:
+
+```{r}
+favstats(big5$Conscientiousness)
+```
+
+2.  Create a histogram of Conscientiousness:
+
+```{r}
+consci <- na.omit(big5$Conscientiousness) 
+
+histogram(consci, xlab = "Concientiousness", main = "Histogram of Conscientiousness Percentiles")
+```
+
+3.  Perform the one-sample t.test:
+
+```{r}
+t.test(consci, mu = 50, alternative = "greater")
+```
+
+4.  Explain your conclusion:
+
+Technical: The p-value is less than alpha so we reject the null hypothesis
+
+Contextual: Bro Cannon's class is more conscientious than the general population
+
+5.  Create a Confidence Interval for the average conscientiousness of Brother Cannon's students:
+
+```{r}
+# For a Confidence Interval:
+t.test(consci, conf.level = 1-.025)$conf.int
+```
+
+6.  Explain your confidence interval: We are 97.5% sure that the true mean is between 59-62

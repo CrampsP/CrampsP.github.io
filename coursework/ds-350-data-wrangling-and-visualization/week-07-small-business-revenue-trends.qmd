@@ -1,0 +1,87 @@
+---
+title: "W07_task2"
+format: html
+---
+
+
+```{r}
+library(tidyverse)
+library(lubridate)
+library(scales)
+```
+
+```{r}
+sales_raw <- read_csv("https://byuistats.github.io/M335/data/sales.csv")
+View(sales_raw)
+```
+
+```{r}
+sales <- sales_raw %>%
+  mutate(time_utc = ymd_hms(Time, tz = "UTC"),
+    time_local = with_tz(time_utc, tzone = "America/Denver"),
+    month = floor_date(time_local, "month"),
+    hour = hour(time_local)) %>%
+  filter(!is.na(Name), !is.na(time_local), !is.na(Amount), Amount > 0)
+
+View(sales)
+```
+
+```{r}
+monthly_revenue <- sales %>%
+  group_by(Name, month) %>%
+  summarize(gross_revenue = sum(Amount), .groups = "drop"
+  )
+
+monthly_revenue
+```
+
+```{r}
+ggplot(monthly_revenue, aes(x = month, y = gross_revenue, color = Name)) +
+  geom_line() +
+  geom_point() +
+  scale_y_continuous(labels = dollar_format()) +
+  labs(title = "Monthly Gross Revenue by Company", x = "Month", y = "Gross revenue", color = "Company") +
+  theme_minimal()
+```
+
+```{r}
+monthly_traffic <- sales %>%
+  group_by(Name, month) %>%
+  summarize(transactions = n(), .groups = "drop")
+
+monthly_traffic
+```
+
+```{r}
+ggplot(monthly_traffic, aes(x = month, y = transactions, color = Name)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "Monthly Customer Traffic by Company", x = "Month", y = "Number of transactions", color = "Company") +
+  theme_minimal()
+```
+
+```{r}
+hourly_operations <- sales %>%
+  group_by(Name, hour) %>%
+  summarize(transactions = n(), .groups = "drop")
+
+hourly_operations
+```
+
+```{r}
+ggplot(hourly_operations, aes(x = hour, y = transactions, fill = Name)) +
+  geom_col(position = "dodge") +
+  labs(title = "Transactions by Hour of Day", x = "Hour of day", y = "Number of transactions", fill = "Company") +
+  theme_minimal()
+```
+
+```{r}
+company_summary <- sales %>%
+  group_by(Name) %>%
+  summarize(total_revenue = sum(Amount), total_transactions = n(), average_transaction = mean(Amount), .groups = "drop") %>%
+  arrange(desc(total_revenue))
+
+company_summary
+```
+
+Based on the graphs and table, I would choose HotDiggity as the best-performing company. HotDiggity had the highest total revenue at $22,574.68 and also had the most transactions with 5,811. Even though companies like LeBelle and SplashandDash had higher average transaction amounts, HotDiggity brought in the most money overall because it had a lot more sales. So, I think HotDiggity performed the best over the three months.

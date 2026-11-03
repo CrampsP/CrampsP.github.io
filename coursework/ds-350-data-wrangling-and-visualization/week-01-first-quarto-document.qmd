@@ -1,0 +1,29 @@
+---
+title: "First Quarto File"
+format:
+  html:
+    code-fold: true
+    code-line-numbers: true
+execute:
+  error: true
+---
+
+
+Critique of 3 articles that use data and visualization to answer a question:
+
+<!-- For each of the 3 articles be sure to include the url to the article, and one paragraph that lists a few good/unique things about the visualization(s) in the article, and a at least 1 thing that could be improved. -->
+
+<!-- At the bottom don't forget to add an R code chunk that contains the following code: plot(1:20). This is to ensure that the rendering is working right and that you can see the graphs you create after the webpage is published. -->
+
+```{r}
+plot(1:20)
+```
+
+https://ourworldindata.org/what-do-people-die-from-in-different-countries
+Poorer countries still deal more with infectious diseases and child/maternal deaths, while richer countries mostly deal with aging-related illnesses, and overall it’sa reminder that everyday health issues matter way more than the things people usually fear.
+
+https://priceonomics.com/how-has-cryptocurrency-mining-influenced-gpu-prices/
+Since mining uses GPUs for heavy calculations, demand exploded during crypto booms, creating shortages and making gaming hardware way more expensive, and then when crypto cooled off or changed systems, prices started stabilizing again.
+
+https://www.nytimes.com/2026/04/16/learning/whats-going-on-in-this-graph-april-29-2026.html
+data (in that specific graph) shows some kind of surprising shift—like public opinion, economics, or behavior—and the main takeaway is that the numbers tell a clearer story than people’s assumptions.

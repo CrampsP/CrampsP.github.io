@@ -1,0 +1,84 @@
+---
+title: "w05_Task3"
+---
+
+
+```{r}
+library(png)
+library(grid)
+
+img <- readPNG("life-expectancy.png")
+g <- rasterGrob(img)
+
+grid.newpage()
+grid.draw(g)
+```
+
+
+
+```{r}
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+```
+
+```{r}
+library(jsonlite)
+
+# Fetch the data
+life <- read.csv("https://ourworldindata.org/grapher/life-expectancy.csv?v=1&csvType=full&useColumnShortNames=true")
+View(life)
+
+# Fetch the metadata
+life_metadata <- fromJSON("https://ourworldindata.org/grapher/life-expectancy.metadata.json?v=1&csvType=full&useColumnShortNames=true")
+View(life_metadata)
+```
+
+```{r}
+region <- life %>% 
+  filter(code %in% c("OWID_AFR", "OWID_ASI", "OWID_OCE", "OWID_EUR") | 
+           entity == "Americas")
+
+region <- region %>%
+  mutate(region_name = case_when(code == "OWID_AFR" ~ "Africa", code == "OWID_ASI" ~ "Asia", code == "OWID_OCE" ~ "Oceania", code == "OWID_EUR" ~ "Europe", entity == "Americas" ~ "Americas",
+    TRUE ~ entity))
+
+View(region)
+```
+
+
+```{r}
+end_labels <- region %>%
+  group_by(region_name) %>%
+  filter(year == max(year, na.rm = TRUE)) %>%
+  ungroup()
+
+region_colors <- c("Africa" = "#A650A6",
+  "Asia" = "#168C86",
+  "Americas" = "#D95F3B",
+  "Europe" = "#4666A6",
+  "Oceania" = "#A65D2E")
+
+ggplot(region, aes(x = year, y = life_expectancy_0, color = region_name)) +
+  geom_line(linewidth = 0.8) +
+  geom_text(data = end_labels,
+    aes(label = region_name),
+    hjust = -0.15,
+    size = 3.5,
+    show.legend = FALSE) +
+  scale_color_manual(values = region_colors) +
+  scale_y_continuous(
+    breaks = seq(0, 80, by = 10),
+    limits = c(0, 82),
+    labels = function(x) paste0(x, " years")) +
+  scale_x_continuous(breaks = c(1770, 1800, 1850, 1900, 1950, 2000, 2023),
+    limits = c(1770, 2035)) +
+  labs(title = "Life expectancy",
+    subtitle = paste(
+      "Period life expectancy is the number of years the average person born by continent"),
+    x = "Years",
+    y = "Life Expectancy") +
+  coord_cartesian(clip = "off") +
+  theme_minimal()
+```
+

@@ -1,0 +1,210 @@
+---
+title: ANOVA Practice
+format:
+  html:
+    self_contained: true
+    embed-resources: true
+editor: 
+  markdown: 
+    wrap: sentence
+editor_options: 
+  chunk_output_type: console
+---
+
+# Life Expectancy of Female Authors
+
+## Introduction
+
+You are curious to compare life expectancy between female poets, novelists, and non-fiction writers.
+
+You take a sample of female authors from each of the three groups to test if the average age at death is different between any of the three types of authors using a level of significance of, $\alpha = 0.05$.
+
+## Load the Data and Libraries
+
+```{r}
+library(rio)
+library(tidyverse)
+library(mosaic)
+library(car)
+
+womenpoet <- rio::import("https://byuistats.github.io/BYUI_M221_Book/Data/womenpoet.xls")
+
+view(womenpoet)
+table(womenpoet$Type)
+```
+
+## Explore the Data
+
+Create a side-by-side boxplot of the age at death of each of the different author styles.
+
+Modify the colors of each of the boxes for each group.
+
+```{r}
+boxplot(Age ~ Type, data=womenpoet, col = c(2,3,4))
+
+```
+
+Create a summary statistics table for age at death for each author type:
+
+```{r}
+favstats(Age ~ Type, data=womenpoet)
+
+```
+
+List the mean and standard deviations of age at death for:
+
+1.  Novelists: 71.44 - 13.05
+2.  Poets: 63.18 - 17.29
+3.  Non-fiction: 76.8 - 14.09
+
+## Perform the Appropriate Analysis
+
+State your null and alternative hypotheses:
+
+$$H_o: \mu_1 = \mu_2 = ...\mu_k$$
+
+$$H_a: \text{at least one } \mu_k \text{ is different}$$
+
+Perform an Analysis of Variance test including checking for the appropriateness of our analysis.
+
+```{r}
+aov_womenpoet <- aov(Age ~ Type, data=womenpoet)
+summary(aov_womenpoet)
+```
+
+**Question**: What is the test statistic?
+
+**Answer**: 6.563
+
+**Question**: What are the degrees of freedom for your analysis?
+a.
+Numerator (between Groups) Degrees of Freedom b.
+Denominator (within groups) Degrees of Freedom
+
+**Answer**: A.
+2 B.
+120
+
+**Question**: What is the P-value?
+
+**Answer**: 0.00197
+
+**Question**: Do you reject the null hypothesis?
+Why?
+
+Answer: We can reject the null hypothesis because our p-value is below the degrees of freedom
+
+**Question**: State your conclusion in context of the problem.
+
+**Answer**: We can determine that there is a difference in the life expectancy of female poets who write different genres of literature
+
+```{r}
+qqPlot(aov_womenpoet$residuals)
+```
+
+**Question**: Can we trust the p-value?
+a.
+Check for equal standard deviation (is the ratio of the largest SD / smallest SD greater than 2?) b.
+Check Normality of the residuals (`qqPlot()`)
+
+**Answer**: We can trust the p-value because it looks like all of the data points are pretty normally distributed based on the qqPlot
+
+# Testing Mosquitos
+
+## Introduction
+
+A study was conducted to determine if different types of material can reduce the amount of mosquito human contact.
+The researchers evaluated five different types of patches 1=Odomos, 2=Deltamethrin, 3=Cyfluthrin, 4=D+O, 5=C+O.
+
+The amount of mosquito human contact was measured to assess any differences between the five different types of material.
+Use a level of significance of 0.05.
+
+## Load the Data
+
+```{r}
+
+MosquitoPatch <- rio::import("https://raw.githubusercontent.com/rdcromar/Math221D/main/MosquitoPatch.csv") %>% mutate(Treatment = factor(Treatment))
+
+view(MosquitoPatch)
+table(MosquitoPatch$Treatment)
+```
+
+## Review the Data
+
+Create a side-by-side boxplot for human contact for each of the treatment groups.
+
+Add a title and change the colors of the boxes.
+
+```{r}
+boxplot(mosqs ~ Treatment, data=MosquitoPatch, col = c(2,3,4,5))
+
+```
+
+Create a summary statistics table for human contact for each of the treatment groups:
+
+```{r}
+favstats(mosqs ~ Treatment, data=MosquitoPatch)
+
+```
+
+**Question**: What do you observe?
+
+**Answer**: The data all looks pretty similar.
+5 looks like an outlier but the first 3 are very similar
+
+**Question**: What is the maximum standard deviation?
+
+**Answer**: 3.4
+
+**Question**: What is the minimum standard deviation?
+
+**Answer**: 3.01
+
+## Perform the Appropriate Analysis
+
+State your null and alternative hypotheses:
+
+$$H_o: \mu_1 = \mu_2 = ...\mu_k$$
+
+$$H_a: \text{at least one } \mu_k \text{ is different}$$
+
+Perform an Analysis of Variance test including checking for the appropriateness of our analysis.
+
+```{r}
+aov_MosqPatch <- aov(mosqs ~ Treatment, data=MosquitoPatch)
+summary(aov_MosqPatch)
+```
+
+**Question**: What is the test statistic (F-value)?
+
+**Answer**: 4.48
+
+**Question**: What are the degrees of freedom for your analysis?
+
+a.  Numerator (between Groups) Degrees of Freedom - **4**
+b.  Denominator (within groups) Degrees of Freedom - **145**
+
+**Question**: What is the P-value?
+
+**Answer**: 0.00192
+
+**Question**: Do you reject the null hypothesis?
+Why?
+
+**Answer**: We can reject the null because the p-value is less than the level of significance
+
+**Question**: State your conclusion in context of the problem.
+
+**Answer**: We can determine that the different substances did have an effect on keeping mosquitos away
+
+```{r}
+qqPlot(aov_MosqPatch$residuals)
+```
+
+**Question**: Can we trust the p-value?
+a.
+Check for equal standard deviation (is the ratio of the largest SD / smallest SD greater than 2?) b.
+Check Normality of the residuals (`qqPlot()`)
+
+**Answer**: We cannot trust the p-value because a lot of data points lie outside the normal range on the qqPlot.
+The ratio of the largest SD to the smallest is also less than 2.

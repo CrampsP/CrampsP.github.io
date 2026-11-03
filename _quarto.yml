@@ -1,5 +1,11 @@
-project: 
+project:
   type: website
+  # projects/ and coursework/ hold source files for browsing on GitHub; keep them out of the site build
+  render:
+    - "*.qmd"
+    - "*.ipynb"
+    - "!projects/"
+    - "!coursework/"
 
 website:
   title: "Spencer - Data Science Portfolio"

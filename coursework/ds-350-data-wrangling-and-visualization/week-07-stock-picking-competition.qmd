@@ -1,0 +1,130 @@
+---
+title: "W7_task3"
+format: html
+---
+
+```{r}
+library(tidyverse)
+library(tidyquant)
+library(lubridate)
+library(scales)
+```
+
+```{r}
+stocks <- tibble(symbol = c("TSLA", "RDDT", "LMT", "NVDA", "COST", "JPM"),
+  person = c("Me", "Me", "Me", "Friend", "Friend", "Friend"),
+  company = c("Tesla", "Reddit", "Lockheed Martin", "Nvidia", "Costco", "JPMorgan Chase"))
+
+stocks
+```
+
+```{r}
+stock_prices <- tq_get(stocks$symbol,
+  get = "stock.prices",
+  from = "2025-01-01",
+  to = Sys.Date())
+
+stock_prices
+```
+
+```{r}
+return_data <- stock_prices %>%
+  group_by(symbol) %>%
+  tq_transmute(select = adjusted,
+    mutate_fun = periodReturn,
+    period = "daily",
+    type = "arithmetic") %>%
+  ungroup() %>%
+  left_join(stocks, by = "symbol")
+
+return_data
+```
+
+```{r}
+portfolio_returns <- return_data %>%
+  group_by(person, date) %>%
+  summarize(daily_portfolio_return = mean(daily.returns, na.rm = TRUE),
+    .groups = "drop") %>%
+  group_by(person) %>%
+  arrange(date) %>%
+  mutate(wealth_index = cumprod(1 + daily_portfolio_return),
+    portfolio_return = wealth_index - 1) %>%
+  ungroup()
+
+portfolio_returns
+```
+
+```{r}
+ggplot(portfolio_returns, aes(x = date, y = portfolio_return, color = person)) +
+  geom_line(linewidth = 1.2) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  scale_y_continuous(labels = percent_format()) +
+  labs(title = "Stock Competition Performance Over Time",
+    y = "Cumulative Portfolio Return",
+    color = "Person") +
+  theme_minimal()
+```
+
+```{r}
+latest_date <- max(portfolio_returns$date, na.rm = TRUE)
+
+latest_winner <- portfolio_returns %>%
+  filter(date == latest_date) %>%
+  slice_max(portfolio_return, n = 1,
+      with_ties = FALSE)
+
+latest_winner
+```
+
+```{r}
+stock_final_returns <- return_data %>%
+  group_by(symbol, person, company) %>%
+  arrange(date, .by_group = TRUE) %>%
+  mutate(stock_growth = cumprod(1 + daily.returns),
+    stock_return = stock_growth - 1) %>%
+  ungroup()
+
+stock_final_returns
+```
+
+```{r}
+winner_name <- latest_winner %>%
+  pull(person)
+
+winner_stocks <- stock_final_returns %>%
+  filter(person == winner_name) %>%
+  group_by(symbol, person, company) %>%
+  slice_max(date, n = 1, with_ties = FALSE) %>%
+  ungroup() %>%
+  arrange(desc(stock_return))
+
+winner_stocks
+```
+
+```{r}
+ggplot(winner_stocks, aes(x = reorder(company, stock_return), y = stock_return, fill = company)) +
+  geom_col() +
+  coord_flip() +
+  scale_y_continuous(labels = percent_format()) +
+  labs(title = "Which Stock Is Helping the Winner the Most?",
+    x = "Stock",
+    y = "Cumulative Stock Return"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+ggplot(winner_stocks, aes(x = reorder(company, stock_return), y = stock_return, fill = company)) +
+  geom_col() +
+  coord_flip() +
+  scale_y_continuous(labels = percent_format()) +
+  labs(title = "Which Stock Is Helping the Winner the Most?",
+    x = "Stock",
+    y = "Stock Return") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+For this stock competition, I chose Tesla, Reddit, and Lockheed Martin. My friend chose Nvidia, Costco, and JPMorgan Chase. I used `tq_get()` to get the stock prices and then used `tq_transmute()` to calculate the daily returns for each stock. After that I used `tq_portfolio()` to put each person's three stocks together into one portfolio. Each stock was weighted the same, so every stock counted as one third of the portfolio.
+
+The first graph shows who is winning each day by comparing the portfolio returns over time. This makes it easy to see the competition instead of just looking at the final day. The second graph shows which stock is helping the winner the most. I used the final day of the data and looked at the stocks in the winning portfolio. I used percent return because it makes the stocks easier to compare even though their actual prices are very different.

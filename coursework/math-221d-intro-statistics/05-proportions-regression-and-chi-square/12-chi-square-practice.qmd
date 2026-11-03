@@ -1,0 +1,85 @@
+---
+title: Chi-Square Practice
+format:
+  html:
+    self_contained: true
+    embed-resources: true
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, error = TRUE)
+```
+
+# Instructions
+
+Complete the following questions about testing for independence between 2 categorical variables. When completed, Render the `qmd` file and submit the `html`.
+
+# Aussie Alcohol
+
+A small study in Western Australia was done to determine the association between daily alcohol intake and hypertension (high blood pressure). The data contains a hypertension indicator (0=no, 1=yes), and the number of alcoholic drinks per day. Researchers wanted to determine if hypertension and daily alcohol intake are independent with a level of significance of 0.05.
+
+Run the following commands to read the data into R:
+
+```{r}
+# This script will flip the summary data table to be easily used with geom_col()
+library(rio)
+library(tidyverse)
+library(mosaic)
+library(car)
+
+bp_alcohol <- import("https://byuistats.github.io/M221R/Data/quiz/R/bp_alcohol.csv") 
+
+## Note:  the following code transforms a table into a tidy dataset
+
+bp_alcohol_graph <- bp_alcohol %>% 
+  pivot_longer(cols = c( "zero", "one_two", "three_four_five", "six_or_more" ), values_to = "Counts", names_to = "Frequency_of_Drink") %>%
+  mutate(Frequency_of_Drink = factor(Frequency_of_Drink, levels=c("zero", "one_two","three_four_five", "six_or_more"))) %>%
+  rename("Hypertension"=V1)
+```
+
+Create a side-by-side bar chart (`ggplot()`) to illustrate the counts.
+
+```{r}
+ggplot(bp_alcohol_graph, aes(x = Frequency_of_Drink, y = Counts, fill = Hypertension)) + 
+  geom_col(position = "dodge")
+```
+
+**Question**: Which group appears to be most likely to have hypertension?\
+**Answer**: The six or more
+
+State the Null and Alternative Hypotheses:
+
+H0: Frequency of Drink is independent of Hypertension
+
+Ha: Frequency of Drink is NOT independent of Hypertension
+
+## Hypothesis Test
+
+Perform the Chi-square test for independence:
+
+**HINT**: The way the data were imported into `bp_alcohol`, it contains a columns, V1, which is a categorical variable. You only want to include the counts from the table. Run `chisq.test()` dropping the first column. Also, remember to name the output so you can easily extract information needed to check the requirements.
+
+```{r}
+bp_alcohol2 <-bp_alcohol %>% 
+  select(zero, one_two, three_four_five, six_or_more)
+chisq.test(bp_alcohol2)
+chisq.test(bp_alcohol2)$expected >= 5
+```
+
+**Question**: Are the requirements satisfied for the $\chi$-square test for independence?\
+**Answer**: Yes because all expected counts are greater than 5
+
+**Question**: How many degrees of freedom does this $\chi$-square test have?\
+**Answer**: 3
+
+**Question**: What is the value of the test statistic?\
+**Answer**: 9.2687
+
+**Question**: What is the P-value?\
+**Answer**: 0.02592
+
+State your conclusion in context of this problem:
+
+We reject the null because the p-value is less than the level of significance so we have sufficient evidence that hypertension and drink frequency are NOT independent.

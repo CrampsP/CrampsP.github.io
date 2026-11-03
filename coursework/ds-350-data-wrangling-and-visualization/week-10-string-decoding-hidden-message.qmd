@@ -1,0 +1,48 @@
+---
+title: "W10_task1"
+format: html
+---
+
+
+```{r}
+library(readr)
+library(stringr)
+
+randomletters <- read_lines("https://byuistats.github.io/M335/data/randomletters.txt")
+View(randomletters)
+
+randomletters_wnumbers <- read_lines("https://byuistats.github.io/M335/data/randomletters_wnumbers.txt")
+View(randomletters_wnumbers)
+```
+
+```{r}
+rand_letters <- paste0(randomletters, collapse = "")
+split <- str_split(rand_letters, pattern = "")[[1]]
+quote_letters <- split[c(1, seq(1700, length(split), by = 1700))]
+quote <- paste0(quote_letters, collapse = "")
+hidden_quote_final <- str_extract(quote, ".*?\\.")
+```
+
+```{r}
+numbers_string <- paste0(randomletters_wnumbers, collapse = "")
+hidden_numbers <- str_extract_all(numbers_string, "\\d+")[[1]]
+hidden_numbers <- as.numeric(hidden_numbers)
+decoded_letters <- letters[hidden_numbers]
+decoded_message <- paste0(decoded_letters, collapse = "")
+```
+
+```{r}
+clean <- str_remove_all(rand_letters, "[ .]")
+vowels <- str_extract_all(clean, "[aeiouAEIOU]+")[[1]]
+longest_vowel_sequence <- vowels[which.max(str_length(vowels))]
+str_length(longest_vowel_sequence)
+```
+
+```{r}
+hidden_quote_final
+decoded_message
+longest_vowel_sequence
+```
+
+
+

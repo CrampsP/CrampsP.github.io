@@ -1,0 +1,36 @@
+---
+title: "DataWranglingandViz"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+View(mtcars)
+```
+
+```{r}
+mtcarauto <- 
+  filter(mtcars, am == 0)
+mtcarman <-
+  filter(mtcars, am == 1)
+```
+
+```{r}
+mtcarauto %>% summarise(ave = mean(hp))
+mtcarman %>%  summarise(ave = mean(hp))
+```
+
+```{r}
+  palette(c("skyblue","firebrick"))
+
+  plot(mpg ~ qsec, data=mtcars, col=as.factor(am), pch=16, xlab="Quarter Mile Time (seconds)", ylab="Miles per Gallon", main="1974 Motor Trend Vehicles")
+  legend("topright", pch=16, legend=c("automatic","manual"), title="Transmission", bty='n', col=palette())
+```
+
+```{r}
+plot(qsec ~ carb, mtcars)
+```
+

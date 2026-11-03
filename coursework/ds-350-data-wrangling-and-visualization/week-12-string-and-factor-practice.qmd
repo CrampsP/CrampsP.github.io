@@ -1,0 +1,71 @@
+---
+title: "W12_task1"
+format: html
+---
+
+
+```{r}
+library(tidyverse)
+library(stringr)
+```
+
+
+```{r}
+one <- '{"Monday":94,"Tuesday":76,"Wednesday":89,"Thursday":106,"Friday":130,"Saturday":128,"Sunday":58}'
+
+two <- '{"Monday":18,"Tuesday":16,"Wednesday":14,"Thursday":27,"Friday":26,"Saturday":36,"Sunday":20}'
+
+three <- '{"Monday":0,"Tuesday":0,"Wednesday":1,"Thursday":0,"Friday":0,"Saturday":1,"Sunday":0}'
+```
+
+
+```{r}
+table_maker <- function(extractor) {
+  
+  days <- str_extract_all(
+    extractor,
+    "Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday"
+  )[[1]]
+  
+  amount <- str_extract_all(
+    extractor,
+    "\\d+"
+  )[[1]] %>%
+    as.integer()
+  
+  tibble(
+    days = days,
+    amount = amount
+  )
+}
+```
+
+
+```{r}
+highest_day <- function(extractor) {
+  
+  df <- table_maker(extractor)
+  
+  df %>%
+    filter(amount == max(amount)) %>%
+    pull(days) %>%
+    paste(collapse = ", ")
+}
+```
+
+
+```{r}
+table_maker(one)
+highest_day(one)
+```
+
+```{r}
+table_maker(two)
+highest_day(two)
+```
+
+```{r}
+table_maker(three)
+highest_day(three)
+```
+

@@ -1,0 +1,207 @@
+---
+title: Paired T-Test Practice
+format:
+  html:
+    self_contained: yes
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, error = TRUE)
+```
+
+# Instructions
+
+Here are several opportunities to practice analyzing dependent samples using R. For each question, you will:
+
+-   Read in data
+-   Create data summaries (numerical and graphical)
+-   Statistically analyze the data
+-   Check for the suitability of the statistical test (CLT, Normality)
+-   State your hypothesis test conclusions and interpret your confidence intervals
+
+# Helmet Measurements
+
+After purchasing a batch of flight helmets that did not fit the heads of many pilots, the NZ Airforce decided to measure the head sizes of all recruits. Before this was carried out, information was collected to determine the feasibility of using cheap cardboard calipers to make the measurements, instead of metal ones which were expensive and uncomfortable.
+
+The data lists the head diameters of 18 recruits measured once using cardboard calipers and again using metal calipers. One question is whether there is *any* systematic difference between the two measurement tools.
+
+**NOTE**: Define the difference as cardboard - metal.
+
+Use $\alpha = 0.05$ significance level.
+
+## Step 1: Load the Data
+
+```{r}
+library(tidyverse)
+library(mosaic)
+library(rio)
+library(car)
+
+helmet_fit <- import("https://byuistats.github.io/M221R/Data/quiz/R/helmet_fit.csv")
+
+```
+
+## Step 2: Explore the Data and Generate Hypotheses
+
+Create histograms and summary statistic tables for the measurements for each type of tool:
+
+```{r}
+view(helmet_fit)
+favstats(helmet_fit$metal)
+hist(helmet_fit$metal)
+
+fav_stats(helmet_fit$cardboard)
+hist(helmet_fit$cardboard)
+```
+
+## Step 3: Prepare the data for analysis
+
+Give the summary statistics (`favstats()`) for the *differences* in the measured head diameters.
+
+**Question**: What does a negative number mean given the definition of the difference?\
+**Answer**:
+
+```{r}
+diff <- helmet_fit$metal - helmet_fit$cardboard
+fav_stats(diff)
+hist(diff)
+```
+
+Create a `qqPlot()` of the differences:
+
+```{r}
+qqPlot(diff)
+
+```
+
+## Step 4: Perform the Appropriate Analyses
+
+### Hypothesis Test
+
+Make the following null and alternative hypothesis correct by deleting what doesn't belong:
+
+$$H_0: \mu_d   =  0$$
+
+$$ H_a: \mu_d \ne  0$$
+
+```{r}
+# Perform a t-test for the mean of the differences between cardboard and caliper data
+t.test(diff, mu = 0, )
+
+
+```
+
+**Question**: What is the value of the test statistic, $t$?\
+**Answer**: -3.1854
+
+**Question**: How many degrees of freedom does this test statistics have?\
+**Answer**: 17
+
+**Question**: What is the P-value?\
+**Answer**: 0.005415
+
+**Question**: Can we trust this P-value? (eg. How many differences in our sample? Check the `qqPlot()` of the differences for normality)\
+**Answer**: No because the sample size is only 18 inputs so not our parent population nor our sample population is normal
+
+**Question**: State your conclusion about the hypothesis test.\
+**Answer**: We reject the null because the p value is less than the level of significance. We have sufficient evidence that there is a systematic difference between the 2 measuring devices.
+
+### Confidence Intervals
+
+Create a 95% confidence interval for the true average difference between the cardboard and the metal measurement tools:
+
+```{r}
+t.test(diff, conf.level = .95)$conf.int
+
+```
+
+**Question**: Give a one-sentence explanation of your confidence interval.\
+**Answer**: We are 95% sure that the true mean difference lies between -2.67 and -0.5
+
+# Cholesterol
+
+A study was conducted at a major northeastern American medical center regarding blood cholesterol levels and heart-attack incidents. A total of 28 heart-attack patients had their cholesterol levels measured two days after the heart attack and again four days after the heart attack. Researchers want to see if cholesterol levels reduced significantly four days after the attack versus two days after the attack.
+
+Use the level of significance of 0.05.
+
+## Step 1: Load the Data
+
+```{r}
+
+cholesterol <- import("https://byuistats.github.io/M221R/Data/quiz/R/cholesterol.csv")
+
+```
+
+## Step 2: Review the Data Generate Hypotheses
+
+Create histograms and summary statistics tables for the cholesterol measurements at 2 days and at 4 days.
+
+```{r}
+hist(cholesterol$chol_day2)
+favstats(cholesterol$chol_day2)
+
+
+hist(cholesterol$chol_day4)
+fav_stats(cholesterol$chol_day4)
+```
+
+## Step 3: Prepare the data for analysis
+
+Decide how you are going to define the difference (chol_day2 - chol_day4 or chol_day4 - chol_day2).
+
+What does a negative number mean: A negative number means that the participants had more cholesterol in their blood after a heart attack
+
+What is your null and alternative hypotheses:
+
+$$H_0: \mu_d  =  0$$
+
+$$ H_a: \mu_d <  0$$
+
+Create a `qqPlot()` of the differences and determine if you can trust the statistical tests.
+
+```{r}
+diffchol <- cholesterol$chol_day4 - cholesterol$chol_day2
+
+qqPlot(diffchol)
+```
+
+## Step 4: Perform the appropriate analysis
+
+### Hypothesis Test
+
+Perform a t-test for the differences.
+
+```{r}
+fav_stats(diffchol)
+t.test(diffchol, mu = 0, alternative = "less")
+
+```
+
+**Question**: What is the value of the test statistic, $t$?\
+**Answer**: -3.2189
+
+**Question**: How many degrees of freedom does this test statistics have?\
+**Answer**:27
+
+**Question**: What is the P-value?\
+**Answer**:0.001669
+
+**Question**: Can we trust the P-value?\
+**Answer**: P-value is less than the level of significance so we reject the Ho We have sufficient evidence to say that cholesterol levels have dropped betwen day 2 and day 4 after a heart attack 
+
+**Question**: State your conclusion about the hypothesis test.\
+**Answer**: Their is insufficient evidence that the null hypothesis is viable.
+
+### Confidence Interval
+
+Create a 95% confidence interval for the difference in cholesterol scores:
+
+```{r}
+t.test(diffchol, conf.level = .95)$conf.int
+
+```
+
+**Question**: Explain your confidence interval in context of the research question\
+**Answer**: We are 95% confident that the average cholesterol loss between day 2 and day 4 is between -38 and -8.
