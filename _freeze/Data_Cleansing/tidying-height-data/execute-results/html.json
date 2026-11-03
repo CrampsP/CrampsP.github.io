@@ -1,0 +1,17 @@
+{
+  "hash": "3fcf39e02269f5183c8ca40527a2996c",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Tidying Historical Height Data\"\nsubtitle: \"DS 350 · Data Wrangling & Visualization\"\nauthor: \"Spencer Payne\"\ndescription: \"Reshaped a wide Excel table of average male height by country into tidy long format and charted the trend over time.\"\ncategories: [\"R\", \"tidyr\", \"Data Cleaning\"]\n---\n\n\n\n## Overview\n\nThe source is an Excel workbook of average male height by country, laid out wide with one column per decade and header rows above the data. I skipped the header rows, used `pivot_longer()` to reshape it into one row per country and decade, dropped missing measurements, converted centimeters to inches, and highlighted Germany against every other country.\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\nlibrary(tidyr)\nlibrary(readr)\nlibrary(readxl)\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nheight <- read_excel(\"data/Height.xlsx\", skip = 2)\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nheight_tidy <- height %>% \n  pivot_longer(cols = 3:ncol(height), names_to = \"Year\", values_to = \"Height\") %>% \n  drop_na(Height)\n\nheight_tidy\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n# A tibble: 1,340 × 4\n    Code `Continent, Region, Country` Year  Height\n   <dbl> <chr>                        <chr>  <dbl>\n 1    40 Austria                      1820    164.\n 2    40 Austria                      1830    163.\n 3    40 Austria                      1840    165.\n 4    40 Austria                      1850    166.\n 5    40 Austria                      1860    166.\n 6    40 Austria                      1870    167.\n 7    40 Austria                      1880    168.\n 8    40 Austria                      1890    168.\n 9    40 Austria                      1900    169.\n10    40 Austria                      1910    169.\n# ℹ 1,330 more rows\n```\n\n\n:::\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(height_tidy, aes(x = Year, y = Height / 2.54)) +\n  geom_point(color = \"gray50\", alpha = 0.5, size = 2) +\n  geom_point(data = height_tidy %>%\n      filter(`Continent, Region, Country` == \"Germany\"), color = \"red\", size = 3) +\n  labs(title = \"Average Male Height by Decade\",\n       x = \"Decade\") +\n  theme_bw()\n```\n\n::: {.cell-output-display}\n![](tidying-height-data_files/figure-html/unnamed-chunk-4-1.png){width=672}\n:::\n:::\n\n\n\nThe data shows that people seem to be getting taller over time. As the years go on, many of the height values get higher. Germany also seems to follow this pattern. The data is not perfect because some values are missing, but overall it supports the idea that humans have gotten taller over the years.\n",
+    "supporting": [
+      "tidying-height-data_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

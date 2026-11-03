@@ -1,38 +1,53 @@
 # Spencer Payne – Data Science Portfolio
 
-Data science student at BYU–Idaho working across statistics (R), Python, machine learning, data engineering, and business intelligence.
+[![Website](https://img.shields.io/badge/Portfolio-crampsp.github.io-18bc9c)](https://crampsp.github.io)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Spencer%20Payne-0A66C2)](https://www.linkedin.com/in/spencer-payne-95090428b)
 
-**Live site:** https://crampsp.github.io
+Data Science student at BYU–Idaho, specializing in business analytics. I work in **Python, R, and SQL** across statistics, data wrangling, visualization, machine learning, and data engineering.
 
-## Featured projects
+**👉 The best way to see this work is the live site: [crampsp.github.io](https://crampsp.github.io)**. Every project there has a written summary, charts, and code.
 
-| Project | What it shows | Stack |
-|---|---|---|
-| [Airflow ETL pipelines](projects/airflow-etl-pipelines/) | Scheduled pipelines that pull weather (Open-Meteo), stock (MongoDB), and SFTP data, transform it, and upsert into Snowflake with backfill support | Python, Apache Airflow 3, Docker, Snowflake, MongoDB |
-| [Portlight system monitor](projects/portlight-system-monitor/) | Local, Docker-based Windows network and security dashboard with a token-authenticated collector and tests | Python, PowerShell, Docker, JavaScript |
-| [Surfboard sales analysis](projects/surfboard-sales-analysis/) | Loading and combining eight months of retail sales exports for analysis | Python, Polars |
+## Highlights
 
-## Coursework
-
-Organized by course in [`coursework/`](coursework/). Highlights:
-
-- **Statistics (R):** [Math 325 analyses](coursework/math-325-intermediate-statistics/analyses/), including t-tests, Wilcoxon, ANOVA, Kruskal-Wallis, chi-squared, and linear and logistic regression. Also [Math 326 designed experiments](coursework/math-326-design-of-experiments/case-studies/).
-- **Data wrangling and visualization (R / tidyverse):** [DS 350 weekly projects](coursework/ds-350-data-wrangling-and-visualization/), covering spatial data with `sf`, string and regex work, time series, and chart recreation.
-- **Python data science:** [DS 250 client reports](coursework/ds-250-data-science-programming/) (SQL on the Lahman baseball database, missing data in JSON).
-- **Machine learning:** [notebooks](coursework/machine-learning-notebooks/) for regression, a neural network, a CNN image classifier, and a transformer language model.
-- **Business intelligence:** [Power BI dashboards](coursework/ba-315-business-intelligence-power-bi/).
-- **Software fundamentals:** [CSE 111 Python programs with pytest tests](coursework/cse-111-python-programming/).
-
-See [coursework/README.md](coursework/README.md) for the full index.
+| Project | Skills shown |
+|---|---|
+| [Automated ETL pipelines](Full_Stack/airflow-etl-pipelines/) | Apache Airflow 3, Docker, Snowflake `MERGE` upserts, MongoDB over SSH, SFTP, backfills |
+| [Portlight network dashboard](Full_Stack/portlight-system-monitor/) | Python server, PowerShell collector, hardened Docker container, JavaScript UI, 14 tests |
+| [King County home price model](Machine_Learning/housing-price-prediction.qmd) | Feature engineering, XGBoost, R² ≈ 0.90 on held-out data |
+| [Newly reported Medicaid drugs](Story_Telling/medicaid-drug-reporting.qmd) | Live public data from CMS, tidyverse, data storytelling |
+| [Caffeine and reaction time](Statistical_Analysis/two-way-anova-analysis.Rmd) | Experiment design, two-way ANOVA, assumption checks |
+| [Baseball relationships in SQL](Data_Exploration/baseball-sql-relationships.qmd) | SQL on SQLite, pandas, Lets-Plot |
 
 ## Repository layout
 
+Each folder matches a section of the website. The project pages sit at the top of each folder, and supporting code and coursework sit in subfolders.
+
 ```
-├── projects/          Standalone projects (best place to start)
-├── coursework/        Course work grouped by class
-├── docs/              file-manifest.csv: original file name → new location
-├── *.qmd, _quarto.yml Quarto source for the portfolio website
-└── .github/workflows  Builds and publishes the site to GitHub Pages
+├── Statistical_Analysis/   Hypothesis tests, regression, designed experiments (R)
+│   └── coursework/         Math 221D, Math 325, Math 326 notebooks and practice
+├── Data_Cleansing/         Multi-format import, reshaping, missing data
+├── Data_Exploration/       SQL, joins, and exploratory analysis
+├── Story_Telling/          Visual reports
+│   └── coursework/         DS 350 weekly work, BA 315 Power BI dashboards
+├── Machine_Learning/       Model write-ups
+│   └── notebooks/          Original Jupyter/Colab notebooks
+├── Full_Stack/             Engineering projects
+│   ├── airflow-etl-pipelines/
+│   ├── portlight-system-monitor/
+│   └── coursework/         CSE 111 Python, AI 101–102
+├── Competition/            Timed coding challenges and contests
+├── index.qmd, resume.qmd   Home and resume pages
+└── _quarto.yml             Site configuration
 ```
 
-The website is built with [Quarto](https://quarto.org). Only the site pages are rendered; `projects/` and `coursework/` hold source files and are excluded from the site build.
+## How the site is built
+
+The site is built with [Quarto](https://quarto.org) and published to GitHub Pages by a GitHub Actions workflow on every push to `main`. Analyses are run locally and their results are stored in `_freeze/`, so the published pages always match the code without re-running anything on GitHub.
+
+To rebuild locally (R 4.4+ and Python 3.11+):
+
+```bash
+quarto render
+```
+
+[docs/file-manifest.csv](docs/file-manifest.csv) maps original course file names to their place in this repo.

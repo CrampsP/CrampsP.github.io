@@ -1,0 +1,22 @@
+---
+title: "Statistical Analysis"
+subtitle: "Hypothesis testing, regression, and designed experiments in R"
+listing:
+  contents: "Statistical_Analysis/*.Rmd"
+  type: grid
+  grid-columns: 3
+  image-height: 180px
+  sort: false
+  categories: true
+  fields: [image, title, subtitle, description, categories]
+  image-placeholder: Images/placeholder-stats.svg
+page-layout: full
+title-block-banner: true
+toc: false
+---
+
+Formal statistical analyses from **Math 325 (Intermediate Statistics)** and **Math 326 (Design of Experiments)**. Each one states its hypotheses, checks the model's assumptions, and explains the results in plain language. The two experiments were designed, run, and measured by me.
+
+::: {.callout-note appearance="minimal"}
+More work from these courses, including Math 221D unit notebooks, practice quizzes, and class activities, is in the [coursework folder on GitHub](https://github.com/CrampsP/CrampsP.github.io/tree/main/Statistical_Analysis/coursework).
+:::

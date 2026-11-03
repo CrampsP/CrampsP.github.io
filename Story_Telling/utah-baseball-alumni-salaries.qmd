@@ -1,0 +1,84 @@
+---
+title: "BYU Baseball Alumni Earnings"
+subtitle: "DS 350 · Data Wrangling & Visualization"
+author: "Spencer Payne"
+description: "Compared inflation-adjusted MLB salaries of players from Utah colleges using the Lahman database."
+categories: ["R", "Lahman", "Inflation Adjustment"]
+---
+
+## Overview
+
+If you want to play professional baseball, does it matter which Utah college you attend? I joined the Lahman database's school, college-playing, people, and salary tables to find every MLB player from a Utah school. I adjusted their salaries to 2021 dollars with `priceR` so earnings from different decades are comparable.
+
+```{r}
+library(tidyverse)
+library(Lahman)
+library(priceR)
+library(scales)
+```
+
+```{r}
+data(package = "Lahman")
+```
+
+```{r}
+```
+
+```{r}
+utah_schools <- Schools %>%
+  filter(state == "UT")
+```
+
+```{r}
+utah_college_players <- CollegePlaying %>%
+  left_join(utah_schools, by = "schoolID") %>% 
+  filter(!is.na(state))
+```
+
+```{r}
+utah_players_named <- utah_college_players %>%
+  left_join(People, by = "playerID") %>%
+  mutate(player_name = paste(nameFirst, nameLast))
+```
+
+```{r}
+utah_player_salaries <- Salaries %>%
+  left_join(utah_players_named, by = "playerID")%>% 
+  filter(!is.na(state))
+```
+
+```{r}
+utah_player_salaries <- utah_player_salaries %>%
+  mutate(salary_2021 = adjust_for_inflation(price = salary, from_date = yearID.x, country = "US", to_date = 2021))
+```
+
+```{r}
+ggplot(utah_player_salaries, aes(x = schoolID, y = salary_2021)) +
+  geom_jitter(width = 0.2, alpha = 0.5, size = 2) +
+  scale_y_log10(labels = dollar_format()) +
+  labs(title = "Professional Baseball Earnings of Different Alumni") +
+  theme_minimal()
+```
+
+```{r}
+ggplot(utah_player_salaries, aes(x = yearID.x, y = salary_2021, color = schoolID)) +
+  geom_point(alpha = 0.5, size = 2) +
+  scale_y_log10(labels = dollar_format()) +
+  labs(
+    title = "Inflation-Adjusted MLB Salaries Over Time",
+    color = "School"
+  ) +
+  theme_minimal()
+```
+
+Each of the graphs shows something significant, the data has a large population of professional baseball players who originated from BYU and are payed very well for their participation. Now this may be an issue with the data at large but if I had my sights set on playing professional baseball and making some serious money, I would do my best to get into BYU's program. On average and over time BYU's alumni have been paid more money to play baseball than alumni at any other school with very few exceptions.
+
+
+
+
+
+
+
+
+
+

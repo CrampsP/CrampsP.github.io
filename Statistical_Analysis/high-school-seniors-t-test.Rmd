@@ -1,0 +1,121 @@
+---
+title: "Caffeine and Sleep in High School Seniors"
+subtitle: "Math 325 · Intermediate Statistics"
+author: "Spencer Payne"
+description: "Independent two-sample t-test comparing school-night sleep for seniors who do and don't drink caffeine."
+categories: ["R", "Hypothesis Testing", "t-Test"]
+---
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(DT)
+library(pander)
+library(readr)
+library(dplyr)
+library(car)
+
+HSS <- read_csv("data/HighSchoolSeniors.csv")
+#If this code does not work: 
+#Use the top menu from RStudio's window to select "Session, Set Working Directory, To Source File Location", and then play this R-chunk into your console to read the HSS data into R. 
+
+## In your Console run View(HSS) to ensure the data has loaded correctly.
+```
+
+````{=html}
+````
+
+
+```{r}
+search <- HSS[, c(5, 6, 33, 35)]
+```
+
+```{r}
+split_result <- 
+  mutate(search, split_result = str_split(Sleep_Hours_Schoolnight, "-| |:", simplify = TRUE)) %>% na.omit(search)
+```
+
+```{r}
+split_result_clean1 <- split_result %>%
+  mutate(clean1 = gsub("[A-Za-z]|,", "", split_result[,1]))
+```
+
+```{r}
+split_result_clean2 <- split_result_clean1 %>%
+  mutate(clean2 = case_when(
+    split_result[,2] %in% c("30", "1/2") ~ 0.5, 
+    !is.na(match(split_result[,2], month.abb)) ~  match(split_result[,2], month.abb),
+    split_result[,2] == "" ~ 0
+  ))
+```
+
+```{r}
+math <- split_result_clean2 %>%
+  mutate(
+    clean1 = as.numeric(clean1),
+    clean2 = as.numeric(clean2),
+    result = clean1 + clean2) %>% 
+  na.omit(split_result_clean2)
+```
+
+```{r}
+final <- math %>%
+  mutate(final_sleep = ifelse(result > 11, result / 2, result)) %>% 
+  select(-c(4,5,6,7,8))
+```
+
+```{r}
+bev <- final %>% 
+  mutate(caffine_status = ifelse(final$Beverage %in% c("Water","Milk","Juice","Sports drink","Soft drink (non-caffeinated)","Powdered drink", "other"), "Non-Caffine", "Caffine")) %>% 
+    select(-c(3))
+```
+
+
+
+In this analysis, we have a data set containing various information regarding high school seniors. Our main area of concern is the relationship between sleep on a school night and caffeine intake. 
+
+We will assume that high school seniors who do not drink caffeine get a different amount of sleep than those who do drink caffeine. We will also assume 0.05 as our $\alpha$
+
+Our null and alternative hypothesis includes the following
+$$
+  H_0: \mu_\text{Non-Caffinated} = \mu_\text{Caffinated}
+$$
+$$ 
+  H_a: \mu_\text{Non-Caffinated} \neq \mu_\text{Caffinated}
+$$
+
+$$ 
+  \alpha = 0.05
+$$
+
+```{r}
+t.test(final_sleep ~ caffine_status, bev, mu = 0, alternative = "two.sided")
+```
+
+```{r}
+qqPlot(final_sleep ~ caffine_status, bev)
+```
+
+
+```{r}
+boxplot(final_sleep ~ caffine_status, bev, xlab="Caffeine vs. Non-Caffeine Drinkers", ylab="Hours of Sleep", main ="Hours slept by Caffeine and Non drinkers", col='yellow')
+```
+
+
+Based on the results of the t-test we can see that the p-value is higher that the level of significance. Meaning therefore that we have insufficient evidence to reject the null hypothesis. We cannot conclude that seniors in high school seniors who drink caffeine get the same amount of sleep than high school seniors who do not drink caffeine.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

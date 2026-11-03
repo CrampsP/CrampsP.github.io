@@ -1,0 +1,17 @@
+{
+  "hash": "0283042dc66c197c563e60772113aec5",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Do Older Planes Cause Longer Delays?\"\nsubtitle: \"DS 350 · Data Wrangling & Visualization\"\nauthor: \"Spencer Payne\"\ndescription: \"Joined flight and aircraft tables to explore how plane age relates to delays, carriers, and flight distance.\"\ncategories: [\"R\", \"EDA\", \"Joins\"]\n---\n\n\n\n## Overview\n\nDo older aircraft lead to longer delays? I joined the 2013 NYC flights table to aircraft records by tail number, calculated each plane's age, grouped planes into age bands, and compared departure delays, carriers, and flight distances across those bands.\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\nlibrary(nycflights13)\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\ndove <- flights %>% \n  left_join(\n    planes %>% rename(year_build = year),\n    by = \"tailnum\"\n  ) %>% \n  mutate(age = year - year_build)\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\ndove <- dove %>% \n  mutate(age_group = case_when(\n    age >= 0 & age <= 10 ~ \"0-10\",\n    age >= 11 & age <= 20 ~ \"11-20\",\n    age >= 21 & age <= 30 ~ \"21-30\",\n    age > 30 ~ \">30\"))\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\ncount(dove, age_group)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n# A tibble: 5 × 2\n  age_group      n\n  <chr>      <int>\n1 0-10      119882\n2 11-20     124825\n3 21-30      32725\n4 >30         1432\n5 <NA>       57912\n```\n\n\n:::\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(dove, aes(x = age_group, y = dep_delay)) +\n  geom_boxplot() +\n  coord_cartesian(ylim = c(-20, 100)) +\n  labs(title = \"Departure Delays by Plane Age Group\")\n```\n\n::: {.cell-output-display}\n![](flight-delays-by-plane-age_files/figure-html/unnamed-chunk-5-1.png){width=672}\n:::\n:::\n\n\n\nIt seems from this chart that the younger planes have longer departure times than the older ones. The 75th percentile of the box is higher the younger a plane is.\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\ndove <- dove %>% \n  left_join(airlines, by = \"carrier\")\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(dove, aes(x = name, y = age)) +\n  geom_boxplot() +\n  coord_flip() +\n  labs(title = \"Plane Age by Airline\")\n```\n\n::: {.cell-output-display}\n![](flight-delays-by-plane-age_files/figure-html/unnamed-chunk-7-1.png){width=672}\n:::\n:::\n\n\n\nIt seems to me in this chart that there are not many correlations between the carrier and the ages of the planes that they have.\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(dove, aes(x = age_group, y = distance)) +\n  geom_boxplot() +\n  labs(title = \"Flight Distance by Plane Age Group\")\n```\n\n::: {.cell-output-display}\n![](flight-delays-by-plane-age_files/figure-html/unnamed-chunk-8-1.png){width=672}\n:::\n:::\n\n\n\nFrom what this graph shows about plane ages and distances that the planes travel, it does not seem like there are any correlations between those two variables. Although it is important to note that 21-30 year old planes have the highest average flight distance.\n\n",
+    "supporting": [
+      "flight-delays-by-plane-age_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -1,10 +1,75 @@
 ---
-title: "about me"
-subtitle: "my data science portfolio"
-# use quarto markdown to 
+title: "Spencer Payne"
+image: Images/social-card.png
+subtitle: "Data Science · Statistics · Data Engineering"
+page-layout: full
+title-block-banner: true
+toc: false
+listing:
+  id: featured
+  contents:
+    - Full_Stack/airflow-etl-pipelines.qmd
+    - Machine_Learning/housing-price-prediction.qmd
+    - Story_Telling/medicaid-drug-reporting.qmd
+    - Statistical_Analysis/two-way-anova-analysis.Rmd
+    - Full_Stack/portlight-system-monitor.qmd
+    - Data_Exploration/baseball-sql-relationships.qmd
+  type: grid
+  grid-columns: 3
+  image-height: 180px
+  sort: false
+  fields: [image, title, description, categories]
+  categories: false
+  image-placeholder: Images/placeholder-ml.svg
 ---
 
-# Title 1 Header
-## Title 2 Header
+::: {.hero}
+I'm a **Data Science student at BYU–Idaho** (B.S. expected July 2027, minor in Business Analytics). I'm also the **Special Projects Manager at Family Psychological Services**, where I built the monthly ETL and reporting workflow that cleans about 480,000 CRM records and cut report preparation time by 78%.
 
-[MarkDown Basics](https://quarto.org/docs/authoring/markdown-basics.html#links-images)
+I like taking messy, real-world data and turning it into clear answers: cleaning it, testing it statistically, modeling it, and building the pipelines that keep it flowing.
+
+[View my resume](resume.qmd){.btn .btn-primary} [GitHub](https://github.com/CrampsP){.btn .btn-outline-primary} [LinkedIn](https://www.linkedin.com/in/spencer-payne-95090428b){.btn .btn-outline-primary} [Email me](mailto:spayne22802@gmail.com){.btn .btn-outline-primary}
+
+<small>Rexburg, ID · Authorized to work in the U.S. without sponsorship · spayne22802@gmail.com</small>
+:::
+
+## At a glance
+
+::: {.glance}
+| | |
+|---|---|
+| **Education** | B.S. Data Science, BYU–Idaho (GPA 3.4) · A.S. 2026 · Certificate in Data Science 2026 |
+| **Experience** | Special Projects Manager, Family Psychological Services (2023–present) · IT Lead, Mexico City (2021–2023) |
+| **Recent focus** | ETL pipelines (Airflow, Snowflake, MongoDB), database design, statistics, machine learning |
+| **Spoken languages** | English, conversational Spanish |
+:::
+
+## Skills
+
+::: {.skills}
+| Area | Tools |
+|---|---|
+| **Languages** | Python, R, SQL, Excel/VBA, PowerShell, JavaScript |
+| **Data analysis** | pandas, Polars, tidyverse (dplyr, tidyr, ggplot2), Lets-Plot |
+| **Statistics** | t-tests, ANOVA, nonparametric tests, linear and logistic regression, design of experiments |
+| **Machine learning** | scikit-learn, XGBoost, TensorFlow/Keras, PyTorch |
+| **Data engineering** | ETL/ELT, Apache Airflow, Snowflake, MongoDB, Docker, APIs, schema design and normalization |
+| **BI and reporting** | Tableau, Power BI (DAX), Excel, Quarto, R Markdown |
+:::
+
+## Featured projects
+
+::: {#featured}
+:::
+
+## Browse by skill
+
+::: {.section-grid}
+[**Statistical Analysis**<br><span>Hypothesis tests, regression, designed experiments</span>](statistics.qmd)
+[**Data Cleansing**<br><span>Multi-format import, reshaping, missing data</span>](cleansing.qmd)
+[**Data Exploration**<br><span>SQL, joins, and business questions</span>](exploration.qmd)
+[**Story Telling**<br><span>Visualization for a specific audience</span>](story_telling.qmd)
+[**Machine Learning**<br><span>Regression, classification, CNNs</span>](ml.qmd)
+[**Full Stack**<br><span>ETL pipelines and applications</span>](full_stack.qmd)
+[**Competition**<br><span>Timed challenges and contests</span>](competition.qmd)
+:::

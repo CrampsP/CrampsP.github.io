@@ -1,0 +1,105 @@
+---
+title: "Timed Python Coding Challenge"
+subtitle: "DS 250 · Data Science Programming"
+author: "Spencer Payne"
+description: "A timed challenge covering data wrangling, visualization, missing data, and a machine learning classifier in Python."
+categories: ["Python", "pandas", "scikit-learn"]
+---
+```{python}
+import pandas as pd
+import numpy as np
+from lets_plot import *
+
+LetsPlot.setup_html(isolated_frame=True)
+```
+
+
+
+```{python}
+df = pd.read_csv("https://raw.githubusercontent.com/byuidatascience/data4dwellings/master/data-raw/dwellings_denver/dwellings_denver.csv")
+df
+```
+
+
+```{python}
+q1 = (ggplot(df, aes(x='yrbuilt', y='livearea', fill='stories'))+        geom_point(color = 'blue')+  
+        ggtitle("Thank goodness the 21st century doesn't have split levels") +
+        xlab("Year home was built") +
+        ylab("Square footage of home (log)") +
+        theme_minimal() +
+        ylim(0,10000) 
+)
+##     scale_y_continuous(limits = c(0,10000), expand = c(0.5, 0))
+
+q1
+```
+
+
+```{python}
+problem = pd.Series([np.nan, 15, 22, 45, 31, np.nan, 85, 38, 129, 8000, 21, 2]) 
+print(problem)
+new = problem.replace(np.nan, 38)
+print(new)
+mean = ((new.sum())/12).round(2)
+print(mean)
+```
+
+
+```{python}
+df_raw = pd.read_csv("https://github.com/fivethirtyeight/data/raw/master/star-wars-survey/StarWars.csv", encoding_errors='ignore')
+df_raw
+
+df_loc = df_raw.drop(columns=['RespondentID',
+       'Have you seen any of the 6 films in the Star Wars franchise?',
+       'Do you consider yourself to be a fan of the Star Wars film franchise?',
+       'Which of the following Star Wars films have you seen? Please select all that apply.',
+       'Unnamed: 4', 'Unnamed: 5', 'Unnamed: 6', 'Unnamed: 7', 'Unnamed: 8',
+       'Please rank the Star Wars films in order of preference with 1 being your favorite film in the franchise and 6 being your least favorite film.',
+       'Unnamed: 10', 'Unnamed: 11', 'Unnamed: 12', 'Unnamed: 13',
+       'Unnamed: 14',
+       'Please state whether you view the following characters favorably, unfavorably, or are unfamiliar with him/her.',
+       'Unnamed: 16', 'Unnamed: 17', 'Unnamed: 18', 'Unnamed: 19',
+       'Unnamed: 20', 'Unnamed: 21', 'Unnamed: 22', 'Unnamed: 23',
+       'Unnamed: 24', 'Unnamed: 25', 'Unnamed: 26', 'Unnamed: 27',
+       'Unnamed: 28', 'Which character shot first?',
+       'Are you familiar with the Expanded Universe?',
+       'Do you consider yourself to be a fan of the Expanded Universe?',
+       'Do you consider yourself to be a fan of the Star Trek franchise?',
+       'Gender', 'Age', 'Household Income', 'Education'])
+df_loc
+
+df_dummy = pd.get_dummies(df_loc['Location (Census Region)'], prefix = 'Location (Census Region)').astype(int)
+df_dummy
+
+q3 = (ggplot(df_dummy, aes()) +
+geom_histogram(stat = 'count')
+)
+q3
+```
+
+
+```{python}
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report, accuracy_score
+from sklearn.model_selection import train_test_split
+
+q4 = pd.read_json("flights_missing.json")
+q4
+q4_clean = q4.fillna('NaN')
+q4_clean = q4.replace(['n/a', 'nan', -999, 'NaN', '1500+' '', ' ', '    '], 'NaN')
+
+
+X = q4.drop(columns=['airport_code', 'airport_name', 'month'])
+y = q4['airport_code']
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.33, random_state=1936)
+
+# Output the shapes of the resulting datasets
+print(X_train.shape, y_train.shape)
+print(X_test.shape, y_test.shape)
+
+
+
+```

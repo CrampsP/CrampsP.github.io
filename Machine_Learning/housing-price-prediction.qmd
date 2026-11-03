@@ -1,0 +1,50 @@
+---
+title: "Predicting King County Home Prices"
+subtitle: "Machine Learning · Regression"
+author: "Spencer Payne"
+description: "Feature engineering and an XGBoost regressor that explains about 90% of the variance in home sale prices on held-out data."
+categories: ["Python", "XGBoost", "Feature Engineering", "Regression"]
+image: ../Images/placeholder-ml.svg
+---
+
+## Summary
+
+A real estate client wanted a model that predicts a home's sale price from its listing details. I cleaned 20,000 King County (Seattle area) sales, engineered features, and trained gradient-boosted trees with **XGBoost**. The model was then scored on a hidden holdout set as a class competition.
+
+| Model version | Test RMSE | Test R² |
+|---|---|---|
+| Engineered features + geographic clusters | $136,744 | 0.88 |
+| **Cleaned outliers + date features (final)** | **$113,938** | **0.90** |
+
+## Approach
+
+**1. Cleaning.** I parsed the sale date into year and month, dropped ID columns, and removed implausible records: more than 15 bedrooms, bathroom counts outside 0.5–5.5, and extreme living and lot sizes.
+
+**2. Feature engineering.** I used log transforms of square footage, living-to-lot and above-to-basement ratios, house age, years since renovation, and a renovation flag. K-means clusters on latitude and longitude capture neighborhood effects.
+
+**3. Model.** I used an XGBoost regressor with an 80/20 train/test split, then ran the same cleaning function on the holdout set so the training and scoring data stay consistent.
+
+```python
+def clean_housing(housing):
+    housing['datetime'] = housing['date'].str.split('T').str[0]
+    housing = housing.assign(
+        year=housing['datetime'].str[0:4].astype(int),
+        month=housing['datetime'].str[4:6].astype(int),
+    ).drop(columns=['date', 'datetime', 'id'])
+
+    clean = housing[housing['bedrooms'] <= 15]
+    clean = clean[(clean['bathrooms'] <= 5.5) & (clean['bathrooms'] >= .5)]
+    clean = clean[clean['sqft_living'] <= 8670]
+    clean = clean[clean['sqft_lot'] <= 500000]
+    return clean
+
+model = XGBRegressor()
+model.fit(X_train, y_train)
+predictions = model.predict(X_test)
+```
+
+## What I learned
+
+Removing a small number of extreme listings improved the model more than adding extra engineered features did, cutting RMSE by about $23,000. Bundling the cleaning steps into a single function also made it simple to score new holdout files without mismatched columns.
+
+[View the full notebooks on GitHub](https://github.com/CrampsP/CrampsP.github.io/tree/main/Machine_Learning/notebooks){.btn .btn-outline-primary}

@@ -1,0 +1,70 @@
+---
+title: "Do Older Planes Cause Longer Delays?"
+subtitle: "DS 350 · Data Wrangling & Visualization"
+author: "Spencer Payne"
+description: "Joined flight and aircraft tables to explore how plane age relates to delays, carriers, and flight distance."
+categories: ["R", "EDA", "Joins"]
+---
+
+## Overview
+
+Do older aircraft lead to longer delays? I joined the 2013 NYC flights table to aircraft records by tail number, calculated each plane's age, grouped planes into age bands, and compared departure delays, carriers, and flight distances across those bands.
+
+```{r}
+library(tidyverse)
+library(nycflights13)
+```
+
+```{r}
+dove <- flights %>% 
+  left_join(
+    planes %>% rename(year_build = year),
+    by = "tailnum"
+  ) %>% 
+  mutate(age = year - year_build)
+```
+
+```{r}
+dove <- dove %>% 
+  mutate(age_group = case_when(
+    age >= 0 & age <= 10 ~ "0-10",
+    age >= 11 & age <= 20 ~ "11-20",
+    age >= 21 & age <= 30 ~ "21-30",
+    age > 30 ~ ">30"))
+```
+
+```{r}
+count(dove, age_group)
+```
+
+```{r}
+ggplot(dove, aes(x = age_group, y = dep_delay)) +
+  geom_boxplot() +
+  coord_cartesian(ylim = c(-20, 100)) +
+  labs(title = "Departure Delays by Plane Age Group")
+```
+
+It seems from this chart that the younger planes have longer departure times than the older ones. The 75th percentile of the box is higher the younger a plane is.
+
+```{r}
+dove <- dove %>% 
+  left_join(airlines, by = "carrier")
+```
+
+```{r}
+ggplot(dove, aes(x = name, y = age)) +
+  geom_boxplot() +
+  coord_flip() +
+  labs(title = "Plane Age by Airline")
+```
+
+It seems to me in this chart that there are not many correlations between the carrier and the ages of the planes that they have.
+
+```{r}
+ggplot(dove, aes(x = age_group, y = distance)) +
+  geom_boxplot() +
+  labs(title = "Flight Distance by Plane Age Group")
+```
+
+From what this graph shows about plane ages and distances that the planes travel, it does not seem like there are any correlations between those two variables. Although it is important to note that 21-30 year old planes have the highest average flight distance.
+

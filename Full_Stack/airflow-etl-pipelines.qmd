@@ -1,0 +1,67 @@
+---
+title: "Automated ETL Pipelines with Apache Airflow"
+subtitle: "Data Engineering · Airflow 3, Docker, Snowflake, MongoDB"
+author: "Spencer Payne"
+description: "Scheduled Airflow pipelines that pull weather, stock, and SFTP data, clean it with pandas, and upsert it into Snowflake, with automatic backfill."
+categories: ["Python", "Apache Airflow", "Snowflake", "Docker", "ETL"]
+image: ../Images/placeholder-fullstack.svg
+---
+
+## Summary
+
+In my 10-week ETL Pipelines course, I built a set of **Apache Airflow 3** DAGs that run in Docker. I adapted the course templates for the DAGs, Docker services, and Snowflake loading, and I wrote the transformation logic myself. They move data from three kinds of sources (a public API, a MongoDB database behind an SSH tunnel, and an SFTP drop) into a **Snowflake** warehouse. Each pipeline follows extract → transform → load, runs weekly, and can **backfill** missing history without creating duplicates.
+
+```{mermaid}
+flowchart LR
+    A[Open-Meteo API<br/>10 U.S. cities] --> E
+    B[(MongoDB<br/>via SSH tunnel)] --> E
+    C[SFTP server<br/>daily CSV drops] --> E
+    E[Extract<br/>Airflow tasks] --> T[Transform<br/>pandas cleaning & typing]
+    T --> L[Load<br/>MERGE / bulk insert]
+    L --> S[(Snowflake<br/>RAW schema)]
+```
+
+## Pipelines
+
+| DAG | What it does | Schedule |
+|---|---|---|
+| **Weather forecast ETL** | Calls the Open-Meteo API for 10 large U.S. cities, retries with exponential backoff, normalizes daily weather fields, and upserts into Snowflake with `MERGE`. It backfills to a configurable start date. | Sundays 19:00 UTC |
+| **Stock market ETL** | Opens an SSH tunnel to MongoDB, pulls price documents for the run's data interval, cleans types, and merges into `RAW.STOCK_DATA` without duplicates. | Weekly |
+| **SFTP ingestion** | Scans backwards from today for the newest dated folder on an SFTP server, combines every CSV for that date, creates the Snowflake table from the DataFrame schema, and loads it. | Weekly / manual |
+| **Catch-up demo** | Shows how Airflow's `catchup` and data intervals drive backfills. | Weekly |
+
+## Engineering decisions
+
+- **Idempotent loads.** `MERGE` statements keyed on date and entity mean a rerun or backfill updates rows instead of duplicating them.
+- **Secrets stay out of code.** Every credential, including the Snowflake key-pair, the SSH and SFTP passwords, and the Finnhub API key, is read from environment variables. The repository only includes an `example.env` template.
+- **Shared helpers.** `dags/utils.py` centralizes Snowflake connections (password or private-key auth), the MongoDB SSH tunnel, and API-key lookup, so each DAG stays short.
+- **Testable outside Airflow.** Each DAG falls back to plain Python decorators when Airflow isn't installed, so the extract and transform logic can be run and debugged locally.
+- **Visible history.** The `archive/` folder keeps earlier versions (v1 → v3) to show how the pipelines evolved, from a single script to modular tasks with retries and backfill.
+
+An excerpt from the weather DAG, showing the schedule and the upsert from a temporary staging table:
+
+```python
+@dag(
+    dag_id="final_weather_dagV2",
+    schedule="0 19 * * 0",          # every Sunday, 12:00 PM Mountain Time
+    start_date=datetime(2025, 10, 26, 18, 0, tzinfo=timezone.utc),
+    catchup=True,                   # backfill any missed weeks
+    tags=["weather", "etl", "snowflake", "openmeteo"],
+)
+...
+cursor.execute(f"""
+    MERGE INTO {target_table} t
+    USING {tmp_table} s
+    ON t.DATE = s.DATE AND t.CITY_IDX = s.CITY_IDX
+    WHEN MATCHED THEN UPDATE SET
+        TEMPERATURE_2M_MAX = s.TEMPERATURE_2M_MAX,
+        TEMPERATURE_2M_MIN = s.TEMPERATURE_2M_MIN,
+        ...
+""")
+```
+
+## Tech stack
+
+Python · pandas · Apache Airflow 3 (TaskFlow API) · Docker Compose · Snowflake (`snowflake-connector-python`, `MERGE`) · MongoDB (`pymongo`, `sshtunnel`) · Paramiko SFTP · Open-Meteo API
+
+[Browse the pipeline code](https://github.com/CrampsP/CrampsP.github.io/tree/main/Full_Stack/airflow-etl-pipelines){.btn .btn-outline-primary}

@@ -1,11 +1,22 @@
 ---
-title: "about me"
-subtitle: "my data science portfolio"
-# use quarto markdown to 
+title: "Machine Learning"
+subtitle: "Regression, classification, deep learning, and computer vision in Python"
+listing:
+  contents: "Machine_Learning/*.qmd"
+  type: grid
+  grid-columns: 3
+  image-height: 180px
+  sort: false
+  categories: true
+  fields: [image, title, subtitle, description, categories]
+  image-placeholder: Images/placeholder-ml.svg
+page-layout: full
+title-block-banner: true
+toc: false
 ---
 
-# Title 1 Header
-## Title 2 Header
+Models built for client-style problems and scored on hidden holdout sets. Each write-up covers the approach, the honest results, and what I would change next.
 
-[MarkDown Basics](https://quarto.org/docs/authoring/markdown-basics.html#links-images)
-
+::: {.callout-note appearance="minimal"}
+The original Jupyter/Colab notebooks, including a from-scratch transformer language model in PyTorch and an RNN text-generation walkthrough, are in [Machine_Learning/notebooks](https://github.com/CrampsP/CrampsP.github.io/tree/main/Machine_Learning/notebooks).
+:::

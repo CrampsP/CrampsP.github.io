@@ -1,193 +1,85 @@
 project:
   type: website
-  # projects/ and coursework/ hold source files for browsing on GitHub; keep them out of the site build
+  # Only site pages are rendered; supporting code, notebooks, and coursework stay as browsable files on GitHub
   render:
     - "*.qmd"
-    - "*.ipynb"
-    - "!projects/"
-    - "!coursework/"
+    - "*.Rmd"
+    - "!*/coursework/"
+    - "!Full_Stack/airflow-etl-pipelines/"
+    - "!Full_Stack/portlight-system-monitor/"
+    - "!Machine_Learning/notebooks/"
+    - "!docs/"
+  resources:
+    - "Images/*"
+
+# Results are computed locally and committed in _freeze/, so the GitHub build doesn't re-run analyses
+execute:
+  freeze: auto
+  warning: false
+  message: false
 
 website:
-  title: "Spencer - Data Science Portfolio"
+  title: "Spencer Payne"
+  image: Images/social-card.png
+  description: "Spencer Payne, data science student at BYU–Idaho. Portfolio of statistics, data wrangling, visualization, machine learning, and data engineering (Airflow, Snowflake) projects."
+  site-url: https://crampsp.github.io
+  open-graph: true
+  twitter-card: true
+  repo-url: https://github.com/CrampsP/CrampsP.github.io
   favicon: Images/favicon.png
   back-to-top-navigation: true
-  repo-url: https://github.com/CrampsP/CrampsP.github.io#
-  #repo-actions: [issue] #if you want to allow others to report issues on your site uncomment this line
-
-  page-footer: 
-    border: true
-    left: "Spencer 2025©"
-    right: 
-      - icon: linkedin
-        href: Spencer's_LinkedIn_URL
+  page-navigation: true
 
   navbar:
     background: primary
-    search: true   
-    right:
-      - text: "Home"
-        file: index.qmd
-      - text: "My Resume"
-        file: resume.qmd
+    search: true
+    left:
+      - text: "Statistical Analysis"
+        href: statistics.qmd
       - text: "Data Cleansing"
-        file: cleansing.qmd
+        href: cleansing.qmd
       - text: "Data Exploration"
-        file: exploration.qmd
+        href: exploration.qmd
       - text: "Story Telling"
-        file: story_telling.qmd
+        href: story_telling.qmd
       - text: "Machine Learning"
-        file: ml.qmd
+        href: ml.qmd
       - text: "Full Stack"
-        file: full_stack.qmd
+        href: full_stack.qmd
       - text: "Competition"
-        file: competition.qmd
-  
-  # learn more about navication here https://quarto.org/docs/websites/website-navigation.html
-  # comment out any of the sections below to turn off the sidebar
+        href: competition.qmd
+    right:
+      - text: "Resume"
+        href: resume.qmd
+      - icon: github
+        href: https://github.com/CrampsP
+        aria-label: GitHub
+      - icon: linkedin
+        href: https://www.linkedin.com/in/spencer-payne-95090428b
+        aria-label: LinkedIn
 
-  sidebar: 
-    - title: "Data Cleansing"
-      style: "docked"
-      background: light
-      contents:
-        - text: "Data Cleansing"
-          file: cleansing.qmd
-        - text: "---"
-        - text: "Project 1"
-          file: Cleansing_Projects/project1.qmd
-        - text: "---"
-        - text: "Project 2"
-          file: Cleansing_Projects/project2.qmd
-        - text: "---"
-        - text: "Project 3"
-          file: Cleansing_Projects/project3.qmd
-        - text: "---"
-        - text: "Project 4"
-          file: Cleansing_Projects/project4.qmd
-        - text: "---"
-        - text: "Project 5"
-          file: Cleansing_Projects/project5.qmd
-        - text: "---"
-    - title: "Data Exploration"
-      style: "docked"
-      background: light
-      contents:
-        - text: "Data Exploration"
-          file: exploration.qmd
-        - text: "---"
-        - text: "Project 1"
-          file: Exploration_Projects/project1.qmd
-        - text: "---"
-        - text: "Project 2"
-          file: Exploration_Projects/project2.qmd
-        - text: "---"
-        - text: "Project 3"
-          file: Exploration_Projects/project3.qmd
-        - text: "---"
-        - text: "Project 4"
-          file: Exploration_Projects/project4.qmd
-        - text: "---"
-        - text: "Project 5"
-          file: Exploration_Projects/project5.qmd
-        - text: "---"
-    - title: "Story Telling"
-      style: "docked"
-      background: light
-      contents:
-        - text: "Story Telling"
-          file: story_telling.qmd
-        - text: "---"
-        - text: "Project 1"
-          file: Story_Telling/project1.qmd
-        - text: "---"
-        - text: "Project 2"
-          file: Story_Telling/project2.qmd
-        - text: "---"
-        - text: "Project 3"
-          file: Story_Telling/project3.qmd
-        - text: "---"
-        - text: "Project 4"
-          file: Story_Telling/project4.qmd
-        - text: "---"
-        - text: "Project 5"
-          file: Story_Telling/project5.qmd
-        - text: "---"
-    - title: "Machine Learning"
-      style: "docked"
-      background: light
-      contents:
-        - text: "Machine Learning"
-          file: ml.qmd
-        - text: "---"
-        - text: "Project 1"
-          file: Machine_Learning/project1.qmd
-        - text: "---"
-        - text: "Project 2"
-          file: Machine_Learning/project2.qmd
-        - text: "---"
-        - text: "Project 3"
-          file: Machine_Learning/project3.qmd
-        - text: "---"
-        - text: "Project 4"
-          file: Machine_Learning/project4.qmd
-        - text: "---"
-        - text: "Project 5"
-          file: Machine_Learning/project5.qmd
-        - text: "---"
-    - title: "Full Stack"
-      style: "docked"
-      background: light
-      contents:
-        - text: "Full Stack"
-          file: full_stack.qmd
-        - text: "---"
-        - text: "Project 1"
-          file: Full_Stack/project1.qmd
-        - text: "---"
-        - text: "Project 2"
-          file: Full_Stack/project2.qmd
-        - text: "---"
-        - text: "Project 3"
-          file: Full_Stack/project3.qmd
-        - text: "---"
-        - text: "Project 4"
-          file: Full_Stack/project4.qmd
-        - text: "---"
-        - text: "Project 5"
-          file: Full_Stack/project5.qmd
-        - text: "---"
-    - title: "Competition"
-      style: "docked"
-      background: light
-      contents:
-        - text: "Competition"
-          file: competition.qmd
-        - text: "---"
-        - text: "Project 1"
-          file: Competition/project1.qmd
-        - text: "---"
-        - text: "Project 2"
-          file: Competition/project2.qmd
-        - text: "---"
-        - text: "Project 3"
-          file: Competition/project3.qmd
-        - text: "---"
-        - text: "Project 4"
-          file: Competition/project4.qmd
-        - text: "---"
-        - text: "Project 5"
-          file: Competition/project5.qmd
-        - text: "---"
-  
-format:  
+  page-footer:
+    border: true
+    left: "© 2026 Spencer Payne"
+    right:
+      - icon: github
+        href: https://github.com/CrampsP
+      - icon: linkedin
+        href: https://www.linkedin.com/in/spencer-payne-95090428b
+      - icon: envelope
+        href: mailto:spayne22802@gmail.com
+
+format:
   html:
-    theme: #see this link to customize the theme with css (https://quarto.org/docs/output-formats/html-themes.html#dark-mode)
-      light: flatly # more themes can be found [here](https://quarto.org/docs/output-formats/html-themes.html)
+    theme:
+      light: flatly
       dark: darkly
-      #light: cosmo
-      #dark: [cosmo, theme-dark.scss]
     css: styles.css
     toc: true
-
-
-
+    code-fold: true
+    code-summary: "Show the code"
+    code-overflow: wrap
+    code-copy: hover
+    fig-align: center
+    html-math-method: katex
+    title-block-banner: true

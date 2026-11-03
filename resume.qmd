@@ -1,87 +1,55 @@
 ---
-layout: cv
-title: Spencer Payne's CV
+title: "Resume"
+subtitle: "Spencer Payne · Data Science, B.S. (expected July 2027)"
+toc: true
 ---
-# Spencer Payne
 
+Rexburg, ID · [spayne22802@gmail.com](mailto:spayne22802@gmail.com) · [LinkedIn](https://www.linkedin.com/in/spencer-payne-95090428b) · [GitHub](https://github.com/CrampsP)
 
-<div id="webaddress">
-<a href="spayne22802@gmail.com">spayne22802@gmail.com</a>
-| <a href="https://www.linkedin.com/in/spencer-payne-95090428b">My LinkedIn page</a>
-</div>
-
-
-## Currently
-
-Studying Data Science at BYU-Idaho
-
-### Specializing in
-
-Business Analytics
-
+*Authorized to work in the United States without sponsorship.*
 
 ## Education
 
-`2016-2020`
+**Brigham Young University–Idaho**, Rexburg, ID [Expected July 2027]{.float-end}
 
-__Royal High School.__
+- B.S. Data Science, GPA 3.4/4.0 · Minor: Business Analytics · General Mathematics Cluster (in progress)
+- Associate of Science, April 2026 · Certificate in Data Science, 2026 · Data Science Society member
+- Relevant coursework: ETL Pipelines, Database Design and Administration, Statistics, Machine Learning, Business Analytics
 
+## Technical and professional skills
 
+- **Programming and analytics:** Python (pandas), SQL, R, Excel/VBA, Tableau, Power BI, statistical analysis, data visualization
+- **Data engineering and systems:** ETL/ELT, Apache Airflow, Docker, Snowflake, MongoDB, APIs, relational modeling, data validation
+- **Database skills:** joins, subqueries, normalization, schema design, database administration, user and schema permissions
+- **Professional strengths:** process improvement, stakeholder reporting, technical documentation, independent troubleshooting, team leadership, HIPAA-compliant operations, conversational Spanish
 
+## Professional experience
 
+### Special Projects Manager [Mar 2023 – Present]{.float-end}
+*Family Psychological Services, Agoura Hills, CA (Hybrid)*
 
-## Awards
+- Built a repeatable monthly ETL and reporting workflow with Excel/VBA and Python/pandas. It cleans and consolidates 48 CRM CSVs (~480,000 historical rows) plus ~10,000 new records per month, and it cut preparation time from 45 to 10 minutes (78%).
+- Standardized service values, names, dates, and data types, reconciled row counts and totals against source reports, and removed the ~20% of records that were non-patient schedule blocks and would have distorted productivity metrics.
+- Delivered Tableau and Excel reporting covering 15 clinicians, 5 services, and 2 locations, which helped leadership identify the highest-grossing and most frequently delivered services.
+- Supported about 10 patients per in-person day in a HIPAA-compliant setting. Built 3 protected Excel test forms with VBA macros, automatic scoring, data validation, and conditional formatting.
 
+### Missionary / IT Lead [May 2021 – Mar 2023]{.float-end}
+*The Church of Jesus Christ of Latter-day Saints, Mexico City, Mexico*
 
--Eagle Scout Individual Project Lead, Boy Scouts of America
+- Collected and summarized phone-usage and Facebook performance data so leadership could improve time allocation, resource use, and digital communication.
+- Led a 4-person digital content team serving the southern half of Mexico City, and collaborated with diverse stakeholders in Spanish.
 
--Water Polo Team Captain, Royal High School
+## Technical projects and coursework
 
+### Stock Market ML Pipeline: ETL Component [Apr 2024]{.float-end}
+*BYU–Idaho ETL Pipelines course, individual 10-week project* · [Project write-up](Full_Stack/airflow-etl-pipelines.qmd)
 
+- Built a local ETL workflow that extracted Open-Meteo weather data, MongoDB stock data, and news data, then wrote pandas transformations to normalize the sources and engineer sentiment values for downstream modeling.
+- Adapted course templates for the Airflow DAGs, Docker services, and Snowflake loading. Wrote the transformation logic independently and completed the API extraction code with faculty guidance.
+- Fixed container startup and scheduling failures using active-container checks, Airflow logs, and YAML configuration, then loaded the integrated dataset into Snowflake.
 
+### Database Design and Administration
+*BYU–Idaho coursework*
 
-
-
-## Occupation
-
-Family Psychological Services @ Agoura Hills, California  <br>
-__Testing Center Supervisor__  <br>
-'Mar. 2023 – Present'  <br>
-
-•	Provided patients with psychological testing from initial intake appointment until results interview with a licensed clinician.<br>
-
-•	Increase the ease that patients finished with psychological testing by creating excel sheets that mimicked several tests given to patients which could be filled out virtually.<br>
-
-•	Created analytics documents to help clinicians know their patient counts within a day/month/year which helped clinicians make informed decisions.<br>
-
-
-The Church of Jesus Christ of Latter-day Saints	@ Mexico City, Mexico  <br>
-__Missionary/IT Lead__  <br>
-'May. 2021 – Mar. 2023'  <br>
-
-•	Talked to people every day for two years about the message of The Church of Jesus Christ of Latter-Day Saints, meeting with people in public and in their homes.<br>
-
-•	Collected data from missionaries about phone usages and digital success with Facebook to allow leadership to make changes on how efficiently missionaries used time, resources and how to communicate our message more clearly.<br>
-
-•	Led a team of 4 missionaries that oversaw digital content production on a Facebook page that geographically covered the southern half of Mexico City.<br>
-
-Sub Zero Ice Cream @ Simi Valley, CA  <br>
-__Store Associate__  <br>
-'June. 2021 – Sept. 2021'  <br>
-
-•	Served customers custom ice cream frozen with liquid nitrogen, using nitrogen as entertainment for store goers entering the establishment.<br>
-
-Rancho Simi Community Pool @ Simi Valley, CA <br> 
-__Swim Instructor/Lifeguard__  <br>
-'May. 2019 – Sept. 2021'  <br>
-
-
-•	Taught swimming classes alone and with a co-teacher for children who’s ages ranged from 3 – 12-years-old.<br>
-
-•	Monitored patrons within the facility to insure safety and responded to emergencies quickly to keep issues at a minimum.<br>
-
-
-
-<!-- ### Footer
-
-Last updated: May 2013 -->
+- Designed relational databases from scratch and reverse-engineered existing schemas into data models, normalizing them to 3NF.
+- Queried relational and CSV-backed datasets with joins, subqueries, and automated queries, and assigned user and schema permissions based on access requirements.

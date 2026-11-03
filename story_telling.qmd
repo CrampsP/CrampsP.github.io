@@ -1,10 +1,22 @@
 ---
-title: "about me"
-subtitle: "my data science portfolio"
-# use quarto markdown to 
+title: "Story Telling"
+subtitle: "Communicating findings with clear, purposeful visualizations"
+listing:
+  contents: "Story_Telling/*.qmd"
+  type: grid
+  grid-columns: 3
+  image-height: 180px
+  sort: false
+  categories: true
+  fields: [image, title, subtitle, description, categories]
+  image-placeholder: Images/placeholder-story.svg
+page-layout: full
+title-block-banner: true
+toc: false
 ---
 
-# Title 1 Header
-## Title 2 Header
+Visual reports written for a specific audience. They use highlighting, maps, and small multiples so the main message is obvious at a glance.
 
-[MarkDown Basics](https://quarto.org/docs/authoring/markdown-basics.html#links-images)
+::: {.callout-note appearance="minimal"}
+**Power BI dashboards** from BA 315 (Business Intelligence) and the full set of DS 350 weekly projects are in the [coursework folder on GitHub](https://github.com/CrampsP/CrampsP.github.io/tree/main/Story_Telling/coursework).
+:::

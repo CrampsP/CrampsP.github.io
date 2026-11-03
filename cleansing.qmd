@@ -1,10 +1,18 @@
 ---
-title: "about me"
-subtitle: "my data science portfolio"
-# use quarto markdown to 
+title: "Data Cleansing"
+subtitle: "Turning messy, multi-format data into tidy, analysis-ready tables"
+listing:
+  contents: "Data_Cleansing/*.qmd"
+  type: grid
+  grid-columns: 3
+  image-height: 180px
+  sort: false
+  categories: true
+  fields: [image, title, subtitle, description, categories]
+  image-placeholder: Images/placeholder-cleansing.svg
+page-layout: full
+title-block-banner: true
+toc: false
 ---
 
-# Title 1 Header
-## Title 2 Header
-
-[MarkDown Basics](https://quarto.org/docs/authoring/markdown-basics.html#links-images)
+Projects focused on importing, reshaping, standardizing, and validating data. The formats include JSON, Excel, Stata, SPSS, and DBF, and the work covers both Python (pandas) and R (tidyverse).

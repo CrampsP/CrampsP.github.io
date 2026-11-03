@@ -1,2 +1,10 @@
 /.quarto/
 /_site/
+# Large local data used only to render pages (results are frozen in _freeze/)
+*.sqlite
+.venv/
+# Intermediate render output next to page sources
+/*/*_files/
+/*/*.html
+/*/*.rmarkdown
+/*.html

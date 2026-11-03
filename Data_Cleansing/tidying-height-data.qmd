@@ -1,0 +1,46 @@
+---
+title: "Tidying Historical Height Data"
+subtitle: "DS 350 · Data Wrangling & Visualization"
+author: "Spencer Payne"
+description: "Reshaped a wide Excel table of average male height by country into tidy long format and charted the trend over time."
+categories: ["R", "tidyr", "Data Cleaning"]
+---
+
+## Overview
+
+The source is an Excel workbook of average male height by country, laid out wide with one column per decade and header rows above the data. I skipped the header rows, used `pivot_longer()` to reshape it into one row per country and decade, dropped missing measurements, converted centimeters to inches, and highlighted Germany against every other country.
+
+```{r}
+library(tidyverse)
+library(tidyr)
+library(readr)
+library(readxl)
+```
+
+```{r}
+height <- read_excel("data/Height.xlsx", skip = 2)
+```
+
+
+
+
+```{r}
+height_tidy <- height %>% 
+  pivot_longer(cols = 3:ncol(height), names_to = "Year", values_to = "Height") %>% 
+  drop_na(Height)
+
+height_tidy
+```
+
+
+```{r}
+ggplot(height_tidy, aes(x = Year, y = Height / 2.54)) +
+  geom_point(color = "gray50", alpha = 0.5, size = 2) +
+  geom_point(data = height_tidy %>%
+      filter(`Continent, Region, Country` == "Germany"), color = "red", size = 3) +
+  labs(title = "Average Male Height by Decade",
+       x = "Decade") +
+  theme_bw()
+```
+
+The data shows that people seem to be getting taller over time. As the years go on, many of the height values get higher. Germany also seems to follow this pattern. The data is not perfect because some values are missing, but overall it supports the idea that humans have gotten taller over the years.

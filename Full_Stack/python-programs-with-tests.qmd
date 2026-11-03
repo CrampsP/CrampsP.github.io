@@ -1,0 +1,44 @@
+---
+title: "Python Programs with Unit Tests"
+subtitle: "CSE 111 · Programming with Functions"
+author: "Spencer Payne"
+description: "Modular Python programs built around small, testable functions, verified with pytest. Includes a chemical formula parser and a water-system pressure model."
+categories: ["Python", "pytest", "Software Engineering"]
+image: ../Images/placeholder-fullstack.svg
+---
+
+## Summary
+
+CSE 111 focused on writing clean, reusable functions and proving they work with automated tests. These two programs show that approach best.
+
+### Molar mass calculator
+
+[`chemistry.py`](https://github.com/CrampsP/CrampsP.github.io/blob/main/Full_Stack/coursework/cse-111-python-programming/chemistry.py) asks for a chemical formula such as `C6H12O6` and a sample mass. It parses the formula, including nested parentheses, with a dedicated `formula.py` module, looks each element up in a periodic-table dictionary, and reports the molar mass and number of moles.
+
+```python
+def main():
+    formula = input("Enter the chemical formula of the sample: ")
+    mass = float(input("Enter the mass of the sample in grams: "))
+    periodic_table_dict = make_periodic_table()
+    symbol_quantity_list = parse_formula(formula, periodic_table_dict)
+    molar_mass = compute_molar_mass(symbol_quantity_list, periodic_table_dict)
+    print(f"Molar mass: {molar_mass:.5f} grams/mole")
+    print(f"Number of moles: {mass / molar_mass:.5f}")
+```
+
+### Water distribution pressure model
+
+[`water_flow.py`](https://github.com/CrampsP/CrampsP.github.io/blob/main/Full_Stack/coursework/cse-111-python-programming/water_flow.py) models the pressure at a house supplied by a city water tower. It accounts for water column height, friction loss in pipes and fittings, the Reynolds number, and pipe-diameter reduction. Each physics step is its own function with its own tests.
+
+```python
+def test_pressure_loss_from_pipe():
+    assert pressure_loss_from_pipe(0.048692, 0, 0.018, 1.75) == approx(0, abs=0.001)
+    assert pressure_loss_from_pipe(0.048692, 200, 0.018, 1.75) == approx(-113.008, abs=0.001)
+    assert pressure_loss_from_pipe(0.28687, 1800.75, 0.013, 1.65) == approx(-110.884, abs=0.001)
+```
+
+## Also in this course
+
+The [full CSE 111 folder](https://github.com/CrampsP/CrampsP.github.io/tree/main/Full_Stack/coursework/cse-111-python-programming) also includes CSV processing (receipts, accident statistics, pupils), dictionary lookups, a random sentence generator, and a hypotenuse calculator with input validation and tests.
+
+[Browse the CSE 111 code](https://github.com/CrampsP/CrampsP.github.io/tree/main/Full_Stack/coursework/cse-111-python-programming){.btn .btn-outline-primary}
