@@ -1,5 +1,32 @@
 [
   {
+    "objectID": "notebooks/starter_bank.html",
+    "href": "notebooks/starter_bank.html",
+    "title": "Spencer - Data Science Portfolio",
+    "section": "",
+    "text": "import pandas as pd\nfrom sklearn.preprocessing import OneHotEncoder\nfrom sklearn import tree\nfrom sklearn.tree import DecisionTreeClassifier\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay\nimport matplotlib.pyplot as plt\n\ncampaign = pd.read_csv('https://raw.githubusercontent.com/byui-cse/cse450-course/master/data/bank.csv')\ncampaign\n\n\n    \n\n\n\n\n\n\nage\njob\nmarital\neducation\ndefault\nhousing\nloan\ncontact\nmonth\nday_of_week\ncampaign\npdays\nprevious\npoutcome\nemp.var.rate\ncons.price.idx\ncons.conf.idx\neuribor3m\nnr.employed\ny\n\n\n\n\n0\n56\nhousemaid\nmarried\nbasic.4y\nno\nno\nno\ntelephone\nmay\nmon\n1\n999\n0\nnonexistent\n1.1\n93.994\n-36.4\n4.857\n5191.0\nno\n\n\n1\n57\nservices\nmarried\nhigh.school\nunknown\nno\nno\ntelephone\nmay\nmon\n1\n999\n0\nnonexistent\n1.1\n93.994\n-36.4\n4.857\n5191.0\nno\n\n\n2\n37\nservices\nmarried\nhigh.school\nno\nyes\nno\ntelephone\nmay\nmon\n1\n999\n0\nnonexistent\n1.1\n93.994\n-36.4\n4.857\n5191.0\nno\n\n\n3\n40\nadmin.\nmarried\nbasic.6y\nno\nno\nno\ntelephone\nmay\nmon\n1\n999\n0\nnonexistent\n1.1\n93.994\n-36.4\n4.857\n5191.0\nno\n\n\n4\n56\nservices\nmarried\nhigh.school\nno\nno\nyes\ntelephone\nmay\nmon\n1\n999\n0\nnonexistent\n1.1\n93.994\n-36.4\n4.857\n5191.0\nno\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n37064\n73\nretired\nmarried\nprofessional.course\nno\nyes\nno\ncellular\nnov\nfri\n1\n999\n0\nnonexistent\n-1.1\n94.767\n-50.8\n1.028\n4963.6\nyes\n\n\n37065\n46\nblue-collar\nmarried\nprofessional.course\nno\nno\nno\ncellular\nnov\nfri\n1\n999\n0\nnonexistent\n-1.1\n94.767\n-50.8\n1.028\n4963.6\nno\n\n\n37066\n56\nretired\nmarried\nuniversity.degree\nno\nyes\nno\ncellular\nnov\nfri\n2\n999\n0\nnonexistent\n-1.1\n94.767\n-50.8\n1.028\n4963.6\nno\n\n\n37067\n44\ntechnician\nmarried\nprofessional.course\nno\nno\nno\ncellular\nnov\nfri\n1\n999\n0\nnonexistent\n-1.1\n94.767\n-50.8\n1.028\n4963.6\nyes\n\n\n37068\n74\nretired\nmarried\nprofessional.course\nno\nyes\nno\ncellular\nnov\nfri\n3\n999\n1\nfailure\n-1.1\n94.767\n-50.8\n1.028\n4963.6\nno\n\n\n\n\n37069 rows × 20 columns\n\n    \n\n  \n    \n\n  \n    \n  \n    \n\n  \n\n    \n  \n\n\n    \n      \n\n\n    \n        \n    \n\n      \n\n\n\n      \n    \n\n  \n    \n    \n\n  \n    \n  \n    \n    \n  \n\n    \n  \n\n\n\nfiltered_df = campaign[~campaign.apply(lambda row: row.astype(str).str.contains('unknown|999').any(), axis=1)]\nfiltered_df = filtered_df.dropna()\nfiltered_df\n\n\n    \n\n\n\n\n\n\nage\njob\nmarital\neducation\ndefault\nhousing\nloan\ncontact\nmonth\nday_of_week\ncampaign\npdays\nprevious\npoutcome\nemp.var.rate\ncons.price.idx\ncons.conf.idx\neuribor3m\nnr.employed\ny\n\n\n\n\n21712\n37\nadmin.\nmarried\nuniversity.degree\nno\nyes\nno\ntelephone\nnov\nwed\n1\n6\n1\nsuccess\n-0.1\n93.200\n-42.0\n4.286\n5195.8\nno\n\n\n21851\n48\nmanagement\nmarried\nuniversity.degree\nno\nyes\nno\ncellular\nnov\nmon\n1\n4\n1\nsuccess\n-0.1\n93.200\n-42.0\n4.191\n5195.8\nno\n\n\n22047\n36\nself-employed\nsingle\nuniversity.degree\nno\nyes\nno\ncellular\nnov\nmon\n2\n4\n1\nsuccess\n-0.1\n93.200\n-42.0\n4.191\n5195.8\nno\n\n\n22163\n32\nblue-collar\nmarried\nbasic.9y\nno\nno\nno\ncellular\nnov\nmon\n2\n5\n1\nsuccess\n-0.1\n93.200\n-42.0\n4.191\n5195.8\nyes\n\n\n22328\n31\nentrepreneur\ndivorced\nbasic.4y\nno\nno\nno\ncellular\nnov\ntue\n1\n5\n1\nsuccess\n-0.1\n93.200\n-42.0\n4.153\n5195.8\nno\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n37045\n60\nblue-collar\nmarried\nbasic.4y\nno\nyes\nno\ncellular\nnov\ntue\n2\n4\n1\nsuccess\n-1.1\n94.767\n-50.8\n1.035\n4963.6\nno\n\n\n37046\n35\ntechnician\ndivorced\nbasic.4y\nno\nyes\nno\ncellular\nnov\ntue\n3\n4\n2\nsuccess\n-1.1\n94.767\n-50.8\n1.035\n4963.6\nyes\n\n\n37047\n54\nadmin.\nmarried\nprofessional.course\nno\nno\nno\ncellular\nnov\ntue\n2\n10\n1\nsuccess\n-1.1\n94.767\n-50.8\n1.035\n4963.6\nyes\n\n\n37057\n62\nretired\nmarried\nuniversity.degree\nno\nyes\nno\ncellular\nnov\nthu\n1\n1\n6\nsuccess\n-1.1\n94.767\n-50.8\n1.031\n4963.6\nyes\n\n\n37060\n62\nretired\nmarried\nuniversity.degree\nno\nno\nno\ncellular\nnov\nthu\n2\n6\n3\nsuccess\n-1.1\n94.767\n-50.8\n1.031\n4963.6\nyes\n\n\n\n\n1193 rows × 20 columns\n\n    \n\n  \n    \n\n  \n    \n  \n    \n\n  \n\n    \n  \n\n\n    \n      \n\n\n    \n        \n    \n\n      \n\n\n\n      \n    \n\n  \n    \n    \n\n  \n    \n  \n    \n    \n  \n\n    \n  \n\n\n\nfiltered_df.columns\n\nIndex(['age', 'job', 'marital', 'education', 'default', 'housing', 'loan',\n       'contact', 'month', 'day_of_week', 'campaign', 'pdays', 'previous',\n       'poutcome', 'emp.var.rate', 'cons.price.idx', 'cons.conf.idx',\n       'euribor3m', 'nr.employed', 'y'],\n      dtype='object')\n\n\n\nX = pd.get_dummies(filtered_df[['job', 'marital', 'education', 'default', 'housing', 'loan', 'age', 'emp.var.rate', 'cons.price.idx', 'cons.conf.idx',\n       'euribor3m', 'nr.employed']], drop_first=True)\ny = pd.get_dummies(filtered_df['y'], drop_first=True)\n\n\n# Split our data into training and test data, with 30% reserved for testing\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30)\n\n# Build the decision tree\nclf = DecisionTreeClassifier()\n\n# Train it\nclf.fit(X_train, y_train)\n\n# Test it\nclf.score(X_test, y_test)\n\n0.6033519553072626\n\n\n\n# Generate the confusion matrix\ncm = confusion_matrix(y_test, clf.predict(X_test))\n\n# Display the confusion matrix\ndisp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=clf.classes_)\ndisp.plot()\nplt.show()\n\n\n\n\n\n\n\n\n\nfig, ax = plt.subplots(figsize=(20, 20))\ntree.plot_tree(clf, fontsize=10, feature_names=X.columns)\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "story_telling.html",
+    "href": "story_telling.html",
+    "title": "about me",
+    "section": "",
+    "text": "MarkDown Basics",
+    "crumbs": [
+      "Story Telling"
+    ]
+  },
+  {
+    "objectID": "story_telling.html#title-2-header",
+    "href": "story_telling.html#title-2-header",
+    "title": "about me",
+    "section": "",
+    "text": "MarkDown Basics",
+    "crumbs": [
+      "Story Telling"
+    ]
+  },
+  {
     "objectID": "ml.html",
     "href": "ml.html",
     "title": "about me",
@@ -17,60 +44,6 @@
     "text": "MarkDown Basics",
     "crumbs": [
       "Machine Learning"
-    ]
-  },
-  {
-    "objectID": "Cleansing_Exploration/project1.html",
-    "href": "Cleansing_Exploration/project1.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "Cleansing_Exploration/project3.html",
-    "href": "Cleansing_Exploration/project3.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "Cleansing_Exploration/project4.html",
-    "href": "Cleansing_Exploration/project4.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "Machine_Learning/project1.html",
-    "href": "Machine_Learning/project1.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Machine Learning",
-      "Project 1"
-    ]
-  },
-  {
-    "objectID": "Machine_Learning/project3.html",
-    "href": "Machine_Learning/project3.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Machine Learning",
-      "Project 3"
-    ]
-  },
-  {
-    "objectID": "Machine_Learning/project4.html",
-    "href": "Machine_Learning/project4.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Machine Learning",
-      "Project 4"
     ]
   },
   {
@@ -94,39 +67,46 @@
     ]
   },
   {
-    "objectID": "resume.html",
-    "href": "resume.html",
-    "title": "Spencer Payne’s CV",
+    "objectID": "competition.html",
+    "href": "competition.html",
+    "title": "about me",
     "section": "",
-    "text": "spayne22802@gmail.com | My LinkedIn page\n\n\n\nStudying Data Science at BYU-Idaho\n\n\nBusiness Analytics\n\n\n\n\n2016-2020\nRoyal High School.\n\n\n\n-Eagle Scout Individual Project Lead, Boy Scouts of America\n-Water Polo Team Captain, Royal High School\n\n\n\nFamily Psychological Services @ Agoura Hills, California  Testing Center Supervisor  ‘Mar. 2023 – Present’ \n• Provided patients with psychological testing from initial intake appointment until results interview with a licensed clinician.\n• Increase the ease that patients finished with psychological testing by creating excel sheets that mimicked several tests given to patients which could be filled out virtually.\n• Created analytics documents to help clinicians know their patient counts within a day/month/year which helped clinicians make informed decisions.\nThe Church of Jesus Christ of Latter-day Saints @ Mexico City, Mexico  Missionary/IT Lead  ‘May. 2021 – Mar. 2023’ \n• Talked to people every day for two years about the message of The Church of Jesus Christ of Latter-Day Saints, meeting with people in public and in their homes.\n• Collected data from missionaries about phone usages and digital success with Facebook to allow leadership to make changes on how efficiently missionaries used time, resources and how to communicate our message more clearly.\n• Led a team of 4 missionaries that oversaw digital content production on a Facebook page that geographically covered the southern half of Mexico City.\nSub Zero Ice Cream @ Simi Valley, CA  Store Associate  ‘June. 2021 – Sept. 2021’ \n• Served customers custom ice cream frozen with liquid nitrogen, using nitrogen as entertainment for store goers entering the establishment.\nRancho Simi Community Pool @ Simi Valley, CA  Swim Instructor/Lifeguard  ‘May. 2019 – Sept. 2021’ \n• Taught swimming classes alone and with a co-teacher for children who’s ages ranged from 3 – 12-years-old.\n• Monitored patrons within the facility to insure safety and responded to emergencies quickly to keep issues at a minimum."
+    "text": "MarkDown Basics",
+    "crumbs": [
+      "Competition"
+    ]
   },
   {
-    "objectID": "resume.html#currently",
-    "href": "resume.html#currently",
-    "title": "Spencer Payne’s CV",
+    "objectID": "competition.html#title-2-header",
+    "href": "competition.html#title-2-header",
+    "title": "about me",
     "section": "",
-    "text": "Studying Data Science at BYU-Idaho\n\n\nBusiness Analytics"
+    "text": "MarkDown Basics",
+    "crumbs": [
+      "Competition"
+    ]
   },
   {
-    "objectID": "resume.html#education",
-    "href": "resume.html#education",
-    "title": "Spencer Payne’s CV",
+    "objectID": "Story_Telling/project5.html",
+    "href": "Story_Telling/project5.html",
+    "title": "Client Report - [Insert Project Title]",
     "section": "",
-    "text": "2016-2020\nRoyal High School."
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Story Telling",
+      "Project 5"
+    ]
   },
   {
-    "objectID": "resume.html#awards",
-    "href": "resume.html#awards",
-    "title": "Spencer Payne’s CV",
+    "objectID": "Story_Telling/project3.html",
+    "href": "Story_Telling/project3.html",
+    "title": "Client Report - [Insert Project Title]",
     "section": "",
-    "text": "-Eagle Scout Individual Project Lead, Boy Scouts of America\n-Water Polo Team Captain, Royal High School"
-  },
-  {
-    "objectID": "resume.html#occupation",
-    "href": "resume.html#occupation",
-    "title": "Spencer Payne’s CV",
-    "section": "",
-    "text": "Family Psychological Services @ Agoura Hills, California  Testing Center Supervisor  ‘Mar. 2023 – Present’ \n• Provided patients with psychological testing from initial intake appointment until results interview with a licensed clinician.\n• Increase the ease that patients finished with psychological testing by creating excel sheets that mimicked several tests given to patients which could be filled out virtually.\n• Created analytics documents to help clinicians know their patient counts within a day/month/year which helped clinicians make informed decisions.\nThe Church of Jesus Christ of Latter-day Saints @ Mexico City, Mexico  Missionary/IT Lead  ‘May. 2021 – Mar. 2023’ \n• Talked to people every day for two years about the message of The Church of Jesus Christ of Latter-Day Saints, meeting with people in public and in their homes.\n• Collected data from missionaries about phone usages and digital success with Facebook to allow leadership to make changes on how efficiently missionaries used time, resources and how to communicate our message more clearly.\n• Led a team of 4 missionaries that oversaw digital content production on a Facebook page that geographically covered the southern half of Mexico City.\nSub Zero Ice Cream @ Simi Valley, CA  Store Associate  ‘June. 2021 – Sept. 2021’ \n• Served customers custom ice cream frozen with liquid nitrogen, using nitrogen as entertainment for store goers entering the establishment.\nRancho Simi Community Pool @ Simi Valley, CA  Swim Instructor/Lifeguard  ‘May. 2019 – Sept. 2021’ \n• Taught swimming classes alone and with a co-teacher for children who’s ages ranged from 3 – 12-years-old.\n• Monitored patrons within the facility to insure safety and responded to emergencies quickly to keep issues at a minimum."
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Story Telling",
+      "Project 3"
+    ]
   },
   {
     "objectID": "Story_Telling/project1.html",
@@ -184,80 +164,25 @@
     ]
   },
   {
-    "objectID": "Story_Telling/project3.html",
-    "href": "Story_Telling/project3.html",
+    "objectID": "Machine_Learning/project4.html",
+    "href": "Machine_Learning/project4.html",
     "title": "Client Report - [Insert Project Title]",
     "section": "",
     "text": "Paste in a template\n\n\n\n\n Back to top",
     "crumbs": [
-      "Story Telling",
-      "Project 3"
-    ]
-  },
-  {
-    "objectID": "Story_Telling/project4.html",
-    "href": "Story_Telling/project4.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Story Telling",
+      "Machine Learning",
       "Project 4"
     ]
   },
   {
-    "objectID": "Competition/project5.html",
-    "href": "Competition/project5.html",
+    "objectID": "Machine_Learning/project2.html",
+    "href": "Machine_Learning/project2.html",
     "title": "Client Report - [Insert Project Title]",
     "section": "",
     "text": "Paste in a template\n\n\n\n\n Back to top",
     "crumbs": [
-      "Competition",
-      "Project 5"
-    ]
-  },
-  {
-    "objectID": "Competition/project2.html",
-    "href": "Competition/project2.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Competition",
+      "Machine Learning",
       "Project 2"
-    ]
-  },
-  {
-    "objectID": "Cleansing_Projects/project1.html",
-    "href": "Cleansing_Projects/project1.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Data Cleansing",
-      "Project 1"
-    ]
-  },
-  {
-    "objectID": "Cleansing_Projects/project3.html",
-    "href": "Cleansing_Projects/project3.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Data Cleansing",
-      "Project 3"
-    ]
-  },
-  {
-    "objectID": "Cleansing_Projects/project4.html",
-    "href": "Cleansing_Projects/project4.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Data Cleansing",
-      "Project 4"
     ]
   },
   {
@@ -269,68 +194,6 @@
     "crumbs": [
       "Full Stack",
       "Project 5"
-    ]
-  },
-  {
-    "objectID": "Full_Stack/project2.html",
-    "href": "Full_Stack/project2.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Full Stack",
-      "Project 2"
-    ]
-  },
-  {
-    "objectID": "cleansing.html",
-    "href": "cleansing.html",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Data Cleansing"
-    ]
-  },
-  {
-    "objectID": "cleansing.html#title-2-header",
-    "href": "cleansing.html#title-2-header",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Data Cleansing"
-    ]
-  },
-  {
-    "objectID": "competition.html",
-    "href": "competition.html",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Competition"
-    ]
-  },
-  {
-    "objectID": "competition.html#title-2-header",
-    "href": "competition.html#title-2-header",
-    "title": "about me",
-    "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Competition"
-    ]
-  },
-  {
-    "objectID": "Full_Stack/project4.html",
-    "href": "Full_Stack/project4.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Full Stack",
-      "Project 4"
     ]
   },
   {
@@ -356,13 +219,24 @@
     ]
   },
   {
-    "objectID": "Cleansing_Projects/project2.html",
-    "href": "Cleansing_Projects/project2.html",
+    "objectID": "Competition/project4.html",
+    "href": "Competition/project4.html",
     "title": "Client Report - [Insert Project Title]",
     "section": "",
     "text": "Paste in a template\n\n\n\n\n Back to top",
     "crumbs": [
-      "Data Cleansing",
+      "Competition",
+      "Project 4"
+    ]
+  },
+  {
+    "objectID": "Competition/project2.html",
+    "href": "Competition/project2.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Competition",
       "Project 2"
     ]
   },
@@ -378,25 +252,82 @@
     ]
   },
   {
-    "objectID": "Competition/project4.html",
-    "href": "Competition/project4.html",
+    "objectID": "Cleansing_Projects/project3.html",
+    "href": "Cleansing_Projects/project3.html",
     "title": "Client Report - [Insert Project Title]",
     "section": "",
     "text": "Paste in a template\n\n\n\n\n Back to top",
     "crumbs": [
-      "Competition",
-      "Project 4"
+      "Data Cleansing",
+      "Project 3"
     ]
   },
   {
-    "objectID": "Competition/project3.html",
-    "href": "Competition/project3.html",
+    "objectID": "Cleansing_Projects/project1.html",
+    "href": "Cleansing_Projects/project1.html",
     "title": "Client Report - [Insert Project Title]",
     "section": "",
     "text": "Paste in a template\n\n\n\n\n Back to top",
     "crumbs": [
-      "Competition",
-      "Project 3"
+      "Data Cleansing",
+      "Project 1"
+    ]
+  },
+  {
+    "objectID": "Cleansing_Exploration/project4.html",
+    "href": "Cleansing_Exploration/project4.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "Cleansing_Exploration/project2.html",
+    "href": "Cleansing_Exploration/project2.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "Cleansing_Exploration/project1.html",
+    "href": "Cleansing_Exploration/project1.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "Cleansing_Exploration/project3.html",
+    "href": "Cleansing_Exploration/project3.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "Cleansing_Exploration/project5.html",
+    "href": "Cleansing_Exploration/project5.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "Cleansing_Projects/project2.html",
+    "href": "Cleansing_Projects/project2.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Data Cleansing",
+      "Project 2"
+    ]
+  },
+  {
+    "objectID": "Cleansing_Projects/project4.html",
+    "href": "Cleansing_Projects/project4.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Data Cleansing",
+      "Project 4"
     ]
   },
   {
@@ -411,6 +342,83 @@
     ]
   },
   {
+    "objectID": "Competition/project3.html",
+    "href": "Competition/project3.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Competition",
+      "Project 3"
+    ]
+  },
+  {
+    "objectID": "Competition/project5.html",
+    "href": "Competition/project5.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Competition",
+      "Project 5"
+    ]
+  },
+  {
+    "objectID": "Full_Stack/project2.html",
+    "href": "Full_Stack/project2.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Full Stack",
+      "Project 2"
+    ]
+  },
+  {
+    "objectID": "Full_Stack/project4.html",
+    "href": "Full_Stack/project4.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Full Stack",
+      "Project 4"
+    ]
+  },
+  {
+    "objectID": "Machine_Learning/project1.html",
+    "href": "Machine_Learning/project1.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Machine Learning",
+      "Project 1"
+    ]
+  },
+  {
+    "objectID": "Machine_Learning/project3.html",
+    "href": "Machine_Learning/project3.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Machine Learning",
+      "Project 3"
+    ]
+  },
+  {
+    "objectID": "Machine_Learning/project5.html",
+    "href": "Machine_Learning/project5.html",
+    "title": "Client Report - [Insert Project Title]",
+    "section": "",
+    "text": "Paste in a template\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Machine Learning",
+      "Project 5"
+    ]
+  },
+  {
     "objectID": "Story_Telling/project2.html",
     "href": "Story_Telling/project2.html",
     "title": "Client Report - [Insert Project Title]",
@@ -422,29 +430,35 @@
     ]
   },
   {
-    "objectID": "Story_Telling/project5.html",
-    "href": "Story_Telling/project5.html",
+    "objectID": "Story_Telling/project4.html",
+    "href": "Story_Telling/project4.html",
     "title": "Client Report - [Insert Project Title]",
     "section": "",
     "text": "Paste in a template\n\n\n\n\n Back to top",
     "crumbs": [
       "Story Telling",
-      "Project 5"
+      "Project 4"
     ]
   },
   {
-    "objectID": "notebooks/starter_bank.html",
-    "href": "notebooks/starter_bank.html",
-    "title": "Spencer - Data Science Portfolio",
+    "objectID": "cleansing.html",
+    "href": "cleansing.html",
+    "title": "about me",
     "section": "",
-    "text": "import pandas as pd\nfrom sklearn.preprocessing import OneHotEncoder\nfrom sklearn import tree\nfrom sklearn.tree import DecisionTreeClassifier\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay\nimport matplotlib.pyplot as plt\n\ncampaign = pd.read_csv('https://raw.githubusercontent.com/byui-cse/cse450-course/master/data/bank.csv')\ncampaign\n\n\n    \n\n\n\n\n\n\nage\njob\nmarital\neducation\ndefault\nhousing\nloan\ncontact\nmonth\nday_of_week\ncampaign\npdays\nprevious\npoutcome\nemp.var.rate\ncons.price.idx\ncons.conf.idx\neuribor3m\nnr.employed\ny\n\n\n\n\n0\n56\nhousemaid\nmarried\nbasic.4y\nno\nno\nno\ntelephone\nmay\nmon\n1\n999\n0\nnonexistent\n1.1\n93.994\n-36.4\n4.857\n5191.0\nno\n\n\n1\n57\nservices\nmarried\nhigh.school\nunknown\nno\nno\ntelephone\nmay\nmon\n1\n999\n0\nnonexistent\n1.1\n93.994\n-36.4\n4.857\n5191.0\nno\n\n\n2\n37\nservices\nmarried\nhigh.school\nno\nyes\nno\ntelephone\nmay\nmon\n1\n999\n0\nnonexistent\n1.1\n93.994\n-36.4\n4.857\n5191.0\nno\n\n\n3\n40\nadmin.\nmarried\nbasic.6y\nno\nno\nno\ntelephone\nmay\nmon\n1\n999\n0\nnonexistent\n1.1\n93.994\n-36.4\n4.857\n5191.0\nno\n\n\n4\n56\nservices\nmarried\nhigh.school\nno\nno\nyes\ntelephone\nmay\nmon\n1\n999\n0\nnonexistent\n1.1\n93.994\n-36.4\n4.857\n5191.0\nno\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n37064\n73\nretired\nmarried\nprofessional.course\nno\nyes\nno\ncellular\nnov\nfri\n1\n999\n0\nnonexistent\n-1.1\n94.767\n-50.8\n1.028\n4963.6\nyes\n\n\n37065\n46\nblue-collar\nmarried\nprofessional.course\nno\nno\nno\ncellular\nnov\nfri\n1\n999\n0\nnonexistent\n-1.1\n94.767\n-50.8\n1.028\n4963.6\nno\n\n\n37066\n56\nretired\nmarried\nuniversity.degree\nno\nyes\nno\ncellular\nnov\nfri\n2\n999\n0\nnonexistent\n-1.1\n94.767\n-50.8\n1.028\n4963.6\nno\n\n\n37067\n44\ntechnician\nmarried\nprofessional.course\nno\nno\nno\ncellular\nnov\nfri\n1\n999\n0\nnonexistent\n-1.1\n94.767\n-50.8\n1.028\n4963.6\nyes\n\n\n37068\n74\nretired\nmarried\nprofessional.course\nno\nyes\nno\ncellular\nnov\nfri\n3\n999\n1\nfailure\n-1.1\n94.767\n-50.8\n1.028\n4963.6\nno\n\n\n\n\n37069 rows × 20 columns\n\n    \n\n  \n    \n\n  \n    \n  \n    \n\n  \n\n    \n  \n\n\n    \n      \n\n\n    \n        \n    \n\n      \n\n\n\n      \n    \n\n  \n    \n    \n\n  \n    \n  \n    \n    \n  \n\n    \n  \n\n\n\nfiltered_df = campaign[~campaign.apply(lambda row: row.astype(str).str.contains('unknown|999').any(), axis=1)]\nfiltered_df = filtered_df.dropna()\nfiltered_df\n\n\n    \n\n\n\n\n\n\nage\njob\nmarital\neducation\ndefault\nhousing\nloan\ncontact\nmonth\nday_of_week\ncampaign\npdays\nprevious\npoutcome\nemp.var.rate\ncons.price.idx\ncons.conf.idx\neuribor3m\nnr.employed\ny\n\n\n\n\n21712\n37\nadmin.\nmarried\nuniversity.degree\nno\nyes\nno\ntelephone\nnov\nwed\n1\n6\n1\nsuccess\n-0.1\n93.200\n-42.0\n4.286\n5195.8\nno\n\n\n21851\n48\nmanagement\nmarried\nuniversity.degree\nno\nyes\nno\ncellular\nnov\nmon\n1\n4\n1\nsuccess\n-0.1\n93.200\n-42.0\n4.191\n5195.8\nno\n\n\n22047\n36\nself-employed\nsingle\nuniversity.degree\nno\nyes\nno\ncellular\nnov\nmon\n2\n4\n1\nsuccess\n-0.1\n93.200\n-42.0\n4.191\n5195.8\nno\n\n\n22163\n32\nblue-collar\nmarried\nbasic.9y\nno\nno\nno\ncellular\nnov\nmon\n2\n5\n1\nsuccess\n-0.1\n93.200\n-42.0\n4.191\n5195.8\nyes\n\n\n22328\n31\nentrepreneur\ndivorced\nbasic.4y\nno\nno\nno\ncellular\nnov\ntue\n1\n5\n1\nsuccess\n-0.1\n93.200\n-42.0\n4.153\n5195.8\nno\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n37045\n60\nblue-collar\nmarried\nbasic.4y\nno\nyes\nno\ncellular\nnov\ntue\n2\n4\n1\nsuccess\n-1.1\n94.767\n-50.8\n1.035\n4963.6\nno\n\n\n37046\n35\ntechnician\ndivorced\nbasic.4y\nno\nyes\nno\ncellular\nnov\ntue\n3\n4\n2\nsuccess\n-1.1\n94.767\n-50.8\n1.035\n4963.6\nyes\n\n\n37047\n54\nadmin.\nmarried\nprofessional.course\nno\nno\nno\ncellular\nnov\ntue\n2\n10\n1\nsuccess\n-1.1\n94.767\n-50.8\n1.035\n4963.6\nyes\n\n\n37057\n62\nretired\nmarried\nuniversity.degree\nno\nyes\nno\ncellular\nnov\nthu\n1\n1\n6\nsuccess\n-1.1\n94.767\n-50.8\n1.031\n4963.6\nyes\n\n\n37060\n62\nretired\nmarried\nuniversity.degree\nno\nno\nno\ncellular\nnov\nthu\n2\n6\n3\nsuccess\n-1.1\n94.767\n-50.8\n1.031\n4963.6\nyes\n\n\n\n\n1193 rows × 20 columns\n\n    \n\n  \n    \n\n  \n    \n  \n    \n\n  \n\n    \n  \n\n\n    \n      \n\n\n    \n        \n    \n\n      \n\n\n\n      \n    \n\n  \n    \n    \n\n  \n    \n  \n    \n    \n  \n\n    \n  \n\n\n\nfiltered_df.columns\n\nIndex(['age', 'job', 'marital', 'education', 'default', 'housing', 'loan',\n       'contact', 'month', 'day_of_week', 'campaign', 'pdays', 'previous',\n       'poutcome', 'emp.var.rate', 'cons.price.idx', 'cons.conf.idx',\n       'euribor3m', 'nr.employed', 'y'],\n      dtype='object')\n\n\n\nX = pd.get_dummies(filtered_df[['job', 'marital', 'education', 'default', 'housing', 'loan', 'age', 'emp.var.rate', 'cons.price.idx', 'cons.conf.idx',\n       'euribor3m', 'nr.employed']], drop_first=True)\ny = pd.get_dummies(filtered_df['y'], drop_first=True)\n\n\n# Split our data into training and test data, with 30% reserved for testing\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30)\n\n# Build the decision tree\nclf = DecisionTreeClassifier()\n\n# Train it\nclf.fit(X_train, y_train)\n\n# Test it\nclf.score(X_test, y_test)\n\n0.6033519553072626\n\n\n\n# Generate the confusion matrix\ncm = confusion_matrix(y_test, clf.predict(X_test))\n\n# Display the confusion matrix\ndisp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=clf.classes_)\ndisp.plot()\nplt.show()\n\n\n\n\n\n\n\n\n\nfig, ax = plt.subplots(figsize=(20, 20))\ntree.plot_tree(clf, fontsize=10, feature_names=X.columns)\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\n Back to top"
+    "text": "MarkDown Basics",
+    "crumbs": [
+      "Data Cleansing"
+    ]
   },
   {
-    "objectID": "Another_copy_of_True_starter_housing.html",
-    "href": "Another_copy_of_True_starter_housing.html",
-    "title": "Spencer - Data Science Portfolio",
+    "objectID": "cleansing.html#title-2-header",
+    "href": "cleansing.html#title-2-header",
+    "title": "about me",
     "section": "",
-    "text": "!pip install scikit-learn==1.5.2\n!pip install lets-plot\n\nimport pandas as pd\nimport numpy as np\nfrom lets_plot import *\nfrom sklearn.preprocessing import MinMaxScaler\n\n\nurl = 'https://raw.githubusercontent.com/byui-cse/cse450-course/master/data/housing.csv'\nhouse = pd.read_csv(url)\n\nhousing = pd.read_csv(url)\nhousing\n\n\n#we could change all of the 0's in year renovated to the year it was built and see if that helps any\n#         nevermind it didn't work :(\n\n\ndef clean_housing(housing):\n  housing['datetime'] = housing['date'].str.split('T').str[0]\n\n  housing = housing.assign(\n      year = housing['datetime'].str[0:4].astype(int),\n      month = housing['datetime'].str[4:6].astype(int),\n\n  )\n\n  housing = housing.drop(columns=['date'])\n  housing = housing.drop(columns=['datetime'])\n  housing = housing.drop(columns=['id'])\n\n\n  clean_house = housing\n  clean_house = clean_house[clean_house['bedrooms'] &lt;= 15]\n  clean_house = clean_house[(clean_house['bathrooms'] &lt;= 5.5) & (clean_house['bathrooms'] &gt;= .5)]\n  clean_house = clean_house[clean_house['sqft_living'] &lt;= 8670]\n  clean_house = clean_house[clean_house['sqft_lot'] &lt;= 500000]\n  clean_house['yr_renovated'] = clean_house.apply(\n    lambda row: row['year'] if row['yr_renovated'] == 0 else row['yr_renovated'],\n    axis=1\n)\n\n  return clean_house\n\n\nfrom xgboost import XGBRegressor\nfrom sklearn.model_selection import train_test_split\n# from sklearn.preprocessing import MinMaxScaler\n\n\nclean_house = clean_housing(housing)\n\n\ny = clean_house['price']\n\nX = clean_house.drop(columns=['price'])\n\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\nmodel = XGBRegressor()\nmodel.fit(X_train, y_train)\npredictions = model.predict(X_test)\n\nresults_draft = pd.DataFrame(predictions, columns = ['predictions'])\nresults_draft.to_csv(\"bet-ren-predictions.csv\",index=False)\ndraft = pd.read_csv(\"bet-ren-predictions.csv\")\ndraft\n\n\nfrom sklearn.metrics import root_mean_squared_error, mean_squared_error, mean_absolute_error, r2_score\n\nRMSE = root_mean_squared_error(y_test, predictions)\nprint(f'RMSE: {RMSE:.2f}')\n\nMAE = mean_absolute_error(y_test, predictions)\nprint(f'MAE: {MAE:.2f}')\n\nR2 = r2_score(y_test, predictions)\nprint(f'R2: {R2:.4f}')\n\n\n# RMSE: 113937.57\n# MAE: 67262.06\n# R2: 0.8997\n\n\n#after all of my code above I imported the mini hold out set and call it the same thing here so I don't have to rename my copy paste code\nurl_mini = 'https://raw.githubusercontent.com/byui-cse/cse450-course/master/data/housing_holdout_test_mini.csv'\nhousing_mini = pd.read_csv(url_mini)\n\nclean_house_mini = clean_housing(housing_mini)\n# I then take my cleaned data and send it through this code.\n#Since I've already made the model above I don't have to redefine what the here.\nX = clean_house_mini\n\npredictions = model.predict(X)\n#I export it\nresults_mini = pd.DataFrame(predictions, columns = ['predictions'])\nresults_mini.to_csv(\"bet-ren-predictions.csv\",index=False)\nbet_ren = pd.read_csv(\"bet-ren-predictions.csv\")\nbet_ren\n\n\n#after all of my code above I imported the mini hold out set and call it the same thing here so I don't have to rename my copy paste code\nurl_data = 'https://raw.githubusercontent.com/byui-cse/cse450-course/master/data/housing_holdout_test.csv'\nhousing_data = pd.read_csv(url_data)\n\nclean_house_data = clean_housing(housing_data)\n# I then take my cleaned data and send it through this code.\n#Since I've already made the model above I don't have to redefine what the here.\nX = clean_house_mini\n\npredictions = model.predict(X)\n#I export it\nresults_data = pd.DataFrame(predictions, columns = ['predictions'])\nresults_data.to_csv(\"final-predictions.csv\",index=False)\nfinal = pd.read_csv(\"final-predictions.csv\")\nfinal\n\n\n# @title predictions\n\nfrom matplotlib import pyplot as plt\nfinal['predictions'].plot(kind='line', figsize=(8, 4), title='predictions')\nplt.gca().spines[['top', 'right']].set_visible(False)\n\n\n# prompt: convert this code into something that the \"final\" df can use but dont include price\n#  sns.set(rc={'figure.figsize':(11.7,8.27)})\n# for team_results in results_dict.items():\n#   testfinal = team_results[1]['dataset']\n#   # print(team_results['dataset'])\n#   # print(f\"R-Squared Value: {r2}\")\n#   print(f\"-------------------------------- {team_results[0].upper()} RESULTS ---------------------------------\\n\")\n#   print(f\" Within 5%: {team_results[1]['Percent of houses within 5 percent']}%\\n\",\n#   f\"Within 10%: {team_results[1]['Percent of houses within 10 percent']}%\\n\",\n#   f\"Within 20%: {team_results[1]['Percent of houses within 20 percent']}%\\n\",\n#   f\"R^2: {team_results[1]['R2']}%\\n\",\n#   f\"RMSE: {team_results[1]['RMSE']}\\n\",\n#   f\"Mean Absolute Error: {team_results[1]['Mean Abs Error']}\\n\",\n#   f\"Median Aboslute Error: {team_results[1]['Median Abs Error']}\")\n#   color_dict = dict({'below 20%':'tab:blue',\n#                     'above 20%': 'tab:orange'})\n#   # print(testfinal['abspercentmiss'].describe(percentiles=[.1,.2,.3,.4,.5,.6,.7,.8,.9,.95]))\n#   xlims=(0,4e6)\n#   ylims=(0,4e6)\n#   ax = sns.scatterplot(data=testfinal,x='price',y='predictions',hue=\"percent_bucket\",palette=color_dict)\n#   # ax.set(xscale=\"log\", yscale=\"log\", xlim=xlims, ylim=ylims)\n#   ax.plot(xlims,xlims, color='r')\n#   # plt.legend(labels=['perfect',\"below 5\",'above 5','10-20%','above 20'])\n#   plt.show()\n#   print(f\"-\"*77)\n#   print(\"\\n\"*3)\n\nimport pandas as pd\nimport seaborn as sns\nimport matplotlib.pyplot as plt\n\nsns.set(rc={'figure.figsize':(11.7,8.27)})\n\n# Assuming 'final' DataFrame exists and has 'predictions' column\n# You might need to add actual prices if you want to calculate performance metrics\n# and create percent_bucket for the final dataset.\n\n# Example structure if you have a 'price' column in the final dataset (for comparison/plotting)\n# final['abs_error'] = abs(final['price'] - final['predictions'])\n# final['abs_percent_error'] = (final['abs_error'] / final['price']) * 100\n# final['percent_bucket'] = pd.cut(final['abs_percent_error'],\n#                                  bins=[-float('inf'), 5, 10, 20, float('inf')],\n#                                  labels=['below 5%', '5-10%', '10-20%', 'above 20%'])\n\n# If you want to plot the predictions themselves without comparing to a known price\nplt.figure(figsize=(11.7, 8.27))\nax = sns.lineplot(data=final, y='predictions', x=final.index) # Using index as x-axis\nax.set_title('Predictions')\nax.set_ylabel('Predicted Price')\nax.set_xlabel('Sample Index')\nplt.show()\n\n# If you want to see the distribution of predictions\nplt.figure(figsize=(11.7, 8.27))\nsns.histplot(final['predictions'], kde=True)\nplt.title('Distribution of Predictions')\nplt.xlabel('Predicted Price')\nplt.ylabel('Frequency')\nplt.show()\n\n\n# prompt: write feature importance code for the clean_house dataset\n\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\nfeature_importances = model.feature_importances_\nfeature_names = X_train.columns\nimportance_df = pd.DataFrame({'feature': feature_names, 'importance': feature_importances})\nimportance_df = importance_df.sort_values('importance', ascending=False)\n\nplt.figure(figsize=(10, 6))\nplt.bar(importance_df['feature'], importance_df['importance'])\nplt.xticks(rotation=90)\nplt.xlabel('Features')\nplt.ylabel('Importance')\nplt.title('Feature Importance from XGBoost')\nplt.tight_layout()\nplt.show()\n\n\n# prompt: plot long against lat in a scatter plot but then differentiate price using the house df, limit price to under 1,000,000\n\nggplot(data=house[house['price'] &lt; 250000], mapping=aes(x='long', y='lat', color='price')) + geom_point() + scale_color_gradient()\n\n\n\n\n Back to top"
+    "text": "MarkDown Basics",
+    "crumbs": [
+      "Data Cleansing"
+    ]
   },
   {
     "objectID": "exploration.html",
@@ -467,28 +481,6 @@
     ]
   },
   {
-    "objectID": "Machine_Learning/project2.html",
-    "href": "Machine_Learning/project2.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Machine Learning",
-      "Project 2"
-    ]
-  },
-  {
-    "objectID": "Machine_Learning/project5.html",
-    "href": "Machine_Learning/project5.html",
-    "title": "Client Report - [Insert Project Title]",
-    "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Machine Learning",
-      "Project 5"
-    ]
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "about me",
@@ -503,37 +495,45 @@
     "text": "MarkDown Basics"
   },
   {
-    "objectID": "Cleansing_Exploration/project2.html",
-    "href": "Cleansing_Exploration/project2.html",
-    "title": "Client Report - [Insert Project Title]",
+    "objectID": "resume.html",
+    "href": "resume.html",
+    "title": "Spencer Payne’s CV",
     "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top"
+    "text": "spayne22802@gmail.com | My LinkedIn page\n\n\n\nStudying Data Science at BYU-Idaho\n\n\nBusiness Analytics\n\n\n\n\n2016-2020\nRoyal High School.\n\n\n\n-Eagle Scout Individual Project Lead, Boy Scouts of America\n-Water Polo Team Captain, Royal High School\n\n\n\nFamily Psychological Services @ Agoura Hills, California  Testing Center Supervisor  ‘Mar. 2023 – Present’ \n• Provided patients with psychological testing from initial intake appointment until results interview with a licensed clinician.\n• Increase the ease that patients finished with psychological testing by creating excel sheets that mimicked several tests given to patients which could be filled out virtually.\n• Created analytics documents to help clinicians know their patient counts within a day/month/year which helped clinicians make informed decisions.\nThe Church of Jesus Christ of Latter-day Saints @ Mexico City, Mexico  Missionary/IT Lead  ‘May. 2021 – Mar. 2023’ \n• Talked to people every day for two years about the message of The Church of Jesus Christ of Latter-Day Saints, meeting with people in public and in their homes.\n• Collected data from missionaries about phone usages and digital success with Facebook to allow leadership to make changes on how efficiently missionaries used time, resources and how to communicate our message more clearly.\n• Led a team of 4 missionaries that oversaw digital content production on a Facebook page that geographically covered the southern half of Mexico City.\nSub Zero Ice Cream @ Simi Valley, CA  Store Associate  ‘June. 2021 – Sept. 2021’ \n• Served customers custom ice cream frozen with liquid nitrogen, using nitrogen as entertainment for store goers entering the establishment.\nRancho Simi Community Pool @ Simi Valley, CA  Swim Instructor/Lifeguard  ‘May. 2019 – Sept. 2021’ \n• Taught swimming classes alone and with a co-teacher for children who’s ages ranged from 3 – 12-years-old.\n• Monitored patrons within the facility to insure safety and responded to emergencies quickly to keep issues at a minimum."
   },
   {
-    "objectID": "Cleansing_Exploration/project5.html",
-    "href": "Cleansing_Exploration/project5.html",
-    "title": "Client Report - [Insert Project Title]",
+    "objectID": "resume.html#currently",
+    "href": "resume.html#currently",
+    "title": "Spencer Payne’s CV",
     "section": "",
-    "text": "Paste in a template\n\n\n\n\n Back to top"
+    "text": "Studying Data Science at BYU-Idaho\n\n\nBusiness Analytics"
   },
   {
-    "objectID": "story_telling.html",
-    "href": "story_telling.html",
-    "title": "about me",
+    "objectID": "resume.html#education",
+    "href": "resume.html#education",
+    "title": "Spencer Payne’s CV",
     "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Story Telling"
-    ]
+    "text": "2016-2020\nRoyal High School."
   },
   {
-    "objectID": "story_telling.html#title-2-header",
-    "href": "story_telling.html#title-2-header",
-    "title": "about me",
+    "objectID": "resume.html#awards",
+    "href": "resume.html#awards",
+    "title": "Spencer Payne’s CV",
     "section": "",
-    "text": "MarkDown Basics",
-    "crumbs": [
-      "Story Telling"
-    ]
+    "text": "-Eagle Scout Individual Project Lead, Boy Scouts of America\n-Water Polo Team Captain, Royal High School"
+  },
+  {
+    "objectID": "resume.html#occupation",
+    "href": "resume.html#occupation",
+    "title": "Spencer Payne’s CV",
+    "section": "",
+    "text": "Family Psychological Services @ Agoura Hills, California  Testing Center Supervisor  ‘Mar. 2023 – Present’ \n• Provided patients with psychological testing from initial intake appointment until results interview with a licensed clinician.\n• Increase the ease that patients finished with psychological testing by creating excel sheets that mimicked several tests given to patients which could be filled out virtually.\n• Created analytics documents to help clinicians know their patient counts within a day/month/year which helped clinicians make informed decisions.\nThe Church of Jesus Christ of Latter-day Saints @ Mexico City, Mexico  Missionary/IT Lead  ‘May. 2021 – Mar. 2023’ \n• Talked to people every day for two years about the message of The Church of Jesus Christ of Latter-Day Saints, meeting with people in public and in their homes.\n• Collected data from missionaries about phone usages and digital success with Facebook to allow leadership to make changes on how efficiently missionaries used time, resources and how to communicate our message more clearly.\n• Led a team of 4 missionaries that oversaw digital content production on a Facebook page that geographically covered the southern half of Mexico City.\nSub Zero Ice Cream @ Simi Valley, CA  Store Associate  ‘June. 2021 – Sept. 2021’ \n• Served customers custom ice cream frozen with liquid nitrogen, using nitrogen as entertainment for store goers entering the establishment.\nRancho Simi Community Pool @ Simi Valley, CA  Swim Instructor/Lifeguard  ‘May. 2019 – Sept. 2021’ \n• Taught swimming classes alone and with a co-teacher for children who’s ages ranged from 3 – 12-years-old.\n• Monitored patrons within the facility to insure safety and responded to emergencies quickly to keep issues at a minimum."
+  },
+  {
+    "objectID": "Another_copy_of_True_starter_housing.html",
+    "href": "Another_copy_of_True_starter_housing.html",
+    "title": "Spencer - Data Science Portfolio",
+    "section": "",
+    "text": "!pip install scikit-learn==1.5.2\n!pip install lets-plot\n\nimport pandas as pd\nimport numpy as np\nfrom lets_plot import *\nfrom sklearn.preprocessing import MinMaxScaler\n\n\nurl = 'https://raw.githubusercontent.com/byui-cse/cse450-course/master/data/housing.csv'\nhouse = pd.read_csv(url)\n\nhousing = pd.read_csv(url)\nhousing\n\n\n#we could change all of the 0's in year renovated to the year it was built and see if that helps any\n#         nevermind it didn't work :(\n\n\ndef clean_housing(housing):\n  housing['datetime'] = housing['date'].str.split('T').str[0]\n\n  housing = housing.assign(\n      year = housing['datetime'].str[0:4].astype(int),\n      month = housing['datetime'].str[4:6].astype(int),\n\n  )\n\n  housing = housing.drop(columns=['date'])\n  housing = housing.drop(columns=['datetime'])\n  housing = housing.drop(columns=['id'])\n\n\n  clean_house = housing\n  clean_house = clean_house[clean_house['bedrooms'] &lt;= 15]\n  clean_house = clean_house[(clean_house['bathrooms'] &lt;= 5.5) & (clean_house['bathrooms'] &gt;= .5)]\n  clean_house = clean_house[clean_house['sqft_living'] &lt;= 8670]\n  clean_house = clean_house[clean_house['sqft_lot'] &lt;= 500000]\n  clean_house['yr_renovated'] = clean_house.apply(\n    lambda row: row['year'] if row['yr_renovated'] == 0 else row['yr_renovated'],\n    axis=1\n)\n\n  return clean_house\n\n\nfrom xgboost import XGBRegressor\nfrom sklearn.model_selection import train_test_split\n# from sklearn.preprocessing import MinMaxScaler\n\n\nclean_house = clean_housing(housing)\n\n\ny = clean_house['price']\n\nX = clean_house.drop(columns=['price'])\n\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\nmodel = XGBRegressor()\nmodel.fit(X_train, y_train)\npredictions = model.predict(X_test)\n\nresults_draft = pd.DataFrame(predictions, columns = ['predictions'])\nresults_draft.to_csv(\"bet-ren-predictions.csv\",index=False)\ndraft = pd.read_csv(\"bet-ren-predictions.csv\")\ndraft\n\n\nfrom sklearn.metrics import root_mean_squared_error, mean_squared_error, mean_absolute_error, r2_score\n\nRMSE = root_mean_squared_error(y_test, predictions)\nprint(f'RMSE: {RMSE:.2f}')\n\nMAE = mean_absolute_error(y_test, predictions)\nprint(f'MAE: {MAE:.2f}')\n\nR2 = r2_score(y_test, predictions)\nprint(f'R2: {R2:.4f}')\n\n\n# RMSE: 113937.57\n# MAE: 67262.06\n# R2: 0.8997\n\n\n#after all of my code above I imported the mini hold out set and call it the same thing here so I don't have to rename my copy paste code\nurl_mini = 'https://raw.githubusercontent.com/byui-cse/cse450-course/master/data/housing_holdout_test_mini.csv'\nhousing_mini = pd.read_csv(url_mini)\n\nclean_house_mini = clean_housing(housing_mini)\n# I then take my cleaned data and send it through this code.\n#Since I've already made the model above I don't have to redefine what the here.\nX = clean_house_mini\n\npredictions = model.predict(X)\n#I export it\nresults_mini = pd.DataFrame(predictions, columns = ['predictions'])\nresults_mini.to_csv(\"bet-ren-predictions.csv\",index=False)\nbet_ren = pd.read_csv(\"bet-ren-predictions.csv\")\nbet_ren\n\n\n#after all of my code above I imported the mini hold out set and call it the same thing here so I don't have to rename my copy paste code\nurl_data = 'https://raw.githubusercontent.com/byui-cse/cse450-course/master/data/housing_holdout_test.csv'\nhousing_data = pd.read_csv(url_data)\n\nclean_house_data = clean_housing(housing_data)\n# I then take my cleaned data and send it through this code.\n#Since I've already made the model above I don't have to redefine what the here.\nX = clean_house_mini\n\npredictions = model.predict(X)\n#I export it\nresults_data = pd.DataFrame(predictions, columns = ['predictions'])\nresults_data.to_csv(\"final-predictions.csv\",index=False)\nfinal = pd.read_csv(\"final-predictions.csv\")\nfinal\n\n\n# @title predictions\n\nfrom matplotlib import pyplot as plt\nfinal['predictions'].plot(kind='line', figsize=(8, 4), title='predictions')\nplt.gca().spines[['top', 'right']].set_visible(False)\n\n\n# prompt: convert this code into something that the \"final\" df can use but dont include price\n#  sns.set(rc={'figure.figsize':(11.7,8.27)})\n# for team_results in results_dict.items():\n#   testfinal = team_results[1]['dataset']\n#   # print(team_results['dataset'])\n#   # print(f\"R-Squared Value: {r2}\")\n#   print(f\"-------------------------------- {team_results[0].upper()} RESULTS ---------------------------------\\n\")\n#   print(f\" Within 5%: {team_results[1]['Percent of houses within 5 percent']}%\\n\",\n#   f\"Within 10%: {team_results[1]['Percent of houses within 10 percent']}%\\n\",\n#   f\"Within 20%: {team_results[1]['Percent of houses within 20 percent']}%\\n\",\n#   f\"R^2: {team_results[1]['R2']}%\\n\",\n#   f\"RMSE: {team_results[1]['RMSE']}\\n\",\n#   f\"Mean Absolute Error: {team_results[1]['Mean Abs Error']}\\n\",\n#   f\"Median Aboslute Error: {team_results[1]['Median Abs Error']}\")\n#   color_dict = dict({'below 20%':'tab:blue',\n#                     'above 20%': 'tab:orange'})\n#   # print(testfinal['abspercentmiss'].describe(percentiles=[.1,.2,.3,.4,.5,.6,.7,.8,.9,.95]))\n#   xlims=(0,4e6)\n#   ylims=(0,4e6)\n#   ax = sns.scatterplot(data=testfinal,x='price',y='predictions',hue=\"percent_bucket\",palette=color_dict)\n#   # ax.set(xscale=\"log\", yscale=\"log\", xlim=xlims, ylim=ylims)\n#   ax.plot(xlims,xlims, color='r')\n#   # plt.legend(labels=['perfect',\"below 5\",'above 5','10-20%','above 20'])\n#   plt.show()\n#   print(f\"-\"*77)\n#   print(\"\\n\"*3)\n\nimport pandas as pd\nimport seaborn as sns\nimport matplotlib.pyplot as plt\n\nsns.set(rc={'figure.figsize':(11.7,8.27)})\n\n# Assuming 'final' DataFrame exists and has 'predictions' column\n# You might need to add actual prices if you want to calculate performance metrics\n# and create percent_bucket for the final dataset.\n\n# Example structure if you have a 'price' column in the final dataset (for comparison/plotting)\n# final['abs_error'] = abs(final['price'] - final['predictions'])\n# final['abs_percent_error'] = (final['abs_error'] / final['price']) * 100\n# final['percent_bucket'] = pd.cut(final['abs_percent_error'],\n#                                  bins=[-float('inf'), 5, 10, 20, float('inf')],\n#                                  labels=['below 5%', '5-10%', '10-20%', 'above 20%'])\n\n# If you want to plot the predictions themselves without comparing to a known price\nplt.figure(figsize=(11.7, 8.27))\nax = sns.lineplot(data=final, y='predictions', x=final.index) # Using index as x-axis\nax.set_title('Predictions')\nax.set_ylabel('Predicted Price')\nax.set_xlabel('Sample Index')\nplt.show()\n\n# If you want to see the distribution of predictions\nplt.figure(figsize=(11.7, 8.27))\nsns.histplot(final['predictions'], kde=True)\nplt.title('Distribution of Predictions')\nplt.xlabel('Predicted Price')\nplt.ylabel('Frequency')\nplt.show()\n\n\n# prompt: write feature importance code for the clean_house dataset\n\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\nfeature_importances = model.feature_importances_\nfeature_names = X_train.columns\nimportance_df = pd.DataFrame({'feature': feature_names, 'importance': feature_importances})\nimportance_df = importance_df.sort_values('importance', ascending=False)\n\nplt.figure(figsize=(10, 6))\nplt.bar(importance_df['feature'], importance_df['importance'])\nplt.xticks(rotation=90)\nplt.xlabel('Features')\nplt.ylabel('Importance')\nplt.title('Feature Importance from XGBoost')\nplt.tight_layout()\nplt.show()\n\n\n# prompt: plot long against lat in a scatter plot but then differentiate price using the house df, limit price to under 1,000,000\n\nggplot(data=house[house['price'] &lt; 250000], mapping=aes(x='long', y='lat', color='price')) + geom_point() + scale_color_gradient()\n\n\n\n\n Back to top"
   }
 ]
